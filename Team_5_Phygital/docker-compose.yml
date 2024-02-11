@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  postgres_phygital_db:
+    image: postgres:16.1-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: 'phygital'
+      POSTGRES_USER: 'admin'
+      POSTGRES_PASSWORD: 'admin'
+    ports:
+      - '5444:5432'
