@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 public class UserRole {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY);
     private int userId;
 
     @Column(nullable = false)
@@ -55,7 +54,6 @@ public class UserRole {
                 "userId=" + userId +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 

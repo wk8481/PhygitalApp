@@ -7,7 +7,8 @@ public class PlatformAdmin extends UserRole{
     }
 
     public PlatformAdmin(int userId, String name, String email, String password) {
-        super(userId, name, email, password);
+        super(userId, name, email);
+        this.password = password;
     }
 
     public void createSharingPlatform() {
