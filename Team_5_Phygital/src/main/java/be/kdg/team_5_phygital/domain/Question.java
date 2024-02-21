@@ -7,32 +7,32 @@ import jakarta.persistence.*;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int questionId;
+    private int id;
 
     private String text;
 
-    private QuestionType questionType;
+    private QuestionType type;
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinTable(name = "subtheme")
-    private Subtheme subtheme;
+    private SubTheme subTheme;
 
-    public Question(int questionId, String text, QuestionType questionType) {
-        this.questionId = questionId;
+    public Question(int id, String text, QuestionType type) {
+        this.id = id;
         this.text = text;
-        this.questionType = questionType;
+        this.type = type;
     }
 
     public Question() {
 
     }
 
-    public int getQuestionId() {
-        return questionId;
+    public int getId() {
+        return id;
     }
 
-    public void setQuestionId(int questionId) {
-        this.questionId = questionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getText() {
@@ -43,11 +43,11 @@ public class Question {
         this.text = text;
     }
 
-    public QuestionType getQuestionType() {
-        return questionType;
+    public QuestionType getType() {
+        return type;
     }
 
-    public void setQuestionType(QuestionType questionType) {
-        this.questionType = questionType;
+    public void setType(QuestionType type) {
+        this.type = type;
     }
 }

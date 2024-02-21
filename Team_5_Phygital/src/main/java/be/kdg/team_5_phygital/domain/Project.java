@@ -8,37 +8,30 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int projectId;
+    private int id;
 
     private String name;
 
     private String theme;
 
-    private Boolean active;
+    private boolean active;
 
-    private int participants;
+    private int totalParticipants;
 
-    public Project(int projectId) {
-        this.projectId = projectId;
-    }
-
-    public int getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(int projectId) {
-        this.projectId = projectId;
-    }
+    private float avgTimeSpent;
 
     public Project() {
     }
 
-    @Override
-    public String toString() {
-        return "Project{" +
-                "projectId=" + projectId +
-                '}';
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
     public void createFlow() {
         Flow flow = new Flow();
     }

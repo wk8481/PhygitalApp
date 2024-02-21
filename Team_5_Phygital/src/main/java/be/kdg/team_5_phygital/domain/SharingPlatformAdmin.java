@@ -1,5 +1,18 @@
 package be.kdg.team_5_phygital.domain;
 
-public class SharingPlatformAdmin extends UserRole {
+import jakarta.persistence.*;
+
+@Entity
+public class SharingPlatformAdmin {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private String name;
+
+    private String email;
+
+    private String password;
 
 }

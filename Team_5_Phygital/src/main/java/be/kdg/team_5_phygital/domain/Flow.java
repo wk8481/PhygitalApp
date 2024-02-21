@@ -9,13 +9,20 @@ import java.util.List;
 public class Flow {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int flowId;
+    private int id;
+
+    private boolean isCircular;
 
     @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
     @JoinTable(name = "project")
     private Project project;
 
-    @OneToMany()
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "subtheme")
-    private List<Subtheme> listOfSubThemes;
+    private List<SubTheme> subThemes;
+
+    public Flow() {
+    }
+
+
 }

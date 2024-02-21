@@ -4,11 +4,11 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "subtheme")
-public class Subtheme {
+public class SubTheme {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int subthemeId;
+    private int id;
 
     private String name;
 

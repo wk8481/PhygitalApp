@@ -10,19 +10,19 @@ public class Administrator {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int adminId;
+    private int id;
 
     private String name;
 
     @OneToMany
-    private List<SharingPlatform> hasCreated;
+    private List<SharingPlatform> sharingPlatforms;
 
-    public int getAdminId() {
-        return adminId;
+    public int getId() {
+        return id;
     }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -33,12 +33,12 @@ public class Administrator {
         this.name = name;
     }
 
-    public List<SharingPlatform> getHasCreated() {
-        return hasCreated;
+    public List<SharingPlatform> getSharingPlatforms() {
+        return sharingPlatforms;
     }
 
-    public void setHasCreated(List<SharingPlatform> hasCreated) {
-        this.hasCreated = hasCreated;
+    public void setSharingPlatforms(List<SharingPlatform> sharingPlatforms) {
+        this.sharingPlatforms = sharingPlatforms;
     }
 
 }
