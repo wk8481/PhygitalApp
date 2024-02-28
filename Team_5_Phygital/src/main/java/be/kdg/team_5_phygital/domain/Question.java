@@ -17,10 +17,11 @@ public class Question {
     @JoinTable(name = "subtheme")
     private SubTheme subTheme;
 
-    public Question(int id, String text, QuestionType type) {
+    public Question(int id, String text, QuestionType type, SubTheme theme) {
         this.id = id;
         this.text = text;
         this.type = type;
+        this.subTheme = theme;
     }
 
     public Question() {
