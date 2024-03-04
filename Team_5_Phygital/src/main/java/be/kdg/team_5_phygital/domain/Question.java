@@ -11,10 +11,10 @@ public class Question {
 
     private String text;
 
+    @Enumerated(EnumType.STRING)
     private QuestionType type;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
-    @JoinTable(name = "subtheme")
+    @ManyToOne(optional = false)
     private SubTheme subTheme;
 
     public Question(int id, String text, QuestionType type, SubTheme theme) {

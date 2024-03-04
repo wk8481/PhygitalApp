@@ -3,7 +3,7 @@ package be.kdg.team_5_phygital.domain;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "subtheme")
+@Table(name = "sub_theme")
 public class SubTheme {
 
     @Id
@@ -13,5 +13,8 @@ public class SubTheme {
     private String name;
 
     private String information;
+
+    @ManyToOne(optional = false)
+    private Flow flow;
 
 }

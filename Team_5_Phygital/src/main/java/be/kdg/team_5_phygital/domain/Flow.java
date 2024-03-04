@@ -13,12 +13,11 @@ public class Flow {
 
     private boolean isCircular;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
-    @JoinTable(name = "project")
+    @ManyToOne(optional = false)
     private Project project;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "subtheme")
+    @OneToMany()
+    @JoinTable(name = "sub_themes")
     private List<SubTheme> subThemes;
 
     public Flow() {
