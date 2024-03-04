@@ -23,16 +23,16 @@
         <div class="container">
             <!-- Website Name -->
             <a th:href="@{/}" class="navbar-brand">Phygital</a>
-            <!-- Toggler Button -->
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <!-- Links -->
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- Home -->
                     <li class="nav-item">
-                        <a th:href="@{/home}" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
+                        <a th:href="@{/}" class="nav-link"><i class="fas fa-home"></i><span>Home</span></a>
+                    </li>
+                    <!-- Entrance -->
+                    <li class="nav-item">
+                        <a th:href="@{/entrance}" class="nav-link"><i class="fas fa-key"></i><span>Entrance</span></a>
                     </li>
                 </ul>
             </div>
