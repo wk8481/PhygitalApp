@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container">
+    <h1 class="page-title">Dashboard</h1>
+    <br>
+    <!-- Navigation Cards -->
+    <div class="row">
+        <!-- Projects -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Projects</h5>
+                    <a href="/sharing-platform/project" class="btn btn-primary">Project 1</a>
+                    <a href="/sharing-platform/project" class="btn btn-primary">Project 2</a>
+                </div>
+            </div>
+        </div>
+        <!-- Supervisors -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Supervisors</h5>
+                    <a href="/sharing-platform/supervisor" class="btn btn-primary">Supervisor 1</a>
+                    <a href="/sharing-platform/supervisor" class="btn btn-primary">Supervisor 2</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

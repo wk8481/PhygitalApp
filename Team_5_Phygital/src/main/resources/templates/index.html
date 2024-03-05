@@ -8,7 +8,13 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <h1 class="page-title">Home</h1>
-    <a href="/entrance" class="btn btn-primary">Login</a>
+    <div class="card-body">
+        <h5 class="card-title">Login</h5>
+        <a href="/installation/login" class="btn btn-primary">Installation</a>
+        <a href="/supervisor/login" class="btn btn-primary">Supervisor</a>
+        <a href="/sharing-platform/login" class="btn btn-primary">Sharing Platform</a>
+        <a href="/admin/login" class="btn btn-primary">Administrator</a>
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
