@@ -22,6 +22,10 @@ public class Project {
 
     private float avgTimeSpent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "supervisor_id")
+    private Supervisor supervisor;
+
     @OneToMany(mappedBy = "project")
     private List<Flow> flows;
 

@@ -24,7 +24,7 @@ public class SharingPlatform {
     @OneToMany(mappedBy = "sharingPlatform")
     private List<Project> projects;
 
-    @OneToMany(mappedBy = "supervisor")
+    @OneToMany(mappedBy = "sharingPlatform")
     private List<Supervisor> supervisors;
 
     @OneToOne(mappedBy = "sharingPlatform")
