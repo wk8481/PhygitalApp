@@ -15,7 +15,7 @@ public class Question {
     private QuestionType type;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "subtheme_id")
+    @JoinColumn(name = "sub_theme_id")
     private SubTheme subTheme;
 
     public Question(int id, String text, QuestionType type, SubTheme theme) {

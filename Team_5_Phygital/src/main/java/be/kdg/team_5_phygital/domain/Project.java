@@ -26,6 +26,10 @@ public class Project {
     @JoinColumn(name = "supervisor_id")
     private Supervisor supervisor;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "installation_id")
+    private Installation installation;
+
     @OneToMany(mappedBy = "project")
     private List<Flow> flows;
 
