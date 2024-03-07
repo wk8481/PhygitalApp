@@ -14,8 +14,10 @@ public class Administrator {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "administrator")
     private List<SharingPlatform> sharingPlatforms;
+    @OneToMany(mappedBy = "administrator")
+    private List<Project> projects;
 
     public int getId() {
         return id;
@@ -33,6 +35,8 @@ public class Administrator {
         this.name = name;
     }
 
+
+
     public List<SharingPlatform> getSharingPlatforms() {
         return sharingPlatforms;
     }
@@ -41,4 +45,11 @@ public class Administrator {
         this.sharingPlatforms = sharingPlatforms;
     }
 
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
 }

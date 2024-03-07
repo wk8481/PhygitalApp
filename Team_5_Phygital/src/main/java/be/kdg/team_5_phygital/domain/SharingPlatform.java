@@ -2,6 +2,8 @@ package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class SharingPlatform {
 
@@ -15,8 +17,18 @@ public class SharingPlatform {
 
     private int totalParticipants;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "administrator_id")
     private Administrator administrator;
+
+    @OneToMany(mappedBy = "sharingPlatform")
+    private List<Project> projects;
+
+    @OneToMany(mappedBy = "supervisor")
+    private List<Supervisor> supervisors;
+
+    @OneToOne(mappedBy = "sharingPlatform")
+    private SharingPlatformAdmin sharingPlatformAdmin;
 
 
     public SharingPlatform() {}
@@ -66,5 +78,29 @@ public class SharingPlatform {
 
     public void setAdministrator(Administrator administrator) {
         this.administrator = administrator;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public List<Supervisor> getSupervisors() {
+        return supervisors;
+    }
+
+    public void setSupervisors(List<Supervisor> supervisors) {
+        this.supervisors = supervisors;
+    }
+
+    public SharingPlatformAdmin getSharingPlatformAdmin() {
+        return sharingPlatformAdmin;
+    }
+
+    public void setSharingPlatformAdmin(SharingPlatformAdmin sharingPlatformAdmin) {
+        this.sharingPlatformAdmin = sharingPlatformAdmin;
     }
 }

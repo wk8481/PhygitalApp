@@ -2,6 +2,8 @@ package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "supervisor")
 public class Supervisor {
@@ -11,6 +13,13 @@ public class Supervisor {
     private String name;
     private String email;
     private String password;
+
+    @ManyToOne
+    @JoinColumn(name = "sharing_platform_id")
+    private SharingPlatform sharingPlatform;
+
+    @OneToMany(mappedBy = "supervisor", fetch = FetchType.LAZY)
+    private List<Project> projects;
 
     public Supervisor () {}
 
@@ -51,5 +60,13 @@ public class Supervisor {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 }

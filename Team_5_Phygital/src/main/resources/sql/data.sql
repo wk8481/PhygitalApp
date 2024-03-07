@@ -39,7 +39,4 @@ VALUES
     (1, 'What is your favorite color?', 'MULTIPLE_CHOICE', 1),
     (2, 'How do you feel today?', 'SINGLE_CHOICE', 1);
 
--- Foreign Key Constraints
-ALTER TABLE sharing_platform ADD CONSTRAINT fk_administrator_id FOREIGN KEY (administrator_id) REFERENCES administrator(id);
-ALTER TABLE flow ADD CONSTRAINT fk_project_id FOREIGN KEY (project_id) REFERENCES project(id);
-ALTER TABLE question ADD CONSTRAINT fk_sub_theme_id FOREIGN KEY (sub_theme_id) REFERENCES sub_theme(id);
+

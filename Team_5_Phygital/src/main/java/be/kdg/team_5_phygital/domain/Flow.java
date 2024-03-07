@@ -14,10 +14,10 @@ public class Flow {
     private boolean isCircular;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany()
-    @JoinTable(name = "sub_themes")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<SubTheme> subThemes;
 
     public Flow() {
@@ -61,5 +61,13 @@ public class Flow {
 
     public void setSubThemes(List<SubTheme> subThemes) {
         this.subThemes = subThemes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
