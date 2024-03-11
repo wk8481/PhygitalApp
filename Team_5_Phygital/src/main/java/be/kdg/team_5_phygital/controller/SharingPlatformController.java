@@ -51,7 +51,7 @@ public class SharingPlatformController {
 
     @GetMapping("{platformId}/project/{projectId}")
     public String getProject(@PathVariable int platformId, @PathVariable int projectId, Model model) {
-
+    model.addAttribute("project",projectService.getProjectById(projectId) );
         return "sharing-platform/project";
     }
 

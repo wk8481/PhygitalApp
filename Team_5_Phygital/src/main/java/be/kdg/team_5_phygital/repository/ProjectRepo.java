@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ProjectRepo extends JpaRepository<Project, Integer>{
 
-    List<Project> getProjectsByBelongsToEquals(SharingPlatform sharingPlatform);
+    List<Project> getProjectsBySharingPlatform(SharingPlatform sharingPlatform);
 }

@@ -28,5 +28,5 @@ public class ProjectService{
         return projectRepository.findAll();
     }
 
-    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsByBelongsToEquals(sharingPlatform);}
+    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsBySharingPlatform(sharingPlatform);}
 }

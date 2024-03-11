@@ -19,9 +19,9 @@ VALUES
     ('Platform A', 'platformA@example.com', 100, 1);
 
 -- Project
-INSERT INTO project (name, theme, active, total_participants, avg_time_spent)
+INSERT INTO project (name, theme, active, total_participants, avg_time_spent, sharing_platform_id)
 VALUES
-    ('Project X', 'Theme X', true, 50, 4.5);
+    ('Project X', 'Theme X', true, 50, 4.5, 1);
 
 -- Flow
 INSERT INTO flow (is_circular, project_id)
