@@ -11,28 +11,48 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <h1 class="page-title">Dashboard</h1>
-    <br>
-    <!-- Navigation Cards -->
     <div class="row">
-        <!-- Projects -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Projects</h5>
-                    <a href="/sharing-platform/project" class="btn btn-primary">Project 1</a>
-                    <a href="/sharing-platform/project" class="btn btn-primary">Project 2</a>
+        <!-- Projects Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Projects</h2>
+                <div class="row">
+                    <!-- Projects -->
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/sharing-platform/project}"><i class="fas fa-edit"></i></a>
+                                </td>
+                                <td>Project</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-        <!-- Supervisors -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Supervisors</h5>
-                    <a href="/sharing-platform/supervisor" class="btn btn-primary">Supervisor 1</a>
-                    <a href="/sharing-platform/supervisor" class="btn btn-primary">Supervisor 2</a>
+        <!-- Supervisors Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Questions</h2>
+                <div class="row">
+                    <!-- Supervisors -->
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/sharing-platform/supervisor}"><i class="fas fa-edit"></i></a>
+                                </td>
+                                <td>Supervisor</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </main>

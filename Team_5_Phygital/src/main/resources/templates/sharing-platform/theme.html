@@ -3,13 +3,13 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Supervisor</title>
+    <title>Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title">Supervisor</h1>
+    <h1 class="page-title">Theme</h1>
     <div class="row">
         <!-- Details Sections -->
         <div class="col-md-6">
@@ -24,6 +24,22 @@
                         </th>
                         <td class="col-sm-8">
                             <input class="form-control" id="nameInput" type="text">
+                        </td>
+                    </tr>
+                    <!-- Information -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="infoInput">Information:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <textarea class="form-control" id="infoInput" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <!-- Media -->
+                    <tr>
+                        <th class="col-sm-4">Media:</th>
+                        <td class="col-sm-8">
+                            <a><i class="fas fa-upload"></i></a>
                         </td>
                     </tr>
                     </tbody>
@@ -41,8 +57,7 @@
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a class="btn btn-secondary" th:href="@{/sharing-platform/dashboard}"><i class="fas fa-arrow-left"></i>
-            Return</a>
+        <a class="btn btn-secondary" th:href="@{/sharing-platform/project}"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

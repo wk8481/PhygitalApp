@@ -22,6 +22,11 @@ public class SharingPlatformController {
         return "sharing-platform/project";
     }
 
+    @GetMapping("theme")
+    public String getTheme() {
+        return "sharing-platform/theme";
+    }
+
     @GetMapping("flow")
     public String getFlow() {
         return "sharing-platform/flow";

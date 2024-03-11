@@ -11,23 +11,101 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <h1 class="page-title">Project</h1>
-    <br>
-    <!-- Navigation Cards -->
     <div class="row">
-        <!-- Flows -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Flows</h5>
-                    <a href="/" class="btn btn-primary">Flow 1</a>
-                    <a href="/" class="btn btn-primary">Flow 2</a>
+        <!-- Details Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Info</h2>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <!-- Name -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label for="nameInput" class="form-label">Name:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="nameInput" type="text">
+                        </td>
+                    </tr>
+                    <!-- Theme -->
+                    <tr>
+                        <th class="col-sm-4">Theme:</th>
+                        <td class="col-sm-8">
+                            <a th:href="@{/sharing-platform/theme}"><i class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <!-- Background Color -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label for="bgColorInput" class="form-label">Background Color:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="bgColorInput" type="color">
+                        </td>
+                    </tr>
+                    <!-- Font -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label for="fontInput" class="form-label">Font:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <select class="form-control" id="fontInput">
+                                <option value="Arial">Arial</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Verdana">Verdana</option>
+                                <!-- Add more font options here -->
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- Logo -->
+                    <tr>
+                        <th class="col-sm-4">Logo:</th>
+                        <td class="col-sm-8">
+                            <a><i class="fas fa-upload"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Save Button -->
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" id="saveButton" type="button">
+                            Save
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </section>
+        </div>
+        <!-- Flows Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Flows</h2>
+                <div class="row">
+                    <!-- Flows -->
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/sharing-platform/flow}"><i class="fas fa-edit"></i></a>
+                                </td>
+                                <td>Flow</td>
+                                <td>
+                                    <i class="fas fa-bars"></i>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a th:href="@{/sharing-platform/dashboard}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+        <a th:href="@{/sharing-platform/dashboard}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Return
+        </a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
