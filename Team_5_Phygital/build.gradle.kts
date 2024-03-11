@@ -26,6 +26,7 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     runtimeOnly("org.postgresql:postgresql:42.7.1")
+    implementation("org.webjars:bootstrap:5.3.0")
 
 }
 

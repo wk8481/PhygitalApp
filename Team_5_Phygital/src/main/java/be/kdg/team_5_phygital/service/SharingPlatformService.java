@@ -1,17 +1,32 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
+import be.kdg.team_5_phygital.repository.SharingPlatformRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface SharingPlatformService {
+@Service
+public class SharingPlatformService {
+    private final SharingPlatformRepo sharingPlatformRepo;
 
-    SharingPlatform createSharingPlatform(SharingPlatform sharingPlatform);
+    public SharingPlatformService(SharingPlatformRepo sharingPlatformRepo) {
+        this.sharingPlatformRepo = sharingPlatformRepo;
+    }
 
-    Optional<SharingPlatform> getSharingPlatformById(int id);
 
-    List<SharingPlatform> getAllSharingPlatforms();
+    public SharingPlatform createSharingPlatform(SharingPlatform sharingPlatform) {
+        return sharingPlatformRepo.save(sharingPlatform);
+    }
 
+
+    public Optional<SharingPlatform> getSharingPlatformById(int id) {
+        return sharingPlatformRepo.findById(id);
+    }
+
+
+    public List<SharingPlatform> getAllSharingPlatforms() {
+        return sharingPlatformRepo.findAll();
+    }
 }

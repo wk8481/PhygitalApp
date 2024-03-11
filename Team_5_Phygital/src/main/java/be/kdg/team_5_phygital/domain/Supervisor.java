@@ -69,4 +69,5 @@ public class Supervisor {
     public void setProjects(List<Project> projects) {
         this.projects = projects;
     }
+
 }

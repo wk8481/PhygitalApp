@@ -1,35 +1,32 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
 import be.kdg.team_5_phygital.repository.SupervisorRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public class SuperVisorServiceImpl implements SupervisorService{
+@Service
+public class SuperVisorService {
     private SupervisorRepo supervisorRepo;
 
-    public SuperVisorServiceImpl(SupervisorRepo supervisorRepo) {
+    public SuperVisorService(SupervisorRepo supervisorRepo) {
         this.supervisorRepo = supervisorRepo;
     }
 
-    @Override
     public Supervisor createSupervisor(Supervisor supervisor) {
         return supervisorRepo.save(supervisor);
     }
 
-    @Override
     public Optional<Supervisor> getSupervisorById(int id) {
         return supervisorRepo.findById(id);
     }
 
-    @Override
     public List<Supervisor> getAllSupervisors() {
         return supervisorRepo.findAll();
     }
 
-    @Override
-    public List<Supervisor> getAllSupervisorsOfCompany(int sharingPlatformId) {
-        return null /*supervisorRepo.findAllBySharingPlatformId*/;
-    }
+    public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepo.findSupervisorBySharingPlatformEquals(sharingPlatform);}
 }
