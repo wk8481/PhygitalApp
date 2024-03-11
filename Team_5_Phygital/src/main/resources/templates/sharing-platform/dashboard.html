@@ -10,27 +10,46 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title" th:text="'Dashboard for ' + ${platform.getName()}"> dashboard of project</h1>
-    <br>
-    <!-- Navigation Cards -->
+    <h1 class="page-title" th:text="'Dashboard for ' + ${platform.getName()}" >Dashboard</h1>
     <div class="row">
-        <!-- Projects -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Projects</h5>
-                    <a th:each="project:${projects}" th:href="@{/sharing-platform/{platformId}/project/{projectId}(platformId=${platform.getId()}, projectId=${project.getId()})}" class="btn btn-primary" th:text="${project.getName()}">project button</a>
+        <!-- Projects Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Projects</h2>
+                <div class="row">
+                    <!-- Projects -->
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <td><a th:each="project:${projects}" th:href="@{/sharing-platform/{platformId}/project/{projectId}(platformId=${platform.getId()}, projectId=${project.getId()})}" th:text="${project.getName()}"><i class="fas fa-edit"></i></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-        <!-- Supervisors -->
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Supervisors</h5>
-                    <a th:each="sv:${supervisor}" th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}" class="btn btn-primary">Supervisors of this platform</a>
+        <!-- Supervisors Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Questions</h2>
+                <div class="row">
+                    <!-- Supervisors -->
+                    <div class="col-md-4">
+                        <table class="table table-bordered table-striped">
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <a th:each="sv:${supervisor}" th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}"><i class="fas fa-edit"></i></a>
+                                </td>
+                                <td>Supervisor</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
     </div>
 </main>

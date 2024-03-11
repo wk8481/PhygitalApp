@@ -14,29 +14,33 @@ public class Flow {
     private boolean isCircular;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "project_id")
     private Project project;
 
-    @OneToMany()
-    @JoinTable(name = "sub_themes")
+    @OneToMany(fetch = FetchType.LAZY)
     private List<SubTheme> subThemes;
+
+    @OneToMany(mappedBy = "flow")
+    private List<UserDetail> userDetail;
 
     public Flow() {
     }
 
-    @Override
-    public String toString() {
-        return "Flow{" +
-                "id=" + id +
-                ", isCircular=" + isCircular +
-                ", project=" + project +
-                ", subThemes=" + subThemes +
-                '}';
+    public List<UserDetail> getUserDetail() {
+        return userDetail;
     }
 
-    public Flow(boolean isCircular, Project project, List<SubTheme> subThemes) {
+    public void setUserDetail(List<UserDetail> userDetail) {
+        this.userDetail = userDetail;
+    }
+
+
+
+    public Flow(boolean isCircular, Project project, List<SubTheme> subThemes, List<UserDetail> userDetail) {
         this.isCircular = isCircular;
         this.project = project;
         this.subThemes = subThemes;
+        this.userDetail = userDetail;
     }
 
     public boolean isCircular() {
@@ -61,5 +65,13 @@ public class Flow {
 
     public void setSubThemes(List<SubTheme> subThemes) {
         this.subThemes = subThemes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

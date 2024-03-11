@@ -3,13 +3,13 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Question</title>
+    <title>Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title">Question</h1>
+    <h1 class="page-title">Theme</h1>
     <div class="row">
         <!-- Details Sections -->
         <div class="col-md-6">
@@ -17,28 +17,29 @@
                 <h2>Info</h2>
                 <table class="table table-bordered table-striped">
                     <tbody>
-                    <!-- Text -->
+                    <!-- Name -->
                     <tr>
                         <th class="col-sm-4">
-                            <label class="form-label" for="textInput">Text:</label>
+                            <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <textarea class="form-control" id="textInput" rows="4"></textarea>
+                            <input class="form-control" id="nameInput" type="text">
                         </td>
                     </tr>
-                    <!-- Question Type -->
+                    <!-- Information -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="questionTypeInput" class="form-label">Question Type:</label>
+                            <label class="form-label" for="infoInput">Information:</label>
                         </th>
                         <td class="col-sm-8">
-                            <select class="form-control" id="questionTypeInput">
-                                <option value="Single Choice">Single Choice</option>
-                                <option value="Multiple Choice">Multiple Choice</option>
-                                <option value="Range">Range</option>
-                                <option value="Open">Open</option>
-                                <!-- Add more font options here -->
-                            </select>
+                            <textarea class="form-control" id="infoInput" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <!-- Media -->
+                    <tr>
+                        <th class="col-sm-4">Media:</th>
+                        <td class="col-sm-8">
+                            <a><i class="fas fa-upload"></i></a>
                         </td>
                     </tr>
                     </tbody>

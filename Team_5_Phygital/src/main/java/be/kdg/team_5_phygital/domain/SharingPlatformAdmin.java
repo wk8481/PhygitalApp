@@ -15,7 +15,58 @@ public class SharingPlatformAdmin {
 
     private String password;
 
-    @OneToOne
-    private SharingPlatform sharingPlatformId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sharing_platform_id")
+    private SharingPlatform sharingPlatform;
 
+    public SharingPlatformAdmin() {
+    }
+
+    public SharingPlatformAdmin(int id, String name, String email, String password, SharingPlatform sharingPlatform) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.sharingPlatform = sharingPlatform;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public SharingPlatform getSharingPlatform() {
+        return sharingPlatform;
+    }
+
+    public void setSharingPlatform(SharingPlatform sharingPlatform) {
+        this.sharingPlatform = sharingPlatform;
+    }
 }

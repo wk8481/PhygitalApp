@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Flow</title>
@@ -11,8 +10,6 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <h1 class="page-title">Flow</h1>
-    <br>
-    <!-- Navigation Cards -->
     <div class="row">
         <!-- Sub Themes -->
         <div class="col-md-4">
@@ -27,7 +24,7 @@
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+        <a class="btn btn-secondary" href="javascript:history.back()" ><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
