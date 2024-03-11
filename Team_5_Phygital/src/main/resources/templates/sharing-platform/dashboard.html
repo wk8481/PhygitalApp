@@ -40,10 +40,9 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                             <tr>
-                                <td>
-                                    <a th:each="sv:${supervisor}" th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}"><i class="fas fa-edit"></i></a>
+                                <td th:each="sv:${supervisor}">
+                                    <a  th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}"><i class="fas fa-edit"></i></a>
                                 </td>
-                                <td>Supervisor</td>
                             </tr>
                             </tbody>
                         </table>
