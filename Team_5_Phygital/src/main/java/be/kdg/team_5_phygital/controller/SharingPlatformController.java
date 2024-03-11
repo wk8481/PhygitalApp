@@ -5,7 +5,7 @@ import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
 import be.kdg.team_5_phygital.service.ProjectService;
 import be.kdg.team_5_phygital.service.SharingPlatformService;
-import be.kdg.team_5_phygital.service.SuperVisorService;
+import be.kdg.team_5_phygital.service.SupervisorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,9 +22,9 @@ public class SharingPlatformController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjectService projectService;
     private final SharingPlatformService sharingPlatformService;
-    private final SuperVisorService supervisorService;
+    private final SupervisorService supervisorService;
 
-    public SharingPlatformController(ProjectService projectService, SharingPlatformService sharingPlatformService, SuperVisorService supervisorService) {
+    public SharingPlatformController(ProjectService projectService, SharingPlatformService sharingPlatformService, SupervisorService supervisorService) {
         this.projectService = projectService;
         this.sharingPlatformService = sharingPlatformService;
         this.supervisorService = supervisorService;
