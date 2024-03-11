@@ -14,6 +14,7 @@ public class SharingPlatformController {
 
     @GetMapping("dashboard")
     public String getDashboard() {
+
         return "sharing-platform/dashboard";
     }
 

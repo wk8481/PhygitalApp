@@ -15,4 +15,7 @@ public class SharingPlatformAdmin {
 
     private String password;
 
+    @OneToOne
+    private SharingPlatform sharingPlatformId;
+
 }
