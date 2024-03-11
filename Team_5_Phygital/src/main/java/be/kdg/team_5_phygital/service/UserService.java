@@ -1,6 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.User;
+import be.kdg.team_5_phygital.domain.UserDetail;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface UserService {
 
-    User createUser(User user);
+    UserDetail createUser(UserDetail user);
 
-    Optional<User> findUserById(int id);
+    Optional<UserDetail> findUserById(int id);
 
-    List<User> findAllUsers();
+    List<UserDetail> findAllUsers();
 }
