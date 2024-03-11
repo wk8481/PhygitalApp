@@ -23,6 +23,13 @@ public class Flow {
     public Flow() {
     }
 
+    public Flow(int id, boolean isCircular, Project project, List<SubTheme> subThemes) {
+        this.id = id;
+        this.isCircular = isCircular;
+        this.project = project;
+        this.subThemes = subThemes;
+    }
+
     @Override
     public String toString() {
         return "Flow{" +
