@@ -1,7 +1,3 @@
--- Supervisor
-INSERT INTO supervisor (id, name, email, password)
-VALUES
-    (1, 'John Doe', 'johndoe@example.com', 'supervisor123');
 
 -- Administrator
 INSERT INTO administrator (id, name)
@@ -18,10 +14,21 @@ INSERT INTO sharing_platform (id, name, contact_email, total_participants, admin
 VALUES
     (1, 'Platform A', 'platformA@example.com', 100, 1);
 
--- Project
-INSERT INTO project (id, name, theme, active, total_participants, avg_time_spent)
+-- Supervisor
+INSERT INTO supervisor (id, name, email, password, sharing_platform_id)
 VALUES
-    (1, 'Project X', 'Theme X', true, 50, 4.5);
+    (1, 'John Doe', 'johndoe@example.com', 'supervisor123', 1);
+INSERT INTO supervisor (id, name, email, password, sharing_platform_id)
+VALUES
+    (2, 'Jefke Vermeulen', 'jefkevermeulen@example.com', '123supervisor', 1);
+
+-- Project
+INSERT INTO project (id, name, theme, active, total_participants, avg_time_spent, belongs_to_id)
+VALUES
+    (1, 'Project X', 'Theme X', true, 50, 4.5, 1);
+INSERT INTO project (id, name, theme, active, total_participants, avg_time_spent, belongs_to_id)
+VALUES
+  (2, 'Project Y', 'Theme Y', false, 514, 10.5, 1);
 
 -- Flow
 INSERT INTO flow (id, is_circular, project_id)

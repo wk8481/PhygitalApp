@@ -10,11 +10,11 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title">Supervisor</h1>
+    <h1 class="page-title" th:text="${sv.getName()}">Supervisor</h1>
     <br>
     <!-- Return Button -->
     <div class="center-container">
-        <a th:href="@{/sharing-platform/dashboard}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

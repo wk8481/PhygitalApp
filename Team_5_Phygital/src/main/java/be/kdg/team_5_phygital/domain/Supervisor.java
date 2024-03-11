@@ -12,6 +12,9 @@ public class Supervisor {
     private String email;
     private String password;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SharingPlatform sharingPlatform;
+
     public Supervisor () {}
 
     public Supervisor(int id, String name, String email, String password) {
@@ -51,5 +54,18 @@ public class Supervisor {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public SharingPlatform getSharingPlatform() {
+        return sharingPlatform;
+    }
+
+    @Override
+    public String toString() {
+        return "Supervisor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

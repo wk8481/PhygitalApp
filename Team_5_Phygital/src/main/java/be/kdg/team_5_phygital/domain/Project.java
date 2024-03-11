@@ -20,6 +20,9 @@ public class Project {
 
     private float avgTimeSpent;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private SharingPlatform belongsTo;
+
     public Project() {
     }
 
@@ -31,6 +34,17 @@ public class Project {
         this.id = id;
     }
 
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public String getName() {
+        return name;
+    }
 
     public void createFlow() {
         Flow flow = new Flow();

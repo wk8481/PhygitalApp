@@ -10,7 +10,7 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title">Dashboard</h1>
+    <h1 class="page-title" th:text="'Dashboard for ' + ${platform.getName()}"> dashboard of project</h1>
     <br>
     <!-- Navigation Cards -->
     <div class="row">
@@ -19,8 +19,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Projects</h5>
-                    <a href="/sharing-platform/project" class="btn btn-primary">Project 1</a>
-                    <a href="/sharing-platform/project" class="btn btn-primary">Project 2</a>
+                    <a th:each="project:${projects}" th:href="@{/sharing-platform/{platformId}/project/{projectId}(platformId=${platform.getId()}, projectId=${project.getId()})}" class="btn btn-primary" th:text="${project.getName()}">project button</a>
                 </div>
             </div>
         </div>
@@ -29,8 +28,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Supervisors</h5>
-                    <a href="/sharing-platform/supervisor" class="btn btn-primary">Supervisor 1</a>
-                    <a href="/sharing-platform/supervisor" class="btn btn-primary">Supervisor 2</a>
+                    <a th:each="sv:${supervisor}" th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}" class="btn btn-primary">Supervisors of this platform</a>
                 </div>
             </div>
         </div>

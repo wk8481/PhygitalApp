@@ -19,15 +19,14 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Flows</h5>
-                    <a href="/" class="btn btn-primary">Flow 1</a>
-                    <a href="/" class="btn btn-primary">Flow 2</a>
+                    <a th:each="flow:${flow}" th:text="${flow.getName()}" href="/" class="btn btn-primary">Flow 1</a>
                 </div>
             </div>
         </div>
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a th:href="@{/sharing-platform/dashboard}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
