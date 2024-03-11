@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Question</title>
@@ -11,7 +10,54 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
     <h1 class="page-title">Question</h1>
-    <br>
+    <div class="row">
+        <!-- Details Sections -->
+        <div class="col-md-6">
+            <section class="mt-5">
+                <h2>Info</h2>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                    <!-- Text -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="textInput">Text:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <textarea class="form-control" id="textInput" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <!-- Question Type -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label for="questionTypeInput" class="form-label">Question Type:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <select class="form-control" id="questionTypeInput">
+                                <option value="Single Choice">Single Choice</option>
+                                <option value="Multiple Choice">Multiple Choice</option>
+                                <option value="Range">Range</option>
+                                <option value="Open">Open</option>
+                                <!-- Add more font options here -->
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Save Button -->
+                <div class="row mt-3">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" id="saveButton" type="button">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Return Button -->
+    <div class="center-container">
+        <a class="btn btn-secondary" th:href="@{/sharing-platform/project}"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
