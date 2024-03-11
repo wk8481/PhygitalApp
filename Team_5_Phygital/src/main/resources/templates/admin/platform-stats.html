@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sharing Platform Statistics</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container">
+    <h1 class="page-title">Sharing Platform Statistics</h1>
+    <div class="row">
+        <!-- Graph -->
+        <div class="col-md-4">
+            <section class="mt-5">
+                <h2>Graph</h2>
+                <div class="bar-chart">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Export Button -->
+    <div class="center-container">
+        <a class="btn btn-secondary">
+            Export
+        </a>
+    </div>
+    <!-- Projects Stats Button -->
+    <div class="center-container">
+        <a class="btn btn-secondary" th:href="@{/admin/project-stats}">
+            Projects Stats
+        </a>
+    </div>
+    <!-- Return Button -->
+    <div class="center-container">
+        <a class="btn btn-secondary" th:href="@{/admin/project}">
+            <i class="fas fa-arrow-left"></i> Return
+        </a>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>
