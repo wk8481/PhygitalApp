@@ -12,6 +12,11 @@ public class SharingPlatformController {
         return "sharing-platform/login";
     }
 
+    @GetMapping("resetPassword")
+    public String getResetPasswordPage() {
+        return "sharing-platform/reset-password";
+    }
+
     @GetMapping({"dashboard", ""})
     public String getDashboardPage() {
         return "sharing-platform/dashboard";
