@@ -14,14 +14,14 @@ public class Installation {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserDetail user;
 
     @OneToMany(mappedBy = "installation")
     private List<Project> projects;
 
     public Installation() {}
 
-    public Installation(boolean isRunning, User user) {
+    public Installation(boolean isRunning, UserDetail user) {
         this.isRunning = isRunning;
         this.user = user;
     }
@@ -42,11 +42,11 @@ public class Installation {
         isRunning = running;
     }
 
-    public User getUser() {
+    public UserDetail getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDetail user) {
         this.user = user;
     }
 

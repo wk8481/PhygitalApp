@@ -42,7 +42,7 @@ VALUES
 
 
 -- Insert User data
-INSERT INTO "user" (id) VALUES (1);
+INSERT INTO user_detail (id) VALUES (1);
 
 -- Insert Installation data
 INSERT INTO installation (is_running, user_id) VALUES (true, 1);

@@ -20,23 +20,27 @@ public class Flow {
     @OneToMany(fetch = FetchType.LAZY)
     private List<SubTheme> subThemes;
 
+    @OneToMany(mappedBy = "flow")
+    private List<UserDetail> userDetail;
+
     public Flow() {
     }
 
-    @Override
-    public String toString() {
-        return "Flow{" +
-                "id=" + id +
-                ", isCircular=" + isCircular +
-                ", project=" + project +
-                ", subThemes=" + subThemes +
-                '}';
+    public List<UserDetail> getUserDetail() {
+        return userDetail;
     }
 
-    public Flow(boolean isCircular, Project project, List<SubTheme> subThemes) {
+    public void setUserDetail(List<UserDetail> userDetail) {
+        this.userDetail = userDetail;
+    }
+
+
+
+    public Flow(boolean isCircular, Project project, List<SubTheme> subThemes, List<UserDetail> userDetail) {
         this.isCircular = isCircular;
         this.project = project;
         this.subThemes = subThemes;
+        this.userDetail = userDetail;
     }
 
     public boolean isCircular() {
