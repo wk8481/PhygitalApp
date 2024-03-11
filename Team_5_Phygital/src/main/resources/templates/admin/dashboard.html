@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container">
+    <h1 class="page-title">Dashboard</h1>
+    <br>
+    <!-- Navigation Cards -->
+    <div class="row">
+        <!-- Sharing Platforms -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sharing Platforms</h5>
+                    <a href="/admin/sharing-platform" class="btn btn-primary">Sharing Platform 1</a>
+                    <a href="/admin/sharing-platform" class="btn btn-primary">Sharing Platform 2</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

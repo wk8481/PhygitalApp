@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Sub Theme</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container">
+    <h1 class="page-title">Sub Theme</h1>
+    <br>
+    <!-- Navigation Cards -->
+    <div class="row">
+        <!-- Questions -->
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Questions</h5>
+                    <a href="/sharing-platform/question" class="btn btn-primary">Question 1</a>
+                    <a href="/sharing-platform/question" class="btn btn-primary">Question 2</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Return Button -->
+    <div class="center-container">
+        <a th:href="@{/sharing-platform/flow}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

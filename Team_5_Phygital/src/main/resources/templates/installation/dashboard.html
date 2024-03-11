@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container">
+    <h1 class="page-title">Dashboard</h1>
+    <br>
+    <div class="row">
+        <a href="/installation/flow-selection" class="btn btn-primary">New Flow</a>
+    </div>
+
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>
