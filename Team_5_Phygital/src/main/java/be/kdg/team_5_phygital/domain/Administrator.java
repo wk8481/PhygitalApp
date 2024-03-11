@@ -19,6 +19,16 @@ public class Administrator {
     @OneToMany(mappedBy = "administrator")
     private List<Project> projects;
 
+    public Administrator() {
+    }
+
+    public Administrator(int id, String name, List<SharingPlatform> sharingPlatforms, List<Project> projects) {
+        this.id = id;
+        this.name = name;
+        this.sharingPlatforms = sharingPlatforms;
+        this.projects = projects;
+    }
+
     public int getId() {
         return id;
     }

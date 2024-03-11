@@ -46,6 +46,20 @@ public class Project {
     public Project() {
     }
 
+    public Project(int id, String name, String theme, boolean active, int totalParticipants, float avgTimeSpent, Supervisor supervisor, Installation installation, List<Flow> flows, SharingPlatform sharingPlatform, Administrator administrator) {
+        this.id = id;
+        this.name = name;
+        this.theme = theme;
+        this.active = active;
+        this.totalParticipants = totalParticipants;
+        this.avgTimeSpent = avgTimeSpent;
+        this.supervisor = supervisor;
+        this.installation = installation;
+        this.flows = flows;
+        this.sharingPlatform = sharingPlatform;
+        this.administrator = administrator;
+    }
+
     public int getId() {
         return id;
     }

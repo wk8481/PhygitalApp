@@ -25,8 +25,6 @@ public class Question {
         this.subTheme = theme;
     }
 
-
-
     public Question() {
 
     }
