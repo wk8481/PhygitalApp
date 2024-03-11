@@ -87,7 +87,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <a th:href="@{/sharing-platform/flow}"><i class="fas fa-edit"></i></a>
+                                    <a th:each="flow:${flow}" th:text="${flow.getName()}"><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td>Flow</td>
                                 <td>
@@ -109,7 +109,7 @@
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a th:href="@{/sharing-platform/dashboard}" class="btn btn-secondary">
+        <a href="javascript:history.back()" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i> Return
         </a>
     </div>

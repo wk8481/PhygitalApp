@@ -10,7 +10,7 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container">
-    <h1 class="page-title">Dashboard</h1>
+    <h1 class="page-title" th:text="'Dashboard for ' + ${platform.getName()}" >Dashboard</h1>
     <div class="row">
         <!-- Projects Section -->
         <div class="col-md-6">
@@ -22,10 +22,7 @@
                         <table class="table table-bordered table-striped">
                             <tbody>
                             <tr>
-                                <td>
-                                    <a th:href="@{/sharing-platform/project}"><i class="fas fa-edit"></i></a>
-                                </td>
-                                <td>Project</td>
+                                <td><a th:each="project:${projects}" th:href="@{/sharing-platform/{platformId}/project/{projectId}(platformId=${platform.getId()}, projectId=${project.getId()})}" th:text="${project.getName()}"><i class="fas fa-edit"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -44,7 +41,7 @@
                             <tbody>
                             <tr>
                                 <td>
-                                    <a th:href="@{/sharing-platform/supervisor}"><i class="fas fa-edit"></i></a>
+                                    <a th:each="sv:${supervisor}" th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}"><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td>Supervisor</td>
                             </tr>

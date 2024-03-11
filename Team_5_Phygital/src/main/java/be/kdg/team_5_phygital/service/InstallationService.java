@@ -1,15 +1,32 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Installation;
+import be.kdg.team_5_phygital.repository.InstallationRepo;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface InstallationService {
+@Service
+public class InstallationService {
+    private InstallationRepo installationRepository;
 
-    Installation createInstallation(Installation installation);
+    public InstallationService(InstallationRepo installationRepository) {
+        this.installationRepository = installationRepository;
+    }
 
-    Optional<Installation> getInstallationById(int id);
 
-    List<Installation> getAllInstallations();
+    public Installation createInstallation(Installation installation) {
+        return installationRepository.save(installation);
+    }
+
+
+    public Optional<Installation> getInstallationById(int id) {
+        return installationRepository.findById(id);
+    }
+
+
+    public List<Installation> getAllInstallations() {
+        return installationRepository.findAll();
+    }
 }

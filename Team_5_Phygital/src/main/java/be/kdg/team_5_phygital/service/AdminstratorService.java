@@ -11,28 +11,28 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class AdminstratorServiceImpl implements AdministratorService{
+public class AdminstratorService {
     private AdministratorRepo administratorRepository;
-    private Logger logger = LoggerFactory.getLogger(AdminstratorServiceImpl.class);
+    private Logger logger = LoggerFactory.getLogger(AdminstratorService.class);
 
     @Autowired
-    public AdminstratorServiceImpl(AdministratorRepo administratorRepository) {
+    public AdminstratorService(AdministratorRepo administratorRepository) {
         logger.info("AdministratorService is created");
         this.administratorRepository = administratorRepository;
     }
 
-    @Override
+
     public Administrator addAdministrator(Administrator administrator) {
 
         return administratorRepository.save(administrator);
     }
 
-    @Override
+
     public List<Administrator> getAdministrators() {
         return administratorRepository.findAll();
     }
 
-    @Override
+
     public Optional<Administrator> getAdministratorById(int id){
         logger.info("Getting admin by id...");
         return administratorRepository.findById(id);
