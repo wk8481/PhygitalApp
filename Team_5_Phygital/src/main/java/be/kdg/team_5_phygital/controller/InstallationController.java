@@ -12,7 +12,7 @@ public class InstallationController {
         return "installation/login";
     }
 
-    @GetMapping({"dashboard", ""})
+    @GetMapping({"dashboard", "", "/"})
     public String getDashboardPage() {
         return "installation/dashboard";
     }

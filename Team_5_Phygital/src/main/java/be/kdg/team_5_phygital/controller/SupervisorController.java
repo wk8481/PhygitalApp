@@ -11,4 +11,9 @@ public class SupervisorController {
     public String getLogin() {
         return "supervisor/login";
     }
+
+    @GetMapping({"dashboard", "", "/"})
+    public String getDashboardPage() {
+        return "supervisor/dashboard";
+    }
 }

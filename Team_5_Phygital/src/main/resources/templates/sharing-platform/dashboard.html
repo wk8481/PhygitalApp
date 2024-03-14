@@ -9,16 +9,16 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
-    <h1 class="page-title" th:text="'Dashboard for ' + ${platform.getName()}" >Dashboard</h1>
-    <div class="row">
+<main class="container text-center">
+    <h1 class="page-title text-primary" th:text="'Dashboard for ' + ${platform.getName()}" >Dashboard</h1>
+    <div class="row justify-content-center">
         <!-- Projects Section -->
         <div class="col-md-6">
-            <section class="mt-5">
-                <h2>Projects</h2>
-                <div class="row">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Projects</h2>
+                <div class="row mb-3 justify-content-center">
                     <!-- Projects -->
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <table class="table table-bordered table-striped">
                             <tbody>
                             <tr>
@@ -32,9 +32,9 @@
         </div>
         <!-- Supervisors Section -->
         <div class="col-md-6">
-            <section class="mt-5">
-                <h2>Supervisors</h2>
-                <div class="row">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Supervisors</h2>
+                <div class="row justify-content-center">
                     <!-- Supervisors -->
                     <div class="col-md-4">
                         <table class="table table-bordered table-striped">
