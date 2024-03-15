@@ -12,7 +12,7 @@ public class AdminController {
         return "admin/login";
     }
 
-    @GetMapping({"dashboard", ""})
+    @GetMapping({"dashboard", "", "/"})
     public String getDashboardPage() {
         return "admin/dashboard";
     }
@@ -20,6 +20,11 @@ public class AdminController {
     @GetMapping("sharing-platform")
     public String getSharingPlatformPage() {
         return "admin/sharing-platform";
+    }
+
+    @GetMapping("client")
+    public String getClientPage() {
+        return "admin/client";
     }
 
     @GetMapping("platform-stats")

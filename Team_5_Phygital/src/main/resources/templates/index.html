@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Home</title>
@@ -9,16 +8,18 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
+<main class="container text-center">
     <div class="row justify-content-center">
-        <h1 class="page-title">Home</h1>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Login</h5>
-                <a href="/installation/login" class="btn btn-primary">Installation</a>
-                <a href="/supervisor/login" class="btn btn-primary">Supervisor</a>
-                <a href="/sharing-platform/login" class="btn btn-primary">Sharing Platform</a>
-                <a href="/admin/login" class="btn btn-primary">Administrator</a>
+        <h1 class="page-title text-primary">Home</h1>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Login</h5>
+                    <a class="btn btn-primary" href="/installation/login">Installation</a>
+                    <a class="btn btn-primary" href="/supervisor/login">Supervisor</a>
+                    <a class="btn btn-primary" href="/sharing-platform/login">Sharing Platform</a>
+                    <a class="btn btn-primary" href="/admin/login">Administrator</a>
+                </div>
             </div>
         </div>
     </div>
