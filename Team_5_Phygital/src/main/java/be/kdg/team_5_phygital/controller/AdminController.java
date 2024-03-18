@@ -40,7 +40,7 @@ public class AdminController {
     }
 
     @GetMapping("sharing-platform/{platformId}")
-    public String getSharingPlatform(@PathVariable int platformId, Model model) {
+    public String getSharingPlatformPage(@PathVariable int platformId, Model model) {
         SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatformById(platformId).orElse(null);
         SharingPlatformAdmin client = sharingPlatformAdminService.findAllSharingPlatformAdmins().get(0);
         model.addAttribute("platform", sharingPlatform);
