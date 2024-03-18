@@ -1,22 +1,28 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Select Flow</title>
+    <title>Project Statistics</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <h1 class="page-title text-primary">Select Flow</h1>
+    <h1 class="page-title text-primary">Project Statistics</h1>
     <div class="row justify-content-center">
-        <!-- Flow Selection Section -->
-        <div class="col-md-6">
-            <section class="mt-5 text-center">
+        <!-- Graph -->
+        <div class="col-md-4">
+            <section class="mt-5">
+                <h2 class="text-secondary">Graph</h2>
             </section>
         </div>
+    </div>
+    <!-- Export Button -->
+    <div class="center-container">
+        <a class="btn btn-secondary">
+            Export
+        </a>
     </div>
     <!-- Return Button -->
     <div class="center-container">

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
@@ -9,9 +8,10 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
-    <h1 class="page-title">Dashboard</h1>
-    <br>
+<main class="container text-center">
+    <h1 class="page-title text-primary">Dashboard</h1>
+    <div class="row justify-content-center">
+    </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

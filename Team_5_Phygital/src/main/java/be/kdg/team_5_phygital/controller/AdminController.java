@@ -8,17 +8,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("admin")
 public class AdminController {
     @GetMapping("login")
-    public String getLogin() {
+    public String showLogin() {
         return "admin/login";
     }
 
-    @GetMapping("dashboard")
-    public String getDashboard() {
+    @GetMapping({"dashboard", "", "/"})
+    public String getDashboardPage() {
         return "admin/dashboard";
     }
 
     @GetMapping("sharing-platform")
-    public String getSharingPlatform() {
+    public String getSharingPlatformPage() {
         return "admin/sharing-platform";
+    }
+
+    @GetMapping("client")
+    public String getClientPage() {
+        return "admin/client";
+    }
+
+    @GetMapping("platform-stats")
+    public String getPlatformStatsPage() {
+        return "admin/platform-stats";
+    }
+
+    @GetMapping("project-stats")
+    public String getProjectStatsPage() {
+        return "admin/project-stats";
     }
 }

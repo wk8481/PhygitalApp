@@ -9,14 +9,14 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
-    <h1 class="page-title">Supervisor</h1>
+<main class="container text-center">
+    <h1 class="page-title text-primary">Supervisor</h1>
     <div class="row">
-        <!-- Details Sections -->
+        <!-- Details Section -->
         <div class="col-md-6">
-            <section class="mt-5">
-                <h2>Info</h2>
-                <table class="table table-bordered table-striped" th:object="${sv}">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Info</h2>
+                <table class="table table-bordered table-striped">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -52,8 +52,7 @@
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
-            Return</a>
+        <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SuperVisorService {
+public class SupervisorService {
     private SupervisorRepo supervisorRepo;
 
-    public SuperVisorService(SupervisorRepo supervisorRepo) {
+    public SupervisorService(SupervisorRepo supervisorRepo) {
         this.supervisorRepo = supervisorRepo;
     }
 

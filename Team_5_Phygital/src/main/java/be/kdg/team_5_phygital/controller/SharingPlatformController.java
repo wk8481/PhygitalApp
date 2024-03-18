@@ -7,7 +7,7 @@ import be.kdg.team_5_phygital.domain.Supervisor;
 import be.kdg.team_5_phygital.service.FlowService;
 import be.kdg.team_5_phygital.service.ProjectService;
 import be.kdg.team_5_phygital.service.SharingPlatformService;
-import be.kdg.team_5_phygital.service.SuperVisorService;
+import be.kdg.team_5_phygital.service.SupervisorService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
