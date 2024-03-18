@@ -2,6 +2,7 @@ package be.kdg.team_5_phygital.controller.mvc;
 
 import be.kdg.team_5_phygital.controller.mvc.vm.InstallationViewModel;
 import be.kdg.team_5_phygital.service.InstallationService;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,6 +43,19 @@ public class InstallationController {
                         .toList());
         return mav;
     }
+
+//    @GetMapping("flow")
+//    public ModelAndView getOneFlow() {
+//        var mav = new ModelAndView();
+//        mav.setViewName("flow");
+//        mav.addObject("one_flow",
+//                new InstallationViewModel(
+//                        installationService.getInstallation(1).getId(),
+//                        installationService.getInstallation(1).isRunning(),
+//                        installationService.getInstallation(1).getUser(),
+//                        installationService.getInstallation(1).getProjects()));
+//        return mav;
+//    }
 
     @GetMapping("contact-details")
     public String getContactDetailsPage() {
