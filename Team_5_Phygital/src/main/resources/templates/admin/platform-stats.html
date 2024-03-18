@@ -33,7 +33,7 @@
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a class="btn btn-secondary" th:href="@{/admin/platform-stats}">
+        <a class="btn btn-secondary" th:href="@{/admin/sharing-platform/{platformId}/{projectId}/stats(platformId=${platform.getId()}, projectId=${platform.getProjects().get(1)})}">
             <i class="fas fa-arrow-left"></i> Return
         </a>
     </div>

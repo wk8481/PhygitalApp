@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Project</title>
@@ -21,7 +20,7 @@
                     <!-- Name -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="nameInput" class="form-label">Name:</label>
+                            <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
                             <input class="form-control" id="nameInput" type="text">
@@ -30,7 +29,7 @@
                     <!-- Contact -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="contactInput" class="form-label">Contact:</label>
+                            <label class="form-label" for="contactInput">Contact:</label>
                         </th>
                         <td class="col-sm-8">
                             <input class="form-control" id="contactInput" type="text">
@@ -40,7 +39,8 @@
                     <tr>
                         <th class="col-sm-4">Client:</th>
                         <td class="col-sm-8">
-                            <a th:href="@{/admin/client}"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{/admin/sharing-platform/{platformId}/client/{clientId}(platformId=${platform.getId()}, clientId=${client.getId()})}">
+                                <i class="fas fa-edit"></i></a>
                         </td>
                     </tr>
                     </tbody>
@@ -58,13 +58,13 @@
     </div>
     <!-- Stats Button -->
     <div class="center-container">
-        <a th:href="@{/admin/platform-stats}" class="btn btn-secondary">
+        <a class="btn btn-secondary" th:href="@{/admin/sharing-platform/{platformId}/stats(platformId=${platform.getId()})}">
             Statistics
         </a>
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+        <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

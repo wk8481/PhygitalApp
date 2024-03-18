@@ -33,6 +33,11 @@ public class SharingPlatform {
 
     public SharingPlatform() {}
 
+    public SharingPlatform(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public SharingPlatform(int id, String name, String contactEmail, int totalParticipants) {
         this.id = id;
         this.name = name;

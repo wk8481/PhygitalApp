@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
@@ -21,11 +20,14 @@
                     <div class="col-md-8">
                         <table class="table table-bordered table-striped">
                             <tbody>
-                            <tr>
+                            <tr th:each="platform:${platforms}">
                                 <td>
-                                    <a th:href="@{/admin/sharing-platform}"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/admin/sharing-platform/{platformId}(platformId=${platform.getId()})}">
+                                        <i class="fas fa-edit"></i></a>
                                 </td>
-                                <td>Platform</td>
+                                <td th:text="${platform.getName()}">
+                                    Untitled Sharing Platform
+                                </td>
                             </tr>
                             </tbody>
                         </table>

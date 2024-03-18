@@ -10,7 +10,7 @@ function updateProject(event){
     const name = document.getElementById("nameInput").value;
 
     console.log("updating project to " + name )
-    fetch(`/api/sharing-platform/${platformId}/project/${projectId}/update`, {
+    fetch(`/api/admin/${platformId}/project/${projectId}/update`, {
         method: "PATCH",
         headers: {
             'Accept': 'application/json',
