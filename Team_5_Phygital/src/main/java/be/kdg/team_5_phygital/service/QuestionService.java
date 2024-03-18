@@ -32,4 +32,6 @@ public class QuestionService {
     }
 
     public List<Question> getQuestionBySubTheme(SubTheme subTheme){return questionRepository.getQuestionsBySubThemeEquals(subTheme);}
+
+    public Question updateQuestion(Question update) {return questionRepository.save(update);}
 }

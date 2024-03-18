@@ -4,13 +4,14 @@ submitButton.addEventListener("click", updateProject);
 const link = window.location.href.substring(window.location.href);
 
 var ids = extractIdsFromUrl(window.location.href.substring(window.location.href))
-const projectId = ids[1]
-const platformId = ids[0]
+const flowId = ids[0]
+const subThemeId = ids[1]
 function updateProject(event){
     const name = document.getElementById("nameInput").value;
+    const info = document.getElementById("infoInput").value;
 
-    console.log("updating project to " + name )
-    fetch(`/api/sharing-platform/platform/${platformId}/project/${projectId}/update`, {
+    console.log("updating subtheme to " + name + " and its info to " + info)
+    fetch(`/api/sharing-platform/flow/${flowId}/sub-theme/${subThemeId}/update`, {
         method: "PATCH",
         headers: {
             'Accept': 'application/json',
@@ -18,8 +19,9 @@ function updateProject(event){
         },
         body: JSON.stringify(
             {
-                "id": projectId,
-                "name": name
+                "id": subThemeId,
+                "name": name,
+                "information": info
 
             })
     })
@@ -28,14 +30,14 @@ function updateProject(event){
 
             }
         });
-    alert("Project name changed to " + name)
+    alert("Project name changed to " + name+ " and its info to " + info)
 }
 
 
 
 function extractIdsFromUrl(url) {
     // Define the regular expression pattern to match IDs
-    var pattern = /\/(\d+)\/project\/(\d+)/;
+    var pattern = /\/(\d+)\/sub-theme\/(\d+)/;
 
     // Execute the regular expression on the URL
     var match = url.match(pattern);

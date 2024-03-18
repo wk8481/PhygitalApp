@@ -5,6 +5,7 @@
 <head>
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/sharingPlatform/question.js" defer></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -32,18 +33,11 @@
                             <label for="questionTypeInput" class="form-label">Question Type:</label>
                         </th>
                         <td class="col-sm-8">
-<!--                            <select class="form-control" id="questionTypeInput">-->
-<!--                                <option value="Single Choice">Single Choice</option>-->
-<!--                                <option value="Multiple Choice">Multiple Choice</option>-->
-<!--                                <option value="Range">Range</option>-->
-<!--                                <option value="Open">Open</option>-->
-<!--                                &lt;!&ndash; Add more font options here &ndash;&gt;-->
-<!--                            </select>-->
-
                             <select class="form-control" id="questionTypeInput">
                                 <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values()}"
                                         th:value="${type}"
-                                        th:text="${type}">
+                                        th:text="${type}"
+                                        th:selected="${type == q.type}">>
                                 </option>
                                 <!-- Add more font options here -->
                             </select>

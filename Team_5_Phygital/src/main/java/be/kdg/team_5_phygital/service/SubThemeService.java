@@ -32,4 +32,6 @@ public class SubThemeService {
     }
 
     public List<SubTheme> getSubthemeByFlowId(Flow flow) {return subThemeRepo.getSubThemesByFlow(flow);}
+
+    public SubTheme updateSubTheme(SubTheme update) {return subThemeRepo.save(update);}
 }

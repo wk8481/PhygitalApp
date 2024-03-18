@@ -85,13 +85,14 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Flows -->
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped" th:object="${flow}">
-                            <tbody>
+                        <table class="table table-bordered table-striped">
+                            <tbody th:each="flows:${flow}" >
                             <tr>
-                                <td th:each="flows:${flow}">
-                                    <a th:if="${flows.isCircular()}" th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.getId()}, flowId=${flows.getId()})}">Circular flow <br><i class="fas fa-edit"></i></a>
-                                    <a th:unless="${flows.isCircular()}" th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.getId()}, flowId=${flows.getId()})}">Not circular flow<br><i class="fas fa-edit"></i></a>
+                                <td>
+                                    <a th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.getId()}, flowId=${flows.getId()})}"><i class="fas fa-edit"></i></a>
                                 </td>
+                                <td th:if="${flows.isCircular()}" >Circular flow </td>
+                                <td th:unless="${flows.isCircular()}">Not circular flow </td>
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>
@@ -103,6 +104,7 @@
             </section>
         </div>
     </div>
+
     <!-- Stats Button -->
     <div class="center-container">
         <a class="btn btn-secondary" th:href="@{/admin/project-stats}">
