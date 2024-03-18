@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/admin")
 public class RESTAdminController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SharingPlatformService sharingPlatformService;
 
 
@@ -20,7 +20,7 @@ public class RESTAdminController {
     }
 
     @PatchMapping("{platformId}/update")
-    public String updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestBody UpdateSharingPlatformDto updatedSharingPlatform) {
+    public String updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updatedSharingPlatform) {
         sharingPlatformService.updateSharingPlatform(new SharingPlatform(updatedSharingPlatform.getId(), updatedSharingPlatform.getName()));
         return null;
         }
