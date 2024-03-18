@@ -5,7 +5,6 @@ function handleLogin(event) {
     const password = document.getElementById('password').value;
 
     if (email === email && password === password) {
-        alert('Login successful!');
         window.location.href = 'dashboard';
     } else {
         alert('Invalid email or password. Please try again.');

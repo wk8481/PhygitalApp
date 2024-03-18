@@ -14,7 +14,7 @@ function updateProject(event){
     const email = document.getElementById("emailInput").value;
 
     console.log("updating project to " + name )
-    fetch(`/api/sharing-platform/${platformId}/supervisor/${superVisorId}/update`, {
+    fetch(`/api/admin/${platformId}/supervisor/${superVisorId}/update`, {
         method: "PATCH",
         headers: {
             'Accept': 'application/json',

@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepo;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,9 @@ public class SharingPlatformService {
 
     public List<SharingPlatform> getAllSharingPlatforms() {
         return sharingPlatformRepo.findAll();
+    }
+
+    public SharingPlatform updateSharingPlatform(SharingPlatform updatedSharingPlatform){
+        return sharingPlatformRepo.save(updatedSharingPlatform);
     }
 }
