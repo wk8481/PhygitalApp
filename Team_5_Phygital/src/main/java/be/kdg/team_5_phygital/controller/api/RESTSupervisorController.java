@@ -3,7 +3,6 @@ package be.kdg.team_5_phygital.controller.api;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateSupervisorDto;
 import be.kdg.team_5_phygital.domain.Supervisor;
-import be.kdg.team_5_phygital.service.SuperVisorService;
 import be.kdg.team_5_phygital.service.SupervisorService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;

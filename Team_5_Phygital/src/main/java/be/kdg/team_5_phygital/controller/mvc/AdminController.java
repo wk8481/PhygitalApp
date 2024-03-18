@@ -1,4 +1,4 @@
-package be.kdg.team_5_phygital.controller;
+package be.kdg.team_5_phygital.controller.mvc;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
