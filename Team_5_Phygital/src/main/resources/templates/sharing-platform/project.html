@@ -88,9 +88,9 @@
                         <table class="table table-bordered table-striped" th:object="${flow}">
                             <tbody>
                             <tr>
-                                <td th:each="flow:${flow}">
-                                    <a th:if="${flow.isCircular()}">Circular flow <br><i class="fas fa-edit"></i></a>
-                                    <a th:unless="${flow.isCircular()}">Not circular flow<br><i class="fas fa-edit"></i></a>
+                                <td th:each="flows:${flow}">
+                                    <a th:if="${flows.isCircular()}" th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.getId()}, flowId=${flows.getId()})}">Circular flow <br><i class="fas fa-edit"></i></a>
+                                    <a th:unless="${flows.isCircular()}" th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.getId()}, flowId=${flows.getId()})}">Not circular flow<br><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td>
                                     <i class="fas fa-bars"></i>

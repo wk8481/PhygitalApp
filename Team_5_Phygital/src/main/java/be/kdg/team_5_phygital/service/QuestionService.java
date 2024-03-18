@@ -1,6 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Question;
+import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.QuestionRepo;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,6 @@ public class QuestionService {
     public List<Question> getAllQuestions() {
         return questionRepository.findAll();
     }
+
+    public List<Question> getQuestionBySubTheme(SubTheme subTheme){return questionRepository.getQuestionsBySubThemeEquals(subTheme);}
 }

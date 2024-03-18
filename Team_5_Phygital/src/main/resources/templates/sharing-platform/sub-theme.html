@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2>Info</h2>
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped" th:object="${st}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -23,7 +23,7 @@
                             <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="nameInput" type="text">
+                            <input class="form-control" id="nameInput" type="text" th:field="*{name}">
                         </td>
                     </tr>
                     <!-- Information -->
@@ -32,7 +32,7 @@
                             <label class="form-label" for="infoInput">Information:</label>
                         </th>
                         <td class="col-sm-8">
-                            <textarea class="form-control" id="infoInput" rows="4"></textarea>
+                            <textarea class="form-control" id="infoInput" rows="4" th:field="*{information}"></textarea>
                         </td>
                     </tr>
                     <!-- Media -->
@@ -62,16 +62,16 @@
                     <!-- Questions -->
                     <div class="col-md-4">
                         <table class="table table-bordered table-striped">
-                            <tbody>
+                            <tbody th:each="q, qIndex:${question}">
                             <tr>
                                 <td>
                                     <label for="visibility"></label>
                                     <input type="checkbox" id="visibility">
                                 </td>
                                 <td>
-                                    <a th:href="@{/sharing-platform/question}"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/sharing-platform/sub-theme/{stId}/question/{questionId}(stId=${st.getId()}, questionId=${q.getId()})}"><i class="fas fa-edit"></i></a>
                                 </td>
-                                <td>Question</td>
+                                <td th:text="'Question '+ ${qIndex.count}">Question</td>
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>

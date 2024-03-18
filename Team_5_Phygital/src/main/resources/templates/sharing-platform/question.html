@@ -16,14 +16,14 @@
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
                 <table class="table table-bordered table-striped">
-                    <tbody>
+                    <tbody th:object="${q}">
                     <!-- Text -->
                     <tr>
                         <th class="col-sm-4">
                             <label class="form-label" for="textInput">Text:</label>
                         </th>
                         <td class="col-sm-8">
-                            <textarea class="form-control" id="textInput" rows="4"></textarea>
+                            <textarea class="form-control" id="textInput" rows="4" th:field="*{text}"></textarea>
                         </td>
                     </tr>
                     <!-- Question Type -->
@@ -32,11 +32,19 @@
                             <label for="questionTypeInput" class="form-label">Question Type:</label>
                         </th>
                         <td class="col-sm-8">
+<!--                            <select class="form-control" id="questionTypeInput">-->
+<!--                                <option value="Single Choice">Single Choice</option>-->
+<!--                                <option value="Multiple Choice">Multiple Choice</option>-->
+<!--                                <option value="Range">Range</option>-->
+<!--                                <option value="Open">Open</option>-->
+<!--                                &lt;!&ndash; Add more font options here &ndash;&gt;-->
+<!--                            </select>-->
+
                             <select class="form-control" id="questionTypeInput">
-                                <option value="Single Choice">Single Choice</option>
-                                <option value="Multiple Choice">Multiple Choice</option>
-                                <option value="Range">Range</option>
-                                <option value="Open">Open</option>
+                                <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values()}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
                                 <!-- Add more font options here -->
                             </select>
                         </td>
