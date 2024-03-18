@@ -35,9 +35,10 @@ public class RESTSharingPlatformController {
 
     @Transactional
     @PatchMapping("/platform/{platformId}/project/{projectId}/update")
-    public String updateProject(@PathVariable int platformId, @PathVariable int projectId, @RequestBody UpdateProjectDto updatedProject) {
-        projectService.updateProject(new Project(updatedProject.getId(), updatedProject.getName()));
-        return null;
+    public Project updateProject(@PathVariable int platformId, @PathVariable int projectId, @RequestBody UpdateProjectDto updatedProject) {
+        Project original = projectService.getProjectById(projectId).orElse(null);
+        Project updated = new Project(projectId, updatedProject.getName(), original.getTheme(), original.isActive(), original.getTotalParticipants(), original.getAvgTimeSpent(), original.getSupervisor(), original.getInstallation(), original.getFlows(), original.getSharingPlatform(), original.getAdministrator());
+        return projectService.updateProject(updated);
         }
 
     @Transactional
