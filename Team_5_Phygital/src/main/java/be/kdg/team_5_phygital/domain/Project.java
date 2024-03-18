@@ -137,6 +137,22 @@ public class Project {
         this.administrator = administrator;
     }
 
+    public void setSupervisor(Supervisor supervisor) {
+        this.supervisor = supervisor;
+    }
+
+    public void setInstallation(Installation installation) {
+        this.installation = installation;
+    }
+
+    public Supervisor getSupervisor() {
+        return supervisor;
+    }
+
+    public Installation getInstallation() {
+        return installation;
+    }
+
     public Project(int id, String name) {
         this.id = id;
         this.name = name;

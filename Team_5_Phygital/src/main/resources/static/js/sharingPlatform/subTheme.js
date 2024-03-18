@@ -3,15 +3,13 @@ const submitButton = document.querySelector("#saveButton");
 submitButton.addEventListener("click", updateProject);
 const link = window.location.href.substring(window.location.href);
 
-var [platformId, superVisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor")
-
+var [flowId, subThemeId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "sub-theme")
 function updateProject(event){
-    console.log(platformId, superVisorId)
     const name = document.getElementById("nameInput").value;
-    const email = document.getElementById("emailInput").value;
+    const info = document.getElementById("infoInput").value;
 
-    console.log("updating supervisor to " + name )
-    fetch(`/api/sharing-platform/platform/${platformId}/supervisor/${superVisorId}/update`, {
+    console.log("updating subtheme to " + name + " and its info to " + info)
+    fetch(`/api/sharing-platform/flow/${flowId}/sub-theme/${subThemeId}/update`, {
         method: "PATCH",
         headers: {
             'Accept': 'application/json',
@@ -19,10 +17,9 @@ function updateProject(event){
         },
         body: JSON.stringify(
             {
-                "id": superVisorId,
+                "id": subThemeId,
                 "name": name,
-                "email": email,
-                "platform": platformId
+                "information": info
 
             })
     })
@@ -31,7 +28,5 @@ function updateProject(event){
 
             }
         });
-    alert("Supervisor name changed to: " + name)
+    alert("sub theme name changed to " + name+ " and its info to " + info)
 }
-
-

@@ -39,7 +39,11 @@ INSERT INTO flow (is_circular, project_id)
 -- SubTheme
 INSERT INTO sub_theme (name, information, flow_id)
 VALUES
-    ('SubTheme 1', 'Information for SubTheme 1', 1);
+    ('local voting in antwerp', 'Information for voting in Antwerp', 1);
+-- SubTheme
+INSERT INTO sub_theme (name, information, flow_id)
+VALUES
+    ('local voting in brussels', 'Information for voting in Brussels', 1);
 
 -- Question
 INSERT INTO question (text, type, sub_theme_id)
