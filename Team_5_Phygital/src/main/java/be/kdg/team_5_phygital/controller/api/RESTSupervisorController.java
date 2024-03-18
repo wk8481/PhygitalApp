@@ -4,6 +4,7 @@ import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateSupervisorDto;
 import be.kdg.team_5_phygital.domain.Supervisor;
 import be.kdg.team_5_phygital.service.SuperVisorService;
+import be.kdg.team_5_phygital.service.SupervisorService;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/sharing-platform/{platformId}/supervisor")
 public class RESTSupervisorController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private SuperVisorService superVisorService;
+    private SupervisorService superVisorService;
 
 
-    public RESTSupervisorController(SuperVisorService superVisorService) {
+    public RESTSupervisorController(SupervisorService superVisorService) {
         this.superVisorService = superVisorService;
     }
 
