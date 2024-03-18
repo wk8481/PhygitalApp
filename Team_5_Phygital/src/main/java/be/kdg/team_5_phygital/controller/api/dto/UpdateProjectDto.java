@@ -1,4 +1,4 @@
-package be.kdg.team_5_phygital.controller.api;
+package be.kdg.team_5_phygital.controller.api.dto;
 
 public class UpdateProjectDto {
     private int id;

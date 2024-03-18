@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.controller.api;
 
+import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.service.ProjectService;
 import org.slf4j.Logger;
