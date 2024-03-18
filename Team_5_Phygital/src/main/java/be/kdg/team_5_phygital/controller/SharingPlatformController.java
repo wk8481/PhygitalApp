@@ -22,10 +22,10 @@ public class SharingPlatformController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjectService projectService;
     private final SharingPlatformService sharingPlatformService;
-    private final SuperVisorService supervisorService;
+    private final SupervisorService supervisorService;
     private final FlowService flowService;
 
-    public SharingPlatformController(ProjectService projectService, SharingPlatformService sharingPlatformService, SuperVisorService supervisorService, FlowService flowService) {
+    public SharingPlatformController(ProjectService projectService, SharingPlatformService sharingPlatformService, SupervisorService supervisorService, FlowService flowService) {
         this.projectService = projectService;
         this.sharingPlatformService = sharingPlatformService;
         this.supervisorService = supervisorService;
