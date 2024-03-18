@@ -1,6 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.repository.FlowRepo;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,6 @@ public class FlowService {
     public List<Flow> getAllFlows() {
         return flowRepository.findAll();
     }
+
+    public List<Flow> findFlowsByProjectId(Project project){ return flowRepository.findFlowsByProjectEquals(project);}
 }

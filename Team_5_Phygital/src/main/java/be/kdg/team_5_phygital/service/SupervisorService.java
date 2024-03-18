@@ -29,4 +29,7 @@ public class SupervisorService {
     }
 
     public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepo.findSupervisorBySharingPlatformEquals(sharingPlatform);}
+
+    public Supervisor updateSupervisor(Supervisor updatedSuperVisor) { return supervisorRepo.save(updatedSuperVisor
+    );}
 }

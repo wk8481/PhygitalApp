@@ -5,6 +5,7 @@
 <head>
     <title>Supervisor</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/sharingPlatform/superVisor.js" defer></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -23,7 +24,17 @@
                             <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="nameInput" th:text="${sv.getName()}" type="text">
+                            <input  class="form-control" th:field="*{name}" id="nameInput" type="text">
+                        </td>
+
+                    </tr>
+                    <tr>
+                    <!-- Email -->
+                        <th class="col-sm-4">
+                            <label class="form-label" for="emailInput">Email:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input  class="form-control" th:field="*{email}" id="emailInput" type="text">
                         </td>
                     </tr>
                     </tbody>

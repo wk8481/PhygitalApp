@@ -30,6 +30,20 @@ public class Supervisor {
         this.password = password;
     }
 
+    public Supervisor(int id, String name, String email) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+    }
+
+    public SharingPlatform getSharingPlatform() {
+        return sharingPlatform;
+    }
+
+    public void setSharingPlatform(SharingPlatform sharingPlatform) {
+        this.sharingPlatform = sharingPlatform;
+    }
+
     public int getId() {
         return id;
     }
@@ -70,4 +84,24 @@ public class Supervisor {
         this.projects = projects;
     }
 
+    public Supervisor(int id, String name, String email, String password, SharingPlatform sharingPlatform, List<Project> projects) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.sharingPlatform = sharingPlatform;
+        this.projects = projects;
+    }
+
+    @Override
+    public String toString() {
+        return "Supervisor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", sharingPlatform=" + sharingPlatform +
+                ", projects=" + projects +
+                '}';
+    }
 }
