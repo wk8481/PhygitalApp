@@ -29,4 +29,6 @@ public class ProjectService{
     }
 
     public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsBySharingPlatform(sharingPlatform);}
+
+    public Project updateProject(Project updatedProject){ return projectRepository.save(updatedProject);}
 }

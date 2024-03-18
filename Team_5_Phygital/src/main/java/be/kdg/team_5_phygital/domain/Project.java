@@ -136,4 +136,9 @@ public class Project {
     public void setAdministrator(Administrator administrator) {
         this.administrator = administrator;
     }
+
+    public Project(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

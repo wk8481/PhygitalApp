@@ -32,6 +32,9 @@ VALUES
 INSERT INTO flow (is_circular, project_id)
 VALUES
     (true, 1);
+INSERT INTO flow (is_circular, project_id)
+              VALUES
+                  (false, 1);
 
 -- SubTheme
 INSERT INTO sub_theme (name, information, flow_id)

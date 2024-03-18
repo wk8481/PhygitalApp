@@ -6,6 +6,8 @@
 <head>
     <title>Project</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+
+    <script src="/js/project.js" defer></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -83,13 +85,13 @@
                 <div class="row">
                     <!-- Flows -->
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-bordered table-striped" th:object="${flow}">
                             <tbody>
                             <tr>
-                                <td>
-                                    <a th:each="flow:${flow}" th:text="${flow.getName()}"><i class="fas fa-edit"></i></a>
+                                <td th:each="flow:${flow}">
+                                    <a th:if="${flow.isCircular()}">Circular flow <br><i class="fas fa-edit"></i></a>
+                                    <a th:unless="${flow.isCircular()}">Not circular flow<br><i class="fas fa-edit"></i></a>
                                 </td>
-                                <td>Flow</td>
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>
