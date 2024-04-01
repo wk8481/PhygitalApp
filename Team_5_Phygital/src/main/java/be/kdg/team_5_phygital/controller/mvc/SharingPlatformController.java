@@ -94,4 +94,11 @@ public class SharingPlatformController {
         model.addAttribute("sv", supervisorService.getSupervisorById(supervisorId).orElse(null));
         return "sharing-platform/supervisor";
     }
+
+    @GetMapping("project/{projectId}/stats")
+    public String getProjectStats(@PathVariable int projectId, Model model) {
+        Project project = projectService.getProjectById(projectId).orElse(null);
+        model.addAttribute("project", project);
+        return "sharing-platform/project-stats";
+    }
 }

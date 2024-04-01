@@ -28,5 +28,4 @@ function updateProject(event){
 
             }
         });
-    alert("sub theme name changed to " + name+ " and its info to " + info)
 }

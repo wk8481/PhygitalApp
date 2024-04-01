@@ -16,7 +16,7 @@
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
                 <div class="col-md-8">
-                    <table class="table table-bordered table-striped" th:object="${flow}">
+                    <table class="table" th:object="${flow}">
                         <tbody>
                         <!-- Name -->
                         <tr>
@@ -47,7 +47,7 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Sub Themes -->
                     <div class="col-md-8">
-                        <table class="table table-bordered table-striped">
+                        <table class="table">
                             <tbody th:each="st:${st}">
                             <tr>
                                 <td>
@@ -55,9 +55,9 @@
                                     <input id="visibility" type="checkbox">
                                 </td>
                                 <td>
-                                    <a th:href="@{/sharing-platform/flow/{flowId}/sub-theme/{stId}(flowId=${flow.getId()}, stId=${st.getId()})}"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/sharing-platform/flow/{flowId}/sub-theme/{stId}(flowId=${flow.id}, stId=${st.id})}"><i class="fas fa-edit"></i></a>
                                 </td>
-                                <td th:text="${st.getName()}"></td>
+                                <td th:text="${st.name}"></td>
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>

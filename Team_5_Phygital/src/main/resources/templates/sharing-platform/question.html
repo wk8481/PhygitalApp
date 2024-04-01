@@ -17,7 +17,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table table-bordered table-striped">
+                <table class="table">
                     <tbody th:object="${q}">
                     <!-- Text -->
                     <tr>
@@ -35,7 +35,7 @@
                         </th>
                         <td class="col-sm-8">
                             <select class="form-control" id="questionTypeInput">
-                                <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values()}"
+                                <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
                                         th:value="${type}"
                                         th:text="${type}"
                                         th:selected="${type == q.type}">>

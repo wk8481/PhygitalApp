@@ -31,7 +31,6 @@ function updateProject(event){
 
             }
         });
-    alert("Supervisor name changed to: " + name)
 }
 
 

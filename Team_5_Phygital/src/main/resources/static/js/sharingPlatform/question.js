@@ -28,5 +28,4 @@ function updateProject(event){
 
             }
         });
-    alert("question changed to " + question)
 }
