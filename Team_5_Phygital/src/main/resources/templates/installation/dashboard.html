@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard</title>
@@ -15,9 +14,9 @@
         <!-- New Flow Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary">New Flow</h2>
-                <div class="row">
-                    <a href="/installation/flow-selection" class="btn btn-primary">New Flow</a>
+                <h2 class="text-secondary">Start New Flow</h2>
+                <div class="center-container">
+                    <a class="btn btn-primary" th:href="@{/installation/flow-selection}">Start New Flow</a>
                 </div>
             </section>
         </div>

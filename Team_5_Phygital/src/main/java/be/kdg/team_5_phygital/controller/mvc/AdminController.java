@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.controller.mvc;
 
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
 import be.kdg.team_5_phygital.service.ProjectService;
@@ -58,7 +59,9 @@ public class AdminController {
     @GetMapping("sharing-platform/{platformId}/stats")
     public String getPlatformStatsPage(@PathVariable int platformId, Model model) {
         SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatformById(platformId).orElse(null);
+        Project project = projectService.getAllProjects().stream().findFirst().orElse(null);
         model.addAttribute("platform", sharingPlatform);
+        model.addAttribute("project", project);
         return "admin/platform-stats";
     }
 

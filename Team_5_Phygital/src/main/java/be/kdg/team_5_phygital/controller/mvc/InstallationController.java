@@ -31,7 +31,7 @@ public class InstallationController {
     @GetMapping("flow-selection")
     public ModelAndView getFlowSelectionPage() {
         var mav = new ModelAndView();
-        mav.setViewName("flow-Selection");
+        mav.setViewName("installation/flow-selection");
         mav.addObject("all_flows",
                 installationService.getAllInstallations()
                         .stream()

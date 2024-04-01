@@ -26,5 +26,4 @@ function updateProject(event){
 
             }
         });
-    alert("Project name changed to " + name)
 }

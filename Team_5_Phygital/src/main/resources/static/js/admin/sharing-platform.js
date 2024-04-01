@@ -26,7 +26,6 @@ function updatePlatform(event){
 
             }
         });
-    alert("Platform name changed to " + name)
 }
 
 

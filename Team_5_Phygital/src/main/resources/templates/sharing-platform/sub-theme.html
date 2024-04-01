@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2>Info</h2>
-                <table class="table table-bordered table-striped" th:object="${st}">
+                <table class="table" th:object="${st}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -62,7 +62,7 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Questions -->
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped">
+                        <table class="table">
                             <tbody th:each="q, qIndex:${question}">
                             <tr>
                                 <td>
@@ -70,7 +70,7 @@
                                     <input type="checkbox" id="visibility">
                                 </td>
                                 <td>
-                                    <a th:href="@{/sharing-platform/sub-theme/{stId}/question/{questionId}(stId=${st.getId()}, questionId=${q.getId()})}"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/sharing-platform/sub-theme/{stId}/question/{questionId}(stId=${st.id}, questionId=${q.id})}"><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="'Question '+ ${qIndex.count}">Question</td>
                                 <td>

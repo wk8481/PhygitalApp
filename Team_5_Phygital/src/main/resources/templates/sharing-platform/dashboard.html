@@ -19,10 +19,10 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Projects -->
                     <div class="col-md-8">
-                        <table class="table table-bordered table-striped">
+                        <table class="table">
                             <tbody>
                             <tr>
-                                <td><a th:each="project:${projects}" th:href="@{/sharing-platform/{platformId}/project/{projectId}(platformId=${platform.getId()}, projectId=${project.getId()})}" th:text="${project.getName()}"><i class="fas fa-edit"></i></a></td>
+                                <td><a th:each="project:${projects}" th:href="@{/sharing-platform/{platformId}/project/{projectId}(platformId=${platform.id}, projectId=${project.id})}" th:text="${project.getName()}"><i class="fas fa-edit"></i></a></td>
                             </tr>
                             </tbody>
                         </table>
@@ -37,11 +37,11 @@
                 <div class="row justify-content-center">
                     <!-- Supervisors -->
                     <div class="col-md-4">
-                        <table class="table table-bordered table-striped">
+                        <table class="table">
                             <tbody>
                             <tr>
                                 <td th:each="sv:${supervisor}">
-                                    <a  th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.getId()}, supervisorId=${sv.getId()})}"><i class="fas fa-edit"></i></a>
+                                    <a  th:text="${sv.getName()}" th:href="@{/sharing-platform/{platformId}/supervisor/{supervisorId}(platformId=${platform.id}, supervisorId=${sv.id})}"><i class="fas fa-edit"></i></a>
                                 </td>
                             </tr>
                             </tbody>

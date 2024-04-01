@@ -16,7 +16,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table table-bordered table-striped" th:object="${platform}">
+                <table class="table" th:object="${platform}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -40,7 +40,7 @@
                     <tr>
                         <th class="col-sm-4">Client:</th>
                         <td class="col-sm-8">
-                            <a th:href="@{/admin/sharing-platform/{platformId}/client/{clientId}(platformId=${platform.getId()}, clientId=${client.getId()})}">
+                            <a th:href="@{/admin/sharing-platform/{platformId}/client/{clientId}(platformId=${platform.id}, clientId=${client.id})}">
                                 <i class="fas fa-edit"></i></a>
                         </td>
                     </tr>
@@ -59,7 +59,7 @@
     </div>
     <!-- Stats Button -->
     <div class="center-container">
-        <a class="btn btn-secondary" th:href="@{/admin/sharing-platform/{platformId}/stats(platformId=${platform.getId()})}">
+        <a class="btn btn-secondary" th:href="@{/admin/sharing-platform/{platformId}/stats(platformId=${platform.id})}">
             Statistics
         </a>
     </div>
