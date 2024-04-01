@@ -10,28 +10,37 @@ import java.util.Optional;
 
 @Service
 public class SubThemeService {
-    private SubThemeRepo subThemeRepo;
+    private SubThemeRepo subThemeRepository;
 
-    public SubThemeService(SubThemeRepo subThemeRepo) {
-        this.subThemeRepo = subThemeRepo;
+    public SubThemeService(SubThemeRepo subThemeRepository) {
+        this.subThemeRepository = subThemeRepository;
     }
 
 
     public SubTheme addSubtheme(SubTheme subtheme) {
-        return subThemeRepo.save(subtheme);
+        return subThemeRepository.save(subtheme);
     }
 
 
     public Optional<SubTheme> getSubthemeById(int id) {
-        return subThemeRepo.findById(id);
+        return subThemeRepository.findById(id);
     }
 
 
     public List<SubTheme> getAllSubtheme() {
-        return subThemeRepo.findAll();
+        return subThemeRepository.findAll();
     }
 
-    public List<SubTheme> getSubthemeByFlowId(Flow flow) {return subThemeRepo.getSubThemesByFlow(flow);}
+    public List<SubTheme> getSubthemeByFlowId(Flow flow) {return subThemeRepository.getSubThemesByFlow(flow);}
 
-    public SubTheme updateSubTheme(SubTheme update) {return subThemeRepo.save(update);}
+    public boolean updateSubTheme(int subThemeId, String name, String information) {
+        SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
+        if (subTheme == null) {
+            return false;
+        }
+        subTheme.setName(name);
+        subTheme.setInformation(information);
+        subThemeRepository.save(subTheme);
+        return true;
+    }
 }

@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
 import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepo;
 import org.springframework.stereotype.Service;
@@ -28,5 +29,16 @@ public class SharingPlatformAdminService{
 
     public List<SharingPlatformAdmin> findAllSharingPlatformAdmins() {
         return sharingPlatformAdminRepository.findAll();
+    }
+
+    public boolean updateSharingPlatformAdmin(int sharingPlatformId, String name, String email) {
+        SharingPlatformAdmin sharingPlatformAdmin = sharingPlatformAdminRepository.findById(sharingPlatformId).orElse(null);
+        if (sharingPlatformAdmin == null) {
+            return false;
+        }
+        sharingPlatformAdmin.setName(name);
+        sharingPlatformAdmin.setEmail(email);
+        sharingPlatformAdminRepository.save(sharingPlatformAdmin);
+        return true;
     }
 }

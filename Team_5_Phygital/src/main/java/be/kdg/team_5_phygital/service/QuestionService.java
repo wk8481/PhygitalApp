@@ -1,6 +1,8 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.Question;
+import be.kdg.team_5_phygital.domain.QuestionType;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.QuestionRepo;
 import org.springframework.stereotype.Service;
@@ -33,5 +35,14 @@ public class QuestionService {
 
     public List<Question> getQuestionBySubTheme(SubTheme subTheme){return questionRepository.getQuestionsBySubThemeEquals(subTheme);}
 
-    public Question updateQuestion(Question update) {return questionRepository.save(update);}
+    public boolean updateQuestion(int questionId, String text, QuestionType type) {
+        Question project = questionRepository.findById(questionId).orElse(null);
+        if (project == null) {
+            return false;
+        }
+        project.setText(text);
+        project.setType(type);
+        questionRepository.save(project);
+        return true;
+    }
 }

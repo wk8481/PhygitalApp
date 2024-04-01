@@ -10,26 +10,34 @@ import java.util.Optional;
 
 @Service
 public class SupervisorService {
-    private SupervisorRepo supervisorRepo;
+    private SupervisorRepo supervisorRepository;
 
-    public SupervisorService(SupervisorRepo supervisorRepo) {
-        this.supervisorRepo = supervisorRepo;
+    public SupervisorService(SupervisorRepo supervisorRepository) {
+        this.supervisorRepository = supervisorRepository;
     }
 
     public Supervisor createSupervisor(Supervisor supervisor) {
-        return supervisorRepo.save(supervisor);
+        return supervisorRepository.save(supervisor);
     }
 
     public Optional<Supervisor> getSupervisorById(int id) {
-        return supervisorRepo.findById(id);
+        return supervisorRepository.findById(id);
     }
 
     public List<Supervisor> getAllSupervisors() {
-        return supervisorRepo.findAll();
+        return supervisorRepository.findAll();
     }
 
-    public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepo.findSupervisorBySharingPlatformEquals(sharingPlatform);}
+    public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepository.findSupervisorBySharingPlatformEquals(sharingPlatform);}
 
-    public Supervisor updateSupervisor(Supervisor updatedSuperVisor) { return supervisorRepo.save(updatedSuperVisor
-    );}
+    public boolean updateSupervisor(int supervisorId, String name, String email) {
+        Supervisor supervisor = supervisorRepository.findById(supervisorId).orElse(null);
+        if (supervisor == null) {
+            return false;
+        }
+        supervisor.setName(name);
+        supervisor.setEmail(email);
+        supervisorRepository.save(supervisor);
+        return true;
+    }
 }

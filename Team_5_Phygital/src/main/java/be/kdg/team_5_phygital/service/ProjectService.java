@@ -2,6 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
+import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
 import be.kdg.team_5_phygital.repository.ProjectRepo;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +31,13 @@ public class ProjectService{
 
     public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsBySharingPlatform(sharingPlatform);}
 
-    public Project updateProject(Project updatedProject){ return projectRepository.save(updatedProject);}
+    public boolean updateProject(int projectId, String name) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        if (project == null) {
+            return false;
+        }
+        project.setName(name);
+        projectRepository.save(project);
+        return true;
+    }
 }
