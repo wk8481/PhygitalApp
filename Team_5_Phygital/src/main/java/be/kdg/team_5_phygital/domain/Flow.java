@@ -11,6 +11,8 @@ public class Flow {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name;
+
     private boolean isCircular;
 
     @ManyToOne(optional = false)
@@ -26,21 +28,31 @@ public class Flow {
     public Flow() {
     }
 
-    public List<UserDetail> getUserDetail() {
-        return userDetail;
+    public Flow(String name) {
+        this.name = name;
     }
-
-    public void setUserDetail(List<UserDetail> userDetail) {
-        this.userDetail = userDetail;
-    }
-
-
 
     public Flow(boolean isCircular, Project project, List<SubTheme> subThemes, List<UserDetail> userDetail) {
         this.isCircular = isCircular;
         this.project = project;
         this.subThemes = subThemes;
         this.userDetail = userDetail;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isCircular() {
@@ -67,11 +79,11 @@ public class Flow {
         this.subThemes = subThemes;
     }
 
-    public int getId() {
-        return id;
+    public List<UserDetail> getUserDetail() {
+        return userDetail;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserDetail(List<UserDetail> userDetail) {
+        this.userDetail = userDetail;
     }
 }

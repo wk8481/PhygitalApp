@@ -2,7 +2,9 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.repository.FlowRepo;
+import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.repository.FlowRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.Optional;
 
 @Service
 public class FlowService {
-    private FlowRepo flowRepository;
+    private final FlowRepository flowRepository;
 
-    public FlowService(FlowRepo flowRepository) {
+    public FlowService(FlowRepository flowRepository) {
         this.flowRepository = flowRepository;
     }
 
@@ -31,5 +33,30 @@ public class FlowService {
         return flowRepository.findAll();
     }
 
-    public List<Flow> findFlowsByProjectId(Project project){ return flowRepository.findFlowsByProjectEquals(project);}
+    public List<Flow> getFlowsByProjectId(Project project){ return flowRepository.findFlowsByProjectEquals(project);}
+
+    @Transactional
+    public Flow saveFlow(String name) {
+        return flowRepository.save(new Flow(name));
+    }
+
+    public boolean updateFlow(int flowId, String name) {
+        Flow flow = flowRepository.findById(flowId).orElse(null);
+        if (flow == null) {
+            return false;
+        }
+        flow.setName(name);
+        flowRepository.save(flow);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteFlow(int flowId) {
+        Optional<Flow> flow = flowRepository.findById(flowId);
+        if (flow.isEmpty()) {
+            return false;
+        }
+        flowRepository.deleteById(flowId);
+        return true;
+    }
 }

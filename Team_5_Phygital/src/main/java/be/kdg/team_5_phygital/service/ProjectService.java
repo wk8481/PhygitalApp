@@ -2,8 +2,9 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
-import be.kdg.team_5_phygital.repository.ProjectRepo;
+import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.repository.ProjectRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,14 +12,10 @@ import java.util.Optional;
 
 @Service
 public class ProjectService{
-    private final ProjectRepo projectRepository;
+    private final ProjectRepository projectRepository;
 
-    public ProjectService(ProjectRepo projectRepository) {
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
-    }
-
-    public Project createProject(Project project) {
-        return projectRepository.save(project);
     }
 
     public Optional<Project> getProjectById(int id) {
@@ -29,8 +26,13 @@ public class ProjectService{
         return projectRepository.findAll();
     }
 
-    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsBySharingPlatform(sharingPlatform);}
+    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.findAllBySharingPlatform(sharingPlatform);}
 
+    @Transactional
+    public Project saveProject(String name) {
+        return projectRepository.save(new Project(name));
+    }
+    
     public boolean updateProject(int projectId, String name) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {
@@ -38,6 +40,16 @@ public class ProjectService{
         }
         project.setName(name);
         projectRepository.save(project);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteProject(int projectId) {
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            return false;
+        }
+        projectRepository.deleteById(projectId);
         return true;
     }
 }

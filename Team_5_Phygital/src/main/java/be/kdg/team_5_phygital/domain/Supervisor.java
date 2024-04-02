@@ -21,19 +21,18 @@ public class Supervisor {
     @OneToMany(mappedBy = "supervisor", fetch = FetchType.LAZY)
     private List<Project> projects;
 
-    public Supervisor () {}
+    public Supervisor() {
+    }
 
-    public Supervisor(int id, String name, String email, String password) {
-        this.id = id;
+    public Supervisor(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public Supervisor(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public Supervisor(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
     }
 
     public SharingPlatform getSharingPlatform() {
@@ -95,13 +94,6 @@ public class Supervisor {
 
     @Override
     public String toString() {
-        return "Supervisor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", sharingPlatform=" + sharingPlatform +
-                ", projects=" + projects +
-                '}';
+        return "Supervisor{" + "id=" + id + ", name='" + name + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", sharingPlatform=" + sharingPlatform + ", projects=" + projects + '}';
     }
 }

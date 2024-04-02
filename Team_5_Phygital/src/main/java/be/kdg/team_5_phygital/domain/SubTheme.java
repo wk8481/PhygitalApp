@@ -21,8 +21,12 @@ public class SubTheme {
     public SubTheme() {
     }
 
-    public SubTheme(int id, String name, String information, Flow flow) {
-        this.id = id;
+    public SubTheme(String name, String information) {
+        this.name = name;
+        this.information = information;
+    }
+
+    public SubTheme(String name, String information, Flow flow) {
         this.name = name;
         this.information = information;
         this.flow = flow;

@@ -1,13 +1,18 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-public class UpdateSubthemeDto {
+public class SubThemeDto {
     private int id;
-
     private String name;
 
     private String information;
 
-    public UpdateSubthemeDto() {
+    public SubThemeDto() {
+    }
+
+    public SubThemeDto(int id, String name, String information) {
+        this.id = id;
+        this.name = name;
+        this.information = information;
     }
 
     public int getId() {

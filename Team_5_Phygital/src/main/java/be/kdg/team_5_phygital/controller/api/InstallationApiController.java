@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/installation")
-public class RESTInstallationController {
+public class InstallationApiController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final InstallationService installationService;
 
-    public RESTInstallationController(InstallationService installationService) {
+    public InstallationApiController(InstallationService installationService) {
         this.installationService = installationService;
     }
 

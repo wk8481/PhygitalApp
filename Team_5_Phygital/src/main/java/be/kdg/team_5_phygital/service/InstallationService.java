@@ -1,7 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Installation;
-import be.kdg.team_5_phygital.repository.InstallationRepo;
+import be.kdg.team_5_phygital.repository.InstallationRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Service
 public class InstallationService {
-    private InstallationRepo installationRepository;
+    private final InstallationRepository installationRepository;
 
-    public InstallationService(InstallationRepo installationRepository) {
+    public InstallationService(InstallationRepository installationRepository) {
         this.installationRepository = installationRepository;
     }
 

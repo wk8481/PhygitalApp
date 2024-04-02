@@ -2,7 +2,9 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
-import be.kdg.team_5_phygital.repository.SupervisorRepo;
+import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.repository.SupervisorRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +12,9 @@ import java.util.Optional;
 
 @Service
 public class SupervisorService {
-    private SupervisorRepo supervisorRepository;
+    private final SupervisorRepository supervisorRepository;
 
-    public SupervisorService(SupervisorRepo supervisorRepository) {
+    public SupervisorService(SupervisorRepository supervisorRepository) {
         this.supervisorRepository = supervisorRepository;
     }
 
@@ -30,6 +32,11 @@ public class SupervisorService {
 
     public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepository.findSupervisorBySharingPlatformEquals(sharingPlatform);}
 
+    @Transactional
+    public Supervisor saveSupervisor(String name, String email) {
+        return supervisorRepository.save(new Supervisor(name, email));
+    }
+
     public boolean updateSupervisor(int supervisorId, String name, String email) {
         Supervisor supervisor = supervisorRepository.findById(supervisorId).orElse(null);
         if (supervisor == null) {
@@ -38,6 +45,16 @@ public class SupervisorService {
         supervisor.setName(name);
         supervisor.setEmail(email);
         supervisorRepository.save(supervisor);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteSupervisor(int supervisorId) {
+        Optional<Supervisor> supervisor = supervisorRepository.findById(supervisorId);
+        if (supervisor.isEmpty()) {
+            return false;
+        }
+        supervisorRepository.deleteById(supervisorId);
         return true;
     }
 }

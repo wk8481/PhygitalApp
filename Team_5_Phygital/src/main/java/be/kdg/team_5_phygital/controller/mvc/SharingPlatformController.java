@@ -4,28 +4,31 @@ import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("sharing-platform")
 public class SharingPlatformController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
-    private final ProjectService projectService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SharingPlatformService sharingPlatformService;
+    private final ProjectService projectService;
     private final SupervisorService supervisorService;
+    private final ThemeService themeService;
     private final FlowService flowService;
     private final SubThemeService subThemeService;
     private final QuestionService questionService;
 
-    public SharingPlatformController(ProjectService projectService, SharingPlatformService sharingPlatformService, SupervisorService supervisorService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService) {
-        this.projectService = projectService;
+    public SharingPlatformController(SharingPlatformService sharingPlatformService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService) {
         this.sharingPlatformService = sharingPlatformService;
+        this.projectService = projectService;
         this.supervisorService = supervisorService;
+        this.themeService = themeService;
         this.flowService = flowService;
         this.subThemeService = subThemeService;
         this.questionService = questionService;
@@ -53,10 +56,17 @@ public class SharingPlatformController {
     @GetMapping("{platformId}/project/{projectId}")
     public String getProject(@PathVariable int platformId, @PathVariable int projectId, Model model) {
         Project project = projectService.getProjectById(projectId).orElse(null);
-        List<Flow> flows =  flowService.findFlowsByProjectId(project);
+        List<Flow> flows = flowService.getFlowsByProjectId(project);
         model.addAttribute("project", project);
         model.addAttribute("flow", flows);
         return "sharing-platform/project";
+    }
+
+    @GetMapping("project/{projectId}/theme")
+    public String getTheme(@PathVariable int projectId, Model model) {
+        Theme theme = themeService.getThemeByProjectId(projectId);
+        model.addAttribute("theme", theme);
+        return "sharing-platform/theme";
     }
 
     @GetMapping("project/{projectId}/flow/{flowId}")
@@ -66,11 +76,6 @@ public class SharingPlatformController {
         model.addAttribute("flow", flow);
         model.addAttribute("st", subThemes);
         return "sharing-platform/flow";
-    }
-
-    @GetMapping("theme")
-    public String getTheme() {
-        return "sharing-platform/theme";
     }
 
     @GetMapping("flow/{flowId}/sub-theme/{stId}")

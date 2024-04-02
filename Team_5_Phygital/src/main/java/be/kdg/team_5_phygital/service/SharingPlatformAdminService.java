@@ -1,18 +1,19 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
-import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepo;
+import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class SharingPlatformAdminService{
-    private SharingPlatformAdminRepo sharingPlatformAdminRepository;
+    private final SharingPlatformAdminRepository sharingPlatformAdminRepository;
 
-    public SharingPlatformAdminService(SharingPlatformAdminRepo sharingPlatformAdminRepository) {
+    public SharingPlatformAdminService(SharingPlatformAdminRepository sharingPlatformAdminRepository) {
         this.sharingPlatformAdminRepository = sharingPlatformAdminRepository;
     }
 
@@ -31,6 +32,11 @@ public class SharingPlatformAdminService{
         return sharingPlatformAdminRepository.findAll();
     }
 
+    @Transactional
+    public SharingPlatformAdmin saveSharingPlatformAdmin(String name, String email, String password) {
+        return sharingPlatformAdminRepository.save(new SharingPlatformAdmin(name, email, password));
+    }
+
     public boolean updateSharingPlatformAdmin(int sharingPlatformId, String name, String email) {
         SharingPlatformAdmin sharingPlatformAdmin = sharingPlatformAdminRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatformAdmin == null) {
@@ -39,6 +45,16 @@ public class SharingPlatformAdminService{
         sharingPlatformAdmin.setName(name);
         sharingPlatformAdmin.setEmail(email);
         sharingPlatformAdminRepository.save(sharingPlatformAdmin);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteSharingPlatformAdmin(int sharingPlatformAdminId) {
+        Optional<SharingPlatformAdmin> sharingPlatformAdmin = sharingPlatformAdminRepository.findById(sharingPlatformAdminId);
+        if (sharingPlatformAdmin.isEmpty()) {
+            return false;
+        }
+        sharingPlatformAdminRepository.deleteById(sharingPlatformAdminId);
         return true;
     }
 }

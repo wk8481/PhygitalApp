@@ -18,15 +18,20 @@ public class Question {
     @JoinColumn(name = "sub_theme_id")
     private SubTheme subTheme;
 
+    public Question() {
+
+    }
+
+    public Question(String text, QuestionType type) {
+        this.text = text;
+        this.type = type;
+    }
+
     public Question(int id, String text, QuestionType type, SubTheme theme) {
         this.id = id;
         this.text = text;
         this.type = type;
         this.subTheme = theme;
-    }
-
-    public Question() {
-
     }
 
     public int getId() {
