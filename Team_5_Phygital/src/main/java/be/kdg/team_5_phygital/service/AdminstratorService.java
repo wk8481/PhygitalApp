@@ -1,6 +1,6 @@
 package be.kdg.team_5_phygital.service;
 import be.kdg.team_5_phygital.domain.Administrator;
-import be.kdg.team_5_phygital.repository.AdministratorRepo;
+import be.kdg.team_5_phygital.repository.AdministratorRepository;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,11 +12,11 @@ import java.util.Optional;
 
 @Service
 public class AdminstratorService {
-    private AdministratorRepo administratorRepository;
+    private AdministratorRepository administratorRepository;
     private Logger logger = LoggerFactory.getLogger(AdminstratorService.class);
 
     @Autowired
-    public AdminstratorService(AdministratorRepo administratorRepository) {
+    public AdminstratorService(AdministratorRepository administratorRepository) {
         logger.info("AdministratorService is created");
         this.administratorRepository = administratorRepository;
     }

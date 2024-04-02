@@ -2,8 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
-import be.kdg.team_5_phygital.repository.ProjectRepo;
+import be.kdg.team_5_phygital.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +10,9 @@ import java.util.Optional;
 
 @Service
 public class ProjectService{
-    private final ProjectRepo projectRepository;
+    private final ProjectRepository projectRepository;
 
-    public ProjectService(ProjectRepo projectRepository) {
+    public ProjectService(ProjectRepository projectRepository) {
         this.projectRepository = projectRepository;
     }
 

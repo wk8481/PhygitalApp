@@ -1,10 +1,14 @@
 package be.kdg.team_5_phygital.controller.api;
 
-import be.kdg.team_5_phygital.controller.api.dto.UpdateSharingPlatformAdminDto;
-import be.kdg.team_5_phygital.controller.api.dto.UpdateSharingPlatformDto;
+import be.kdg.team_5_phygital.controller.api.dto.*;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
+import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
+import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepository;
+import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.service.SharingPlatformAdminService;
 import be.kdg.team_5_phygital.service.SharingPlatformService;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,11 +20,35 @@ import org.springframework.web.bind.annotation.*;
 public class RESTAdminController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SharingPlatformService sharingPlatformService;
-    private final SharingPlatformAdminService sharingPlatformAdminService;
+    private final SharingPlatformAdminService clientService;
+    private final SharingPlatformRepository sharingPlatformRepository;
+    private final SharingPlatformAdminRepository clientRepository;
+    private final ModelMapper modelMapper;
 
-    public RESTAdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService sharingPlatformAdminService) {
+    public RESTAdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService clientService, SharingPlatformRepository sharingPlatformRepository, SharingPlatformAdminRepository clientRepository, ModelMapper modelMapper) {
         this.sharingPlatformService = sharingPlatformService;
-        this.sharingPlatformAdminService = sharingPlatformAdminService;
+        this.clientService = clientService;
+        this.sharingPlatformRepository = sharingPlatformRepository;
+        this.clientRepository = clientRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    @PostMapping("{platformId}")
+    ResponseEntity<SharingPlatformDto> saveSharingPlatform(@PathVariable int platformId, @RequestBody @Valid NewSharingPlatformDto sharingPlatformDto) {
+        if (sharingPlatformRepository.findByName(sharingPlatformDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        SharingPlatform createdSharingPlatform = sharingPlatformService.saveSharingPlatform(sharingPlatformDto.getName(), sharingPlatformDto.getContactEmail());
+        return new ResponseEntity<>(modelMapper.map(createdSharingPlatform, SharingPlatformDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("{clientId}")
+    ResponseEntity<SharingPlatformAdminDto> saveSharingPlatformAdmin(@PathVariable int clientId, @RequestBody @Valid NewSharingPlatformAdminDto clientDto) {
+        if (clientRepository.findByName(clientDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        SharingPlatformAdmin createdSharingPlatformAdmin = clientService.saveSharingPlatformAdmin(clientDto.getName(), clientDto.getEmail(),clientDto.getPassword());
+        return new ResponseEntity<>(modelMapper.map(createdSharingPlatformAdmin, SharingPlatformAdminDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("{platformId}/update")
@@ -34,7 +62,7 @@ public class RESTAdminController {
 
     @PatchMapping("{clientId}/update")
     ResponseEntity<Void> updateClient(@PathVariable int clientId, @RequestBody UpdateSharingPlatformAdminDto updateClient) {
-        if (sharingPlatformAdminService.updateSharingPlatformAdmin(clientId, updateClient.getName(), updateClient.getEmail())) {
+        if (clientService.updateSharingPlatformAdmin(clientId, updateClient.getName(), updateClient.getEmail())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

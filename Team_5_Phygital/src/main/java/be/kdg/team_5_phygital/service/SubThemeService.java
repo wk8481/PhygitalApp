@@ -2,7 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.SubTheme;
-import be.kdg.team_5_phygital.repository.SubThemeRepo;
+import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Service
 public class SubThemeService {
-    private SubThemeRepo subThemeRepository;
+    private SubThemeRepository subThemeRepository;
 
-    public SubThemeService(SubThemeRepo subThemeRepository) {
+    public SubThemeService(SubThemeRepository subThemeRepository) {
         this.subThemeRepository = subThemeRepository;
     }
 

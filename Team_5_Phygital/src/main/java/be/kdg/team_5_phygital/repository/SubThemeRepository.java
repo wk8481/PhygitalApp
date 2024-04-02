@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface SubThemeRepo extends JpaRepository<SubTheme, Integer> {
+public interface SubThemeRepository extends JpaRepository<SubTheme, Integer> {
 
     List<SubTheme> getSubThemesByFlow(Flow flow);
 }

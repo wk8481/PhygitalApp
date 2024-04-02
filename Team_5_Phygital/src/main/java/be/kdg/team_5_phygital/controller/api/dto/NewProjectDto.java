@@ -1,9 +1,9 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-public class UpdateSharingPlatformDto {
+public class NewProjectDto {
     private String name;
 
-    public UpdateSharingPlatformDto() {
+    public NewProjectDto() {
     }
 
     public String getName() {

@@ -1,10 +1,10 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-public class UpdateSharingPlatformAdminDto {
+public class NewSupervisorDto {
     private String name;
     private String email;
 
-    public UpdateSharingPlatformAdminDto() {
+    public NewSupervisorDto() {
     }
 
     public String getName() {

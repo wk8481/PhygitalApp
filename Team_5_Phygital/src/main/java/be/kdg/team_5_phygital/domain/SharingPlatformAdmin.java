@@ -22,8 +22,13 @@ public class SharingPlatformAdmin {
     public SharingPlatformAdmin() {
     }
 
-    public SharingPlatformAdmin(int id, String name, String email, String password, SharingPlatform sharingPlatform) {
-        this.id = id;
+    public SharingPlatformAdmin(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public SharingPlatformAdmin(String name, String email, String password, SharingPlatform sharingPlatform) {
         this.name = name;
         this.email = email;
         this.password = password;

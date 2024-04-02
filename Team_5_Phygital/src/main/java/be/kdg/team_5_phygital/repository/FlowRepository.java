@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FlowRepo extends JpaRepository<Flow, Integer> {
+public interface FlowRepository extends JpaRepository<Flow, Integer> {
 
         List<Flow> findFlowsByProjectEquals(Project project);
 }

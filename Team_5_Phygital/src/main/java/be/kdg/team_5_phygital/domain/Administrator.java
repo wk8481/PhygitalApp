@@ -22,8 +22,7 @@ public class Administrator {
     public Administrator() {
     }
 
-    public Administrator(int id, String name, List<SharingPlatform> sharingPlatforms, List<Project> projects) {
-        this.id = id;
+    public Administrator(String name, List<SharingPlatform> sharingPlatforms, List<Project> projects) {
         this.name = name;
         this.sharingPlatforms = sharingPlatforms;
         this.projects = projects;

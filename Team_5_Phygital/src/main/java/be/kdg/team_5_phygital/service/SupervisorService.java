@@ -2,7 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
-import be.kdg.team_5_phygital.repository.SupervisorRepo;
+import be.kdg.team_5_phygital.repository.SupervisorRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Service
 public class SupervisorService {
-    private SupervisorRepo supervisorRepository;
+    private SupervisorRepository supervisorRepository;
 
-    public SupervisorService(SupervisorRepo supervisorRepository) {
+    public SupervisorService(SupervisorRepository supervisorRepository) {
         this.supervisorRepository = supervisorRepository;
     }
 

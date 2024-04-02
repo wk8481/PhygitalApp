@@ -1,7 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.UserDetail;
-import be.kdg.team_5_phygital.repository.UserRepo;
+import be.kdg.team_5_phygital.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-    private UserRepo userRepository;
+    private UserRepository userRepository;
 
-    public UserService(UserRepo userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

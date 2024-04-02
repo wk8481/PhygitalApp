@@ -2,11 +2,11 @@ package be.kdg.team_5_phygital.controller.api.dto;
 
 import be.kdg.team_5_phygital.domain.QuestionType;
 
-public class UpdateQuestionDto {
+public class NewQuestionDto {
     private String text;
     private QuestionType type;
 
-    public UpdateQuestionDto() {
+    public NewQuestionDto() {
     }
 
     public String getText() {

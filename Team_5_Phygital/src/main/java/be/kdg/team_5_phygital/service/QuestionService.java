@@ -1,10 +1,9 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.QuestionType;
 import be.kdg.team_5_phygital.domain.SubTheme;
-import be.kdg.team_5_phygital.repository.QuestionRepo;
+import be.kdg.team_5_phygital.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,9 +11,9 @@ import java.util.Optional;
 
 @Service
 public class QuestionService {
-    private QuestionRepo questionRepository;
+    private QuestionRepository questionRepository;
 
-    public QuestionService(QuestionRepo questionRepository) {
+    public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
     }
 

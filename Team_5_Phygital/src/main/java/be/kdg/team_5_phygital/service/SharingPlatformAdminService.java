@@ -1,18 +1,19 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
-import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepo;
+import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class SharingPlatformAdminService{
-    private SharingPlatformAdminRepo sharingPlatformAdminRepository;
+    private SharingPlatformAdminRepository sharingPlatformAdminRepository;
 
-    public SharingPlatformAdminService(SharingPlatformAdminRepo sharingPlatformAdminRepository) {
+    public SharingPlatformAdminService(SharingPlatformAdminRepository sharingPlatformAdminRepository) {
         this.sharingPlatformAdminRepository = sharingPlatformAdminRepository;
     }
 
@@ -29,6 +30,11 @@ public class SharingPlatformAdminService{
 
     public List<SharingPlatformAdmin> findAllSharingPlatformAdmins() {
         return sharingPlatformAdminRepository.findAll();
+    }
+
+    @Transactional
+    public SharingPlatformAdmin saveSharingPlatformAdmin(String name, String email, String password) {
+        return sharingPlatformAdminRepository.save(new SharingPlatformAdmin(name, email, password));
     }
 
     public boolean updateSharingPlatformAdmin(int sharingPlatformId, String name, String email) {

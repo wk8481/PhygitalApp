@@ -1,7 +1,9 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.repository.SharingPlatformRepo;
+import be.kdg.team_5_phygital.domain.SharingPlatform;
+import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,14 +14,14 @@ import java.util.Optional;
  */
 @Service
 public class SharingPlatformService {
-    private final SharingPlatformRepo sharingPlatformRepository;
+    private final SharingPlatformRepository sharingPlatformRepository;
 
     /**
      * Instantiates a new Sharing platform service.
      *
-     * @param sharingPlatformRepository the sharing platform repo
+     * @param sharingPlatformRepository the sharing platform repository
      */
-    public SharingPlatformService(SharingPlatformRepo sharingPlatformRepository) {
+    public SharingPlatformService(SharingPlatformRepository sharingPlatformRepository) {
         this.sharingPlatformRepository = sharingPlatformRepository;
     }
 
@@ -56,6 +58,18 @@ public class SharingPlatformService {
     }
 
     /**
+     * Save sharing platform sharing platform.
+     *
+     * @param name         the name
+     * @param contactEmail the contact email
+     * @return the sharing platform
+     */
+    @Transactional
+    public SharingPlatform saveSharingPlatform(String name, String contactEmail) {
+        return sharingPlatformRepository.save(new SharingPlatform(name, contactEmail));
+    }
+
+    /**
      * Update sharing platform boolean.
      *
      * @param sharingPlatformId the sharing platform id
@@ -63,12 +77,12 @@ public class SharingPlatformService {
      * @return the boolean
      */
     public boolean updateSharingPlatform(int sharingPlatformId, String name) {
-        SharingPlatform sharingPlatformAdmin = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
-        if (sharingPlatformAdmin == null) {
+        SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
+        if (sharingPlatform == null) {
             return false;
         }
-        sharingPlatformAdmin.setName(name);
-        sharingPlatformRepository.save(sharingPlatformAdmin);
+        sharingPlatform.setName(name);
+        sharingPlatformRepository.save(sharingPlatform);
         return true;
     }
 }

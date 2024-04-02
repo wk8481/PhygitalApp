@@ -1,13 +1,14 @@
 package be.kdg.team_5_phygital.controller.api;
 
-import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
-import be.kdg.team_5_phygital.controller.api.dto.UpdateQuestionDto;
-import be.kdg.team_5_phygital.controller.api.dto.UpdateSubthemeDto;
-import be.kdg.team_5_phygital.controller.api.dto.UpdateSupervisorDto;
-import be.kdg.team_5_phygital.service.ProjectService;
-import be.kdg.team_5_phygital.service.QuestionService;
-import be.kdg.team_5_phygital.service.SubThemeService;
-import be.kdg.team_5_phygital.service.SupervisorService;
+import be.kdg.team_5_phygital.controller.api.dto.*;
+import be.kdg.team_5_phygital.domain.Project;
+import be.kdg.team_5_phygital.domain.Question;
+import be.kdg.team_5_phygital.domain.SubTheme;
+import be.kdg.team_5_phygital.domain.Supervisor;
+import be.kdg.team_5_phygital.repository.*;
+import be.kdg.team_5_phygital.service.*;
+import jakarta.validation.Valid;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,13 +22,63 @@ public class RESTSharingPlatformController {
     private final ProjectService projectService;
     private final SupervisorService supervisorService;
     private final SubThemeService subThemeService;
+    private final FlowService flowService;
     private final QuestionService questionService;
+    private final ProjectRepository projectRepository;
+    private final SupervisorRepository supervisorRepository;
+    private final SubThemeRepository subThemeRepository;
+    private final FlowRepository flowRepository;
+    private final QuestionRepository questionRepository;
+    private final ModelMapper modelMapper;
 
-    public RESTSharingPlatformController(ProjectService projectService, SupervisorService supervisorService, SubThemeService subThemeService, QuestionService questionService) {
+    public RESTSharingPlatformController(ProjectService projectService, SupervisorService supervisorService, SubThemeService subThemeService, FlowService flowService, QuestionService questionService, ProjectRepository projectRepository, SupervisorRepository supervisorRepository, SubThemeRepository subThemeRepository, FlowRepository flowRepository, QuestionRepository questionRepository, ModelMapper modelMapper) {
         this.projectService = projectService;
         this.supervisorService = supervisorService;
         this.subThemeService = subThemeService;
+        this.flowService = flowService;
         this.questionService = questionService;
+        this.projectRepository = projectRepository;
+        this.supervisorRepository = supervisorRepository;
+        this.subThemeRepository = subThemeRepository;
+        this.flowRepository = flowRepository;
+        this.questionRepository = questionRepository;
+        this.modelMapper = modelMapper;
+    }
+
+    @PostMapping("{platformId}")
+    ResponseEntity<ProjectDto> saveProject(@PathVariable int platformId, @RequestBody @Valid NewProjectDto projectDto) {
+        if (projectRepository.findByName(projectDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        Project createdProject = projectService.saveProject(projectDto.getName());
+        return new ResponseEntity<>(modelMapper.map(createedProject, ProjectDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("{supervisorId}")
+    ResponseEntity<SupervisorDto> saveSupervisor(@PathVariable int supervisorId, @RequestBody @Valid NewSupervisorDto supervisorDto) {
+        if (supervisorRepository.findByName(supervisorDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName());
+        return new ResponseEntity<>(modelMapper.map(createdSupervisor, SupervisorDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("{subThemeId}")
+    ResponseEntity<SubThemeDto> saveSubTheme(@PathVariable int subThemeId, @RequestBody @Valid NewSubThemeDto subThemeDto) {
+        if (subThemeRepository.findByName(subThemeDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        SubTheme createdSubTheme = subThemeService.saveSubTheme(subThemeDto.getName());
+        return new ResponseEntity<>(modelMapper.map(createdSubTheme, SubThemeDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("{questionId}")
+    ResponseEntity<QuestionDto> saveQuestion(@PathVariable int questionId, @RequestBody @Valid NewQuestionDto questionDto) {
+        if (questionRepository.findByName(questionDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        Question createdQuestion = questionService.saveQuestion(questionDto.getText());
+        return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("/platform/{platformId}/project/{projectId}/update")
@@ -49,7 +100,7 @@ public class RESTSharingPlatformController {
     }
 
     @PatchMapping("/flow/{flowId}/sub-theme/{subThemeId}/update")
-    ResponseEntity<Void> updateSubtheme(@PathVariable int subThemeId, @RequestBody UpdateSubthemeDto updateSubthemeDto) {
+    ResponseEntity<Void> updateSubtheme(@PathVariable int subThemeId, @RequestBody UpdateSubThemeDto updateSubthemeDto) {
         if (subThemeService.updateSubTheme(subThemeId, updateSubthemeDto.getName(), updateSubthemeDto.getInformation())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

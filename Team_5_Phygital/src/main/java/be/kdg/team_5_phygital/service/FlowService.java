@@ -2,7 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.repository.FlowRepo;
+import be.kdg.team_5_phygital.repository.FlowRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @Service
 public class FlowService {
-    private FlowRepo flowRepository;
+    private FlowRepository flowRepository;
 
-    public FlowService(FlowRepo flowRepository) {
+    public FlowService(FlowRepository flowRepository) {
         this.flowRepository = flowRepository;
     }
 

@@ -1,10 +1,11 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-public class UpdateSharingPlatformAdminDto {
+public class NewSharingPlatformAdminDto {
     private String name;
     private String email;
+    private String password;
 
-    public UpdateSharingPlatformAdminDto() {
+    public NewSharingPlatformAdminDto() {
     }
 
     public String getName() {
@@ -21,5 +22,13 @@ public class UpdateSharingPlatformAdminDto {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
