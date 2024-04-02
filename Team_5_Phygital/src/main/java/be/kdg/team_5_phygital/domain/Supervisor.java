@@ -21,7 +21,8 @@ public class Supervisor {
     @OneToMany(mappedBy = "supervisor", fetch = FetchType.LAZY)
     private List<Project> projects;
 
-    public Supervisor () {}
+    public Supervisor() {
+    }
 
     public Supervisor(String name, String email) {
         this.name = name;
@@ -93,13 +94,6 @@ public class Supervisor {
 
     @Override
     public String toString() {
-        return "Supervisor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", sharingPlatform=" + sharingPlatform +
-                ", projects=" + projects +
-                '}';
+        return "Supervisor{" + "id=" + id + ", name='" + name + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", sharingPlatform=" + sharingPlatform + ", projects=" + projects + '}';
     }
 }

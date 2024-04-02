@@ -17,10 +17,6 @@ public class ProjectService{
         this.projectRepository = projectRepository;
     }
 
-    public Project createProject(Project project) {
-        return projectRepository.save(project);
-    }
-
     public Optional<Project> getProjectById(int id) {
         return projectRepository.findById(id);
     }
@@ -29,7 +25,7 @@ public class ProjectService{
         return projectRepository.findAll();
     }
 
-    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsBySharingPlatform(sharingPlatform);}
+    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.findAllBySharingPlatform(sharingPlatform);}
 
     @Transactional
     public Project saveProject(String name) {

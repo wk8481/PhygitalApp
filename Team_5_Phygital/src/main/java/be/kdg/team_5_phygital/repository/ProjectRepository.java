@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
-    List<Project> getProjectsBySharingPlatform(SharingPlatform sharingPlatform);
+    List<Project> findAllBySharingPlatform(SharingPlatform sharingPlatform);
 
     Optional<Project> findByName(String name);
 }

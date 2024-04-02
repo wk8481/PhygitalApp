@@ -1,20 +1,21 @@
 const submitButton = document.querySelector("#saveButton");
 
-submitButton.addEventListener("click", updateClient);
+submitButton.addEventListener("click", updateSupervisor);
 const link = window.location.href.substring(window.location.href);
 
-var [platformId, clientId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "client")
+const [platformId, superVisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor");
 
-function updateClient(event) {
+function updateSupervisor(event) {
+    console.log(platformId, superVisorId)
     const name = document.getElementById("nameInput").value;
     const email = document.getElementById("emailInput").value;
 
-    console.log("updating client to " + name)
-    fetch(`/api/admin/platform/${platformId}/client/${clientId}/update`, {
+    console.log("updating supervisor to " + name)
+    fetch(`/api/sharing-platform/platform/${platformId}/supervisor/${superVisorId}/update`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": clientId, "name": name, "email": email
+            "id": superVisorId, "name": name, "email": email, "platform": platformId
         })
     })
         .then(response => {
@@ -23,3 +24,5 @@ function updateClient(event) {
             }
         });
 }
+
+

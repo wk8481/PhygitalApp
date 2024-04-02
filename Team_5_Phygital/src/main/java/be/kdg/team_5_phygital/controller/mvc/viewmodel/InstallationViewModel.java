@@ -1,4 +1,4 @@
-package be.kdg.team_5_phygital.controller.mvc.vm;
+package be.kdg.team_5_phygital.controller.mvc.viewmodel;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.UserDetail;

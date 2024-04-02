@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/admin")
-public class RESTAdminController {
+public class AdminApiController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SharingPlatformService sharingPlatformService;
     private final SharingPlatformAdminService clientService;
@@ -25,7 +25,7 @@ public class RESTAdminController {
     private final SharingPlatformAdminRepository clientRepository;
     private final ModelMapper modelMapper;
 
-    public RESTAdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService clientService, SharingPlatformRepository sharingPlatformRepository, SharingPlatformAdminRepository clientRepository, ModelMapper modelMapper) {
+    public AdminApiController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService clientService, SharingPlatformRepository sharingPlatformRepository, SharingPlatformAdminRepository clientRepository, ModelMapper modelMapper) {
         this.sharingPlatformService = sharingPlatformService;
         this.clientService = clientService;
         this.sharingPlatformRepository = sharingPlatformRepository;
@@ -33,7 +33,7 @@ public class RESTAdminController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{platformId}")
+    @PostMapping("platform/{platformId}")
     ResponseEntity<SharingPlatformDto> saveSharingPlatform(@PathVariable int platformId, @RequestBody @Valid NewSharingPlatformDto sharingPlatformDto) {
         if (sharingPlatformRepository.findByName(sharingPlatformDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -42,7 +42,7 @@ public class RESTAdminController {
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatform, SharingPlatformDto.class), HttpStatus.CREATED);
     }
 
-    @PostMapping("{clientId}")
+    @PostMapping("platform/{platformId}/client/{clientId}")
     ResponseEntity<SharingPlatformAdminDto> saveSharingPlatformAdmin(@PathVariable int clientId, @RequestBody @Valid NewSharingPlatformAdminDto clientDto) {
         if (clientRepository.findByName(clientDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -51,7 +51,7 @@ public class RESTAdminController {
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatformAdmin, SharingPlatformAdminDto.class), HttpStatus.CREATED);
     }
 
-    @PatchMapping("{platformId}/update")
+    @PatchMapping("platform/{platformId}/update")
     ResponseEntity<Void> updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatform) {
         if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatform.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -60,8 +60,8 @@ public class RESTAdminController {
         }
     }
 
-    @PatchMapping("{clientId}/update")
-    ResponseEntity<Void> updateClient(@PathVariable int clientId, @RequestBody UpdateSharingPlatformAdminDto updateClient) {
+    @PatchMapping("platform/{platformId}/client/{clientId}/update")
+    ResponseEntity<Void> updateClient(@PathVariable int platformId, @PathVariable int clientId, @RequestBody UpdateSharingPlatformAdminDto updateClient) {
         if (clientService.updateSharingPlatformAdmin(clientId, updateClient.getName(), updateClient.getEmail())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

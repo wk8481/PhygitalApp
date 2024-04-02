@@ -14,7 +14,9 @@ public class Project {
 
     private String name;
 
-    private String theme;
+    @OneToOne
+    @JoinColumn(name = "theme_id")
+    private Theme theme;
 
     private boolean active;
 
@@ -42,7 +44,6 @@ public class Project {
     private Administrator administrator;
 
 
-
     public Project() {
     }
 
@@ -50,7 +51,7 @@ public class Project {
         this.name = name;
     }
 
-    public Project(String name, String theme, boolean active, int totalParticipants, float avgTimeSpent, Supervisor supervisor, Installation installation, List<Flow> flows, SharingPlatform sharingPlatform, Administrator administrator) {
+    public Project(String name, Theme theme, boolean active, int totalParticipants, float avgTimeSpent, Supervisor supervisor, Installation installation, List<Flow> flows, SharingPlatform sharingPlatform, Administrator administrator) {
         this.name = name;
         this.theme = theme;
         this.active = active;
@@ -84,11 +85,11 @@ public class Project {
         this.name = name;
     }
 
-    public String getTheme() {
+    public Theme getTheme() {
         return theme;
     }
 
-    public void setTheme(String theme) {
+    public void setTheme(Theme theme) {
         this.theme = theme;
     }
 

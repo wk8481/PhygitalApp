@@ -14,36 +14,40 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/sharing-platform")
-public class RESTSharingPlatformController {
+public class SharingPlatformApiController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjectService projectService;
     private final SupervisorService supervisorService;
+    private final ThemeService themeService;
     private final SubThemeService subThemeService;
     private final FlowService flowService;
     private final QuestionService questionService;
     private final ProjectRepository projectRepository;
     private final SupervisorRepository supervisorRepository;
+    private final ThemeRepository themeRepository;
     private final SubThemeRepository subThemeRepository;
     private final FlowRepository flowRepository;
     private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
 
-    public RESTSharingPlatformController(ProjectService projectService, SupervisorService supervisorService, SubThemeService subThemeService, FlowService flowService, QuestionService questionService, ProjectRepository projectRepository, SupervisorRepository supervisorRepository, SubThemeRepository subThemeRepository, FlowRepository flowRepository, QuestionRepository questionRepository, ModelMapper modelMapper) {
+    public SharingPlatformApiController(ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, SubThemeService subThemeService, FlowService flowService, QuestionService questionService, ProjectRepository projectRepository, SupervisorRepository supervisorRepository, ThemeRepository themeRepository, SubThemeRepository subThemeRepository, FlowRepository flowRepository, QuestionRepository questionRepository, ModelMapper modelMapper) {
         this.projectService = projectService;
         this.supervisorService = supervisorService;
+        this.themeService = themeService;
         this.subThemeService = subThemeService;
         this.flowService = flowService;
         this.questionService = questionService;
         this.projectRepository = projectRepository;
         this.supervisorRepository = supervisorRepository;
+        this.themeRepository = themeRepository;
         this.subThemeRepository = subThemeRepository;
         this.flowRepository = flowRepository;
         this.questionRepository = questionRepository;
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{platformId}")
-    ResponseEntity<ProjectDto> saveProject(@PathVariable int platformId, @RequestBody @Valid NewProjectDto projectDto) {
+    @PostMapping("/platform/{platformId}/project/{projectId}")
+    ResponseEntity<ProjectDto> saveProject(@PathVariable int platformId, @PathVariable int projectId, @RequestBody @Valid NewProjectDto projectDto) {
         if (projectRepository.findByName(projectDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -51,7 +55,7 @@ public class RESTSharingPlatformController {
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 
-    @PostMapping("{supervisorId}")
+    @PostMapping("/platform/{platformId}/supervisor/{supervisorId}")
     ResponseEntity<SupervisorDto> saveSupervisor(@PathVariable int supervisorId, @RequestBody @Valid NewSupervisorDto supervisorDto) {
         if (supervisorRepository.findByName(supervisorDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -60,7 +64,16 @@ public class RESTSharingPlatformController {
         return new ResponseEntity<>(modelMapper.map(createdSupervisor, SupervisorDto.class), HttpStatus.CREATED);
     }
 
-    @PostMapping("{flowId}")
+    @PostMapping("/platform/{platformId}/project/{projectId}/theme")
+    ResponseEntity<ThemeDto> saveTheme(@PathVariable int platformId, @PathVariable int projectId, @RequestBody @Valid NewThemeDto themeDto) {
+        if (themeRepository.findByName(themeDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        Theme createdTheme = themeService.saveTheme(themeDto.getName(), themeDto.getInformation());
+        return new ResponseEntity<>(modelMapper.map(createdTheme, ThemeDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/platform/{platformId}/flow/{flowId}")
     ResponseEntity<FlowDto> saveFlow(@PathVariable int flowId, @RequestBody @Valid NewFlowDto flowDto) {
         if (flowRepository.findByName(flowDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -69,7 +82,7 @@ public class RESTSharingPlatformController {
         return new ResponseEntity<>(modelMapper.map(createdFlow, FlowDto.class), HttpStatus.CREATED);
     }
 
-    @PostMapping("{subThemeId}")
+    @PostMapping("/flow/{flowId}/sub-theme/{subThemeId}")
     ResponseEntity<SubThemeDto> saveSubTheme(@PathVariable int subThemeId, @RequestBody @Valid NewSubThemeDto subThemeDto) {
         if (subThemeRepository.findByName(subThemeDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -78,7 +91,7 @@ public class RESTSharingPlatformController {
         return new ResponseEntity<>(modelMapper.map(createdSubTheme, SubThemeDto.class), HttpStatus.CREATED);
     }
 
-    @PostMapping("{questionId}")
+    @PostMapping("/sub-theme/{stId}/question/{questionId}")
     ResponseEntity<QuestionDto> saveQuestion(@PathVariable int questionId, @RequestBody @Valid NewQuestionDto questionDto) {
         if (questionRepository.findByText(questionDto.getText()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -99,6 +112,15 @@ public class RESTSharingPlatformController {
     @PatchMapping("/platform/{platformId}/supervisor/{supervisorId}/update")
     ResponseEntity<Void> updateSupervisorName(@PathVariable int supervisorId, @RequestBody UpdateSupervisorDto updateSupervisorDto) {
         if (supervisorService.updateSupervisor(supervisorId, updateSupervisorDto.getName(), updateSupervisorDto.getEmail())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/platform/{platformId}/project/{projectId}/theme/update")
+    ResponseEntity<Void> updateTheme(@PathVariable int platformId, @PathVariable int projectId, @RequestBody UpdateThemeDto updateTheme) {
+        if (themeService.updateTheme(themeService.getThemeByProjectId(projectId).getId(), updateTheme.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

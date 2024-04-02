@@ -1,8 +1,7 @@
 package be.kdg.team_5_phygital.controller.mvc;
 
-import be.kdg.team_5_phygital.controller.mvc.vm.InstallationViewModel;
+import be.kdg.team_5_phygital.controller.mvc.viewmodel.InstallationViewModel;
 import be.kdg.team_5_phygital.service.InstallationService;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

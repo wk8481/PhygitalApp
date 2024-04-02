@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Project</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 
-    <script src="/js/sharing-platform/project.js" defer></script>
+    <script defer src="/js/sharing-platform/project.js"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
@@ -24,23 +23,23 @@
                     <!-- Name -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="nameInput" class="form-label">Name:</label>
+                            <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" th:field="*{name}" id="nameInput">
+                            <input class="form-control" id="nameInput" th:field="*{name}">
                         </td>
                     </tr>
                     <!-- Theme -->
                     <tr>
                         <th class="col-sm-4">Theme:</th>
                         <td class="col-sm-8">
-                            <a th:href="@{/sharing-platform/theme}"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{/sharing-platform/project/{projectId}/theme(projectId=${project.id})}"><i class="fas fa-edit"></i></a>
                         </td>
                     </tr>
                     <!-- Background Color -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="bgColorInput" class="form-label">Background Color:</label>
+                            <label class="form-label" for="bgColorInput">Background Color:</label>
                         </th>
                         <td class="col-sm-8">
                             <input class="form-control" id="bgColorInput" type="color">
@@ -49,7 +48,7 @@
                     <!-- Font -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="fontInput" class="form-label">Font:</label>
+                            <label class="form-label" for="fontInput">Font:</label>
                         </th>
                         <td class="col-sm-8">
                             <select class="form-control" id="fontInput">
@@ -87,13 +86,14 @@
                     <!-- Flows -->
                     <div class="col-md-4">
                         <table class="table">
-                            <tbody th:each="flows:${flow}" >
+                            <tbody th:each="flows:${flow}">
                             <tr>
                                 <td>
-                                    <a th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.id}, flowId=${flows.id})}"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.id}, flowId=${flows.id})}"><i
+                                            class="fas fa-edit"></i></a>
                                 </td>
-                                <td th:if="${flows.isCircular}" >Circular flow </td>
-                                <td th:unless="${flows.isCircular}">Not circular flow </td>
+                                <td th:if="${flows.isCircular}">Circular flow</td>
+                                <td th:unless="${flows.isCircular}">Not circular flow</td>
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>
@@ -114,7 +114,7 @@
     </div>
     <!-- Return Button -->
     <div class="center-container">
-        <a href="javascript:history.back()" class="btn btn-secondary">
+        <a class="btn btn-secondary" href="javascript:history.back()">
             <i class="fas fa-arrow-left"></i> Return
         </a>
     </div>
