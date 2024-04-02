@@ -1,10 +1,7 @@
 package be.kdg.team_5_phygital.controller.api;
 
 import be.kdg.team_5_phygital.controller.api.dto.*;
-import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.domain.Question;
-import be.kdg.team_5_phygital.domain.SubTheme;
-import be.kdg.team_5_phygital.domain.Supervisor;
+import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.repository.*;
 import be.kdg.team_5_phygital.service.*;
 import jakarta.validation.Valid;
@@ -51,7 +48,7 @@ public class RESTSharingPlatformController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         Project createdProject = projectService.saveProject(projectDto.getName());
-        return new ResponseEntity<>(modelMapper.map(createedProject, ProjectDto.class), HttpStatus.CREATED);
+        return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 
     @PostMapping("{supervisorId}")
@@ -59,8 +56,17 @@ public class RESTSharingPlatformController {
         if (supervisorRepository.findByName(supervisorDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName());
+        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail());
         return new ResponseEntity<>(modelMapper.map(createdSupervisor, SupervisorDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("{flowId}")
+    ResponseEntity<FlowDto> saveFlow(@PathVariable int flowId, @RequestBody @Valid NewFlowDto flowDto) {
+        if (flowRepository.findByName(flowDto.getName()).isPresent()) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
+        Flow createdFlow = flowService.saveFlow(flowDto.getName());
+        return new ResponseEntity<>(modelMapper.map(createdFlow, FlowDto.class), HttpStatus.CREATED);
     }
 
     @PostMapping("{subThemeId}")
@@ -68,16 +74,16 @@ public class RESTSharingPlatformController {
         if (subThemeRepository.findByName(subThemeDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        SubTheme createdSubTheme = subThemeService.saveSubTheme(subThemeDto.getName());
+        SubTheme createdSubTheme = subThemeService.saveSubTheme(subThemeDto.getName(), subThemeDto.getInformation());
         return new ResponseEntity<>(modelMapper.map(createdSubTheme, SubThemeDto.class), HttpStatus.CREATED);
     }
 
     @PostMapping("{questionId}")
     ResponseEntity<QuestionDto> saveQuestion(@PathVariable int questionId, @RequestBody @Valid NewQuestionDto questionDto) {
-        if (questionRepository.findByName(questionDto.getName()).isPresent()) {
+        if (questionRepository.findByText(questionDto.getText()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Question createdQuestion = questionService.saveQuestion(questionDto.getText());
+        Question createdQuestion = questionService.saveQuestion(questionDto.getText(), questionDto.getType());
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
 
@@ -93,6 +99,15 @@ public class RESTSharingPlatformController {
     @PatchMapping("/platform/{platformId}/supervisor/{supervisorId}/update")
     ResponseEntity<Void> updateSupervisorName(@PathVariable int supervisorId, @RequestBody UpdateSupervisorDto updateSupervisorDto) {
         if (supervisorService.updateSupervisor(supervisorId, updateSupervisorDto.getName(), updateSupervisorDto.getEmail())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PatchMapping("/platform/{platformId}/flow/{flowId}/update")
+    ResponseEntity<Void> updateFlow(@PathVariable int flowId, @RequestBody UpdateFlowDto updateFlowDto) {
+        if (flowService.updateFlow(flowId, updateFlowDto.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.service;
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public class ProjectService{
 
     public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.getProjectsBySharingPlatform(sharingPlatform);}
 
+    @Transactional
+    public Project saveProject(String name) {
+        return projectRepository.save(new Project(name));
+    }
+    
     public boolean updateProject(int projectId, String name) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {

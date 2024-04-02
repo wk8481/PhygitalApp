@@ -23,17 +23,15 @@ public class Supervisor {
 
     public Supervisor () {}
 
-    public Supervisor(int id, String name, String email, String password) {
-        this.id = id;
+    public Supervisor(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
+    public Supervisor(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
-    }
-
-    public Supervisor(int id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
     }
 
     public SharingPlatform getSharingPlatform() {

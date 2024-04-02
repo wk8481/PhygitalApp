@@ -46,8 +46,11 @@ public class Project {
     public Project() {
     }
 
-    public Project(int id, String name, String theme, boolean active, int totalParticipants, float avgTimeSpent, Supervisor supervisor, Installation installation, List<Flow> flows, SharingPlatform sharingPlatform, Administrator administrator) {
-        this.id = id;
+    public Project(String name) {
+        this.name = name;
+    }
+
+    public Project(String name, String theme, boolean active, int totalParticipants, float avgTimeSpent, Supervisor supervisor, Installation installation, List<Flow> flows, SharingPlatform sharingPlatform, Administrator administrator) {
         this.name = name;
         this.theme = theme;
         this.active = active;

@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.service;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
 import be.kdg.team_5_phygital.repository.SupervisorRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +30,11 @@ public class SupervisorService {
     }
 
     public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepository.findSupervisorBySharingPlatformEquals(sharingPlatform);}
+
+    @Transactional
+    public Supervisor saveSupervisor(String name, String email) {
+        return supervisorRepository.save(new Supervisor(name, email));
+    }
 
     public boolean updateSupervisor(int supervisorId, String name, String email) {
         Supervisor supervisor = supervisorRepository.findById(supervisorId).orElse(null);

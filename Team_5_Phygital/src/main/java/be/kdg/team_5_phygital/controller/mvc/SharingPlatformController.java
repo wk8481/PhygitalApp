@@ -4,7 +4,6 @@ import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +52,7 @@ public class SharingPlatformController {
     @GetMapping("{platformId}/project/{projectId}")
     public String getProject(@PathVariable int platformId, @PathVariable int projectId, Model model) {
         Project project = projectService.getProjectById(projectId).orElse(null);
-        List<Flow> flows =  flowService.findFlowsByProjectId(project);
+        List<Flow> flows =  flowService.getFlowsByProjectId(project);
         model.addAttribute("project", project);
         model.addAttribute("flow", flows);
         return "sharing-platform/project";

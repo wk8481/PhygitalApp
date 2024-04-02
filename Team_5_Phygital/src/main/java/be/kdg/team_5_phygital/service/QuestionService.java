@@ -4,6 +4,7 @@ import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.QuestionType;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.QuestionRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +34,11 @@ public class QuestionService {
     }
 
     public List<Question> getQuestionBySubTheme(SubTheme subTheme){return questionRepository.getQuestionsBySubThemeEquals(subTheme);}
+
+    @Transactional
+    public Question saveQuestion(String text, QuestionType type) {
+        return questionRepository.save(new Question(text, type));
+    }
 
     public boolean updateQuestion(int questionId, String text, QuestionType type) {
         Question project = questionRepository.findById(questionId).orElse(null);
