@@ -10,7 +10,7 @@ function updateTheme(event) {
     const info = document.getElementById("infoInput").value;
 
     console.log("updating subtheme to " + name + " and its info to " + info)
-    fetch(`/api/sharing-platform/project/${projectId}/theme/update`, {
+    fetch(`/api/sharing-platform/project/${projectId}/theme`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

@@ -100,7 +100,7 @@ public class SharingPlatformApiController {
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
 
-    @PatchMapping("/platform/{platformId}/project/{projectId}/update")
+    @PatchMapping("/platform/{platformId}/project/{projectId}")
     ResponseEntity<Void> updateProject(@PathVariable int platformId, @PathVariable int projectId, @RequestBody UpdateProjectDto updateProject) {
         if (projectService.updateProject(projectId, updateProject.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -109,7 +109,7 @@ public class SharingPlatformApiController {
         }
     }
 
-    @PatchMapping("/platform/{platformId}/supervisor/{supervisorId}/update")
+    @PatchMapping("/platform/{platformId}/supervisor/{supervisorId}")
     ResponseEntity<Void> updateSupervisorName(@PathVariable int supervisorId, @RequestBody UpdateSupervisorDto updateSupervisorDto) {
         if (supervisorService.updateSupervisor(supervisorId, updateSupervisorDto.getName(), updateSupervisorDto.getEmail())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -118,7 +118,7 @@ public class SharingPlatformApiController {
         }
     }
 
-    @PatchMapping("/platform/{platformId}/project/{projectId}/theme/update")
+    @PatchMapping("/platform/{platformId}/project/{projectId}/theme")
     ResponseEntity<Void> updateTheme(@PathVariable int platformId, @PathVariable int projectId, @RequestBody UpdateThemeDto updateTheme) {
         if (themeService.updateTheme(themeService.getThemeByProjectId(projectId).getId(), updateTheme.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -127,7 +127,7 @@ public class SharingPlatformApiController {
         }
     }
 
-    @PatchMapping("/platform/{platformId}/flow/{flowId}/update")
+    @PatchMapping("/platform/{platformId}/flow/{flowId}")
     ResponseEntity<Void> updateFlow(@PathVariable int flowId, @RequestBody UpdateFlowDto updateFlowDto) {
         if (flowService.updateFlow(flowId, updateFlowDto.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -136,7 +136,7 @@ public class SharingPlatformApiController {
         }
     }
 
-    @PatchMapping("/flow/{flowId}/sub-theme/{subThemeId}/update")
+    @PatchMapping("/flow/{flowId}/sub-theme/{subThemeId}")
     ResponseEntity<Void> updateSubtheme(@PathVariable int subThemeId, @RequestBody UpdateSubThemeDto updateSubthemeDto) {
         if (subThemeService.updateSubTheme(subThemeId, updateSubthemeDto.getName(), updateSubthemeDto.getInformation())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -145,12 +145,60 @@ public class SharingPlatformApiController {
         }
     }
 
-    @PatchMapping("/sub-theme/{stId}/question/{questionId}/update")
+    @PatchMapping("/sub-theme/{stId}/question/{questionId}")
     ResponseEntity<Void> updateQuestion(@PathVariable int questionId, @RequestBody UpdateQuestionDto updateQuestionDto) {
         if (questionService.updateQuestion(questionId, updateQuestionDto.getText(), updateQuestionDto.getType())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("/platform/{platformId}/project/{projectId}")
+    ResponseEntity<Void> deleteProject(@PathVariable("projectId") int projectId) {
+        if (projectService.deleteProject(projectId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/platform/{platformId}/supervisor/{supervisorId}")
+    ResponseEntity<Void> deleteSupervisor(@PathVariable("supervisorId") int supervisorId) {
+        if (supervisorService.deleteSupervisor(supervisorId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/platform/{platformId}/project/{projectId}/theme")
+    ResponseEntity<Void> deleteTheme(@PathVariable("projectId") int projectId) {
+        if (themeService.deleteTheme(themeService.getThemeByProjectId(projectId).getId())) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/platform/{platformId}/flow/{flowId}")
+    ResponseEntity<Void> deleteFlow(@PathVariable("flowId") int flowId) {
+        if (flowService.deleteFlow(flowId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/flow/{flowId}/sub-theme/{subThemeId}")
+    ResponseEntity<Void> deleteSubTheme(@PathVariable("subThemeId") int subThemeId) {
+        if (subThemeService.deleteSubTheme(subThemeId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/sub-theme/{stId}/question/{questionId}")
+    ResponseEntity<Void> deleteQuestion(@PathVariable("questionId") int questionId) {
+        if (questionService.deleteQuestion(questionId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

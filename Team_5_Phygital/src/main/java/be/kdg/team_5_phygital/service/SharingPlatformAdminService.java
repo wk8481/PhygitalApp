@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Service
 public class SharingPlatformAdminService{
-    private SharingPlatformAdminRepository sharingPlatformAdminRepository;
+    private final SharingPlatformAdminRepository sharingPlatformAdminRepository;
 
     public SharingPlatformAdminService(SharingPlatformAdminRepository sharingPlatformAdminRepository) {
         this.sharingPlatformAdminRepository = sharingPlatformAdminRepository;
@@ -45,6 +45,16 @@ public class SharingPlatformAdminService{
         sharingPlatformAdmin.setName(name);
         sharingPlatformAdmin.setEmail(email);
         sharingPlatformAdminRepository.save(sharingPlatformAdmin);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteSharingPlatformAdmin(int sharingPlatformAdminId) {
+        Optional<SharingPlatformAdmin> sharingPlatformAdmin = sharingPlatformAdminRepository.findById(sharingPlatformAdminId);
+        if (sharingPlatformAdmin.isEmpty()) {
+            return false;
+        }
+        sharingPlatformAdminRepository.deleteById(sharingPlatformAdminId);
         return true;
     }
 }

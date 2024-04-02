@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Service
 public class InstallationService {
-    private InstallationRepository installationRepository;
+    private final InstallationRepository installationRepository;
 
     public InstallationService(InstallationRepository installationRepository) {
         this.installationRepository = installationRepository;

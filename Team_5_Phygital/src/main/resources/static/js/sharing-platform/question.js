@@ -10,7 +10,7 @@ function updateQuestion(event) {
     const questionType = document.getElementById("questionTypeInput").value;
 
     console.log("updating question to " + question)
-    fetch(`/api/sharing-platform/sub-theme/${subThemeId}/question/${questionId}/update`, {
+    fetch(`/api/sharing-platform/sub-theme/${subThemeId}/question/${questionId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

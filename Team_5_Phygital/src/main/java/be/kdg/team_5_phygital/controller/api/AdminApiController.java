@@ -51,7 +51,7 @@ public class AdminApiController {
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatformAdmin, SharingPlatformAdminDto.class), HttpStatus.CREATED);
     }
 
-    @PatchMapping("platform/{platformId}/update")
+    @PatchMapping("platform/{platformId}")
     ResponseEntity<Void> updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatform) {
         if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatform.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -60,12 +60,28 @@ public class AdminApiController {
         }
     }
 
-    @PatchMapping("platform/{platformId}/client/{clientId}/update")
+    @PatchMapping("platform/{platformId}/client/{clientId}")
     ResponseEntity<Void> updateClient(@PathVariable int platformId, @PathVariable int clientId, @RequestBody UpdateSharingPlatformAdminDto updateClient) {
         if (clientService.updateSharingPlatformAdmin(clientId, updateClient.getName(), updateClient.getEmail())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @DeleteMapping("platform/{platformId}")
+    ResponseEntity<Void> deleteSharingPlatform(@PathVariable("platformId") int sharingPlatformId) {
+        if (sharingPlatformService.deleteSharingPlatform(sharingPlatformId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("platform/{platformId}/client/{clientId}")
+    ResponseEntity<Void> deleteSharingPlatformAdmin(@PathVariable int platformId, @PathVariable("clientId") int clientId) {
+        if (clientService.deleteSharingPlatformAdmin(clientId)) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

@@ -2,6 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
+import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,16 @@ public class ProjectService{
         }
         project.setName(name);
         projectRepository.save(project);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteProject(int projectId) {
+        Optional<Project> project = projectRepository.findById(projectId);
+        if (project.isEmpty()) {
+            return false;
+        }
+        projectRepository.deleteById(projectId);
         return true;
     }
 }

@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
@@ -40,6 +41,16 @@ public class ThemeService {
         }
         theme.setName(name);
         themeRepository.save(theme);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteTheme(int themeId) {
+        Optional<Theme> theme = themeRepository.findById(themeId);
+        if (theme.isEmpty()) {
+            return false;
+        }
+        themeRepository.deleteById(themeId);
         return true;
     }
 }

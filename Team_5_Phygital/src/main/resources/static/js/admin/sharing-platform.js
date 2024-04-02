@@ -9,7 +9,7 @@ function updatePlatform(event) {
     const name = document.getElementById("nameInput").value;
 
     console.log("updating platform to " + name)
-    fetch(`/api/admin/platform/${platformId}/update`, {
+    fetch(`/api/admin/platform/${platformId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

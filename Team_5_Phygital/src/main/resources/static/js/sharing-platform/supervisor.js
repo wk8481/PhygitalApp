@@ -11,7 +11,7 @@ function updateSupervisor(event) {
     const email = document.getElementById("emailInput").value;
 
     console.log("updating supervisor to " + name)
-    fetch(`/api/sharing-platform/platform/${platformId}/supervisor/${superVisorId}/update`, {
+    fetch(`/api/sharing-platform/platform/${platformId}/supervisor/${superVisorId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

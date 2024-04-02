@@ -2,6 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.Project;
+import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.FlowRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.Optional;
 
 @Service
 public class FlowService {
-    private FlowRepository flowRepository;
+    private final FlowRepository flowRepository;
 
     public FlowService(FlowRepository flowRepository) {
         this.flowRepository = flowRepository;
@@ -46,6 +47,16 @@ public class FlowService {
         }
         flow.setName(name);
         flowRepository.save(flow);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteFlow(int flowId) {
+        Optional<Flow> flow = flowRepository.findById(flowId);
+        if (flow.isEmpty()) {
+            return false;
+        }
+        flowRepository.deleteById(flowId);
         return true;
     }
 }

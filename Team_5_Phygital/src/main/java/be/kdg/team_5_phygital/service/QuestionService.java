@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.service;
 import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.QuestionType;
 import be.kdg.team_5_phygital.domain.SubTheme;
+import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.QuestionRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 @Service
 public class QuestionService {
-    private QuestionRepository questionRepository;
+    private final QuestionRepository questionRepository;
 
     public QuestionService(QuestionRepository questionRepository) {
         this.questionRepository = questionRepository;
@@ -48,6 +49,16 @@ public class QuestionService {
         project.setText(text);
         project.setType(type);
         questionRepository.save(project);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteQuestion(int questionId) {
+        Optional<Question> question = questionRepository.findById(questionId);
+        if (question.isEmpty()) {
+            return false;
+        }
+        questionRepository.deleteById(questionId);
         return true;
     }
 }

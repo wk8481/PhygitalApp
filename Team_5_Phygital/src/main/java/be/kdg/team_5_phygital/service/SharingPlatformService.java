@@ -2,6 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
+import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,16 @@ public class SharingPlatformService {
         }
         sharingPlatform.setName(name);
         sharingPlatformRepository.save(sharingPlatform);
+        return true;
+    }
+
+    @Transactional
+    public boolean deleteSharingPlatform(int sharingPlatformId) {
+        Optional<SharingPlatform> sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId);
+        if (sharingPlatform.isEmpty()) {
+            return false;
+        }
+        sharingPlatformRepository.deleteById(sharingPlatformId);
         return true;
     }
 }
