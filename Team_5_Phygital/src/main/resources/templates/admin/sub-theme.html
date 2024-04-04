@@ -76,7 +76,7 @@
                                     <input id="visibility" type="checkbox">
                                 </td>
                                 <td>
-                                    <a th:href="@{/admin/sub-theme/{stId}/question/{questionId}(stId=${st.id}, questionId=${q.id})}"><i
+                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/{questionId}(subThemeId=${st.id}, questionId=${question.id})}"><i
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="'Question '+ ${qIndex.count}">Question</td>
@@ -87,7 +87,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <a th:href="@{/admin/sub-theme/{stId}/question/1(stId=${st.id})}">
+                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/new}">
                                         <i class="fas fa-plus"></i></a>
                                 </td>
                                 <td></td>

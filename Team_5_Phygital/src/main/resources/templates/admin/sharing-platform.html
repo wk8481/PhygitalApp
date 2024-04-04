@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Project</title>
+    <title>Sharing Platform</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script defer src="/js/admin/sharing-platform.js"></script>
     <script src="/js/utils.js"></script>
@@ -81,7 +81,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a th:href="@{/admin/{platformId}/project/1(platformId=${platform.id})}">
+                                    <a th:href="@{/admin/{platformId}/project/new(platformId=${platform.id})}">
                                         <i class="fas fa-plus"></i></a>
                                 </td>
                                 <td></td>
@@ -112,7 +112,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a th:href="@{/admin/{platformId}/supervisor/1(platformId=${platform.id})}">
+                                    <a th:href="@{/admin/{platformId}/supervisor/new(platformId=${platform.id})}">
                                         <i class="fas fa-plus"></i></a>
                                 </td>
                                 <td></td>

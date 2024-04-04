@@ -3,7 +3,7 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Question</title>
+    <title>New Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script defer src="/js/admin/question.js"></script>
     <script src="/js/utils.js"></script>
@@ -14,7 +14,7 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Question</h1>
+            <h1 class="page-title text-primary">New Question</h1>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -23,14 +23,14 @@
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
                 <table class="table">
-                    <tbody th:object="${q}">
+                    <tbody>
                     <!-- Text -->
                     <tr>
                         <th class="col-sm-4">
                             <label class="form-label" for="textInput">Text:</label>
                         </th>
                         <td class="col-sm-8">
-                            <textarea class="form-control" id="textInput" rows="4" th:field="*{text}"></textarea>
+                            <textarea class="form-control" id="textInput" rows="4"></textarea>
                         </td>
                     </tr>
                     <!-- Question Type -->
@@ -41,7 +41,6 @@
                         <td class="col-sm-8">
                             <select class="form-control" id="questionTypeInput">
                                 <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
-                                        th:selected="${type == q.type}"
                                         th:text="${type}"
                                         th:value="${type}">>
                                 </option>
@@ -50,11 +49,11 @@
                     </tr>
                     </tbody>
                 </table>
-                <!-- Save Button -->
+                <!-- Create Button -->
                 <div class="row mt-3 justify-content-center">
                     <div class="col-sm-4">
-                        <button class="btn btn-primary" id="saveButton" type="button">
-                            Save
+                        <button class="btn btn-primary" id="createButton" type="button">
+                            Create
                         </button>
                     </div>
                 </div>
