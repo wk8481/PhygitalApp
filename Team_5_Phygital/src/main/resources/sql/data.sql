@@ -30,15 +30,19 @@ VALUES (2, 'Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 -- Flow
 INSERT INTO flow (is_circular, project_id)
 VALUES (true, 1);
+
 INSERT INTO flow (is_circular, project_id)
 VALUES (false, 1);
 
+-- SubThemes
 -- SubTheme
-INSERT INTO sub_theme (name, information, flow_id)
-VALUES ('local voting in antwerp', 'Information for voting in Antwerp', 1);
+INSERT INTO sub_theme (name, information, flow_id, current_index)
+VALUES ('local voting in antwerp', 'Information for voting in Antwerp', 1, 0);
 -- SubTheme
-INSERT INTO sub_theme (name, information, flow_id)
-VALUES ('local voting in brussels', 'Information for voting in Brussels', 1);
+INSERT INTO sub_theme (name, information, flow_id, current_index)
+VALUES ('local voting in brussels', 'Information for voting in Brussels', 1, 0);
+
+
 
 -- Question
 INSERT INTO question (text, type, sub_theme_id)

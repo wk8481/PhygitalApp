@@ -86,4 +86,6 @@ public class Flow {
     public void setUserDetail(List<UserDetail> userDetail) {
         this.userDetail = userDetail;
     }
+
+
 }

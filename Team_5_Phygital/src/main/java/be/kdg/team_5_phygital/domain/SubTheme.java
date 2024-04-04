@@ -63,4 +63,18 @@ public class SubTheme {
     public void setFlow(Flow flow) {
         this.flow = flow;
     }
+
+    private int currentIndex;
+
+    public int getCurrentIndex() {
+        return currentIndex;
+    }
+
+    public void setCurrentIndex(int currentIndex) {
+        this.currentIndex = currentIndex;
+    }
+
+    public boolean isCircularFlow() {
+        return flow != null && flow.isCircular();
+    }
 }
