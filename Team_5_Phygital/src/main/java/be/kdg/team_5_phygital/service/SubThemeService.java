@@ -2,7 +2,6 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.SubTheme;
-import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -24,16 +23,16 @@ public class SubThemeService {
     }
 
 
-    public Optional<SubTheme> getSubthemeById(int id) {
+    public Optional<SubTheme> getSubThemeById(int id) {
         return subThemeRepository.findById(id);
     }
 
 
-    public List<SubTheme> getAllSubtheme() {
+    public List<SubTheme> getAllSubTheme() {
         return subThemeRepository.findAll();
     }
 
-    public List<SubTheme> getSubthemeByFlowId(Flow flow) {return subThemeRepository.getSubThemesByFlow(flow);}
+    public List<SubTheme> getSubThemeByFlowId(Flow flow) {return subThemeRepository.getSubThemesByFlow(flow);}
 
     @Transactional
     public SubTheme saveSubTheme(String name, String information) {
@@ -60,4 +59,6 @@ public class SubThemeService {
         subThemeRepository.deleteById(subThemeId);
         return true;
     }
+
+
 }

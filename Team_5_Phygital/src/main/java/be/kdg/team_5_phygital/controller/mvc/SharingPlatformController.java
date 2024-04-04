@@ -72,7 +72,7 @@ public class SharingPlatformController {
     @GetMapping("project/{projectId}/flow/{flowId}")
     public String getFlow(@PathVariable int flowId, Model model) {
         Flow flow = flowService.getFlowById(flowId).orElse(null);
-        List<SubTheme> subThemes = subThemeService.getSubthemeByFlowId(flow);
+        List<SubTheme> subThemes = subThemeService.getSubThemeByFlowId(flow);
         model.addAttribute("flow", flow);
         model.addAttribute("st", subThemes);
         return "sharing-platform/flow";
@@ -80,7 +80,7 @@ public class SharingPlatformController {
 
     @GetMapping("flow/{flowId}/sub-theme/{stId}")
     public String getSubTheme(@PathVariable int stId, Model model) {
-        SubTheme subTheme = subThemeService.getSubthemeById(stId).orElse(null);
+        SubTheme subTheme = subThemeService.getSubThemeById(stId).orElse(null);
         List<Question> questions = questionService.getQuestionBySubTheme(subTheme);
         model.addAttribute("st", subTheme);
         model.addAttribute("question", questions);

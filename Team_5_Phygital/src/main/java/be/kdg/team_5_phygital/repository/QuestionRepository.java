@@ -11,4 +11,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     List<Question> getQuestionsBySubThemeEquals(SubTheme subTheme);
 
     Optional<Question> findByText(String text);
+
+    List<Question> getQuestionsBySubThemeId(int subThemeId);
 }
