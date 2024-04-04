@@ -9,45 +9,36 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
             <h1 class="page-title text-primary">Home</h1>
-            <p class="lead text-body text-body">Temporary page. Each user should run the project from a different application.</p>
         </div>
-        <div class="col-md-8">
-            <div class="row mb-3 justify-content-center">
-                <div class="col-md-6">
-                    <div class="card" onclick="location.href='/installation/dashboard';" style="cursor: pointer;">
-                        <div class="card-body">
-                            <h5 class="card-title">Installation</h5>
-                        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="card" onclick="location.href='/admin/platform';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Platform</h5>
                     </div>
                 </div>
             </div>
-            <div class="row mb-3 justify-content-center">
-                <div class="col-md-6">
-                    <div class="card" onclick="location.href='/supervisor/dashboard';" style="cursor: pointer;">
-                        <div class="card-body">
-                            <h5 class="card-title">Supervisor</h5>
-                        </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="card" onclick="location.href='/admin/sharing-platform/1';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Sharing Platform</h5>
                     </div>
                 </div>
             </div>
-            <div class="row mb-3 justify-content-center">
-                <div class="col-md-6">
-                    <div class="card" onclick="location.href='/sharing-platform/dashboard/1';" style="cursor: pointer;">
-                        <div class="card-body">
-                            <h5 class="card-title">Sharing Platform</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-3 justify-content-center">
-                <div class="col-md-6">
-                    <div class="card" onclick="location.href='/admin/dashboard';" style="cursor: pointer;">
-                        <div class="card-body">
-                            <h5 class="card-title">Admin</h5>
-                        </div>
+        </div>
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="card" onclick="location.href='/installation/flow-selection';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Start New Flow</h5>
                     </div>
                 </div>
             </div>

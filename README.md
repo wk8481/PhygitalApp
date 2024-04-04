@@ -1,6 +1,7 @@
 # Phygital Team 5 Integration Project
 
 ## Team Members
+
 - Ruth Ishikanwa
 - Noah Guerin
 - William Kasasa
@@ -8,13 +9,16 @@
 - Lukas Nackmayr
 
 ## Project Overview
-This project is part of the Integration course for Phygital Team 5. We are developing a Java application using Spring Boot and various technologies for our integration project.
+
+This project is part of the Integration course for Phygital Team 5. We are developing a Java application using Spring
+Boot and various technologies for our integration project.
 
 ### Current Build (Dev)
+
 - **Database:** PostgreSQL
-  - **URL:** `jdbc:postgresql://localhost:5444/phygital`
-  - **Username:** `admin`
-  - **Password:** `admin`
+    - **URL:** `jdbc:postgresql://localhost:5444/phygital`
+    - **Username:** `admin`
+    - **Password:** `admin`
 - **Main Application Properties:**
   ```properties
   server.port=8081
@@ -33,7 +37,9 @@ This project is part of the Integration course for Phygital Team 5. We are devel
   ```
 
 ## Database Connection
+
 To connect to the database, use the following configuration:
+
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5444/phygital
 spring.datasource.username=admin
@@ -41,14 +47,19 @@ spring.datasource.password=admin
 ```
 
 ## Getting Started
+
 ### Cloning the Repository
+
 To clone this repository, use the following command:
+
 ```bash
 git clone https://gitlab.com/kdg-ti/integration-4/2023-2024/team-5/team-5-integration-4.git
 ```
 
 ### Building and Running
+
 This project uses Gradle for building. Here's the `build.gradle` file:
+
 ```gradle
 plugins {
     java
@@ -84,7 +95,9 @@ tasks.withType<Test> {
 ```
 
 ### Docker Configuration
+
 We use Docker for our PostgreSQL database. Here's the `docker-compose.yml` file:
+
 ```yaml
 version: '3.8'
 services:
@@ -100,6 +113,7 @@ services:
 ```
 
 ### Running the Application
+
 1. Make sure you have Docker installed.
 2. Navigate to the project root directory.
 3. Run the following command to start the PostgreSQL database:
@@ -112,10 +126,13 @@ services:
    ```
 
 ### Additional Notes
-- This project includes Spring profiles for development and production. They are currently set to be identical for simplicity.
+
+- This project includes Spring profiles for development and production. They are currently set to be identical for
+  simplicity.
 - Ensure that no unwanted files or directories are included in the repository by using a `.gitignore` file.
 
 ## Optional
+
 - Implement your Domain Model as classes.
 - Include Hibernate specifics, especially relationships.
 - Create static HTML pages using Bootstrap 5.

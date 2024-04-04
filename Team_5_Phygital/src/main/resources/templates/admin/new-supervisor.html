@@ -3,9 +3,9 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Client</title>
+    <title>New Supervisor</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/admin/client.js"></script>
+    <script defer src="/js/admin/supervisor.js"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
@@ -14,15 +14,15 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Client</h1>
+            <h1 class="page-title text-primary">New Supervisor</h1>
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row">
         <!-- Details Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table" th:object="${client}">
+                <table class="table">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -30,34 +30,26 @@
                             <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="nameInput" th:field="*{name}" type="text">
+                            <input class="form-control" id="nameInput" type="text">
                         </td>
+
                     </tr>
-                    <!-- Email -->
                     <tr>
+                        <!-- Email -->
                         <th class="col-sm-4">
                             <label class="form-label" for="emailInput">Email:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="emailInput" th:field="*{email}" type="text">
-                        </td>
-                    </tr>
-                    <!-- Password -->
-                    <tr>
-                        <th class="col-sm-4">
-                            <label class="form-label" for="passwordInput">Password:</label>
-                        </th>
-                        <td class="col-sm-8">
-                            <input class="form-control" id="passwordInput" type="text">
+                            <input class="form-control" id="emailInput" type="text">
                         </td>
                     </tr>
                     </tbody>
                 </table>
-                <!-- Save Button -->
-                <div class="row mt-3 justify-content-center">
+                <!-- Create Button -->
+                <div class="row mt-3">
                     <div class="col-sm-4">
-                        <button class="btn btn-primary" id="saveButton" type="button">
-                            Save
+                        <button class="btn btn-primary" id="createButton" type="button">
+                            Create
                         </button>
                     </div>
                 </div>

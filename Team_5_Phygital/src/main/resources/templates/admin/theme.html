@@ -3,20 +3,25 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Sub Theme</title>
+    <title>Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/sharing-platform/subTheme.js" defer></script></head>
-<script src="/js/utils.js"></script>
+    <script defer src="/js/admin/theme.js"></script>
+</head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container">
-    <h1 class="page-title text-primary">Sub Theme</h1>
+<main class="container text-center">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Theme</h1>
+        </div>
+    </div>
     <div class="row justify-content-center">
-        <!-- Details Section -->
+        <!-- Details Sections -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2>Info</h2>
-                <table class="table" th:object="${st}">
+                <h2 class="text-secondary">Info</h2>
+                <table class="table" th:object="${theme}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -24,7 +29,7 @@
                             <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="nameInput" type="text" th:field="*{name}">
+                            <input class="form-control" id="nameInput" th:field="*{name}" type="text">
                         </td>
                     </tr>
                     <!-- Information -->
@@ -55,38 +60,18 @@
                 </div>
             </section>
         </div>
-        <!-- Questions Section -->
-        <div class="col-md-6">
-            <section class="mt-5">
-                <h2 class="text-secondary">Questions</h2>
-                <div class="row mb-3 justify-content-center">
-                    <!-- Questions -->
-                    <div class="col-md-4">
-                        <table class="table">
-                            <tbody th:each="q, qIndex:${question}">
-                            <tr>
-                                <td>
-                                    <label for="visibility"></label>
-                                    <input type="checkbox" id="visibility">
-                                </td>
-                                <td>
-                                    <a th:href="@{/sharing-platform/sub-theme/{stId}/question/{questionId}(stId=${st.id}, questionId=${q.id})}"><i class="fas fa-edit"></i></a>
-                                </td>
-                                <td th:text="'Question '+ ${qIndex.count}">Question</td>
-                                <td>
-                                    <i class="fas fa-bars"></i>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-        </div>
     </div>
-    <!-- Return Button -->
-    <div class="center-container">
-        <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
+    <!-- Bottom Page Buttons Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <!-- Return Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container text-container">
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                        Return</a>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

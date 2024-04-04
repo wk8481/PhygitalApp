@@ -5,14 +5,18 @@
 <head>
     <title>Project</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-
-    <script defer src="/js/sharing-platform/project.js"></script>
+    <script defer src="/js/admin/project.js"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <h1 class="page-title text-primary">Project</h1>
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Project</h1>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <!-- Details Section -->
         <div class="col-md-6">
@@ -33,7 +37,8 @@
                     <tr>
                         <th class="col-sm-4">Theme:</th>
                         <td class="col-sm-8">
-                            <a th:href="@{/sharing-platform/project/{projectId}/theme(projectId=${project.id})}"><i class="fas fa-edit"></i></a>
+                            <a th:href="@{/admin/project/{projectId}/theme(projectId=${project.id})}"><i
+                                    class="fas fa-edit"></i></a>
                         </td>
                     </tr>
                     <!-- Background Color -->
@@ -86,10 +91,10 @@
                     <!-- Flows -->
                     <div class="col-md-4">
                         <table class="table">
-                            <tbody th:each="flows:${flow}">
-                            <tr>
+                            <tbody>
+                            <tr th:each="flows:${flow}">
                                 <td>
-                                    <a th:href="@{/sharing-platform/project/{projectId}/flow/{flowId}(projectId=${project.id}, flowId=${flows.id})}"><i
+                                    <a th:href="@{/admin/project/{projectId}/flow/{flowId}(projectId=${project.id}, flowId=${flows.id})}"><i
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:if="${flows.isCircular}">Circular flow</td>
@@ -98,6 +103,14 @@
                                     <i class="fas fa-bars"></i>
                                 </td>
                             </tr>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/admin/project/{projectId}/flow/new(projectId=${project.id})}">
+                                        <i class="fas fa-plus"></i></a>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -105,18 +118,25 @@
             </section>
         </div>
     </div>
-
-    <!-- Stats Button -->
-    <div class="center-container">
-        <a class="btn btn-secondary" th:href="@{/sharing-platform/project/{projectId}/stats(projectId=${project.id})}">
-            Statistics
-        </a>
-    </div>
-    <!-- Return Button -->
-    <div class="center-container">
-        <a class="btn btn-secondary" href="javascript:history.back()">
-            <i class="fas fa-arrow-left"></i> Return
-        </a>
+    <!-- Bottom Page Buttons Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <!-- Return Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                        Return</a>
+                </div>
+            </div>
+            <!-- Stats Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <a class="btn btn-secondary" th:href="@{/admin/project/{projectId}/stats(projectId=${project.id})}">
+                        Statistics
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

@@ -3,14 +3,20 @@
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Project</title>
+    <title>Sharing Platform</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script defer src="/js/admin/sharing-platform.js"></script>
+    <script src="/js/utils.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <h1 class="page-title text-primary">Sharing Platform</h1>
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Sharing Platform</h1>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <!-- Details Section -->
         <div class="col-md-6">
@@ -56,16 +62,88 @@
                 </div>
             </section>
         </div>
+        <!-- Projects Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Projects</h2>
+                <div class="row mb-3 justify-content-center">
+                    <!-- Projects -->
+                    <div class="col-md-6">
+                        <table class="table">
+                            <tbody>
+                            <tr th:each="project:${projects}">
+                                <td>
+                                    <a th:href="@{/admin/{platformId}/project/{projectId}(platformId=${platform.id}, projectId=${project.id})}">
+                                        <i class="fas fa-edit"></i></a>
+                                </td>
+                                <td>
+                                    <a th:text="${project.getName()}"></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/admin/{platformId}/project/new(platformId=${platform.id})}">
+                                        <i class="fas fa-plus"></i></a>
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Supervisors Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Supervisors</h2>
+                <div class="row justify-content-center">
+                    <!-- Supervisors -->
+                    <div class="col-md-6">
+                        <table class="table">
+                            <tbody>
+                            <tr th:each="sv:${supervisor}">
+                                <td>
+                                    <a th:href="@{/admin/{platformId}/supervisor/{supervisorId}(platformId=${platform.id}, supervisorId=${sv.id})}">
+                                    <i class="fas fa-edit"></i></a>
+                                </td>
+                                <td>
+                                    <a th:text="${sv.getName()}"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/admin/{platformId}/supervisor/new(platformId=${platform.id})}">
+                                        <i class="fas fa-plus"></i></a>
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
     </div>
-    <!-- Stats Button -->
-    <div class="center-container">
-        <a class="btn btn-secondary" th:href="@{/admin/sharing-platform/{platformId}/stats(platformId=${platform.id})}">
-            Statistics
-        </a>
-    </div>
-    <!-- Return Button -->
-    <div class="center-container">
-        <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
+    <!-- Bottom Page Buttons Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <!-- Return Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                        Return</a>
+                </div>
+            </div>
+            <!-- Stats Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <a class="btn btn-secondary"
+                       th:href="@{/admin/sharing-platform/{platformId}/stats(platformId=${platform.id})}">
+                        Statistics
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

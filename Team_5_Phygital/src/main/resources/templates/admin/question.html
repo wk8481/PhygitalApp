@@ -5,13 +5,18 @@
 <head>
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/sharing-platform/question.js" defer></script>
+    <script defer src="/js/admin/question.js"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <h1 class="page-title text-primary">Question</h1>
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Question</h1>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <!-- Details Section -->
         <div class="col-md-6">
@@ -31,16 +36,15 @@
                     <!-- Question Type -->
                     <tr>
                         <th class="col-sm-4">
-                            <label for="questionTypeInput" class="form-label">Question Type:</label>
+                            <label class="form-label" for="questionTypeInput">Question Type:</label>
                         </th>
                         <td class="col-sm-8">
                             <select class="form-control" id="questionTypeInput">
                                 <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
-                                        th:value="${type}"
+                                        th:selected="${type == q.type}"
                                         th:text="${type}"
-                                        th:selected="${type == q.type}">>
+                                        th:value="${type}">>
                                 </option>
-                                <!-- Add more font options here -->
                             </select>
                         </td>
                     </tr>
@@ -57,9 +61,17 @@
             </section>
         </div>
     </div>
-    <!-- Return Button -->
-    <div class="center-container">
-        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    <!-- Bottom Page Buttons Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <!-- Return Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container text-container">
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                        Return</a>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
