@@ -5,13 +5,18 @@
 <head>
     <title>Supervisor</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/admin/supervisor.js" defer></script>
+    <script defer src="/js/admin/supervisor.js"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <h1 class="page-title text-primary">Supervisor</h1>
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Supervisor</h1>
+        </div>
+    </div>
     <div class="row">
         <!-- Details Section -->
         <div class="col-md-6">
@@ -25,17 +30,17 @@
                             <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input  class="form-control" th:field="*{name}" id="nameInput" type="text">
+                            <input class="form-control" id="nameInput" th:field="*{name}" type="text">
                         </td>
 
                     </tr>
                     <tr>
-                    <!-- Email -->
+                        <!-- Email -->
                         <th class="col-sm-4">
                             <label class="form-label" for="emailInput">Email:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input  class="form-control" th:field="*{email}" id="emailInput" type="text">
+                            <input class="form-control" id="emailInput" th:field="*{email}" type="text">
                         </td>
                     </tr>
                     </tbody>

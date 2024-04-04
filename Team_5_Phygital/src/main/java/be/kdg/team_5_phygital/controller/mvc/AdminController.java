@@ -34,16 +34,6 @@ public class AdminController {
         this.questionService = questionService;
     }
 
-    @GetMapping("login")
-    public String showLogin() {
-        return "admin/login";
-    }
-
-    @GetMapping({"home", "", "/"})
-    public String getHomePage() {
-        return "admin/home";
-    }
-
     @GetMapping("platform")
     public String getPlatformPage(Model model) {
         List<SharingPlatform> platformList = sharingPlatformService.getAllSharingPlatforms();

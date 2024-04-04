@@ -17,16 +17,6 @@ public class InstallationController {
         this.installationService = installationService;
     }
 
-    @GetMapping("login")
-    public String showLogin() {
-        return "installation/login";
-    }
-
-    @GetMapping({"dashboard", "", "/"})
-    public String getDashboardPage() {
-        return "installation/dashboard";
-    }
-
     @GetMapping("flow-selection")
     public ModelAndView getFlowSelectionPage() {
         var mav = new ModelAndView();

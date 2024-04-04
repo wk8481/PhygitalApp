@@ -11,7 +11,12 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <h1 class="page-title text-primary">Flow</h1>
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Flow</h1>
+        </div>
+    </div>
     <div class="row justify-content-center">
         <!-- Details Section -->
         <div class="col-md-6">
@@ -57,7 +62,8 @@
                                     <input id="visibility" type="checkbox">
                                 </td>
                                 <td>
-                                    <a th:href="@{/admin/flow/{flowId}/sub-theme/{stId}(flowId=${flow.id}, stId=${st.id})}"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{/admin/flow/{flowId}/sub-theme/{stId}(flowId=${flow.id}, stId=${st.id})}"><i
+                                            class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="${st.name}"></td>
                                 <td>
