@@ -91,8 +91,8 @@
                     <!-- Flows -->
                     <div class="col-md-4">
                         <table class="table">
-                            <tbody th:each="flows:${flow}">
-                            <tr>
+                            <tbody>
+                            <tr th:each="flows:${flow}">
                                 <td>
                                     <a th:href="@{/admin/project/{projectId}/flow/{flowId}(projectId=${project.id}, flowId=${flows.id})}"><i
                                             class="fas fa-edit"></i></a>
@@ -102,6 +102,14 @@
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a th:href="@{/admin/project/{projectId}/flow/1(projectId=${project.id})}">
+                                        <i class="fas fa-plus"></i></a>
+                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>

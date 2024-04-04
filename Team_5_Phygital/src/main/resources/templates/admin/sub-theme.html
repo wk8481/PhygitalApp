@@ -69,8 +69,8 @@
                     <!-- Questions -->
                     <div class="col-md-4">
                         <table class="table">
-                            <tbody th:each="q, qIndex:${question}">
-                            <tr>
+                            <tbody>
+                            <tr th:each="q, qIndex:${question}">
                                 <td>
                                     <label for="visibility"></label>
                                     <input id="visibility" type="checkbox">
@@ -83,6 +83,15 @@
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <a th:href="@{/admin/sub-theme/{stId}/question/1(stId=${st.id})}">
+                                        <i class="fas fa-plus"></i></a>
+                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>

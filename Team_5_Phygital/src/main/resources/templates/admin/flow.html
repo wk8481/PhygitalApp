@@ -55,8 +55,8 @@
                     <!-- Sub Themes -->
                     <div class="col-md-8">
                         <table class="table">
-                            <tbody th:each="st:${st}">
-                            <tr>
+                            <tbody>
+                            <tr th:each="st:${st}">
                                 <td>
                                     <label for="visibility"></label>
                                     <input id="visibility" type="checkbox">
@@ -69,6 +69,15 @@
                                 <td>
                                     <i class="fas fa-bars"></i>
                                 </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <a th:href="@{/admin/flow/{flowId}/sub-theme/1(flowId=${flow.id})}">
+                                        <i class="fas fa-plus"></i></a>
+                                </td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>
