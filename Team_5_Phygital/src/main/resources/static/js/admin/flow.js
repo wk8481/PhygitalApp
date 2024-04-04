@@ -1,19 +1,19 @@
 const submitButton = document.querySelector("#saveButton");
 
-submitButton.addEventListener("click", updateProject);
+submitButton.addEventListener("click", updateFlow);
 const link = window.location.href.substring(window.location.href);
 
-const [platformId, projectId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
+const [projectId, flowId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "flow");
 
-function updateProject(event) {
+function updateFlow(event) {
     const name = document.getElementById("nameInput").value;
 
-    console.log("updating project to " + name)
-    fetch(`/api/sharing-platform/platform/${platformId}/project/${projectId}`, {
+    console.log("updating subtheme to " + name)
+    fetch(`/api/admin/flow/${projectId}/sub-theme/${flowId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": projectId, "name": name
+            "id": flowId, "name": name,
         })
     })
         .then(response => {
