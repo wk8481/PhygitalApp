@@ -1,5 +1,4 @@
 const submitButton = document.querySelector("#saveButton");
-const link = window.location.href.substring(window.location.href);
 const [platformId, clientId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "client")
 submitButton.addEventListener("click", updateClient);
 

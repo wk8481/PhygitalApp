@@ -1,5 +1,4 @@
 const submitButton = document.querySelector("#saveButton");
-const link = window.location.href.substring(window.location.href);
 const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
 
 submitButton.addEventListener("click", updateTheme);

@@ -1,20 +1,19 @@
-const submitButton = document.querySelector("#saveButton");
-const link = window.location.href.substring(window.location.href);
-const [sharingPlatformId, superVisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor");
+const name = document.getElementById("nameInput").value;
+const email = document.getElementById("emailInput").value;
+const saveButton = document.querySelector("#saveButton");
+const deleteButton = document.querySelector("#deleteButton");
+const [sharingPlatformId, supervisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor");
 
-submitButton.addEventListener("click", updateSupervisor);
+saveButton.addEventListener("click", updateSupervisor);
+deleteButton.addEventListener("click", deleteSupervisor);
 
 async function updateSupervisor(event) {
-    console.log(sharingPlatformId, superVisorId)
-    const name = document.getElementById("nameInput").value;
-    const email = document.getElementById("emailInput").value;
-
-    console.log("updating supervisor to " + name)
-    fetch(`/api/supervisors/${superVisorId}`, {
+    console.log("Updating supervisor")
+    fetch(`/api/supervisors/${supervisorId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": superVisorId, "name": name, "email": email, "platform": sharingPlatformId
+            "id": supervisorId, "name": name, "email": email, "platform": sharingPlatformId
         })
     })
         .then(response => {
@@ -22,4 +21,11 @@ async function updateSupervisor(event) {
 
             }
         });
+}
+
+async function deleteSupervisor(event) {
+    console.log("Deleting supervisor")
+    const response = await fetch(`/api/supervisors/${supervisorId}`, {
+        method: "DELETE"
+    });
 }
