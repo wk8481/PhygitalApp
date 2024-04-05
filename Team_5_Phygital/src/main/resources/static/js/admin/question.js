@@ -1,16 +1,15 @@
-const submitButton = document.querySelector("#saveButton");
-
-submitButton.addEventListener("click", updateQuestion);
-const link = window.location.href.substring(window.location.href);
-
+const question = document.getElementById("textInput").value;
+const questionType = document.getElementById("questionTypeInput").value;
+const saveButton = document.querySelector("#saveButton");
+const deleteButton = document.querySelector("#deleteButton");
 const [subThemeId, questionId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "question");
 
-function updateQuestion(event) {
-    const question = document.getElementById("textInput").value;
-    const questionType = document.getElementById("questionTypeInput").value;
+saveButton.addEventListener("click", updateQuestion);
+deleteButton.addEventListener("click", deleteQuestion);
 
-    console.log("updating question to " + question)
-    fetch(`/api/admin/sub-theme/${subThemeId}/question/${questionId}`, {
+async function updateQuestion(event) {
+    console.log("Updating question")
+    fetch(`/api/questions/${questionId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
@@ -22,4 +21,11 @@ function updateQuestion(event) {
 
             }
         });
+}
+
+async function deleteQuestion(event) {
+    console.log("Deleting question")
+    const response = await fetch(`/api/questions/${questionId}`, {
+        method: "DELETE"
+    });
 }

@@ -2,6 +2,7 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.repository.FlowRepository;
+import be.kdg.team_5_phygital.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +13,12 @@ import java.util.Optional;
 @Service
 public class FlowService {
     private final FlowRepository flowRepository;
+    private final ProjectRepository projectRepository;
 
-    public FlowService(FlowRepository flowRepository) {
+    public FlowService(FlowRepository flowRepository, ProjectRepository projectRepository) {
         this.flowRepository = flowRepository;
+        this.projectRepository = projectRepository;
     }
-
 
     public Flow createFlow(Flow flow) {
         return flowRepository.save(flow);
@@ -35,8 +37,9 @@ public class FlowService {
     public List<Flow> getFlowsByProjectId(Project project){ return flowRepository.findFlowsByProjectEquals(project);}
 
     @Transactional
-    public Flow saveFlow(String name) {
-        return flowRepository.save(new Flow(name));
+    public Flow saveFlow(String name, int projectId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        return flowRepository.save(new Flow(name, project));
     }
 
     public boolean updateFlow(int flowId, String name) {

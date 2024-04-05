@@ -4,6 +4,7 @@ import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.QuestionType;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.QuestionRepository;
+import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +14,12 @@ import java.util.Optional;
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
+    private final SubThemeRepository subThemeRepository;
 
-
-    public QuestionService(QuestionRepository questionRepository) {
+    public QuestionService(QuestionRepository questionRepository, SubThemeRepository subThemeRepository) {
         this.questionRepository = questionRepository;
+        this.subThemeRepository = subThemeRepository;
     }
-
 
     public Question addQuestion(Question question) {
         return questionRepository.save(question);
@@ -37,8 +38,9 @@ public class QuestionService {
     public List<Question> getQuestionBySubTheme(SubTheme subTheme){return questionRepository.getQuestionsBySubThemeEquals(subTheme);}
 
     @Transactional
-    public Question saveQuestion(String text, QuestionType type) {
-        return questionRepository.save(new Question(text, type));
+    public Question saveQuestion(String text, QuestionType type, int subThemeId) {
+        SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
+        return questionRepository.save(new Question(text, type, subTheme));
     }
 
     public boolean updateQuestion(int questionId, String text, QuestionType type) {

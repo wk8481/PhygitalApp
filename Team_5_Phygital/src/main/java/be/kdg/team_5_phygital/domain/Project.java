@@ -47,21 +47,9 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name) {
+    public Project(String name, SharingPlatform sharingPlatform) {
         this.name = name;
-    }
-
-    public Project(String name, Theme theme, boolean active, int totalParticipants, float avgTimeSpent, Supervisor supervisor, Installation installation, List<Flow> flows, SharingPlatform sharingPlatform, Administrator administrator) {
-        this.name = name;
-        this.theme = theme;
-        this.active = active;
-        this.totalParticipants = totalParticipants;
-        this.avgTimeSpent = avgTimeSpent;
-        this.supervisor = supervisor;
-        this.installation = installation;
-        this.flows = flows;
         this.sharingPlatform = sharingPlatform;
-        this.administrator = administrator;
     }
 
     public int getId() {
@@ -155,10 +143,5 @@ public class Project {
 
     public Installation getInstallation() {
         return installation;
-    }
-
-    public Project(int id, String name) {
-        this.id = id;
-        this.name = name;
     }
 }

@@ -4,6 +4,7 @@ public class NewSubThemeDto {
     private String name;
 
     private String information;
+    private int flowId;
 
     public NewSubThemeDto() {
     }
@@ -22,5 +23,13 @@ public class NewSubThemeDto {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public int getFlowId() {
+        return flowId;
+    }
+
+    public void setFlowId(int flowId) {
+        this.flowId = flowId;
     }
 }

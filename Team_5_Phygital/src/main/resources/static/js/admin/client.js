@@ -1,16 +1,13 @@
 const submitButton = document.querySelector("#saveButton");
-
+const [platformId, clientId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "client")
 submitButton.addEventListener("click", updateClient);
-const link = window.location.href.substring(window.location.href);
 
-var [platformId, clientId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "client")
-
-function updateClient(event) {
+async function updateClient(event) {
     const name = document.getElementById("nameInput").value;
     const email = document.getElementById("emailInput").value;
 
     console.log("updating client to " + name)
-    fetch(`/api/admin/platform/${platformId}/client/${clientId}`, {
+    fetch(`/api/clients/${clientId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

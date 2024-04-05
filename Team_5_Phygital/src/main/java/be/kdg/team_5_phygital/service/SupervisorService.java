@@ -1,8 +1,10 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
 import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.SupervisorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -13,9 +15,11 @@ import java.util.Optional;
 @Service
 public class SupervisorService {
     private final SupervisorRepository supervisorRepository;
+    private final ProjectRepository projectRepository;
 
-    public SupervisorService(SupervisorRepository supervisorRepository) {
+    public SupervisorService(SupervisorRepository supervisorRepository, ProjectRepository projectRepository) {
         this.supervisorRepository = supervisorRepository;
+        this.projectRepository = projectRepository;
     }
 
     public Supervisor createSupervisor(Supervisor supervisor) {
@@ -33,8 +37,9 @@ public class SupervisorService {
     public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepository.findSupervisorBySharingPlatformEquals(sharingPlatform);}
 
     @Transactional
-    public Supervisor saveSupervisor(String name, String email) {
-        return supervisorRepository.save(new Supervisor(name, email));
+    public Supervisor saveSupervisor(String name, String email, int projectId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        return supervisorRepository.save(new Supervisor(name, email, project));
     }
 
     public boolean updateSupervisor(int supervisorId, String name, String email) {

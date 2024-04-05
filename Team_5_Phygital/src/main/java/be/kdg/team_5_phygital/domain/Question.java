@@ -27,11 +27,10 @@ public class Question {
         this.type = type;
     }
 
-    public Question(int id, String text, QuestionType type, SubTheme theme) {
-        this.id = id;
+    public Question(String text, QuestionType type, SubTheme subTheme) {
         this.text = text;
         this.type = type;
-        this.subTheme = theme;
+        this.subTheme = subTheme;
     }
 
     public int getId() {

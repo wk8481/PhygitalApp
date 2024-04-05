@@ -5,6 +5,7 @@ import be.kdg.team_5_phygital.domain.QuestionType;
 public class NewQuestionDto {
     private String text;
     private QuestionType type;
+    private int subThemeId;
 
     public NewQuestionDto() {
     }
@@ -23,5 +24,13 @@ public class NewQuestionDto {
 
     public void setType(QuestionType type) {
         this.type = type;
+    }
+
+    public int getSubThemeId() {
+        return subThemeId;
+    }
+
+    public void setSubThemeId(int subThemeId) {
+        this.subThemeId = subThemeId;
     }
 }

@@ -21,9 +21,10 @@ public class Theme {
 
     }
 
-    public Theme(String name, String information) {
+    public Theme(String name, String information, Project project) {
         this.name = name;
         this.information = information;
+        this.project = project;
     }
 
     public int getId() {

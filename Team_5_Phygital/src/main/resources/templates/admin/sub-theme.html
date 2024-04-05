@@ -5,7 +5,7 @@
 <head>
     <title>Sub Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/admin/subTheme.js"></script>
+    <script defer src="/js/admin/sub-theme.js"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
@@ -108,6 +108,14 @@
                 <div class="center-container text-container">
                     <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
                         Return</a>
+                </div>
+            </div>
+            <!-- Delete Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <button class="btn btn-danger" id="deleteButton" type="button">
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>
