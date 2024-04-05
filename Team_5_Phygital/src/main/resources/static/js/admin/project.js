@@ -9,7 +9,7 @@ function updateProject(event) {
     const name = document.getElementById("nameInput").value;
 
     console.log("updating project to " + name)
-    fetch(`/api/admin/platform/${platformId}/project/${projectId}`, {
+    fetch(`/api/projects/${projectId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

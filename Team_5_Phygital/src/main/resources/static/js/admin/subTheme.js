@@ -10,7 +10,7 @@ function updateSubTheme(event) {
     const info = document.getElementById("infoInput").value;
 
     console.log("updating subtheme to " + name + " and its info to " + info)
-    fetch(`/api/admin/flow/${flowId}/sub-theme/${subThemeId}`, {
+    fetch(`/api/sub-themes/${subThemeId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

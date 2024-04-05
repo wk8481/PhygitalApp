@@ -10,7 +10,7 @@ function updateClient(event) {
     const email = document.getElementById("emailInput").value;
 
     console.log("updating client to " + name)
-    fetch(`/api/admin/platform/${platformId}/client/${clientId}`, {
+    fetch(`/api/clients/${clientId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({

@@ -9,7 +9,7 @@ function updateFlow(event) {
     const name = document.getElementById("nameInput").value;
 
     console.log("updating subtheme to " + name)
-    fetch(`/api/admin/flow/${projectId}/sub-theme/${flowId}`, {
+    fetch(`/api/flows/${flowId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
