@@ -1,11 +1,10 @@
 const submitButton = document.querySelector("#saveButton");
+const link = window.location.href.substring(window.location.href);
+const sharingPlatformId = extractIdsFromUrl(window.location.href.substring(window.location.href), "platform");
 
 submitButton.addEventListener("click", updatePlatform);
-const link = window.location.href.substring(window.location.href);
 
-var sharingPlatformId = extractIdsFromUrl(window.location.href.substring(window.location.href), "platform");
-
-function updatePlatform(event) {
+async function updatePlatform(event) {
     const name = document.getElementById("nameInput").value;
 
     console.log("updating platform to " + name)

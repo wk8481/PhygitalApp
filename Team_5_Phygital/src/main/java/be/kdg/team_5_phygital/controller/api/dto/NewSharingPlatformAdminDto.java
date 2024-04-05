@@ -4,6 +4,7 @@ public class NewSharingPlatformAdminDto {
     private String name;
     private String email;
     private String password;
+    private int sharingPlatformId;
 
     public NewSharingPlatformAdminDto() {
     }
@@ -30,5 +31,13 @@ public class NewSharingPlatformAdminDto {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public int getSharingPlatformId() {
+        return sharingPlatformId;
+    }
+
+    public void setSharingPlatformId(int sharingPlatformId) {
+        this.sharingPlatformId = sharingPlatformId;
     }
 }

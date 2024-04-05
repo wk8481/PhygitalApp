@@ -25,12 +25,12 @@ public class SupervisorsController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{platformId}")
-    ResponseEntity<SupervisorDto> saveSupervisor(@PathVariable int platformId, @RequestBody @Valid NewSupervisorDto supervisorDto) {
+    @PostMapping
+    ResponseEntity<SupervisorDto> saveSupervisor(@RequestBody @Valid NewSupervisorDto supervisorDto) {
         if (supervisorRepository.findByName(supervisorDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail());
+        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail(), supervisorDto.getProjectId());
         return new ResponseEntity<>(modelMapper.map(createdSupervisor, SupervisorDto.class), HttpStatus.CREATED);
     }
 

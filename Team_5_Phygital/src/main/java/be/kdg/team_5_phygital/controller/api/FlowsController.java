@@ -25,12 +25,12 @@ public class FlowsController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{projectId}")
-    ResponseEntity<FlowDto> saveFlow(@PathVariable int projectId, @RequestBody @Valid NewFlowDto flowDto) {
+    @PostMapping
+    ResponseEntity<FlowDto> saveFlow(@RequestBody @Valid NewFlowDto flowDto) {
         if (flowRepository.findByName(flowDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Flow createdFlow = flowService.saveFlow(flowDto.getName());
+        Flow createdFlow = flowService.saveFlow(flowDto.getName(), flowDto.getProjectId());
         return new ResponseEntity<>(modelMapper.map(createdFlow, FlowDto.class), HttpStatus.CREATED);
     }
 

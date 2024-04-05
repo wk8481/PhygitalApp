@@ -35,6 +35,12 @@ public class Supervisor {
         this.password = password;
     }
 
+    public Supervisor(String name, String email, Project project) {
+        this.name = name;
+        this.email = email;
+        // no project entity?
+    }
+
     public SharingPlatform getSharingPlatform() {
         return sharingPlatform;
     }

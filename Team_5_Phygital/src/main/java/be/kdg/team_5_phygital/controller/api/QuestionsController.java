@@ -25,12 +25,12 @@ public class QuestionsController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{subThemeId}")
-    ResponseEntity<QuestionDto> saveQuestion(@PathVariable int subThemeId, @RequestBody @Valid NewQuestionDto questionDto) {
+    @PostMapping
+    ResponseEntity<QuestionDto> saveQuestion(@RequestBody @Valid NewQuestionDto questionDto) {
         if (questionRepository.findByText(questionDto.getText()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Question createdQuestion = questionService.saveQuestion(questionDto.getText(), questionDto.getType());
+        Question createdQuestion = questionService.saveQuestion(questionDto.getText(), questionDto.getType(), questionDto.getSubThemeId());
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
 

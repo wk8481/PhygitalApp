@@ -25,12 +25,12 @@ public class ThemesController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{projectId}")
-    ResponseEntity<ThemeDto> saveTheme(@PathVariable int projectId, @RequestBody @Valid NewThemeDto themeDto) {
+    @PostMapping
+    ResponseEntity<ThemeDto> saveTheme(@RequestBody @Valid NewThemeDto themeDto) {
         if (themeRepository.findByName(themeDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Theme createdTheme = themeService.saveTheme(themeDto.getName(), themeDto.getInformation());
+        Theme createdTheme = themeService.saveTheme(themeDto.getName(), themeDto.getInformation(), themeDto.getProjectId());
         return new ResponseEntity<>(modelMapper.map(createdTheme, ThemeDto.class), HttpStatus.CREATED);
     }
 

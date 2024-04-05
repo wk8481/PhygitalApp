@@ -25,12 +25,12 @@ public class SubThemesController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{flowId}")
-    ResponseEntity<SubThemeDto> saveSubTheme(@PathVariable int flowId, @PathVariable int subThemeId, @RequestBody @Valid NewSubThemeDto subThemeDto) {
+    @PostMapping
+    ResponseEntity<SubThemeDto> saveSubTheme(@PathVariable int subThemeId, @RequestBody @Valid NewSubThemeDto subThemeDto) {
         if (subThemeRepository.findByName(subThemeDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        SubTheme createdSubTheme = subThemeService.saveSubTheme(subThemeDto.getName(), subThemeDto.getInformation());
+        SubTheme createdSubTheme = subThemeService.saveSubTheme(subThemeDto.getName(), subThemeDto.getInformation(), subThemeDto.getFlowId());
         return new ResponseEntity<>(modelMapper.map(createdSubTheme, SubThemeDto.class), HttpStatus.CREATED);
     }
 

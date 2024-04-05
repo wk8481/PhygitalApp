@@ -4,6 +4,7 @@ public class NewThemeDto {
     private String name;
 
     private String information;
+    private int projectId;
 
     public NewThemeDto() {
     }
@@ -22,5 +23,13 @@ public class NewThemeDto {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public int getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(int projectId) {
+        this.projectId = projectId;
     }
 }

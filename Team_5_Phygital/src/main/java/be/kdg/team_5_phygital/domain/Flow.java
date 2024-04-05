@@ -28,15 +28,9 @@ public class Flow {
     public Flow() {
     }
 
-    public Flow(String name) {
+    public Flow(String name, Project project) {
         this.name = name;
-    }
-
-    public Flow(boolean isCircular, Project project, List<SubTheme> subThemes, List<UserDetail> userDetail) {
-        this.isCircular = isCircular;
         this.project = project;
-        this.subThemes = subThemes;
-        this.userDetail = userDetail;
     }
 
     public int getId() {
@@ -86,6 +80,4 @@ public class Flow {
     public void setUserDetail(List<UserDetail> userDetail) {
         this.userDetail = userDetail;
     }
-
-
 }

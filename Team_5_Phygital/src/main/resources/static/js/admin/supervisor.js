@@ -1,12 +1,11 @@
 const submitButton = document.querySelector("#saveButton");
+const link = window.location.href.substring(window.location.href);
+const [sharingPlatformId, superVisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor");
 
 submitButton.addEventListener("click", updateSupervisor);
-const link = window.location.href.substring(window.location.href);
 
-const [platformId, superVisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor");
-
-function updateSupervisor(event) {
-    console.log(platformId, superVisorId)
+async function updateSupervisor(event) {
+    console.log(sharingPlatformId, superVisorId)
     const name = document.getElementById("nameInput").value;
     const email = document.getElementById("emailInput").value;
 
@@ -15,7 +14,7 @@ function updateSupervisor(event) {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": superVisorId, "name": name, "email": email, "platform": platformId
+            "id": superVisorId, "name": name, "email": email, "platform": sharingPlatformId
         })
     })
         .then(response => {
@@ -24,5 +23,3 @@ function updateSupervisor(event) {
             }
         });
 }
-
-

@@ -1,7 +1,9 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,9 +14,11 @@ import java.util.Optional;
 @Service
 public class ThemeService {
     private final ThemeRepository themeRepository;
+    private final ProjectRepository projectRepository;
 
-    public ThemeService(ThemeRepository themeRepository) {
+    public ThemeService(ThemeRepository themeRepository, ProjectRepository projectRepository) {
         this.themeRepository = themeRepository;
+        this.projectRepository = projectRepository;
     }
 
     public Optional<Theme> getThemeById(int id) {
@@ -30,8 +34,9 @@ public class ThemeService {
     }
 
     @Transactional
-    public Theme saveTheme(String name, String information) {
-        return themeRepository.save(new Theme(name, information));
+    public Theme saveTheme(String name, String information, int projectId) {
+        Project project = projectRepository.findById(projectId).orElse(null);
+        return themeRepository.save(new Theme(name, information, project));
     }
     
     public boolean updateTheme(int themeId, String name) {

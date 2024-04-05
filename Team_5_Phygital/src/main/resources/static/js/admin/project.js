@@ -1,11 +1,10 @@
 const submitButton = document.querySelector("#saveButton");
-
-submitButton.addEventListener("click", updateProject);
 const link = window.location.href.substring(window.location.href);
-
 const [platformId, projectId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
 
-function updateProject(event) {
+submitButton.addEventListener("click", updateProject);
+
+async function updateProject(event) {
     const name = document.getElementById("nameInput").value;
 
     console.log("updating project to " + name)

@@ -25,12 +25,12 @@ public class ClientsController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{platformId}")
-    ResponseEntity<SharingPlatformAdminDto> saveClient(@PathVariable int platformId, @RequestBody @Valid NewSharingPlatformAdminDto clientDto) {
+    @PostMapping
+    ResponseEntity<SharingPlatformAdminDto> saveClient(@RequestBody @Valid NewSharingPlatformAdminDto clientDto) {
         if (clientRepository.findByName(clientDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        SharingPlatformAdmin createdSharingPlatformAdmin = clientService.saveSharingPlatformAdmin(clientDto.getName(), clientDto.getEmail(), clientDto.getPassword());
+        SharingPlatformAdmin createdSharingPlatformAdmin = clientService.saveSharingPlatformAdmin(clientDto.getName(), clientDto.getEmail(), clientDto.getPassword(), clientDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatformAdmin, SharingPlatformAdminDto.class), HttpStatus.CREATED);
     }
 

@@ -1,11 +1,10 @@
 const submitButton = document.querySelector("#saveButton");
-
-submitButton.addEventListener("click", updateTheme);
 const link = window.location.href.substring(window.location.href);
-
 const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
 
-function updateTheme(event) {
+submitButton.addEventListener("click", updateTheme);
+
+async function updateTheme(event) {
     const name = document.getElementById("nameInput").value;
     const info = document.getElementById("infoInput").value;
 

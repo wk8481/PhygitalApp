@@ -1,11 +1,10 @@
 const submitButton = document.querySelector("#saveButton");
-
-submitButton.addEventListener("click", updateQuestion);
 const link = window.location.href.substring(window.location.href);
-
 const [subThemeId, questionId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "question");
 
-function updateQuestion(event) {
+submitButton.addEventListener("click", updateQuestion);
+
+async function updateQuestion(event) {
     const question = document.getElementById("textInput").value;
     const questionType = document.getElementById("questionTypeInput").value;
 

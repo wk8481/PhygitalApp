@@ -1,11 +1,10 @@
 const submitButton = document.querySelector("#saveButton");
-
-submitButton.addEventListener("click", updateSubTheme);
 const link = window.location.href.substring(window.location.href);
-
 const [flowId, subThemeId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "sub-theme");
 
-function updateSubTheme(event) {
+submitButton.addEventListener("click", updateSubTheme);
+
+async function updateSubTheme(event) {
     const name = document.getElementById("nameInput").value;
     const info = document.getElementById("infoInput").value;
 

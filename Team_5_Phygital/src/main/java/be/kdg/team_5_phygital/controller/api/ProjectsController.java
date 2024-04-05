@@ -25,12 +25,12 @@ public class ProjectsController {
         this.modelMapper = modelMapper;
     }
 
-    @PostMapping("{platformId}")
-    ResponseEntity<ProjectDto> saveProject(@PathVariable int platformI, @RequestBody @Valid NewProjectDto projectDto) {
+    @PostMapping
+    ResponseEntity<ProjectDto> saveProject(@RequestBody @Valid NewProjectDto projectDto) {
         if (projectRepository.findByName(projectDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Project createdProject = projectService.saveProject(projectDto.getName());
+        Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 
