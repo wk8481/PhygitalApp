@@ -21,11 +21,11 @@ INSERT INTO theme (name, information, project_id)
 VALUES ('Theme X', 'Information for Theme X', 1);
 
 -- Supervisor
-INSERT INTO supervisor (id, name, email, password, sharing_platform_id)
-VALUES (1, 'John Doe', 'johndoe@example.com', 'supervisor123', 1);
+INSERT INTO supervisor (name, email, password, sharing_platform_id)
+VALUES ('John Doe', 'johndoe@example.com', 'supervisor123', 1);
 
-INSERT INTO supervisor (id, name, email, password, sharing_platform_id)
-VALUES (2, 'Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
+INSERT INTO supervisor (name, email, password, sharing_platform_id)
+VALUES ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
 INSERT INTO flow (is_circular, project_id)

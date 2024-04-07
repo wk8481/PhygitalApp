@@ -24,4 +24,12 @@ public class UpdateQuestionDto {
     public void setType(QuestionType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "UpdateQuestionDto{" +
+                "text='" + text + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

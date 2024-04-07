@@ -33,4 +33,13 @@ public class NewQuestionDto {
     public void setSubThemeId(int subThemeId) {
         this.subThemeId = subThemeId;
     }
+
+    @Override
+    public String toString() {
+        return "NewQuestionDto{" +
+                "text='" + text + '\'' +
+                ", type=" + type +
+                ", subThemeId=" + subThemeId +
+                '}';
+    }
 }

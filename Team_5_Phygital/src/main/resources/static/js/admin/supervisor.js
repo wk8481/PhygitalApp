@@ -1,5 +1,4 @@
-const name = document.getElementById("nameInput").value;
-const email = document.getElementById("emailInput").value;
+
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [sharingPlatformId, supervisorId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "supervisor");
@@ -8,7 +7,9 @@ saveButton.addEventListener("click", updateSupervisor);
 deleteButton.addEventListener("click", deleteSupervisor);
 
 async function updateSupervisor(event) {
-    console.log("Updating supervisor")
+    let name = document.getElementById("nameInput").value;
+    let email = document.getElementById("emailInput").value;
+    console.log("Updating supervisor to: " + name + " " + email)
     fetch(`/api/supervisors/${supervisorId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
@@ -20,7 +21,11 @@ async function updateSupervisor(event) {
             if (response.status === 204) {
 
             }
+            if (response.ok){
+                window.history.back();
+            }
         });
+
 }
 
 async function deleteSupervisor(event) {
@@ -28,4 +33,7 @@ async function deleteSupervisor(event) {
     const response = await fetch(`/api/supervisors/${supervisorId}`, {
         method: "DELETE"
     });
+    if (response.ok){
+        window.history.back();
+    }
 }

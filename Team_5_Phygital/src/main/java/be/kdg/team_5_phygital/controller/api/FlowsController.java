@@ -8,6 +8,8 @@ import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.service.FlowService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/flows")
 public class FlowsController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final FlowService flowService;
     private final FlowRepository flowRepository;
     private final ModelMapper modelMapper;
@@ -28,8 +31,11 @@ public class FlowsController {
     @PostMapping
     ResponseEntity<FlowDto> saveFlow(@RequestBody @Valid NewFlowDto flowDto) {
         if (flowRepository.findByName(flowDto.getName()).isPresent()) {
+            logger.error("Flow already exists");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+
         }
+        logger.info("Flow created");
         Flow createdFlow = flowService.saveFlow(flowDto.getName(), flowDto.getProjectId());
         return new ResponseEntity<>(modelMapper.map(createdFlow, FlowDto.class), HttpStatus.CREATED);
     }
@@ -37,8 +43,10 @@ public class FlowsController {
     @PatchMapping("{flowId}")
     ResponseEntity<Void> updateFlow(@PathVariable int flowId, @RequestBody UpdateFlowDto updateFlowDto) {
         if (flowService.updateFlow(flowId, updateFlowDto.getName())) {
+            logger.info("Flow updated");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            logger.error("Flow update failed");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -46,8 +54,10 @@ public class FlowsController {
     @DeleteMapping("{flowId}")
     ResponseEntity<Void> deleteFlow(@PathVariable("flowId") int flowId) {
         if (flowService.deleteFlow(flowId)) {
+            logger.info("Flow deleted");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+        logger.error("Flow could not be found");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

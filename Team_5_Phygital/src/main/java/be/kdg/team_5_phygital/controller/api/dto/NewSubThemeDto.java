@@ -32,4 +32,13 @@ public class NewSubThemeDto {
     public void setFlowId(int flowId) {
         this.flowId = flowId;
     }
+
+    @Override
+    public String toString() {
+        return "NewSubThemeDto{" +
+                "name='" + name + '\'' +
+                ", information='" + information + '\'' +
+                ", flowId=" + flowId +
+                '}';
+    }
 }

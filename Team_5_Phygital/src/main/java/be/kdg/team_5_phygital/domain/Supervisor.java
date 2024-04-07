@@ -24,6 +24,12 @@ public class Supervisor {
     public Supervisor() {
     }
 
+    public Supervisor(String name, String email, SharingPlatform sharingPlatform) {
+        this.name = name;
+        this.email = email;
+        this.sharingPlatform = sharingPlatform;
+    }
+
     public Supervisor(String name, String email) {
         this.name = name;
         this.email = email;

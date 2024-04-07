@@ -8,6 +8,8 @@ import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.service.SharingPlatformService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/sharing-platforms")
 public class SharingPlatformsController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SharingPlatformService sharingPlatformService;
     private final SharingPlatformRepository sharingPlatformRepository;
     private final ModelMapper modelMapper;

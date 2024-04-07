@@ -13,7 +13,11 @@ function extractIdsFromUrl(url, partOfUrl) {
         var secondId = match[2];
         return [firstId, secondId];
     } else {
+        var pattern2 = new RegExp("/(\\d+)/" + partOfUrl + "/new");
+        var math2 = url.match(pattern2);
+        if (math2){
+            return math2[1]
+        }
         // Return null or handle error
-        return null;
     }
 }

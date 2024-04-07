@@ -1,14 +1,17 @@
-const nameInput = document.getElementById("nameInput");
+
 const createButton = document.getElementById("createButton");
 
-createButton?.addEventListener("click", addNewSubTheme);
+const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "flow");
+createButton.addEventListener("click", addNewSubTheme);
 
 async function addNewSubTheme() {
-    await fetch(`/api/sub-themes`, {
+    const nameInput = document.getElementById("nameInput").value;
+    await fetch(`/api/flows`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json"
         }, body: JSON.stringify({
-            name: nameInput.value
+            name: nameInput,
+            projectId: projectId
         })
     });
 }

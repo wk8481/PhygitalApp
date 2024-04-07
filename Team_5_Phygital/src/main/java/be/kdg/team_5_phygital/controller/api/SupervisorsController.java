@@ -8,6 +8,8 @@ import be.kdg.team_5_phygital.repository.SupervisorRepository;
 import be.kdg.team_5_phygital.service.SupervisorService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/supervisors")
 public class SupervisorsController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SupervisorService supervisorService;
     private final SupervisorRepository supervisorRepository;
     private final ModelMapper modelMapper;
@@ -30,15 +33,18 @@ public class SupervisorsController {
         if (supervisorRepository.findByName(supervisorDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail(), supervisorDto.getProjectId());
+        logger.info("creating new supervisor: " + supervisorDto);
+        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail(), supervisorDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdSupervisor, SupervisorDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("{supervisorId}")
     ResponseEntity<Void> updateSupervisor(@PathVariable int supervisorId, @RequestBody UpdateSupervisorDto updateSupervisorDto) {
         if (supervisorService.updateSupervisor(supervisorId, updateSupervisorDto.getName(), updateSupervisorDto.getEmail())) {
+            logger.info("updating supervisor to: "+ updateSupervisorDto);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
+            logger.error("error updating supervisor");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -46,6 +52,7 @@ public class SupervisorsController {
     @DeleteMapping("{supervisorId}")
     ResponseEntity<Void> deleteSupervisor(@PathVariable("supervisorId") int supervisorId) {
         if (supervisorService.deleteSupervisor(supervisorId)) {
+            logger.info("deleting supervisor");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

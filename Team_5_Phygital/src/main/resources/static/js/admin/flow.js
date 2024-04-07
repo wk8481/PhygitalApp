@@ -1,4 +1,4 @@
-const name = document.getElementById("nameInput").value;
+
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [projectId, flowId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "flow");
@@ -7,6 +7,7 @@ saveButton.addEventListener("click", updateFlow);
 deleteButton.addEventListener("click", deleteFlow);
 
 async function updateFlow(event) {
+    const name = document.getElementById("nameInput").value;
     console.log("Updating flow")
     fetch(`/api/flows/${flowId}`, {
         method: "PATCH", headers: {
@@ -27,4 +28,7 @@ async function deleteFlow(event) {
     const response = await fetch(`/api/flows/${flowId}`, {
         method: "DELETE"
     });
+    if (response.ok){
+        window.history.back();
+    }
 }
