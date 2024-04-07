@@ -39,4 +39,13 @@ public class QuestionDto {
     public void setType(QuestionType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "QuestionDto{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", type=" + type +
+                '}';
+    }
 }

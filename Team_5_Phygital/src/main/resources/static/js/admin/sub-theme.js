@@ -1,5 +1,4 @@
-const name = document.getElementById("nameInput").value;
-const info = document.getElementById("infoInput").value;
+
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [flowId, subThemeId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "sub-theme");
@@ -8,6 +7,8 @@ saveButton.addEventListener("click", updateSubTheme);
 deleteButton.addEventListener("click", deleteSubTheme);
 
 async function updateSubTheme(event) {
+    const name = document.getElementById("nameInput").value;
+    const info = document.getElementById("infoInput").value;
     console.log("Updating sub theme")
     fetch(`/api/sub-themes/${subThemeId}`, {
         method: "PATCH", headers: {
@@ -28,4 +29,7 @@ async function deleteSubTheme(event) {
     const response = await fetch(`/api/sub-themes/${subThemeId}`, {
         method: "DELETE"
     });
+    if (response.ok){
+        window.history.back();
+    }
 }

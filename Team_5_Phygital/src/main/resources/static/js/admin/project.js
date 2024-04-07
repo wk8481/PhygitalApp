@@ -1,4 +1,3 @@
-const name = document.getElementById("nameInput").value;
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [platformId, projectId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
@@ -7,7 +6,8 @@ saveButton.addEventListener("click", updateProject);
 deleteButton.addEventListener("click", deleteProject);
 
 async function updateProject(event) {
-    console.log("Updating project")
+    let name = document.getElementById("nameInput").value;
+    console.log("Updating project to: " + name )
     fetch(`/api/projects/${projectId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
@@ -27,4 +27,7 @@ async function deleteProject(event) {
     const response = await fetch(`/api/projects/${projectId}`, {
         method: "DELETE"
     });
+    if (response.ok){
+        window.history.back();
+    }
 }

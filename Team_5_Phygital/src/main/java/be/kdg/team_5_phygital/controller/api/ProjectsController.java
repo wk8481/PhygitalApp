@@ -8,6 +8,8 @@ import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.service.ProjectService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectsController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjectService projectService;
     private final ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
@@ -30,6 +33,7 @@ public class ProjectsController {
         if (projectRepository.findByName(projectDto.getName()).isPresent()) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+        logger.info("creating new project: " + projectDto.toString());
         Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }

@@ -1,14 +1,18 @@
-const textInput = document.getElementById("textInput");
 const createButton = document.getElementById("createButton");
 
-createButton?.addEventListener("click", addNewQuestion);
+const subThemeId = extractIdsFromUrl(window.location.href.substring(window.location.href), "question");
+createButton.addEventListener("click", addNewQuestion);
 
 async function addNewQuestion() {
+    const textInput = document.getElementById("textInput").value;
+    const type = document.getElementById("questionTypeInput").value;
     await fetch(`/api/questions`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json"
         }, body: JSON.stringify({
-            text: textInput.value
+            text: textInput,
+            type: type,
+            subThemeId: subThemeId
         })
     });
 }

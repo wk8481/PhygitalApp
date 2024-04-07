@@ -22,4 +22,12 @@ public class NewProjectDto {
     public void setSharingPlatformId(int sharingPlatformId) {
         this.sharingPlatformId = sharingPlatformId;
     }
+
+    @Override
+    public String toString() {
+        return "NewProjectDto{" +
+                "name='" + name + '\'' +
+                ", sharingPlatformId=" + sharingPlatformId +
+                '}';
+    }
 }
