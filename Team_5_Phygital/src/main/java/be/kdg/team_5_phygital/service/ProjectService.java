@@ -2,8 +2,10 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
+import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
+import be.kdg.team_5_phygital.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.Optional;
 public class ProjectService {
     private final ProjectRepository projectRepository;
     private final SharingPlatformRepository sharingPlatformRepository;
+    private final ThemeRepository themeRepository;
 
-    public ProjectService(ProjectRepository projectRepository, SharingPlatformRepository sharingPlatformRepository) {
+    public ProjectService(ProjectRepository projectRepository, SharingPlatformRepository sharingPlatformRepository, ThemeRepository themeRepository) {
         this.projectRepository = projectRepository;
         this.sharingPlatformRepository = sharingPlatformRepository;
+        this.themeRepository = themeRepository;
     }
 
     public Project getProject(int id) {
@@ -39,7 +43,9 @@ public class ProjectService {
     @Transactional
     public Project saveProject(String name, String backgroundColorHex, String fontName, String logoPath, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
-        return projectRepository.save(new Project(name, backgroundColorHex, fontName, logoPath, sharingPlatform));
+        Project project = new Project(name, backgroundColorHex, fontName, logoPath, sharingPlatform);
+        themeRepository.save(new Theme("Unnamed Theme", "", project));
+        return projectRepository.save(project);
     }
 
     public boolean updateProject(int projectId, String name, String backgroundColorHex, String fontName, String logoPath) {
