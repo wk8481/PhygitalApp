@@ -1,6 +1,44 @@
-### Homepage
+### Homepage (200)
 
 GET http://localhost:8081
 
-###
+### API: add a supervisor (201)
 
+POST http://localhost:8081/api/supervisors
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "John",
+  "email": "john@example.com"
+}
+
+### API: change a menu item (204)
+
+PATCH http://localhost:8081/api/supervisors/3
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Joe",
+  "email": "joe@example.com"
+}
+
+### API: change a menu item (404)
+
+PATCH http://localhost:8081/api/supervisors/99
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Joe",
+  "email": "joe@example.com"
+}
+
+### API: delete a supervisor (204)
+
+DELETE http://localhost:8081/api/supervisors/2
+
+### API: delete a supervisor (404)
+
+DELETE http://localhost:8081/api/supervisors/99
