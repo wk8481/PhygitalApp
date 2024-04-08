@@ -1,7 +1,6 @@
-
 const createButton = document.getElementById("createButton");
-
 const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "flow");
+
 createButton.addEventListener("click", addNewSubTheme);
 
 async function addNewSubTheme() {
@@ -10,8 +9,7 @@ async function addNewSubTheme() {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json"
         }, body: JSON.stringify({
-            name: nameInput,
-            projectId: projectId
+            name: nameInput, projectId: projectId
         })
     });
 }

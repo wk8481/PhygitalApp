@@ -54,13 +54,13 @@ public class ProjectsController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         logger.info("Creating new project: {}", projectDto.getName());
-        Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getSharingPlatformId());
+        Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getBackgroundColorHex(), projectDto.getFontName(), projectDto.getLogoPath(), projectDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("{projectId}")
     ResponseEntity<Void> updateProject(@PathVariable int projectId, @RequestBody UpdateProjectDto updateProjectDto) {
-        if (projectService.updateProject(projectId, updateProjectDto.getName())) {
+        if (projectService.updateProject(projectId, updateProjectDto.getName(), updateProjectDto.getBackgroundColorHex(), updateProjectDto.getFontName(), updateProjectDto.getLogoPath())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -1,18 +1,21 @@
-const saveButton = document.querySelector("#saveButton");
-const deleteButton = document.querySelector("#deleteButton");
+const name = document.getElementById("nameInput");
+const bgColor = document.getElementById("bgColorInput");
+const font = document.getElementById("fontInput");
+const logo = document.getElementById("logoInput");
+const saveButton = document.getElementById("saveButton");
+const deleteButton = document.getElementById("deleteButton");
 const [platformId, projectId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
 
 saveButton.addEventListener("click", updateProject);
 deleteButton.addEventListener("click", deleteProject);
 
 async function updateProject(event) {
-    let name = document.getElementById("nameInput").value;
-    console.log("Updating project to: " + name )
+    console.log("Updating project")
     fetch(`/api/projects/${projectId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": projectId, "name": name
+            id: projectId, name: name.value, backgroundColorHex: bgColor.value, fontName: font.value, logoPath: logo.value
         })
     })
         .then(response => {

@@ -32,22 +32,25 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform) {
-        return projectRepository.findAllBySharingPlatform(sharingPlatform);
+    public List<Project> getProjectBySharingPlatformId(int sharingPlatformId) {
+        return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
     }
 
     @Transactional
-    public Project saveProject(String name, int sharingPlatformId) {
+    public Project saveProject(String name, String backgroundColorHex, String fontName, String logoPath, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
-        return projectRepository.save(new Project(name, sharingPlatform));
+        return projectRepository.save(new Project(name, backgroundColorHex, fontName, logoPath, sharingPlatform));
     }
 
-    public boolean updateProject(int projectId, String name) {
+    public boolean updateProject(int projectId, String name, String backgroundColorHex, String fontName, String logoPath) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {
             return false;
         }
         project.setName(name);
+        project.setBackgroundColorHex(backgroundColorHex);
+        project.setFontName(fontName);
+        project.setLogoPath(logoPath);
         projectRepository.save(project);
         return true;
     }
