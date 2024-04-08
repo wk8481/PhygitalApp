@@ -2,6 +2,16 @@
 
 GET http://localhost:8081
 
+### API: retrieve one supervisor (200)
+
+GET http://localhost:8081/api/supervisors/1
+Accept: application/json
+
+### API: retrieve one supervisor (404)
+
+GET http://localhost:8081/api/supervisors/99
+Accept: application/json
+
 ### API: add a supervisor (201)
 
 POST http://localhost:8081/api/supervisors
@@ -37,7 +47,7 @@ Content-Type: application/json
 
 ### API: delete a supervisor (204)
 
-DELETE http://localhost:8081/api/supervisors/2
+DELETE http://localhost:8081/api/supervisors/1
 
 ### API: delete a supervisor (404)
 

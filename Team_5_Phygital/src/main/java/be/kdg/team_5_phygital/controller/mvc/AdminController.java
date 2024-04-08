@@ -130,7 +130,7 @@ public class AdminController {
         return "admin/new-sub-theme";
     }
 
-    @GetMapping("sub-theme/{stId}/question/{questionId}")
+    @GetMapping("sub-theme/{subThemeId}/question/{questionId}")
     public String getQuestion(@PathVariable int questionId, Model model) {
         Question question = questionService.getQuestion(questionId);
         model.addAttribute("q", question);
@@ -144,7 +144,7 @@ public class AdminController {
 
     @GetMapping("{platformId}/supervisor/{supervisorId}")
     public String getSupervisor(@PathVariable int platformId, @PathVariable int supervisorId, Model model) {
-        model.addAttribute("sv", supervisorService.getSupervisor(supervisorId).orElse(null));
+        model.addAttribute("sv", supervisorService.getSupervisor(supervisorId));
         return "admin/supervisor";
     }
 
