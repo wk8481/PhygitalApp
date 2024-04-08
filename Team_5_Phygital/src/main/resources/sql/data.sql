@@ -36,18 +36,18 @@ VALUES (false, 1);
 
 -- SubThemes
 -- SubTheme
-INSERT INTO sub_theme (name, information, flow_id, current_index)
-VALUES ('local voting in antwerp', 'Information for voting in Antwerp', 1, 0);
+INSERT INTO sub_theme (name, information, visible, flow_id, current_index)
+VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1, 0);
 -- SubTheme
-INSERT INTO sub_theme (name, information, flow_id, current_index)
-VALUES ('local voting in brussels', 'Information for voting in Brussels', 1, 0);
+INSERT INTO sub_theme (name, information, visible, flow_id, current_index)
+VALUES ('local voting in brussels', 'Information for voting in Brussels', true, 1, 0);
 
 
 
 -- Question
-INSERT INTO question (text, type, sub_theme_id)
-VALUES ('What is your favorite color?', 'MULTIPLE_CHOICE', 1),
-       ('How do you feel today?', 'SINGLE_CHOICE', 1);
+INSERT INTO question (text, type, visible, sub_theme_id)
+VALUES ('What is your favorite color?', 'MULTIPLE_CHOICE', true, 1),
+       ('How do you feel today?', 'SINGLE_CHOICE', true, 1);
 
 
 -- Insert User data

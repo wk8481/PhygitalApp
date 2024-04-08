@@ -56,11 +56,10 @@
                             <label class="form-label" for="fontInput">Font:</label>
                         </th>
                         <td class="col-sm-8">
-                            <select class="form-control" id="fontInput" th:value="${project.fontName}">
+                            <select class="form-control" id="fontInput" th:selected="${project.fontName}">
                                 <option value="Arial">Arial</option>
                                 <option value="Times New Roman">Times New Roman</option>
                                 <option value="Verdana">Verdana</option>
-                                <!-- Add more font options here -->
                             </select>
                         </td>
                     </tr>

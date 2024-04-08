@@ -1,7 +1,7 @@
-const name = document.getElementById("nameInput").value;
-const bgColor = document.getElementById("bgColorInput").value;
-const font = document.getElementById("fontInput").value;
-const logo = document.getElementById("logoInput").value;
+const name = document.getElementById("nameInput");
+const bgColor = document.getElementById("bgColorInput");
+const font = document.getElementById("fontInput");
+const logo = document.getElementById("logoInput");
 const saveButton = document.getElementById("saveButton");
 const deleteButton = document.getElementById("deleteButton");
 const [platformId, projectId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
@@ -15,7 +15,7 @@ async function updateProject(event) {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": projectId, "name": name, "backgroundColorHex": bgColor, "fontName": font, "logoPath": logo
+            id: projectId, name: name.value, backgroundColorHex: bgColor.value, fontName: font.value, logoPath: logo.value
         })
     })
         .then(response => {
