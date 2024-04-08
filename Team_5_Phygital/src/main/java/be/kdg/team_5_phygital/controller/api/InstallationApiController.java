@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/api/installation")
 public class InstallationApiController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final QuestionService questionService;
     private final FlowService flowService;
     private final SubThemeService subThemeService;

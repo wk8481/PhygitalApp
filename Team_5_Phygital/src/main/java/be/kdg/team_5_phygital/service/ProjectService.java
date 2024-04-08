@@ -2,7 +2,6 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import jakarta.transaction.Transactional;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProjectService{
+public class ProjectService {
     private final ProjectRepository projectRepository;
     private final SharingPlatformRepository sharingPlatformRepository;
 
@@ -21,22 +20,28 @@ public class ProjectService{
         this.sharingPlatformRepository = sharingPlatformRepository;
     }
 
-    public Optional<Project> getProjectById(int id) {
-        return projectRepository.findById(id);
+    public Project getProject(int id) {
+        return projectRepository.findById(id).orElse(null);
+    }
+
+    public Project getProjectByName(String name) {
+        return projectRepository.findByName(name).orElse(null);
     }
 
     public List<Project> getAllProjects() {
         return projectRepository.findAll();
     }
 
-    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform){return projectRepository.findAllBySharingPlatform(sharingPlatform);}
+    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform) {
+        return projectRepository.findAllBySharingPlatform(sharingPlatform);
+    }
 
     @Transactional
     public Project saveProject(String name, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         return projectRepository.save(new Project(name, sharingPlatform));
     }
-    
+
     public boolean updateProject(int projectId, String name) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {

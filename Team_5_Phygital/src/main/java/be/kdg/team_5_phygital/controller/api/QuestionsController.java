@@ -4,7 +4,6 @@ import be.kdg.team_5_phygital.controller.api.dto.NewQuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.QuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateQuestionDto;
 import be.kdg.team_5_phygital.domain.Question;
-import be.kdg.team_5_phygital.repository.QuestionRepository;
 import be.kdg.team_5_phygital.service.QuestionService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -14,27 +13,48 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/questions")
 public class QuestionsController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final QuestionService questionService;
-    private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
 
-    public QuestionsController(QuestionService questionService, QuestionRepository questionRepository, ModelMapper modelMapper) {
+    public QuestionsController(QuestionService questionService, ModelMapper modelMapper) {
         this.questionService = questionService;
-        this.questionRepository = questionRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("{id}")
+    ResponseEntity<QuestionDto> getQuestion(@PathVariable("id") int questionId) {
+        Question question = questionService.getQuestion(questionId);
+        if (question == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(modelMapper.map(question, QuestionDto.class));
+    }
+
+    @GetMapping
+    ResponseEntity<List<QuestionDto>> getAllQuestions() {
+        List<Question> allQuestions = questionService.getAllQuestions();
+        if (allQuestions.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<QuestionDto> questionDtos = allQuestions.stream().map(question -> modelMapper.map(question, QuestionDto.class)).collect(Collectors.toList());
+            return ResponseEntity.ok(questionDtos);
+        }
     }
 
     @PostMapping
     ResponseEntity<QuestionDto> saveQuestion(@RequestBody @Valid NewQuestionDto questionDto) {
-        if (questionRepository.findByText(questionDto.getText()).isPresent()) {
-            logger.error("could not create new question");
+        if (questionService.getQuestionByText(questionDto.getText()) != null) {
+            logger.error("Could not create new question");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        logger.info("creating new question: " + questionDto);
+        logger.info("Creating new question: {}", questionDto.getText());
         Question createdQuestion = questionService.saveQuestion(questionDto.getText(), questionDto.getType(), questionDto.getSubThemeId());
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
@@ -42,7 +62,7 @@ public class QuestionsController {
     @PatchMapping("{questionId}")
     ResponseEntity<Void> updateQuestion(@PathVariable int questionId, @RequestBody UpdateQuestionDto updateQuestionDto) {
         if (questionService.updateQuestion(questionId, updateQuestionDto.getText(), updateQuestionDto.getType())) {
-            logger.info("Updating question to: " + updateQuestionDto);
+            logger.info("Updating question to: {}", updateQuestionDto.getText());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             logger.error("Could not find question");
@@ -53,10 +73,10 @@ public class QuestionsController {
     @DeleteMapping("{questionId}")
     ResponseEntity<Void> deleteQuestion(@PathVariable("questionId") int questionId) {
         if (questionService.deleteQuestion(questionId)) {
-            logger.info("deleting question");
+            logger.info("Deleting question");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        logger.error("could not delete question");
+        logger.error("Could not delete question");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

@@ -5,28 +5,24 @@ import be.kdg.team_5_phygital.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-
-    public UserDetail createUser(UserDetail user) {
+    public UserDetail saveUser(UserDetail user) {
         return userRepository.save(user);
     }
 
-
-    public Optional<UserDetail> findUserById(int id) {
-        return userRepository.findById(id);
+    public UserDetail getUser(int id) {
+        return userRepository.findById(id).orElse(null);
     }
 
-
-    public List<UserDetail> findAllUsers() {
+    public List<UserDetail> getAllUsers() {
         return userRepository.findAll();
     }
 }

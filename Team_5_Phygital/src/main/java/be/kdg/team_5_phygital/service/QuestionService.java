@@ -21,26 +21,31 @@ public class QuestionService {
         this.subThemeRepository = subThemeRepository;
     }
 
-    public Question addQuestion(Question question) {
-        return questionRepository.save(question);
+    public Question getQuestion(int questionId) {
+        return questionRepository.findById(questionId).orElse(null);
     }
 
-
-    public Optional<Question> getQuestionById(int id) {
-        return questionRepository.findById(id);
+    public Question getQuestionByText(String text) {
+        return questionRepository.findByText(text).orElse(null);
     }
-
 
     public List<Question> getAllQuestions() {
         return questionRepository.findAll();
     }
 
-    public List<Question> getQuestionBySubTheme(SubTheme subTheme){return questionRepository.getQuestionsBySubThemeEquals(subTheme);}
+    public List<Question> getQuestionBySubTheme(SubTheme subTheme) {
+        return questionRepository.getQuestionsBySubThemeEquals(subTheme);
+    }
 
     @Transactional
     public Question saveQuestion(String text, QuestionType type, int subThemeId) {
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
         return questionRepository.save(new Question(text, type, subTheme));
+    }
+
+    // TO DELETE
+    public Question addQuestion(Question question) {
+        return questionRepository.save(question);
     }
 
     public boolean updateQuestion(int questionId, String text, QuestionType type) {
@@ -93,9 +98,4 @@ public class QuestionService {
         }
         return Optional.of(questions.get(currentIndex - 1));
     }
-
-
-
-
-
 }

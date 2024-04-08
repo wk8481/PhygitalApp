@@ -1,8 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -28,26 +26,24 @@ public class SharingPlatformService {
 
 
     /**
-     * Create sharing platform sharing platform.
-     *
-     * @param sharingPlatform the sharing platform
-     * @return the sharing platform
-     */
-    public SharingPlatform createSharingPlatform(SharingPlatform sharingPlatform) {
-        return sharingPlatformRepository.save(sharingPlatform);
-    }
-
-
-    /**
-     * Gets sharing platform by id.
+     * Gets sharing platform.
      *
      * @param id the id
-     * @return the sharing platform by id
+     * @return the sharing platform
      */
-    public Optional<SharingPlatform> getSharingPlatformById(int id) {
-        return sharingPlatformRepository.findById(id);
+    public SharingPlatform getSharingPlatform(int id) {
+        return sharingPlatformRepository.findById(id).orElse(null);
     }
 
+    /**
+     * Gets sharing platform by name.
+     *
+     * @param name the name
+     * @return the sharing platform by name
+     */
+    public SharingPlatform getSharingPlatformByName(String name) {
+        return sharingPlatformRepository.findByName(name).orElse(null);
+    }
 
     /**
      * Gets all sharing platforms.
@@ -58,13 +54,6 @@ public class SharingPlatformService {
         return sharingPlatformRepository.findAll();
     }
 
-    /**
-     * Save sharing platform sharing platform.
-     *
-     * @param name         the name
-     * @param contactEmail the contact email
-     * @return the sharing platform
-     */
     @Transactional
     public SharingPlatform saveSharingPlatform(String name, String contactEmail) {
         return sharingPlatformRepository.save(new SharingPlatform(name, contactEmail));
@@ -87,6 +76,12 @@ public class SharingPlatformService {
         return true;
     }
 
+    /**
+     * Delete sharing platform boolean.
+     *
+     * @param sharingPlatformId the sharing platform id
+     * @return the boolean
+     */
     @Transactional
     public boolean deleteSharingPlatform(int sharingPlatformId) {
         Optional<SharingPlatform> sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId);

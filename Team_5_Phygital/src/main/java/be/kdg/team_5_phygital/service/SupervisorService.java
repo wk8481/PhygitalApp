@@ -1,10 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Supervisor;
-import be.kdg.team_5_phygital.domain.Theme;
-import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.repository.SupervisorRepository;
 import jakarta.transaction.Transactional;
@@ -16,28 +13,28 @@ import java.util.Optional;
 @Service
 public class SupervisorService {
     private final SupervisorRepository supervisorRepository;
-    private final ProjectRepository projectRepository;
     private final SharingPlatformRepository sharingPlatformRepository;
 
-    public SupervisorService(SupervisorRepository supervisorRepository, ProjectRepository projectRepository, SharingPlatformRepository sharingPlatformRepository) {
+    public SupervisorService(SupervisorRepository supervisorRepository, SharingPlatformRepository sharingPlatformRepository) {
         this.supervisorRepository = supervisorRepository;
-        this.projectRepository = projectRepository;
         this.sharingPlatformRepository = sharingPlatformRepository;
     }
 
-    public Supervisor createSupervisor(Supervisor supervisor) {
-        return supervisorRepository.save(supervisor);
+    public Supervisor getSupervisor(int id) {
+        return supervisorRepository.findById(id).orElse(null);
     }
 
-    public Optional<Supervisor> getSupervisorById(int id) {
-        return supervisorRepository.findById(id);
+    public Supervisor getSupervisorByName(String name) {
+        return supervisorRepository.findByName(name).orElse(null);
     }
 
     public List<Supervisor> getAllSupervisors() {
         return supervisorRepository.findAll();
     }
 
-    public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) { return supervisorRepository.findSupervisorBySharingPlatformEquals(sharingPlatform);}
+    public List<Supervisor> findSupervisorBySharingPlatform(SharingPlatform sharingPlatform) {
+        return supervisorRepository.findSupervisorBySharingPlatformEquals(sharingPlatform);
+    }
 
     @Transactional
     public Supervisor saveSupervisor(String name, String email, int sharingPlatformId) {

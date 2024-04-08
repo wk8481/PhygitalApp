@@ -24,13 +24,19 @@ public class SubThemeService {
         return subThemeRepository.save(subtheme);
     }
 
-
-    public Optional<SubTheme> getSubThemeById(int id) {
-        return subThemeRepository.findById(id);
+    public SubTheme getSubTheme(int subThemeId) {
+        return subThemeRepository.findById(subThemeId).orElse(null);
     }
 
+    public Optional<SubTheme> getSubThemeById(int subThemeId) {
+        return subThemeRepository.findById(subThemeId);
+    }
 
-    public List<SubTheme> getAllSubTheme() {
+    public SubTheme getSubThemeByName(String name) {
+        return subThemeRepository.findByName(name).orElse(null);
+    }
+
+    public List<SubTheme> getAllSubThemes() {
         return subThemeRepository.findAll();
     }
 

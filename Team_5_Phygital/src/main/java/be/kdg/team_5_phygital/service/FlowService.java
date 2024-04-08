@@ -1,12 +1,12 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.*;
+import be.kdg.team_5_phygital.domain.Flow;
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,13 +20,8 @@ public class FlowService {
         this.projectRepository = projectRepository;
     }
 
-    public Flow createFlow(Flow flow) {
-        return flowRepository.save(flow);
-    }
-
-
-    public Optional<Flow> getFlowById(int id) {
-        return flowRepository.findById(id);
+    public Flow getFlow(int flowId) {
+        return flowRepository.findById(flowId).orElse(null);
     }
 
 
@@ -34,7 +29,9 @@ public class FlowService {
         return flowRepository.findAll();
     }
 
-    public List<Flow> getFlowsByProjectId(Project project){ return flowRepository.findFlowsByProjectEquals(project);}
+    public List<Flow> getFlowsByProjectId(Project project) {
+        return flowRepository.findFlowsByProjectEquals(project);
+    }
 
     @Transactional
     public Flow saveFlow(String name, int projectId) {
@@ -61,9 +58,4 @@ public class FlowService {
         flowRepository.deleteById(flowId);
         return true;
     }
-
-
-
-
-
 }
