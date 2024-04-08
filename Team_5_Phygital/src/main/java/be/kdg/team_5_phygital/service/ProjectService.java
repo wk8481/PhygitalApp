@@ -32,8 +32,8 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    public List<Project> getProjectBySharingPlatform(SharingPlatform sharingPlatform) {
-        return projectRepository.findAllBySharingPlatform(sharingPlatform);
+    public List<Project> getProjectBySharingPlatformId(int sharingPlatformId) {
+        return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
     }
 
     @Transactional

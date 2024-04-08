@@ -51,7 +51,7 @@ public class SharingPlatformsController {
     @PostMapping
     ResponseEntity<SharingPlatformDto> saveSharingPlatform(@RequestBody @Valid NewSharingPlatformDto sharingPlatformDto) {
         if (sharingPlatformService.getSharingPlatformByName(sharingPlatformDto.getName()) != null) {
-            logger.info("Could not create new sharing platform");
+            logger.error("Could not create new sharing platform");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         logger.info("Creating new sharing platform: {}", sharingPlatformDto.getName());
@@ -75,7 +75,7 @@ public class SharingPlatformsController {
             logger.info("Deleting sharing platform");
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        logger.info("Could not delete sharing platform");
+        logger.error("Could not delete sharing platform");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

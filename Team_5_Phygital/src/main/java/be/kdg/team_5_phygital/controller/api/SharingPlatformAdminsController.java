@@ -52,7 +52,7 @@ public class SharingPlatformAdminsController {
             logger.info("Updating sharing platform admin to: {}", updateSharingPlatformAdminDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
-            logger.info("Could not find sharing platform admin");
+            logger.error("Could not find sharing platform admin");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
