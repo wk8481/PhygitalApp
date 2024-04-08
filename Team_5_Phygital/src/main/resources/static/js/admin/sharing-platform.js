@@ -1,4 +1,5 @@
-
+const name = document.getElementById("nameInput");
+const contactEmail = document.getElementById("contactEmailInput");
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const sharingPlatformId = extractIdsFromUrl(window.location.href.substring(window.location.href), "platform");
@@ -7,13 +8,12 @@ saveButton.addEventListener("click", updateSharingPlatform);
 deleteButton.addEventListener("click", deleteSharingPlatform);
 
 async function updateSharingPlatform(event) {
-    const name = document.getElementById("nameInput").value;
     console.log("Updating platform")
     fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
         method: "PATCH", headers: {
             'Accept': 'application/json', "Content-Type": "application/json"
         }, body: JSON.stringify({
-            "id": sharingPlatformId, "name": name
+            "id": sharingPlatformId, "name": name.value, "contactEmail": contactEmail.value
         })
     })
         .then(response => {
@@ -28,7 +28,7 @@ async function deleteSharingPlatform(event) {
     const response = await fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
         method: "DELETE"
     });
-    if (response.ok){
+    if (response.ok) {
         window.history.back();
     }
 }

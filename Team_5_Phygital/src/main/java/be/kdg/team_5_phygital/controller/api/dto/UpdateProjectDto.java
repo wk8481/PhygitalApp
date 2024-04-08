@@ -2,6 +2,9 @@ package be.kdg.team_5_phygital.controller.api.dto;
 
 public class UpdateProjectDto {
     private String name;
+    private String backgroundColorHex;
+    private String fontName;
+    private String logoPath;
 
     public UpdateProjectDto() {
     }
@@ -12,5 +15,29 @@ public class UpdateProjectDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getBackgroundColorHex() {
+        return backgroundColorHex;
+    }
+
+    public void setBackgroundColorHex(String backgroundColorHex) {
+        this.backgroundColorHex = backgroundColorHex;
+    }
+
+    public String getFontName() {
+        return fontName;
+    }
+
+    public void setFontName(String fontName) {
+        this.fontName = fontName;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 }

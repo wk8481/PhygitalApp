@@ -1,15 +1,15 @@
-
+const name = document.getElementById("nameInput");
+const contactEmail = document.getElementById("contactEmailInput");
 const createButton = document.getElementById("createButton");
 
 createButton.addEventListener("click", addNewSharingPlatform);
 
 async function addNewSharingPlatform() {
-    const nameInput = document.getElementById("nameInput");
     await fetch(`/api/sharing-platforms/`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json"
         }, body: JSON.stringify({
-            name: nameInput.value
+            name: name.value, contactEmail: contactEmail.value
         })
     });
 }

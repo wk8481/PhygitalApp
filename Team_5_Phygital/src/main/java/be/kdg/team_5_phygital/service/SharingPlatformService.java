@@ -66,12 +66,13 @@ public class SharingPlatformService {
      * @param name              the name
      * @return the boolean
      */
-    public boolean updateSharingPlatform(int sharingPlatformId, String name) {
+    public boolean updateSharingPlatform(int sharingPlatformId, String name, String contactEmail) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatform == null) {
             return false;
         }
         sharingPlatform.setName(name);
+        sharingPlatform.setContactEmail(contactEmail);
         sharingPlatformRepository.save(sharingPlatform);
         return true;
     }

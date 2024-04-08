@@ -13,6 +13,8 @@ public class Flow {
 
     private String name;
 
+    private boolean visible;
+
     private boolean isCircular;
 
     @ManyToOne(optional = false)
@@ -47,6 +49,14 @@ public class Flow {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public boolean isCircular() {

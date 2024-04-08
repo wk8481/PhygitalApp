@@ -1,6 +1,9 @@
 package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
+import java.awt.Font;
+import java.awt.Color;
+import java.awt.Image;
 
 import java.util.List;
 
@@ -17,6 +20,12 @@ public class Project {
     @OneToOne
     @JoinColumn(name = "theme_id")
     private Theme theme;
+
+    private String backgroundColorHex;
+
+    private String fontName;
+
+    private String logoPath;
 
     private boolean active;
 
@@ -52,6 +61,14 @@ public class Project {
         this.sharingPlatform = sharingPlatform;
     }
 
+    public Project(String name, String backgroundColorHex, String fontName, String logoPath, SharingPlatform sharingPlatform) {
+        this.name = name;
+        this.backgroundColorHex = backgroundColorHex;
+        this.fontName = fontName;
+        this.logoPath = logoPath;
+        this.sharingPlatform = sharingPlatform;
+    }
+
     public int getId() {
         return id;
     }
@@ -79,6 +96,30 @@ public class Project {
 
     public void setTheme(Theme theme) {
         this.theme = theme;
+    }
+
+    public String getBackgroundColorHex() {
+        return backgroundColorHex;
+    }
+
+    public void setBackgroundColorHex(String backgroundColorHex) {
+        this.backgroundColorHex = backgroundColorHex;
+    }
+
+    public String getFontName() {
+        return fontName;
+    }
+
+    public void setFontName(String fontName) {
+        this.fontName = fontName;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 
     public boolean isActive() {

@@ -61,7 +61,7 @@ public class SharingPlatformsController {
 
     @PatchMapping("{platformId}")
     ResponseEntity<Void> updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto) {
-        if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatformDto.getName())) {
+        if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatformDto.getName(), updateSharingPlatformDto.getContactEmail())) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
