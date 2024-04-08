@@ -22,6 +22,10 @@ public class Administrator {
     public Administrator() {
     }
 
+    public Administrator(String name) {
+        this.name = name;
+    }
+
     public Administrator(String name, List<SharingPlatform> sharingPlatforms, List<Project> projects) {
         this.name = name;
         this.sharingPlatforms = sharingPlatforms;

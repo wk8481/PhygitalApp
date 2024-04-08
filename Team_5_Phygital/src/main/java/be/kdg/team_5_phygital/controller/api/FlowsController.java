@@ -14,10 +14,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/flows")
 public class FlowsController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final FlowService flowService;
     private final FlowRepository flowRepository;
     private final ModelMapper modelMapper;
@@ -26,6 +29,26 @@ public class FlowsController {
         this.flowService = flowService;
         this.flowRepository = flowRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("{id}")
+    ResponseEntity<FlowDto> getFlow(@PathVariable("id") int flowId) {
+        Flow flow = flowService.getFlow(flowId);
+        if (flow == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(modelMapper.map(flow, FlowDto.class));
+    }
+
+    @GetMapping
+    ResponseEntity<List<FlowDto>> getAllFlows() {
+        List<Flow> allFlows = flowService.getAllFlows();
+        if (allFlows.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<FlowDto> flowDtos = allFlows.stream().map(flow -> modelMapper.map(flow, FlowDto.class)).collect(Collectors.toList());
+            return ResponseEntity.ok(flowDtos);
+        }
     }
 
     @PostMapping

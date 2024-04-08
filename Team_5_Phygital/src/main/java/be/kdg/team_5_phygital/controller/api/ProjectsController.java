@@ -4,7 +4,6 @@ import be.kdg.team_5_phygital.controller.api.dto.NewProjectDto;
 import be.kdg.team_5_phygital.controller.api.dto.ProjectDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
 import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.service.ProjectService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -14,33 +13,54 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("/api/projects")
 public class ProjectsController {
-    private Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjectService projectService;
-    private final ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
 
-    public ProjectsController(ProjectService projectService, ProjectRepository projectRepository, ModelMapper modelMapper) {
+    public ProjectsController(ProjectService projectService, ModelMapper modelMapper) {
         this.projectService = projectService;
-        this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
+    }
+
+    @GetMapping("{id}")
+    ResponseEntity<ProjectDto> getProject(@PathVariable("id") int projectId) {
+        Project project = projectService.getProject(projectId);
+        if (project == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(modelMapper.map(project, ProjectDto.class));
+    }
+
+    @GetMapping
+    ResponseEntity<List<ProjectDto>> getAllProjects() {
+        List<Project> allProjects = projectService.getAllProjects();
+        if (allProjects.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            List<ProjectDto> projectDtos = allProjects.stream().map(project -> modelMapper.map(project, ProjectDto.class)).collect(Collectors.toList());
+            return ResponseEntity.ok(projectDtos);
+        }
     }
 
     @PostMapping
     ResponseEntity<ProjectDto> saveProject(@RequestBody @Valid NewProjectDto projectDto) {
-        if (projectRepository.findByName(projectDto.getName()).isPresent()) {
+        if (projectService.getProjectByName(projectDto.getName()) != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        logger.info("creating new project: " + projectDto.toString());
+        logger.info("Creating new project: {}", projectDto.getName());
         Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("{projectId}")
-    ResponseEntity<Void> updateProject(@PathVariable int projectId, @RequestBody UpdateProjectDto updateProject) {
-        if (projectService.updateProject(projectId, updateProject.getName())) {
+    ResponseEntity<Void> updateProject(@PathVariable int projectId, @RequestBody UpdateProjectDto updateProjectDto) {
+        if (projectService.updateProject(projectId, updateProjectDto.getName())) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

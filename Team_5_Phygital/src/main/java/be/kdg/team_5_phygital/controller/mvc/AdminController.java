@@ -44,8 +44,8 @@ public class AdminController {
 
     @GetMapping("sharing-platform/{platformId}")
     public String getSharingPlatform(@PathVariable int platformId, Model model) {
-        SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatformById(platformId).orElse(null);
-        SharingPlatformAdmin client = sharingPlatformAdminService.findAllSharingPlatformAdmins().get(0);
+        SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatform(platformId);
+        SharingPlatformAdmin client = sharingPlatformAdminService.getAllSharingPlatformAdmins().get(0);
         List<Project> projectList = projectService.getProjectBySharingPlatform(sharingPlatform);
         List<Supervisor> supervisorList = supervisorService.findSupervisorBySharingPlatform(sharingPlatform);
         model.addAttribute("platform", sharingPlatform);
@@ -62,14 +62,14 @@ public class AdminController {
 
     @GetMapping("sharing-platform/{platformId}/client/{clientId}")
     public String getClient(@PathVariable int platformId, @PathVariable int clientId, Model model) {
-        SharingPlatformAdmin client = sharingPlatformAdminService.findAllSharingPlatformAdmins().get(0);
+        SharingPlatformAdmin client = sharingPlatformAdminService.getAllSharingPlatformAdmins().get(0);
         model.addAttribute("client", client);
         return "admin/client";
     }
 
     @GetMapping("sharing-platform/{platformId}/stats")
     public String getPlatformStats(@PathVariable int platformId, Model model) {
-        SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatformById(platformId).orElse(null);
+        SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatform(platformId);
         Project project = projectService.getAllProjects().stream().findFirst().orElse(null);
         model.addAttribute("platform", sharingPlatform);
         model.addAttribute("project", project);
@@ -78,7 +78,7 @@ public class AdminController {
 
     @GetMapping("{platformId}/project/{projectId}")
     public String getProject(@PathVariable int platformId, @PathVariable int projectId, Model model) {
-        Project project = projectService.getProjectById(projectId).orElse(null);
+        Project project = projectService.getProject(projectId);
         List<Flow> flows = flowService.getFlowsByProjectId(project);
         model.addAttribute("project", project);
         model.addAttribute("flow", flows);
@@ -104,7 +104,7 @@ public class AdminController {
 
     @GetMapping("project/{projectId}/flow/{flowId}")
     public String getFlow(@PathVariable int projectId, @PathVariable int flowId, Model model) {
-        Flow flow = flowService.getFlowById(flowId).orElse(null);
+        Flow flow = flowService.getFlow(flowId);
         List<SubTheme> subThemes = subThemeService.getSubThemeByFlowId(flow);
         model.addAttribute("flow", flow);
         model.addAttribute("st", subThemes);
@@ -130,9 +130,9 @@ public class AdminController {
         return "admin/new-sub-theme";
     }
 
-    @GetMapping("sub-theme/{stId}/question/{questionId}")
+    @GetMapping("sub-theme/{subThemeId}/question/{questionId}")
     public String getQuestion(@PathVariable int questionId, Model model) {
-        Question question = questionService.getQuestionById(questionId).orElse(null);
+        Question question = questionService.getQuestion(questionId);
         model.addAttribute("q", question);
         return "admin/question";
     }
@@ -144,7 +144,7 @@ public class AdminController {
 
     @GetMapping("{platformId}/supervisor/{supervisorId}")
     public String getSupervisor(@PathVariable int platformId, @PathVariable int supervisorId, Model model) {
-        model.addAttribute("sv", supervisorService.getSupervisorById(supervisorId).orElse(null));
+        model.addAttribute("sv", supervisorService.getSupervisor(supervisorId));
         return "admin/supervisor";
     }
 
@@ -155,7 +155,7 @@ public class AdminController {
 
     @GetMapping("project/{projectId}/stats")
     public String getProjectStats(@PathVariable int projectId, Model model) {
-        Project project = projectService.getProjectById(projectId).orElse(null);
+        Project project = projectService.getProject(projectId);
         model.addAttribute("project", project);
         return "admin/project-stats";
     }

@@ -7,12 +7,11 @@ import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class SharingPlatformAdminService{
+public class SharingPlatformAdminService {
     private final SharingPlatformAdminRepository sharingPlatformAdminRepository;
     private final SharingPlatformRepository sharingPlatformRepository;
 
@@ -21,17 +20,13 @@ public class SharingPlatformAdminService{
         this.sharingPlatformRepository = sharingPlatformRepository;
     }
 
-    public SharingPlatformAdmin createSharingPlatformAdmin(SharingPlatformAdmin sharingPlatformAdmin) {
-        return sharingPlatformAdminRepository.save(sharingPlatformAdmin);
+
+    public SharingPlatformAdmin getSharingPlatformAdmin(int sharingPlatformAdminId) {
+        return sharingPlatformAdminRepository.findById(sharingPlatformAdminId).orElse(null);
     }
 
 
-    public Optional<SharingPlatformAdmin> findSharingPlatformAdminById(int id) {
-        return sharingPlatformAdminRepository.findById(id);
-    }
-
-
-    public List<SharingPlatformAdmin> findAllSharingPlatformAdmins() {
+    public List<SharingPlatformAdmin> getAllSharingPlatformAdmins() {
         return sharingPlatformAdminRepository.findAll();
     }
 

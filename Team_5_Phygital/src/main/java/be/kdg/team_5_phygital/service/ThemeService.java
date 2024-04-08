@@ -1,7 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
@@ -21,8 +20,8 @@ public class ThemeService {
         this.projectRepository = projectRepository;
     }
 
-    public Optional<Theme> getThemeById(int id) {
-        return themeRepository.findById(id);
+    public Theme getTheme(int themeId) {
+        return themeRepository.findById(themeId).orElse(null);
     }
 
     public Theme getThemeByProjectId(int projectId) {
@@ -38,7 +37,7 @@ public class ThemeService {
         Project project = projectRepository.findById(projectId).orElse(null);
         return themeRepository.save(new Theme(name, information, project));
     }
-    
+
     public boolean updateTheme(int themeId, String name) {
         Theme theme = themeRepository.findById(themeId).orElse(null);
         if (theme == null) {

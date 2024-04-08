@@ -2,33 +2,29 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Administrator;
 import be.kdg.team_5_phygital.repository.AdministratorRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdministratorService {
     private final AdministratorRepository administratorRepository;
-    private final Logger logger = LoggerFactory.getLogger(AdministratorService.class);
 
     public AdministratorService(AdministratorRepository administratorRepository) {
         this.administratorRepository = administratorRepository;
     }
 
-    public Administrator addAdministrator(Administrator administrator) {
-
-        return administratorRepository.save(administrator);
+    public Administrator getAdministrator(int administratorId) {
+        return administratorRepository.findById(administratorId).orElse(null);
     }
 
-    public List<Administrator> getAdministrators() {
+    public List<Administrator> getAllAdministrators() {
         return administratorRepository.findAll();
     }
 
-    public Optional<Administrator> getAdministratorById(int id) {
-        logger.info("Getting admin by id...");
-        return administratorRepository.findById(id);
+    @Transactional
+    public Administrator saveAdministrator(String name) {
+        return administratorRepository.save(new Administrator(name));
     }
 }
