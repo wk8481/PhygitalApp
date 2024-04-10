@@ -79,7 +79,7 @@ public class AdminController {
     @GetMapping("{platformId}/project/{projectId}")
     public String getProject(@PathVariable int platformId, @PathVariable int projectId, Model model) {
         Project project = projectService.getProject(projectId);
-        List<Flow> flows = flowService.getFlowsByProjectId(project);
+        List<Flow> flows = flowService.getFlowsByProjectId(projectId);
         model.addAttribute("project", project);
         model.addAttribute("flow", flows);
         return "admin/project";
@@ -119,7 +119,7 @@ public class AdminController {
     @GetMapping("flow/{flowId}/sub-theme/{subThemeId}")
     public String getSubTheme(@PathVariable int flowId, @PathVariable int subThemeId, Model model) {
         SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
-        List<Question> questions = questionService.getQuestionBySubTheme(subTheme);
+        List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
         model.addAttribute("st", subTheme);
         model.addAttribute("question", questions);
         return "admin/sub-theme";

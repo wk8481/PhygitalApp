@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FlowRepository extends JpaRepository<Flow, Integer> {
-    List<Flow> findFlowsByProjectEquals(Project project);
+    List<Flow> findFlowsByProjectIdEquals(int projectId);
 
     Optional<Flow> findByName(String name);
 
