@@ -14,7 +14,7 @@ public class SubTheme {
 
     private String information;
 
-    private boolean visible;
+    private boolean isVisible;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "flow_id")
@@ -59,11 +59,11 @@ public class SubTheme {
     }
 
     public boolean isVisible() {
-        return visible;
+        return isVisible;
     }
 
     public void setVisible(boolean visible) {
-        this.visible = visible;
+        this.isVisible = visible;
     }
 
     public Flow getFlow() {

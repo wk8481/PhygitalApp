@@ -28,24 +28,24 @@ INSERT INTO supervisor (name, email, password, sharing_platform_id)
 VALUES ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
-INSERT INTO flow (is_circular, project_id)
-VALUES (true, 1);
+INSERT INTO flow (name, is_circular, project_id)
+VALUES ('Flow 1', true, 1);
 
-INSERT INTO flow (is_circular, project_id)
-VALUES (false, 1);
+INSERT INTO flow (name, is_circular, project_id)
+VALUES ('Flow 2', false, 1);
 
 -- SubThemes
 -- SubTheme
-INSERT INTO sub_theme (name, information, visible, flow_id, current_index)
+INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)
 VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1, 0);
 -- SubTheme
-INSERT INTO sub_theme (name, information, visible, flow_id, current_index)
+INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)
 VALUES ('local voting in brussels', 'Information for voting in Brussels', true, 1, 0);
 
 
 
 -- Question
-INSERT INTO question (text, type, visible, sub_theme_id)
+INSERT INTO question (text, type, is_visible, sub_theme_id)
 VALUES ('What is your favorite color?', 'MULTIPLE_CHOICE', true, 1),
        ('How do you feel today?', 'SINGLE_CHOICE', true, 1);
 

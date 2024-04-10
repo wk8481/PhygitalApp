@@ -4,7 +4,9 @@ import be.kdg.team_5_phygital.controller.api.dto.NewQuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.QuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateQuestionDto;
 import be.kdg.team_5_phygital.domain.Question;
+import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.service.QuestionService;
+import be.kdg.team_5_phygital.service.SubThemeService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -21,10 +23,12 @@ import java.util.stream.Collectors;
 public class QuestionsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final QuestionService questionService;
+    private final SubThemeService subThemeService;
     private final ModelMapper modelMapper;
 
-    public QuestionsController(QuestionService questionService, ModelMapper modelMapper) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper) {
         this.questionService = questionService;
+        this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
     }
 
@@ -48,6 +52,56 @@ public class QuestionsController {
         }
     }
 
+    @GetMapping("{subThemeId}")
+    public ResponseEntity<List<QuestionDto>> getAllQuestionsBySubTheme(@PathVariable int subThemeId) {
+        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        List<Question> allQuestions = questionService.getQuestionsBySubTheme(subTheme);
+        List<QuestionDto> questionDtos = allQuestions.stream().map(question -> modelMapper.map(question, QuestionDto.class)).collect(Collectors.toList());
+        return ResponseEntity.ok(questionDtos);
+    }
+
+    @GetMapping("{subThemeId}/current")
+    public ResponseEntity<QuestionDto> getCurrentQuestion(@PathVariable int subThemeId) {
+        return subThemeService.getSubThemeById(subThemeId)
+                .map(SubTheme::getCurrentIndex)
+                .flatMap(currentIndex -> questionService.getCurrentQuestion(subThemeId, currentIndex))
+                .map(question -> modelMapper.map(question, QuestionDto.class))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("{subThemeId}/next")
+    public ResponseEntity<QuestionDto> getNextQuestion(@PathVariable int subThemeId) {
+        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+
+        if (subTheme == null) {
+            return ResponseEntity.notFound().build();
+        }
+        int currentIndex = subTheme.getCurrentIndex();
+        boolean isCircular = subTheme.getFlow().isCircular();
+
+        return questionService.getNextQuestion(subThemeId, currentIndex, isCircular)
+                .map(question -> modelMapper.map(question, QuestionDto.class))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("{subThemeId}/previous")
+    public ResponseEntity<QuestionDto> getPreviousQuestion(@PathVariable int subThemeId) {
+        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        if (subTheme == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        int currentIndex = subTheme.getCurrentIndex();
+        boolean isCircular = subTheme.getFlow().isCircular();
+
+        return questionService.getPreviousQuestion(subThemeId, currentIndex, isCircular)
+                .map(question -> modelMapper.map(question, QuestionDto.class))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     ResponseEntity<QuestionDto> saveQuestion(@RequestBody @Valid NewQuestionDto questionDto) {
         if (questionService.getQuestionByText(questionDto.getText()) != null) {
@@ -57,6 +111,16 @@ public class QuestionsController {
         logger.info("Creating new question: {}", questionDto.getText());
         Question createdQuestion = questionService.saveQuestion(questionDto.getText(), questionDto.getType(), questionDto.getSubThemeId());
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
+    }
+
+    @PostMapping("/questions/submit")
+    public ResponseEntity<String> submitAnswer(@RequestBody NewQuestionDto newQuestionDto) {
+        Question question = modelMapper.map(newQuestionDto, Question.class);
+        if (question != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");
+        }
     }
 
     @PatchMapping("{questionId}")

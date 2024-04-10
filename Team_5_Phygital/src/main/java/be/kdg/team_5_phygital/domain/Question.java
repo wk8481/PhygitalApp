@@ -14,7 +14,7 @@ public class Question {
     @Enumerated(EnumType.STRING)
     private QuestionType type;
 
-    private boolean visible;
+    private boolean isVisible;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "sub_theme_id")
@@ -60,11 +60,11 @@ public class Question {
     }
 
     public boolean isVisible() {
-        return visible;
+        return isVisible;
     }
 
     public void setVisible(boolean visible) {
-        this.visible = visible;
+        this.isVisible = visible;
     }
 
     public SubTheme getSubTheme() {

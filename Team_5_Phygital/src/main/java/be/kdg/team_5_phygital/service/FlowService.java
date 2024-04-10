@@ -29,8 +29,8 @@ public class FlowService {
         return flowRepository.findAll();
     }
 
-    public List<Flow> getFlowsByProjectId(Project project) {
-        return flowRepository.findFlowsByProjectEquals(project);
+    public List<Flow> getFlowsByProjectId(int projectId) {
+        return flowRepository.findFlowsByProjectIdEquals(projectId);
     }
 
     @Transactional
