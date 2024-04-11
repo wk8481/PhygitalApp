@@ -33,7 +33,7 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 
-    public List<Question> getQuestionBySubTheme(SubTheme subTheme) {
+    public List<Question> getQuestionsBySubTheme(SubTheme subTheme) {
         return questionRepository.getQuestionsBySubThemeEquals(subTheme);
     }
 

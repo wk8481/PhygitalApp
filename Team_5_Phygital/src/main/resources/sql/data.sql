@@ -32,11 +32,11 @@ INSERT INTO supervisor (name, email, password, sharing_platform_id)
 VALUES ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
-INSERT INTO flow (is_circular, project_id)
-VALUES (true, 1);
+INSERT INTO flow (name, is_circular, project_id)
+VALUES ('Flow 1', true, 1);
 
-INSERT INTO flow (is_circular, project_id)
-VALUES (false, 1);
+INSERT INTO flow (name, is_circular, project_id)
+VALUES ('Flow 2', false, 1);
 
 -- SubThemes
 -- SubTheme

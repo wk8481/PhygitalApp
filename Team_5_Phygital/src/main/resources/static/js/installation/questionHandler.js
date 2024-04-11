@@ -1,3 +1,8 @@
+document.getElementById("submitButton").addEventListener("click", submitAnswer);
+document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
+document.getElementById("previousButton").addEventListener("click", moveToPreviousQuestion);
+document.getElementById("updateButton").addEventListener("click", updateQuestion);
+
 // Function to extract IDs from URL
 function extractIdsFromUrl(url, prefix) {
     const pattern = new RegExp(`(?:${prefix}\\/(\\d+))`, 'g');
@@ -17,8 +22,8 @@ function updateQuestion(event) {
 
     console.log("Updating question to " + question);
 
-    fetch(`/api/installation/questions/${questionId}`, {
-        method: "PUT",
+    fetch(`/api/questions/${questionId}`, {
+        method: "PATCH",
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -31,9 +36,9 @@ function updateQuestion(event) {
     })
         .then(response => {
             if (response.ok) {
-                alert("Question updated successfully.");
+                console.log("Question updated successfully.");
             } else {
-                alert("Failed to update question.");
+                console.error("Failed to update question.");
             }
         })
         .catch(error => {
@@ -65,7 +70,7 @@ function submitAnswer(event) {
 
     console.log("Submitting answer: " + answer);
 
-    fetch(`/api/installation/questions/submit`, {
+    fetch(`/api/questions/submit`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
@@ -79,10 +84,10 @@ function submitAnswer(event) {
     })
         .then(response => {
             if (response.ok) {
-                alert("Answer submitted successfully.");
+                console.log("Answer submitted successfully.");
                 moveToNextQuestion();
             } else {
-                alert("Failed to submit answer.");
+                console.error("Failed to submit answer.");
             }
         })
         .catch(error => {
@@ -109,9 +114,3 @@ document.getElementById("rangeInput").addEventListener("input", function() {
     var rangeValue = document.getElementById("rangeInput").value;
     document.getElementById("rangeValue").innerText = "Value: " + rangeValue;
 });
-
-// Bind functions to buttons or elements
-document.getElementById("submitButton").addEventListener("click", submitAnswer);
-document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
-document.getElementById("previousButton").addEventListener("click", moveToPreviousQuestion);
-document.getElementById("updateButton").addEventListener("click", updateQuestion);

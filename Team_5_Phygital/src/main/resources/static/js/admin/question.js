@@ -1,4 +1,3 @@
-
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [subThemeId, questionId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "question");
