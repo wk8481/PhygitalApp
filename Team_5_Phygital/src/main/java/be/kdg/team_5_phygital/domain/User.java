@@ -1,6 +1,5 @@
 package be.kdg.team_5_phygital.domain;
 
-
 import jakarta.persistence.*;
 import java.util.Collection;
 
@@ -9,20 +8,37 @@ import java.util.Collection;
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name = "enabled")
-    private boolean enabled;
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
+    public User(int id, String email, String password, UserRole role) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Collection<Authority> authorities;
+    public User() {
 
-    // Standard getters and setters
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -32,32 +48,19 @@ public class User {
         this.email = email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public void setAuthorities(Collection<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
     public String getPassword() {
         return password;
     }
 
-
-    public boolean isEnabled() {
-        return enabled;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-
-    public Collection<Authority> getAuthorities() {
-        return authorities;
+    public UserRole getRole() {
+        return role;
     }
 
-
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
 }
-

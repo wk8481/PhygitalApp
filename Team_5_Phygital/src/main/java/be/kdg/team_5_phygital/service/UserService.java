@@ -13,16 +13,4 @@ public class UserService {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
-    public UserDetail saveUser(UserDetail user) {
-        return userRepository.save(user);
-    }
-
-    public UserDetail getUser(int id) {
-        return userRepository.findById(id).orElse(null);
-    }
-
-    public List<UserDetail> getAllUsers() {
-        return userRepository.findAll();
-    }
 }
