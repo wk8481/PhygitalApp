@@ -1,3 +1,7 @@
+
+INSERT INTO users (email, password, role)
+VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN');
+
 -- Administrator
 INSERT INTO administrator (name)
 VALUES ('Admin 1');
@@ -16,9 +20,9 @@ VALUES ('Platform A', 'platformA@example.com', 100, 1);
 INSERT INTO project (name, active, total_participants, avg_time_spent, sharing_platform_id)
 VALUES ('Project X', true, 50, 4.5, 1);
 
--- Theme
-INSERT INTO theme (name, information, project_id)
-VALUES ('Theme X', 'Information for Theme X', 1);
+-- -- Theme
+-- INSERT INTO theme (name, information, project_id)
+-- VALUES ('Theme X', 'Information for Theme X', 1);
 
 -- Supervisor
 INSERT INTO supervisor (name, email, password, sharing_platform_id)
@@ -48,14 +52,5 @@ VALUES ('local voting in brussels', 'Information for voting in Brussels', true, 
 INSERT INTO question (text, type, is_visible, sub_theme_id)
 VALUES ('What is your favorite color?', 'MULTIPLE_CHOICE', true, 1),
        ('How do you feel today?', 'SINGLE_CHOICE', true, 1);
-
-
--- Insert User data
-INSERT INTO user_detail (id)
-VALUES (1);
-
--- Insert Installation data
-INSERT INTO installation (is_running, user_id)
-VALUES (true, 1);
 
 
