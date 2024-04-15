@@ -42,7 +42,6 @@ public class InstallationController {
         mav.addObject("all_projects",
         projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
         return mav;
-
     }
 
     @GetMapping("flow-selection")
