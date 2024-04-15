@@ -17,25 +17,28 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <!-- Details Section -->
+        <!-- Theme Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Theme Information</h2>
-                <!-- Display Theme Information -->
+                <!-- Display the single theme -->
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title" th:text="${theme.name}"></h5>
-                        <p class="card-text" th:text="${theme.information}"></p>
+                        <h5 class="card-title" th:text="${one_theme.name}"></h5>
+                        <p class="card-text" th:text="${one_theme.information}"></p>
                     </div>
                 </div>
-                <h2 class="text-secondary">Subthemes</h2>
+                <!-- Subthemes Section -->
+                <h2 class="text-secondary">SubThemes</h2>
                 <div class="row justify-content-center">
                     <!-- Loop through Subthemes -->
-                    <div class="col-md-4 mb-4" th:each="subtheme : ${subthemes}">
+                    <div class="col-md-4 mb-4" th:each="subtheme : ${all_subthemes}">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${subtheme.name}"></h5>
                                 <p class="card-text" th:text="${subtheme.information}"></p>
+                                <!-- You can access flowId directly from subtheme -->
+                                <p class="card-text">Flow ID: <span th:text="${subtheme.flowId}"></span></p>
                             </div>
                         </div>
                     </div>
@@ -48,6 +51,7 @@
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
+
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

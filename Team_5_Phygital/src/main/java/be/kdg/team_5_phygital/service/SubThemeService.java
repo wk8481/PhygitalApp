@@ -40,7 +40,7 @@ public class SubThemeService {
         return subThemeRepository.findAll();
     }
 
-    public List<SubTheme> getSubThemeByFlowId(Flow flow) {return subThemeRepository.getSubThemesByFlow(flow);}
+    public List<SubTheme> getSubThemeByFlowId(int flowId) {return subThemeRepository.getSubThemesByFlowId(flowId);}
 
     @Transactional
     public SubTheme saveSubTheme(String name, String information, int flowId) {
