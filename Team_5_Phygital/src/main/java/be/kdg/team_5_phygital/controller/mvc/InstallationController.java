@@ -4,15 +4,14 @@ import be.kdg.team_5_phygital.controller.mvc.viewmodel.FlowViewModel;
 import be.kdg.team_5_phygital.controller.mvc.viewmodel.ProjectViewModel;
 import be.kdg.team_5_phygital.controller.mvc.viewmodel.SubThemeViewModel;
 import be.kdg.team_5_phygital.controller.mvc.viewmodel.ThemeViewModel;
+import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.domain.Flow;
-import be.kdg.team_5_phygital.service.FlowService;
-import be.kdg.team_5_phygital.service.ProjectService;
-import be.kdg.team_5_phygital.service.SubThemeService;
-import be.kdg.team_5_phygital.service.ThemeService;
+import be.kdg.team_5_phygital.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,12 +25,14 @@ public class InstallationController {
     private final FlowService flowService;
     private final ProjectService projectService;
     private final ThemeService themeService;
+    private final QuestionService questionService;
     private final SubThemeService subThemeService;
 
-    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, SubThemeService subThemeService) {
+    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService) {
         this.flowService = flowService;
         this.projectService = projectService;
         this.themeService = themeService;
+        this.questionService = questionService;
         this.subThemeService = subThemeService;
     }
 
@@ -63,6 +64,7 @@ public class InstallationController {
         Flow flow = flowService.getFlow(flowId);
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
         mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation()));
+        mav.addObject("flow", flow);
         return mav;
     }
 
@@ -78,6 +80,18 @@ public class InstallationController {
         return mav;
     }
 
+    @GetMapping("questions")
+    public ModelAndView getQuestions(@RequestParam("subThemeId") int subThemeId
+//            , @PathVariable("questionNr") int qNr
+            ){
+        var mav = new ModelAndView();
+        mav.setViewName("installation/questionPages/question");
+        SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
+        List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
+//        Question currentQuestion = questions.get(qNr-1);
+        mav.addObject("questions", questions);
+        return mav;
+    }
 
     @GetMapping("multiple-choice-question")
     public String getMultipleChoiceQuestionPage() {
