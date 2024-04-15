@@ -6,6 +6,7 @@ import be.kdg.team_5_phygital.controller.mvc.viewmodel.SubThemeViewModel;
 import be.kdg.team_5_phygital.controller.mvc.viewmodel.ThemeViewModel;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.service.FlowService;
 import be.kdg.team_5_phygital.service.ProjectService;
 import be.kdg.team_5_phygital.service.SubThemeService;
@@ -56,27 +57,24 @@ public class InstallationController {
 
 
     @GetMapping("theme-description")
-    public ModelAndView getThemeDescriptionPage(@RequestParam("projectId") int projectId) {
+    public ModelAndView getThemeDescriptionPage(@RequestParam("flowId") int flowId) {
         var mav = new ModelAndView();
         mav.setViewName("installation/theme-description");
-
-        // Get the theme by projectId
-        Theme theme = themeService.getThemeByProjectId(projectId);
-
-        // Convert the theme to ThemeViewModel
+        Flow flow = flowService.getFlow(flowId);
+        Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
         mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation()));
-
         return mav;
     }
 
-    @GetMapping("subthemes-description")
-    public ModelAndView getSubThemesDescriptionPage(@RequestParam("flowId") int flowId) {
+    @GetMapping("sub-themes")
+    public ModelAndView getSubThemesPage(@RequestParam("flowId") int flowId) {
         var mav = new ModelAndView();
-        mav.setViewName("installation/theme-description");
-
-        mav.addObject("all_subthemes",
-           subThemeService.getSubThemeByFlowId(flowId).stream()
-                    .map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        mav.setViewName("installation/sub-themes");
+        Flow flow = flowService.getFlow(flowId);
+        Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
+        mav.addObject("all_sub_themes",
+                subThemeService.getSubThemeByFlowId(flowId).stream()
+                        .map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
         return mav;
     }
 
@@ -100,10 +98,6 @@ public class InstallationController {
     public String getRangedQuestionPage(){
         return "installation/ranged-question";
     }
-
-
-
-
 
     @GetMapping("contact-details")
     public String getContactDetailsPage() {
