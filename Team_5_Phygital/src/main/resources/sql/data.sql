@@ -21,8 +21,8 @@ INSERT INTO project (name, active, total_participants, avg_time_spent, sharing_p
 VALUES ('Project X', true, 50, 4.5, 1);
 
 -- -- Theme
--- INSERT INTO theme (name, information, project_id)
--- VALUES ('Theme X', 'Information for Theme X', 1);
+INSERT INTO theme (name, information, project_id)
+VALUES ('Theme X', 'Information for Theme X', 1);
 
 -- Supervisor
 INSERT INTO supervisor (name, email, password, sharing_platform_id)

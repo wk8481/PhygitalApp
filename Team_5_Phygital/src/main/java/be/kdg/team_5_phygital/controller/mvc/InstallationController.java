@@ -70,6 +70,10 @@ public class InstallationController {
         return "installation/ranged-question";
     }
 
+
+
+
+
     @GetMapping("contact-details")
     public String getContactDetailsPage() {
         return "installation/contact-details";
