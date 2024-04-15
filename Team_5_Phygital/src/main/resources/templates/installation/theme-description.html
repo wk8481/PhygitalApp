@@ -17,10 +17,19 @@
         </div>
     </div>
     <div class="row justify-content-center">
-        <!-- Details Section -->
+        <!-- Theme Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary">Description</h2>
+                <h2 class="text-secondary">Theme Information</h2>
+                <!-- Display the single theme -->
+                <div>
+                    <h3 th:text="${one_theme.name}"></h3>
+                    <p th:text="${one_theme.information}"></p>
+                </div>
+                <!-- Continue Button -->
+                <div class="center-container">
+                    <a th:href="@{'/installation/sub-themes?flowId=' + ${one_flow.id}}" class="btn btn-primary">Continue<i class="fas fa-arrow-right"></i></a>
+                </div>
             </section>
         </div>
     </div>
@@ -29,6 +38,7 @@
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
+
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

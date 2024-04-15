@@ -105,7 +105,7 @@ public class AdminController {
     @GetMapping("project/{projectId}/flow/{flowId}")
     public String getFlow(@PathVariable int projectId, @PathVariable int flowId, Model model) {
         Flow flow = flowService.getFlow(flowId);
-        List<SubTheme> subThemes = subThemeService.getSubThemeByFlowId(flow);
+        List<SubTheme> subThemes = subThemeService.getSubThemeByFlowId(flow.getId());
         model.addAttribute("flow", flow);
         model.addAttribute("st", subThemes);
         return "admin/flow";
