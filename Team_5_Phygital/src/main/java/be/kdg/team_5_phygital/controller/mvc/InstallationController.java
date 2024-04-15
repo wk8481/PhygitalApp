@@ -61,6 +61,7 @@ public class InstallationController {
         mav.setViewName("installation/theme-description");
         Flow flow = flowService.getFlow(flowId);
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
+        mav.addObject("one_flow", new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular()));
         mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation()));
         return mav;
     }
