@@ -1,6 +1,12 @@
 
 INSERT INTO users (email, password, role)
 VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN');
+INSERT INTO users (email, password, role)
+VALUES ('ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN');
+INSERT INTO users (email, password, role)
+VALUES ('william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'MANAGER');
+INSERT INTO users (email, password, role)
+VALUES ('emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
 
 -- Administrator
 INSERT INTO administrator (name)
