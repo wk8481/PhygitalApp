@@ -3,15 +3,15 @@ package be.kdg.team_5_phygital.controller.mvc.viewmodel;
 public class ThemeViewModel {
     private int id;
     private String name;
-    private String description;
+    private String information;
 
     public ThemeViewModel() {
     }
 
-    public ThemeViewModel(int id, String name, String description) {
+    public ThemeViewModel(int id, String name, String information) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.information = information;
     }
 
     public int getId() {
@@ -30,11 +30,11 @@ public class ThemeViewModel {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getInformation() {
+        return information;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setInformation(String information) {
+        this.information = information;
     }
 }
