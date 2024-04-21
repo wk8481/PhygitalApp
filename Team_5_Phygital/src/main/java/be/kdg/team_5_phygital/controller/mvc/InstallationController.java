@@ -2,13 +2,22 @@ package be.kdg.team_5_phygital.controller.mvc;
 
 import be.kdg.team_5_phygital.controller.mvc.viewmodel.FlowViewModel;
 import be.kdg.team_5_phygital.controller.mvc.viewmodel.ProjectViewModel;
+import be.kdg.team_5_phygital.controller.mvc.viewmodel.SubThemeViewModel;
+import be.kdg.team_5_phygital.controller.mvc.viewmodel.ThemeViewModel;
+import be.kdg.team_5_phygital.domain.SubTheme;
+import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.service.FlowService;
 import be.kdg.team_5_phygital.service.ProjectService;
+import be.kdg.team_5_phygital.service.SubThemeService;
+import be.kdg.team_5_phygital.service.ThemeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/installation")
@@ -16,10 +25,14 @@ public class InstallationController {
 
     private final FlowService flowService;
     private final ProjectService projectService;
+    private final ThemeService themeService;
+    private final SubThemeService subThemeService;
 
-    public InstallationController(FlowService flowService, ProjectService projectService) {
+    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, SubThemeService subThemeService) {
         this.flowService = flowService;
         this.projectService = projectService;
+        this.themeService = themeService;
+        this.subThemeService = subThemeService;
     }
 
     @GetMapping("project-selection")
@@ -29,7 +42,6 @@ public class InstallationController {
         mav.addObject("all_projects",
         projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
         return mav;
-
     }
 
     @GetMapping("flow-selection")
@@ -47,8 +59,25 @@ public class InstallationController {
     public ModelAndView getThemeDescriptionPage(@RequestParam("flowId") int flowId) {
         var mav = new ModelAndView();
         mav.setViewName("installation/theme-description");
+        Flow flow = flowService.getFlow(flowId);
+        Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
+        mav.addObject("one_flow", new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular()));
+        mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation()));
         return mav;
     }
+
+    @GetMapping("sub-themes")
+    public ModelAndView getSubThemesPage(@RequestParam("flowId") int flowId) {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/sub-themes");
+        Flow flow = flowService.getFlow(flowId);
+        Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
+        mav.addObject("all_sub_themes",
+                subThemeService.getSubThemeByFlowId(flowId).stream()
+                        .map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        return mav;
+    }
+
 
     @GetMapping("multiple-choice-question")
     public String getMultipleChoiceQuestionPage() {

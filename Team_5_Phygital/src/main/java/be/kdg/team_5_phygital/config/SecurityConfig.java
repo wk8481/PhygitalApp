@@ -87,6 +87,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
+                        .requestMatchers("/admin/sharing-platform/**").hasAnyRole("ADMIN","MANAGER")
+                        .requestMatchers("/admin/platform/**").hasRole("ADMIN")
+                        .requestMatchers("/installation/project-selection/**").hasAnyRole("MANAGER", "SUPERVISOR","ADMIN")
                         .requestMatchers(antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated())
@@ -99,15 +102,20 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/login?logout")
                         .permitAll()
                 )
-                .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint((request, response, exception) -> {
-                                    if (request.getRequestURI().startsWith("/api")) {
-                                        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                                    } else {
-                                        response.sendRedirect(request.getContextPath() + "/login");
-                                    }
-                        })
-                );
+                .exceptionHandling(configurer ->
+                        configurer.accessDeniedPage("/access-denied"));
+//                .exceptionHandling(ex -> ex
+//                        .authenticationEntryPoint((request, response, exception) -> {
+//                            if (request.getRequestURI().startsWith("/api")) {
+//                                // For API requests, respond with HTTP 401 (Unauthorized)
+//                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//                            } else {
+//                                // For other requests, redirect to the custom access-denied page
+//                                response.sendRedirect(request.getContextPath() + "/access-denied");
+//                            }
+//                        })
+//                );
+
         return http.build();
     }
 

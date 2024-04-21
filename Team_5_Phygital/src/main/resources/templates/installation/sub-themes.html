@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Flow Selection</title>
+    <title>Sub Themes</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
 <body>
@@ -13,23 +13,24 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Flow Selection</h1>
+            <h1 class="page-title text-primary">Sub Themes</h1>
         </div>
     </div>
     <div class="row justify-content-center">
-        <!-- Flow Selection Section -->
-        <div class="col-md-12">
+        <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary">Select Flow</h2>
-                <div class="col-md-12">
-                    <div class="row justify-content-center">
-                        <!-- Loop through all_flows -->
-                        <div class="col-md-4" th:each="flow : ${all_flows}">
-                            <div class="card">
-                                <div class="card-body" th:attr="onclick='location.href=\'/installation/theme-description?flowId=' + ${flow.id} + '\''" style="cursor: pointer;">
-                                    <h5 class="card-title" th:text="${flow.name}"></h5>
-                                    <p class="card-text">Circular: <span th:text="${flow.isCircular()}"></span></p>
-                                </div>
+                <h2 class="text-secondary">Select Sub Theme</h2>
+                <!-- Sub Themes Section -->
+                <h2 class="text-secondary">SubThemes</h2>
+                <div class="row justify-content-center">
+                    <!-- Loop through sub themes -->
+                    <div class="col-md-4 mb-4" th:each="sub_theme : ${all_sub_themes}">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${sub_theme.name}"></h5>
+                                <p class="card-text" th:text="${sub_theme.information}"></p>
+                                <!-- You can access flowId directly from sub_theme -->
+                                <p class="card-text">Flow ID: <span th:text="${sub_theme.flowId}"></span></p>
                             </div>
                         </div>
                     </div>
@@ -42,6 +43,7 @@
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
+
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

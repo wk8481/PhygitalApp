@@ -1,6 +1,12 @@
 
 INSERT INTO users (email, password, role)
 VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN');
+INSERT INTO users (email, password, role)
+VALUES ('ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN');
+INSERT INTO users (email, password, role)
+VALUES ('william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'MANAGER');
+INSERT INTO users (email, password, role)
+VALUES ('emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
 
 -- Administrator
 INSERT INTO administrator (name)
@@ -21,8 +27,8 @@ INSERT INTO project (name, active, total_participants, avg_time_spent, sharing_p
 VALUES ('Project X', true, 50, 4.5, 1);
 
 -- -- Theme
--- INSERT INTO theme (name, information, project_id)
--- VALUES ('Theme X', 'Information for Theme X', 1);
+INSERT INTO theme (name, information, project_id)
+VALUES ('Theme X', 'Information for Theme X', 1);
 
 -- Supervisor
 INSERT INTO supervisor (name, email, password, sharing_platform_id)

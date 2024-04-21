@@ -7,7 +7,8 @@
     <thymeleaf th:fragment="meta_script_link" th:remove="tag">
         <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <!--<link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
         <script th:src="@{/webjars/bootstrap/js/bootstrap.bundle.min.js}"></script>
         <script crossorigin="anonymous"
@@ -18,7 +19,7 @@
 </head>
 <body>
 <header class="pb-3" th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg bg-primary">
         <div class="container-fluid">
             <!-- Website Name -->
             <a class="navbar-brand" th:href="@{/}">Phygital Tool</a>
@@ -40,9 +41,17 @@
                 <ul class="navbar-nav ms-auto">
                     <!-- Welcome Message -->
                     <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
-                        <span class="navbar-text">Logged in as</span>
-                        <span class="navbar-text" sec:authentication="name">user</span>
+                        <span class="navbar-text">Logged in as </span>
+                        <span class="navbar-text" th:text="${#authentication.principal.username}"></span>
+                        <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="ADMIN"></span>
+                        <span th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" th:text="MANAGER"></span>
+                        <span th:if="${#authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="SUPERVISOR"></span>
+                        <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or #authorization.expression('hasRole(''ROLE_MANAGER'')') or #authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="${#authentication.authorities[0].authority}"></span>
                     </li>
+
+
+
+
                     <!-- Logout Button -->
                     <li sec:authorize="isAuthenticated()">
                         <form class="d-flex" th:action="@{/logout}" th:method="POST">
