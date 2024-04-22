@@ -15,6 +15,10 @@ public class Flow {
 
     private boolean isCircular;
 
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "project_id")
     private Project project;
@@ -24,6 +28,14 @@ public class Flow {
 
     @OneToMany(mappedBy = "flow")
     private List<UserDetail> userDetail;
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
 
     public Flow() {
     }
