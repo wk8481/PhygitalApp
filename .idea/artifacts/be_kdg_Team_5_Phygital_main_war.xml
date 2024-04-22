@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="be.kdg.Team_5_Phygital.main:war">
+    <output-path>$PROJECT_DIR$/out/artifacts/be_kdg_Team_5_Phygital_main_war</output-path>
+    <root id="archive" name="be.kdg.Team_5_Phygital.main_war.war">
+      <element id="artifact" artifact-name="be.kdg.Team_5_Phygital.main:war exploded" />
+    </root>
+  </artifact>
+</component>
