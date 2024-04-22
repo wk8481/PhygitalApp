@@ -26,6 +26,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User getUserByMail(String userMail){return userRepository.findByEmail(userMail).orElse(null);}
+
     @Transactional
     public User saveUser(String email, String password, UserRole userRole) {
         return userRepository.save(new User(email, password, userRole));

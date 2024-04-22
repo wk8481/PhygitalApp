@@ -7,8 +7,11 @@ import be.kdg.team_5_phygital.controller.api.dto.UpdateQuestionDto;
 import be.kdg.team_5_phygital.domain.Answers;
 import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.SubTheme;
+import be.kdg.team_5_phygital.domain.User;
+import be.kdg.team_5_phygital.service.AnswerService;
 import be.kdg.team_5_phygital.service.QuestionService;
 import be.kdg.team_5_phygital.service.SubThemeService;
+import be.kdg.team_5_phygital.service.UserService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -17,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,11 +31,15 @@ public class QuestionsController {
     private final QuestionService questionService;
     private final SubThemeService subThemeService;
     private final ModelMapper modelMapper;
+    private final UserService userService;
+    private final AnswerService answerService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
+        this.userService = userService;
+        this.answerService = answerService;
     }
 
     @GetMapping("{id}")
@@ -115,12 +123,15 @@ public class QuestionsController {
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
 
-    @PostMapping("/questions/submit")
+    @PostMapping("/submit")
     public ResponseEntity<String> submitAnswer(@RequestBody NewAnswerDto newAnswerDto) {
         Answers answer = modelMapper.map(newAnswerDto, Answers.class);
-        logger.error("answer: " + answer);
-        logger.error("DTO: " + newAnswerDto);
         if (answer != null) {
+            User user = userService.getUserByMail(newAnswerDto.getUserMail());
+            SubTheme subTheme = subThemeService.getSubThemeById(newAnswerDto.getSubThemeId()).orElse(null);
+            logger.error("User: " + newAnswerDto.getUserMail() + " Subtheme: " + newAnswerDto.getSubThemeId());
+            answerService.saveAnswer(user, LocalDateTime.now(), newAnswerDto.getQuestion(), newAnswerDto.getAnswer(), subTheme);
+
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");
