@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Question</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/installation/questionHandler.js" type="module"></script>
+    <script src="/js/utils.js" type="module" ></script>
+    <script src="/js/util/csrf.js" type="module"></script>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container text-center">
+    <h1 class="page-title text-primary">Question</h1>
+
+    <div class="row justify-content-center" th:object="${questions}">
+        <!-- Question Form -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <form id="questionForm" th:object="${questions}">
+                    <div th:each="question, index: ${questions}" th:id="${'question' + index.index}">
+                        <h2 class="text-secondary" th:id="${'questionId_'+question.id}" th:text="${'Question ' + (index.index+1)}">Question Number</h2>
+                        <div th:switch="${question.type.toString()}">
+                            <label th:text="${question.text}" >Question:</label>
+                            <div th:case="'SINGLE_CHOICE'" id="singleChoice">
+                                <div class="form-group" th:each="answer:${possibleAnswers}">
+                                    <input type="radio" th:name="${'answer'+index.index}" th:if="${question.id == answer.question.id}" th:value="${answer.answer}" th:text="${answer.answer}">
+                                </div>
+
+                            </div>
+                            <div th:case="'MULTIPLE_CHOICE'" id="multipleChoice">
+                                <div class="form-group" th:each="answer:${possibleAnswers}">
+                                    <input type="checkbox" th:name="${'answer'+index.index}" th:if="${question.id == answer.question.id}" th:value="${answer.answer}"  th:text="${answer.answer}">
+                                </div>
+                            </div>
+                            <div th:case="'RANGE'" id="range">
+                                <input type="range" class="range" th:id="${'answerInput' + index.index}" min="0" max="100" step="1" value="50">
+                                <span id="rangeValue">Value: 50</span>
+                            </div>
+                            <div th:case="'OPEN'" id="open">
+                                <input type="text" th:id="${'answerInput' + index.index}" required>
+                            </div>
+                            <div th:case="*">
+                                <p>Unsupported question type</p>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submit">Save</button>
+                </form>
+                <a class="btn btn-secondary" id="backButton" ><i class="fas fa-arrow-left"></i></a>
+                <a class="btn btn-secondary"><i class="fas fa-stop"></i></a>
+                <a class="btn btn-secondary" id="nextButton" ><i class="fas fa-arrow-right"></i></a>
+            </section>
+        </div>
+    </div>
+    <!-- Return Button -->
+    <div class="center-container">
+        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

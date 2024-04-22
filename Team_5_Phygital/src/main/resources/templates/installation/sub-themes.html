@@ -24,7 +24,7 @@
                 <h2 class="text-secondary">SubThemes</h2>
                 <div class="row justify-content-center">
                     <!-- Loop through sub themes -->
-                    <div class="col-md-4 mb-4" th:each="sub_theme : ${all_sub_themes}">
+                    <div class="col-md-4 mb-4" th:each="sub_theme : ${all_sub_themes}" th:attr="onclick='location.href=\'/installation/questions?subThemeId=' + ${sub_theme.id} + '\''" style="cursor: pointer;">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${sub_theme.name}"></h5>

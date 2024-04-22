@@ -42,7 +42,17 @@ VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1,
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
-VALUES ('What is your favorite color?', 'MULTIPLE_CHOICE', true, 1),
-       ('How do you feel today?', 'SINGLE_CHOICE', true, 1);
+VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
+       ('What is your phones battery %?', 'RANGE', true, 1),
+       ('Are you happy currently?', 'SINGLE_CHOICE', true, 1),
+       ('How do you feel today?', 'OPEN', true, 1);
+
+INSERT INTO possible_answers(question_id, answer)
+values (1, 'Green'),
+       (1, 'Black'),
+       (1, 'Blue'),
+       (1, 'Yellow'),
+       (3, 'Yes'),
+       (3, 'No');
 
 
