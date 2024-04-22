@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.domain;
 
+import be.kdg.team_5_phygital.domain.util.Location;
 import jakarta.persistence.*;
 
 import java.util.List;

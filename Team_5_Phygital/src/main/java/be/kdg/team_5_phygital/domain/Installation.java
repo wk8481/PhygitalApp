@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.domain;
 
+import be.kdg.team_5_phygital.domain.util.Location;
 import jakarta.persistence.*;
 import java.util.List;
 
@@ -11,6 +12,10 @@ public class Installation {
     private int id;
 
     private boolean isRunning;
+
+    @OneToOne
+    @JoinColumn(name = "location_id")
+    private Location location;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -40,6 +45,14 @@ public class Installation {
 
     public void setRunning(boolean running) {
         isRunning = running;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public UserDetail getUser() {
