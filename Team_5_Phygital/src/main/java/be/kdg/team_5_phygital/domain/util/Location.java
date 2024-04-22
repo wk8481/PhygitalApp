@@ -1,5 +1,6 @@
-package be.kdg.team_5_phygital.domain;
+package be.kdg.team_5_phygital.domain.util;
 
+import be.kdg.team_5_phygital.domain.Flow;
 import jakarta.persistence.*;
 
 @Entity
@@ -16,7 +17,7 @@ public class Location {
     private int latitude;
 
     @OneToOne
-    @JoinColumn(name = "flow_id")
+    @JoinColumn(name = "installation_id")
     private Flow flow;
 
     public Flow getFlow() {
