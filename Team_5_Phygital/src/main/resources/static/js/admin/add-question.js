@@ -10,7 +10,7 @@ async function addNewQuestion() {
     const type = document.getElementById("questionTypeInput").value;
     await fetch(`/api/questions`, {
         method: "POST", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             text: textInput,
             type: type,

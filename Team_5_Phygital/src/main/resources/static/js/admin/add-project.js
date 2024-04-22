@@ -12,7 +12,7 @@ createButton.addEventListener("click", addNewProject);
 async function addNewProject() {
     await fetch(`/api/projects`, {
         method: "POST", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             name: nameInput.value,
             backgroundColorHex: bgColor,

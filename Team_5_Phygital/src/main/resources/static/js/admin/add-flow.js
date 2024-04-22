@@ -9,7 +9,7 @@ async function addNewSubTheme() {
     const nameInput = document.getElementById("nameInput").value;
     await fetch(`/api/flows`, {
         method: "POST", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             name: nameInput, projectId: projectId
         })
