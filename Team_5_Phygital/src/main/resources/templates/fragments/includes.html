@@ -44,7 +44,7 @@
                     <!-- Welcome Message -->
                     <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
                         <span class="navbar-text">Logged in as </span>
-                        <span class="navbar-text" th:text="${#authentication.principal.username}"></span>
+                        <span class="navbar-text" id="userMail" th:text="${#authentication.principal.username}"></span>
                         <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="ADMIN"></span>
                         <span th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" th:text="MANAGER"></span>
                         <span th:if="${#authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="SUPERVISOR"></span>

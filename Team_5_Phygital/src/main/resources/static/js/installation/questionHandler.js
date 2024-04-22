@@ -1,9 +1,9 @@
 import {header, token} from "../util/csrf.js";
 
-console.log(token)
 document.getElementById("submit").addEventListener("click", submitAnswer);
 document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
 document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
+
 // document.getElementById("updateButton").addEventListener("click", updateQuestion);
 var questionDivs = document.querySelectorAll('div[id*=question]');
 
@@ -13,7 +13,6 @@ for (let i = 0; i < questionDivs.length; i++) {
     // Determine answer based on question type
 
 }
-// console.log(questionId)
 window.onload = function () {
     questionDivs.forEach(function(div) {
         // Check if the div's ID is "question0"
@@ -26,18 +25,17 @@ window.onload = function () {
         }
     });
 }
-console.log(questionDivs.length)
 
 // Function to handle submitting answers
 function submitAnswer(event) {
     event.preventDefault();
 
-    var answers = []
-    var questions = []
+    let answers = ""
+    let questions = ""
 
     for (let i = 0; i < questionDivs.length; i++) {
         let answer;
-        let question = document.getElementsByTagName("label")
+        let question = document.getElementById("question_"+i).textContent;
         let questionNr = document.getElementById("question" + i)
         let questionId = questionNr.querySelector("h2").id.split("_")[1]
 
@@ -66,15 +64,20 @@ function submitAnswer(event) {
         }
 
         // console.log(answer)
-        questions.push({question: question})
-        answers.push({Answer: answer})
+        // questions.push({question: question})
+        answers += answer
+        answers += " | "
+        questions+= question
+        questions+= " | "
     }
-// return
 
+    const user = document.getElementById("userMail").textContent
 
+    var urlParams = new URLSearchParams(window.location.search);
 
-
-
+    // Get the value of the "subThemeId" parameter
+    var subtheme = urlParams.get("subThemeId");
+    console.log(user + subtheme)
     fetch(`/api/questions/submit`, {
         method: "POST",
         headers: {
@@ -83,8 +86,10 @@ function submitAnswer(event) {
             [header]: token
         },
         body: JSON.stringify({
-            question: "questions",
-            answer: "answers"
+            question: questions,
+            answer: answers,
+            userMail: user,
+            subThemeId: subtheme
         })
     })
         .then(response => {

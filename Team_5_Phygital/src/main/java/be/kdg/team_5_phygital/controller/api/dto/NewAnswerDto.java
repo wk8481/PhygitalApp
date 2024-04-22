@@ -6,6 +6,24 @@ public class NewAnswerDto {
 
     private String question;
     private String answer;
+    private String userMail;
+    private int subThemeId;
+
+    public int getSubThemeId() {
+        return subThemeId;
+    }
+
+    public void setSubThemeId(int subThemeId) {
+        this.subThemeId = subThemeId;
+    }
+
+    public String getUserMail() {
+        return userMail;
+    }
+
+    public void setUsermail(String userMail) {
+        this.userMail = userMail;
+    }
 
     public String getQuestion() {
         return question;
