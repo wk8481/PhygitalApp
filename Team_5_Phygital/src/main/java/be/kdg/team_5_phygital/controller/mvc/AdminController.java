@@ -52,12 +52,12 @@ public class AdminController {
         model.addAttribute("client", client);
         model.addAttribute("projects", projectList);
         model.addAttribute("supervisor", supervisorList);
-        return "organization";
+        return "admin/sharing-platform";
     }
 
     @GetMapping("sharing-platform/new")
     public String getNewSharingPlatform() {
-        return "new-organization";
+        return "new-sharing-platform";
     }
 
     @GetMapping("sharing-platform/{platformId}/client/{clientId}")
@@ -73,7 +73,7 @@ public class AdminController {
         Project project = projectService.getAllProjects().stream().findFirst().orElse(null);
         model.addAttribute("platform", sharingPlatform);
         model.addAttribute("project", project);
-        return "organization-stats";
+        return "admin/sharing-platform-stats";
     }
 
     @GetMapping("{platformId}/project/{projectId}")
