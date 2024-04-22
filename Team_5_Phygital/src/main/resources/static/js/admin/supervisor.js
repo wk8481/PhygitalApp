@@ -13,7 +13,7 @@ async function updateSupervisor(event) {
     console.log("Updating supervisor to: " + name + " " + email)
     fetch(`/api/supervisors/${supervisorId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": supervisorId, "name": name, "email": email, "platform": sharingPlatformId
         })

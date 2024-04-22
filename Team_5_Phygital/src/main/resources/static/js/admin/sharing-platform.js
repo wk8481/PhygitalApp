@@ -13,7 +13,7 @@ async function updateSharingPlatform(event) {
     console.log("Updating platform")
     fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": sharingPlatformId, "name": name.value, "contactEmail": contactEmail.value
         })
