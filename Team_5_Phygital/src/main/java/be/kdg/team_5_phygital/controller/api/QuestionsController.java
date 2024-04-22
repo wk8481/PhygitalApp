@@ -1,8 +1,10 @@
 package be.kdg.team_5_phygital.controller.api;
 
+import be.kdg.team_5_phygital.controller.api.dto.NewAnswerDto;
 import be.kdg.team_5_phygital.controller.api.dto.NewQuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.QuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateQuestionDto;
+import be.kdg.team_5_phygital.domain.Answers;
 import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.service.QuestionService;
@@ -114,9 +116,11 @@ public class QuestionsController {
     }
 
     @PostMapping("/questions/submit")
-    public ResponseEntity<String> submitAnswer(@RequestBody NewQuestionDto newQuestionDto) {
-        Question question = modelMapper.map(newQuestionDto, Question.class);
-        if (question != null) {
+    public ResponseEntity<String> submitAnswer(@RequestBody NewAnswerDto newAnswerDto) {
+        Answers answer = modelMapper.map(newAnswerDto, Answers.class);
+        logger.error("answer: " + answer);
+        logger.error("DTO: " + newAnswerDto);
+        if (answer != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");

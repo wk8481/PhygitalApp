@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/installation/questionHandler.js"></script>
+    <script src="/js/installation/questionHandler.js" type="module"></script>
+    <script src="/js/utils.js" type="module" ></script>
+    <script src="/js/util/csrf.js" type="module"></script>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>

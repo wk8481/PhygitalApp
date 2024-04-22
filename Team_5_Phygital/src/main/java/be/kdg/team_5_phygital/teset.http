@@ -1,0 +1,18 @@
+POST http://localhost:8081/api/questions/questions/submit
+Content-Type: application/json
+Cookie: JSESSIONID={{mycookie}}
+
+{
+  "question": "StreamerName",
+  "answer": "streamer_username"
+}
+
+###
+
+PATCH http://localhost:8081/api/supervisors/1
+Content-Type: application/json
+Cookie: JSESSIONID=83F777BF992478A2FE8EE28EF2ACB769
+
+{
+  "name": "StreamerName"
+}

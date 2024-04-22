@@ -1,3 +1,6 @@
+import {header, token} from "../util/csrf.js";
+
+console.log(token)
 document.getElementById("submit").addEventListener("click", submitAnswer);
 document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
 document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
@@ -30,11 +33,11 @@ function submitAnswer(event) {
     event.preventDefault();
 
     var answers = []
+    var questions = []
 
     for (let i = 0; i < questionDivs.length; i++) {
         let answer;
-        console.log("analising answer of question: " + i)
-
+        let question = document.getElementsByTagName("label")
         let questionNr = document.getElementById("question" + i)
         let questionId = questionNr.querySelector("h2").id.split("_")[1]
 
@@ -63,32 +66,30 @@ function submitAnswer(event) {
         }
 
         // console.log(answer)
-        answers.push({question: questionNr, questionId: questionId , Answer: answer})
+        questions.push({question: question})
+        answers.push({Answer: answer})
     }
-    console.log(answers)
-return
+// return
 
 
 
 
-    console.log("Submitting answer: " + answer);
 
     fetch(`/api/questions/submit`, {
         method: "POST",
         headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            [header]: token
         },
         body: JSON.stringify({
-            "questionId": questionId,
-            "answer": answer,
-            "questionType": "OPEN"  // Replace with appropriate question type
+            question: "questions",
+            answer: "answers"
         })
     })
         .then(response => {
             if (response.ok) {
                 console.log("Answer submitted successfully.");
-                moveToNextQuestion();
             } else {
                 console.error("Failed to submit answer.");
             }
