@@ -1,3 +1,5 @@
+import {header, token} from "../util/csrf.js";
+
 const name = document.getElementById("nameInput");
 const bgColor = document.getElementById("bgColorInput");
 const font = document.getElementById("fontInput");
@@ -13,7 +15,7 @@ async function updateProject(event) {
     console.log("Updating project")
     fetch(`/api/projects/${projectId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', "Content-Type": "application/json"
+            'Accept': 'application/json', [header]: token
         }, body: JSON.stringify({
             id: projectId, name: name.value, backgroundColorHex: bgColor.value, fontName: font.value, logoPath: logo.value
         })
@@ -28,7 +30,9 @@ async function updateProject(event) {
 async function deleteProject(event) {
     console.log("Deleting project")
     const response = await fetch(`/api/projects/${projectId}`, {
-        method: "DELETE"
+        method: "DELETE", headers: {
+            [header]: token
+        }
     });
     if (response.ok){
         window.history.back();

@@ -1,3 +1,5 @@
+import {header, token} from "../util/csrf.js";
+
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [subThemeId, questionId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "question");
@@ -12,7 +14,7 @@ async function updateQuestion(event) {
     console.log("Updating question")
     fetch(`/api/questions/${questionId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', "Content-Type": "application/json"
+            'Accept': 'application/json', [header]: token
         }, body: JSON.stringify({
             "id": questionId, "text": question, "type": questionType
         })
@@ -27,7 +29,9 @@ async function updateQuestion(event) {
 async function deleteQuestion(event) {
     console.log("Deleting question")
     const response = await fetch(`/api/questions/${questionId}`, {
-        method: "DELETE"
+        method: "DELETE", headers: {
+            [header]: token
+        }
     });
     if (response.ok){
         window.history.back();

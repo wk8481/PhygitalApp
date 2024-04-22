@@ -1,3 +1,4 @@
+import {header, token} from "../util/csrf.js";
 
 const createButton = document.getElementById("createButton");
 const flowId = extractIdsFromUrl(window.location.href.substring(window.location.href), "sub-theme");
@@ -9,7 +10,7 @@ async function addNewSubTheme() {
     const information = document.getElementById("infoInput").value;
     await fetch(`/api/sub-themes`, {
         method: "POST", headers: {
-            "Accept": "application/json", "Content-Type": "application/json"
+            'Accept': 'application/json', [header]: token
         }, body: JSON.stringify({
             name: nameInput,
             information: information,
