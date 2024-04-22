@@ -57,7 +57,7 @@ public class AdminController {
 
     @GetMapping("sharing-platform/new")
     public String getNewSharingPlatform() {
-        return "new-sharing-platform";
+        return "admin/new-sharing-platform";
     }
 
     @GetMapping("sharing-platform/{platformId}/client/{clientId}")
