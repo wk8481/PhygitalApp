@@ -12,7 +12,7 @@ async function updateFlow(event) {
     console.log("Updating flow")
     fetch(`/api/flows/${flowId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', "Content-Type": "application/json", [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": flowId, "name": name,
         })

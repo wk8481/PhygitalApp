@@ -15,7 +15,7 @@ async function updateProject(event) {
     console.log("Updating project")
     fetch(`/api/projects/${projectId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             id: projectId, name: name.value, backgroundColorHex: bgColor.value, fontName: font.value, logoPath: logo.value
         })

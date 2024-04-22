@@ -14,7 +14,7 @@ async function updateQuestion(event) {
     console.log("Updating question")
     fetch(`/api/questions/${questionId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": questionId, "text": question, "type": questionType
         })

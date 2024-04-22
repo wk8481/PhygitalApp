@@ -13,7 +13,7 @@ async function updateSubTheme(event) {
     console.log("Updating sub theme")
     fetch(`/api/sub-themes/${subThemeId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": subThemeId, "name": name, "information": info
         })
