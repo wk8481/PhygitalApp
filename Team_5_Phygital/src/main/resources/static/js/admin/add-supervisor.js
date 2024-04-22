@@ -10,7 +10,7 @@ async function addNewSupervisor() {
     let email = document.getElementById("emailInput").value;
     await fetch(`/api/supervisors`, {
         method: "POST", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             name: name,
             email:  email,

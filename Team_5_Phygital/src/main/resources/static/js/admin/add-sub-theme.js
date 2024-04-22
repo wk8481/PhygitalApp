@@ -10,7 +10,7 @@ async function addNewSubTheme() {
     const information = document.getElementById("infoInput").value;
     await fetch(`/api/sub-themes`, {
         method: "POST", headers: {
-            'Accept': 'application/json', [header]: token
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             name: nameInput,
             information: information,
