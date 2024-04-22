@@ -1,7 +1,6 @@
 package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
-import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -21,6 +20,16 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    public User() {
+
+    }
+
+    public User(String email, String password, UserRole role) {
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public User(int id, String email, String password, UserRole role) {
         this.id = id;
         this.email = email;
@@ -28,9 +37,6 @@ public class User {
         this.role = role;
     }
 
-    public User() {
-
-    }
 
     public int getId() {
         return id;
