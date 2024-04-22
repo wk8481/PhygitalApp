@@ -14,9 +14,9 @@ function extractIdsFromUrl(url, partOfUrl) {
         return [firstId, secondId];
     } else {
         var pattern2 = new RegExp("/(\\d+)/" + partOfUrl + "/new");
-        var math2 = url.match(pattern2);
-        if (math2){
-            return math2[1]
+        var match2 = url.match(pattern2);
+        if (match2){
+            return match2[1]
         }
         // Return null or handle error
     }
