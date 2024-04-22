@@ -23,7 +23,7 @@ Content-Type: application/json
   "email": "john@example.com"
 }
 
-### API: change a menu item (204)
+### API: change a supervisor (204)
 
 PATCH http://localhost:8081/api/supervisors/3
 Accept: application/json
@@ -34,7 +34,7 @@ Content-Type: application/json
   "email": "joe@example.com"
 }
 
-### API: change a menu item (404)
+### API: change a supervisor (404)
 
 PATCH http://localhost:8081/api/supervisors/99
 Accept: application/json
