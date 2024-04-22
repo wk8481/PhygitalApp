@@ -2,6 +2,8 @@ package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "question")
 public class Question {
@@ -19,6 +21,9 @@ public class Question {
     @ManyToOne(optional = false)
     @JoinColumn(name = "sub_theme_id")
     private SubTheme subTheme;
+
+    @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+    private List<PossibleAnswers> possibleAnswers;
 
     public Question() {
 
@@ -57,6 +62,14 @@ public class Question {
 
     public void setType(QuestionType type) {
         this.type = type;
+    }
+
+    public List<PossibleAnswers> getPossibleAnswers() {
+        return possibleAnswers;
+    }
+
+    public void setPossibleAnswers(List<PossibleAnswers> possibleAnswers) {
+        this.possibleAnswers = possibleAnswers;
     }
 
     public boolean isVisible() {

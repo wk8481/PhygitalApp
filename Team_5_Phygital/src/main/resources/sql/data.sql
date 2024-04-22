@@ -1,6 +1,11 @@
 
+
 INSERT INTO users (email, password, role)
-VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN');
+VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
+       ('ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
+       ('william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'MANAGER'),
+       ('emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
+
 
 -- Administrator
 INSERT INTO administrator (name)
@@ -50,9 +55,17 @@ VALUES ('local voting in brussels', 'Information for voting in Brussels', true, 
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
-VALUES ('What is your favorite color?', 'MULTIPLE_CHOICE', true, 1),
+VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
        ('What is your phones battery %?', 'RANGE', true, 1),
        ('Are you happy currently?', 'SINGLE_CHOICE', true, 1),
        ('How do you feel today?', 'OPEN', true, 1);
+
+INSERT INTO possible_answers(question_id, answer)
+values (1, 'Green'),
+       (1, 'Black'),
+       (1, 'Blue'),
+       (1, 'Yellow'),
+       (3, 'Yes'),
+       (3, 'No');
 
 

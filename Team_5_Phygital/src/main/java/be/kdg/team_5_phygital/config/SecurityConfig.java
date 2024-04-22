@@ -89,7 +89,9 @@ public class SecurityConfig {
                         .requestMatchers("/").permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
+                        .requestMatchers(antMatcher(HttpMethod.DELETE,"/api/**")).authenticated()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll().anyRequest().authenticated())
+
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)
