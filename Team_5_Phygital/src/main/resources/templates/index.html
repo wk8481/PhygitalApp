@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <title>Home</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -15,25 +18,32 @@
             <h1 class="page-title text-primary">Home</h1>
         </div>
     </div>
+
+    <div sec:authorize="hasRole('ADMIN')">
     <div class="row justify-content-center">
         <div class="row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="card" onclick="location.href='/admin/platform';" style="cursor: pointer;">
                     <div class="card-body">
-                        <h5 class="card-title">Platform</h5>
+                        <h5 class="card-title">Admin</h5>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    </div>
+    <div sec:authorize="hasAnyRole('ADMIN','MANAGER')">
         <div class="row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="card" onclick="location.href='/admin/sharing-platform/1';" style="cursor: pointer;">
                     <div class="card-body">
-                        <h5 class="card-title">Sharing Platform</h5>
+                        <h5 class="card-title">Organization</h5>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+
         <div class="row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="card" onclick="location.href='/installation/project-selection';" style="cursor: pointer;">
@@ -43,7 +53,8 @@
                 </div>
             </div>
         </div>
-    </div>
+
+
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
 </body>

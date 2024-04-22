@@ -1,3 +1,4 @@
+import {header, token} from "../util/csrf.js";
 
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
@@ -12,7 +13,7 @@ async function updateSubTheme(event) {
     console.log("Updating sub theme")
     fetch(`/api/sub-themes/${subThemeId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', "Content-Type": "application/json"
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": subThemeId, "name": name, "information": info
         })
@@ -27,7 +28,9 @@ async function updateSubTheme(event) {
 async function deleteSubTheme(event) {
     console.log("Deleting sub theme")
     const response = await fetch(`/api/sub-themes/${subThemeId}`, {
-        method: "DELETE"
+        method: "DELETE", headers: {
+            [header]: token
+        }
     });
     if (response.ok){
         window.history.back();

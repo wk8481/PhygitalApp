@@ -1,12 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Access Denied</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
+<header th:replace="~{fragments/includes::header}"></header>
 <body>
-<h2>Access Denied - you are not authorised to access this request</h2>
-<hr><a th:href="@{/}">Back to home page</a>
-
+<main class="container text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="row mb-3 justify-content-center">
+                <h1 class="page-title text-primary">Access Denied</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <!-- Details Section -->
+            <div class="col-md-6">
+                <section class="mt-5 text-center">
+                    <h2 class="text-secondary">Info</h2>
+                    <p>You are not authorised to access this page</p>
+                </section>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- Bottom Page Buttons Section -->
+<div class="col-md-12">
+    <div class="row mb-3 justify-content-center">
+        <!-- Return Button -->
+        <div class="col-md-2 center-container text-center">
+            <div class="center-container text-container">
+                <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                    Return</a>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

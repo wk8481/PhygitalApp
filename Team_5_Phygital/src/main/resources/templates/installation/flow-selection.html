@@ -18,17 +18,17 @@
     </div>
     <div class="row justify-content-center">
         <!-- Flow Selection Section -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Select Flow</h2>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="row justify-content-center">
                         <!-- Loop through all_flows -->
-                        <div class="col-md-4 mb-4" th:each="flow : ${all_flows}">
+                        <div class="col-md-4" th:each="flow : ${all_flows}">
                             <div class="card">
                                 <div class="card-body" th:attr="onclick='location.href=\'/installation/theme-description?flowId=' + ${flow.id} + '\''" style="cursor: pointer;">
                                     <h5 class="card-title" th:text="${flow.name}"></h5>
-                                    <p class="card-text">Flow ID: <span th:text="${flow.id}"></span></p>
+                                    <p class="card-text">Circular: <span th:text="${flow.isCircular()}"></span></p>
                                 </div>
                             </div>
                         </div>

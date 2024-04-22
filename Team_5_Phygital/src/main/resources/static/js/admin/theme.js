@@ -1,3 +1,5 @@
+import {header, token} from "../util/csrf.js";
+
 const submitButton = document.querySelector("#saveButton");
 const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
 
@@ -10,7 +12,7 @@ async function updateTheme(event) {
     console.log("updating sub theme to " + name + " and its info to " + info)
     fetch(`/api/themes/{projectId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', "Content-Type": "application/json"
+            'Accept': 'application/json', [header]: token
         }, body: JSON.stringify({
             "id": projectId, "name": name, "information": info
         })

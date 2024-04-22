@@ -20,17 +20,16 @@
     </div>
     <div class="row justify-content-center">
         <!-- Project Selection Section -->
-        <div class="col-md-6">
+        <div class="col-md-12">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Select Project</h2>
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="row justify-content-center">
                         <!-- Loop through all_projects -->
-                        <div class="col-md-4 mb-4" th:each="project : ${all_projects}">
+                        <div class="col-md-4" th:each="project : ${all_projects}">
                             <div class="card">
                                 <div class="card-body" th:attr="onclick='location.href=\'/installation/flow-selection?projectId=' + ${project.id} + '\''" style="cursor: pointer;">
                                     <h5 class="card-title" th:text="${project.name}"></h5>
-                                    <p class="card-text">Project ID: <span th:text="${project.id}"></span></p>
                                 </div>
                             </div>
                         </div>

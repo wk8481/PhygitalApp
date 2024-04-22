@@ -1,3 +1,4 @@
+import {header, token} from "../util/csrf.js";
 
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
@@ -11,7 +12,7 @@ async function updateFlow(event) {
     console.log("Updating flow")
     fetch(`/api/flows/${flowId}`, {
         method: "PATCH", headers: {
-            'Accept': 'application/json', "Content-Type": "application/json"
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             "id": flowId, "name": name,
         })
@@ -26,7 +27,9 @@ async function updateFlow(event) {
 async function deleteFlow(event) {
     console.log("Deleting flow")
     const response = await fetch(`/api/flows/${flowId}`, {
-        method: "DELETE"
+        method: "DELETE", headers: {
+            [header]: token
+        }
     });
     if (response.ok){
         window.history.back();

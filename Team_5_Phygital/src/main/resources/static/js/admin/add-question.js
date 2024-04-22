@@ -1,3 +1,5 @@
+import {header, token} from "../util/csrf.js";
+
 const createButton = document.getElementById("createButton");
 
 const subThemeId = extractIdsFromUrl(window.location.href.substring(window.location.href), "question");
@@ -8,7 +10,7 @@ async function addNewQuestion() {
     const type = document.getElementById("questionTypeInput").value;
     await fetch(`/api/questions`, {
         method: "POST", headers: {
-            "Accept": "application/json", "Content-Type": "application/json"
+            "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
             text: textInput,
             type: type,

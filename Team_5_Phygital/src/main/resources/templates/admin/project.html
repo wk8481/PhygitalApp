@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Project</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/admin/project.js"></script>
+    <script src="/js/admin/project.js" type="module"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>

@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>New Sharing Platform</title>
+    <title>New Organization</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script defer src="/js/admin/add-sharing-platform.js"></script>
+    <script src="/js/admin/add-sharing-platform.js" type="module"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
@@ -14,7 +15,7 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">New Sharing Platform</h1>
+            <h1 class="page-title text-primary">New Organization</h1>
         </div>
     </div>
     <div class="row justify-content-center">
