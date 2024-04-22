@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project Selection</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container text-center">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Project Selection</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <!-- Project Selection Section -->
+        <div class="col-md-12">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Select Project</h2>
+                <div class="col-md-12">
+                    <div class="row justify-content-center">
+                        <!-- Loop through all_projects -->
+                        <div class="col-md-4" th:each="project : ${all_projects}">
+                            <div class="card">
+                                <div class="card-body" th:attr="onclick='location.href=\'/installation/flow-selection?projectId=' + ${project.id} + '\''" style="cursor: pointer;">
+                                    <h5 class="card-title" th:text="${project.name}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Return Button -->
+    <div class="center-container">
+        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Question</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/admin/add-question.js" type="module"></script>
+    <script src="/js/utils.js"></script>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container text-center">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">New Question</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <!-- Details Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Info</h2>
+                <table class="table">
+                    <tbody>
+                    <!-- Text -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="textInput">Text:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <textarea class="form-control" id="textInput" rows="4"></textarea>
+                        </td>
+                    </tr>
+                    <!-- Question Type -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="questionTypeInput">Question Type:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <select class="form-control" id="questionTypeInput">
+                                <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
+                                        th:text="${type}"
+                                        th:value="${type}">>
+                                </option>
+                            </select>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Create Button -->
+                <div class="row mt-3 justify-content-center">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" id="createButton" type="button">
+                            Create
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Bottom Page Buttons Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <!-- Return Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container text-container">
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                        Return</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

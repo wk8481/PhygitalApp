@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Closed Question</title>
+    <th:block th:replace="~{fragments/includes :: meta_script_link}"></th:block>
+</head>
+<body>
+<header th:replace="~{fragments/includes :: header}"></header>
+<main class="container">
+    <h1 class="page-title">Closed Question</h1>
+    <form id="questionForm" th:action="@{/submit}">
+        <label for="closedAnswerInput">Choose your answer:</label>
+        <input type="text" id="closedAnswerInput" required>
+        <button type="submit" id="submitButton">Submit</button>
+    </form>
+</main>
+<footer th:replace="~{fragments/footer :: copy}"></footer>
+<script src="../../../static/js/installation/questionHandler.js"></script>
+</body>
+</html>
