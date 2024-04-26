@@ -1,18 +1,18 @@
-# Spring Boot actuator config
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-
-# Spring Boot server port
-server:
-  port: 8443
-  ssl:
-    key-store-type: PKCS12 # The format used for the keystore. It could be set to JKS in case it is a JKS file
-    key-store: classpath:springbootselfsigned.p12 # The path to the keystore containing the certificate
-    key-store-password: youth-team5 # The password used to generate the certificate
-    key-alias: springbootselfsigned # The alias mapped to the certificate
-security:
-  require-ssl: true
+## Spring Boot actuator config
+#
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: "*"
+#
+## Spring Boot server port
+#server:
+#  port: 8443
+#  ssl:
+#    key-store-type: PKCS12 # The format used for the keystore. It could be set to JKS in case it is a JKS file
+#    key-store: classpath:springbootselfsigned.p12 # The path to the keystore containing the certificate
+#    key-store-password: youth-team5 # The password used to generate the certificate
+#    key-alias: springbootselfsigned # The alias mapped to the certificate
+#security:
+#  require-ssl: true
