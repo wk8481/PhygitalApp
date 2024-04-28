@@ -16,15 +16,14 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
  
-stages:          # List of stages for jobs, and their order of execution
+simage: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
+ 
+stages:
   - build
   - test
   - deploy
  
-
- 
 build:
-  image: openjdk:17
   stage: build
   script:
     - chmod +x ./gradlew  # Make sure the Gradle wrapper is executable
@@ -33,7 +32,7 @@ build:
     paths:
       - build/libs/*.jar
     expire_in: 1 week  # Optional: Set an expiration time for artifacts
-
+ 
 
 
    
