@@ -55,7 +55,6 @@ unit-test-job:   # This job runs in the test stage.
   image: openjdk:17
   stage: test    # It only starts when the job in the build stage completes successfully.
   script:
-    - cd Team_5_Phygital
     - bundle install
     - bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
@@ -79,21 +78,24 @@ integration_test:
   stage: test
   image: openjdk:17
   script:
-    - cd Team_5_Phygital
     - ./gradlew integrationTest
  
 code_quality:
   stage: test
-  image: openjdk:17
+  image: gradle:latest
   script:
-    - cd Team_5_Phygital
-    - ./gradlew check
+    # Install any required dependencies
+    - gradle wrapper --gradle-version=8.5
+    # Run code quality checks
+    - ./gradlew checkstyle pmd findbugs
+  artifacts:
+    reports:
+      codequality: build/reports/
  
 dependency_check:
   stage: test
   image: openjdk:17
   script:
-    - cd Team_5_Phygital
     - ./gradlew dependencyCheckAnalyze
  
 deploy_to_cloud:  # This job runs in the deploy stage.
