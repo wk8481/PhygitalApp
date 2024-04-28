@@ -26,12 +26,14 @@ stages:
 build:
   stage: build
   script:
+    - cd Team_5_Phygital  # Change directory to Team_5_Phygital
     - chmod +x ./gradlew  # Make sure the Gradle wrapper is executable
     - ./gradlew clean build
   artifacts:
     paths:
-      - build/libs/*.jar
+      - Team_5_Phygital/build/libs/*.jar  # Adjust the artifact path accordingly
     expire_in: 1 week  # Optional: Set an expiration time for artifacts
+
  
 
 
