@@ -51,16 +51,18 @@ build:
 
 
    
-unit-test-job:   # This job runs in the test stage.
+unit-test-job:
   image: openjdk:17
-  stage: test    # It only starts when the job in the build stage completes successfully.
+  stage: test
   script:
+    - apt-get update && apt-get install -y ruby-full && gem install bundler
+    - cd Team_5_Phygital
     - bundle install
     - bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     when: always
     paths:
-     - rspec.xml
+      - Team_5_Phygital/rspec.xml
     reports:
       junit: rspec.xml
  
