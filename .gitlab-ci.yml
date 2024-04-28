@@ -80,12 +80,14 @@ integration_test:
   stage: test
   image: openjdk:17
   script:
+    - cd Team_5_Phygital
     - ./gradlew integrationTest
  
 code_quality:
   stage: test
   image: gradle:latest
   script:
+    - cd Team_5_Phygital
     # Install any required dependencies
     - gradle wrapper --gradle-version=8.5
     # Run code quality checks
@@ -98,6 +100,7 @@ dependency_check:
   stage: test
   image: openjdk:17
   script:
+    - cd Team_5_Phygital
     - ./gradlew dependencyCheckAnalyze
  
 deploy_to_cloud:  # This job runs in the deploy stage.
