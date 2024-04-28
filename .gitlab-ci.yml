@@ -40,12 +40,12 @@ build:
     # cd to Team_5_phyital
     - cd Team_5_Phygital  
     # Build the Docker image
-    - docker build -t my-spring-boot-app .
+    - docker build -t my-phygital-boot-app .
     # Save the Docker image as an artifact
-    - docker save my-spring-boot-app > my-spring-boot-app.tar
+    - docker save my-phygital-boot-app > my-phygital-boot-app.tar
   artifacts:
     paths:
-      - my-spring-boot-app.tar
+      - my-phygital-boot-app.tar
 
  
 
