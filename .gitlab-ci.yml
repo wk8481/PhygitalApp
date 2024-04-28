@@ -37,6 +37,8 @@ build:
   services:
     - docker:dind
   script:
+    # cd to Team_5_phyital
+    - cd Team_5_Phygital  
     # Build the Docker image
     - docker build -t my-spring-boot-app .
     # Save the Docker image as an artifact
