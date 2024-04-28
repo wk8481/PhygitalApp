@@ -52,19 +52,24 @@ build:
 
    
 unit-test-job:
-  image: openjdk:17
+  image: gradle:jdk17
   stage: test
+  services:
+    - name: postgres:16.1-alpine
+      alias: postgres_phygital_db_test
+  variables:
+    POSTGRES_DB: 'phygital_test'
+    POSTGRES_USER: 'admin'
+    POSTGRES_PASSWORD: 'admin'
+    POSTGRES_HOST: 'postgres_phygital_db_test'
+    POSTGRES_PORT: '5432'
   script:
-    - apt-get update && apt-get install -y ruby-full && gem install bundler
     - cd Team_5_Phygital
-    - bundle install
-    - bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
+    - ./gradlew test
   artifacts:
     when: always
     paths:
-      - Team_5_Phygital/rspec.xml
-    reports:
-      junit: rspec.xml
+      - Team_5_Phygital/build/reports/tests/test/index.html
  
 check-files-job:  # This job runs in the test stage.
    stage: test
