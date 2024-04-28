@@ -6,8 +6,8 @@ WORKDIR /app
 # Copy the Gradle executable to the Docker image
 COPY gradlew .
 COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
+COPY build.gradle.kts .
+COPY settings.gradle.kts .
 # Grant permissions to the Gradle wrapper
 RUN chmod +x ./gradlew
 # Copy the source code into the Docker image
