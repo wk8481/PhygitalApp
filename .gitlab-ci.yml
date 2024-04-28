@@ -37,15 +37,15 @@ build:
   services:
     - docker:dind
   script:
-    # cd to Team_5_phyital
-    - cd Team_5_Phygital  
     # Build the Docker image
+    - cd Team_5_Phygital
     - docker build -t my-phygital-boot-app .
     # Save the Docker image as an artifact
     - docker save my-phygital-boot-app > my-phygital-boot-app.tar
   artifacts:
     paths:
-      - my-phygital-boot-app.tar
+      - Team_5_Phygital/my-phygital-boot-app.tar
+
 
  
 
