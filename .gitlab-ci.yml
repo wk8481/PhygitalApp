@@ -22,32 +22,47 @@ stages:
   - build
   - test
   - deploy
+
+ 
+variables:
+  # Define the services variables if needed
+  POSTGRES_DB: 'postgres_phygital_db'
+  POSTGRES_USER: 'admin'
+  POSTGRES_PASSWORD: 'admin'
+  POSTGRES_PORT: '5433'
  
 build:
+  image: docker:19.03
   stage: build
+  services:
+    - docker:dind
   script:
-    - chmod +x ./gradlew  # Make sure the Gradle wrapper is executable
-    - ./gradlew clean build
+    # Build the Docker image
+    - cd Team_5_Phygital
+    - docker build -t my-phygital-boot-app .
+    # Save the Docker image as an artifact
+    - docker save my-phygital-boot-app > my-phygital-boot-app.tar
   artifacts:
     paths:
-      - build/libs/*.jar
-    expire_in: 1 week  # Optional: Set an expiration time for artifacts
+      - Team_5_Phygital/my-phygital-boot-app.tar
+
+
  
 
 
    
-unit-test-job:   # This job runs in the test stage.
-  image: openjdk:11
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  tags:
-    - test
+unit-test-job:
+  image: openjdk:17
+  stage: test
   script:
+    - apt-get update && apt-get install -y ruby-full && gem install bundler
+    - cd Team_5_Phygital
     - bundle install
     - bundle exec rspec --format progress --format RspecJunitFormatter --out rspec.xml
   artifacts:
     when: always
     paths:
-     - rspec.xml
+      - Team_5_Phygital/rspec.xml
     reports:
       junit: rspec.xml
  
@@ -63,20 +78,29 @@ check-files-job:  # This job runs in the test stage.
  
 integration_test:
   stage: test
-  image: openjdk:11
+  image: openjdk:17
   script:
+    - cd Team_5_Phygital
     - ./gradlew integrationTest
  
 code_quality:
   stage: test
-  image: openjdk:11
+  image: gradle:latest
   script:
-    - ./gradlew check
+    - cd Team_5_Phygital
+    # Install any required dependencies
+    - gradle wrapper --gradle-version=8.5
+    # Run code quality checks
+    - ./gradlew checkstyle pmd findbugs
+  artifacts:
+    reports:
+      codequality: build/reports/
  
 dependency_check:
   stage: test
-  image: openjdk:11
+  image: openjdk:17
   script:
+    - cd Team_5_Phygital
     - ./gradlew dependencyCheckAnalyze
  
 deploy_to_cloud:  # This job runs in the deploy stage.
