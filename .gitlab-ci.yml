@@ -22,17 +22,28 @@ stages:
   - build
   - test
   - deploy
+
+ 
+variables:
+  # Define the services variables if needed
+  POSTGRES_DB: 'postgres_phygital_db'
+  POSTGRES_USER: 'admin'
+  POSTGRES_PASSWORD: 'admin'
+  POSTGRES_PORT: '5433'
  
 build:
+  image: docker:19.03
   stage: build
+  services:
+    - docker:dind
   script:
-    - cd Team_5_Phygital  # Change directory to Team_5_Phygital
-    - chmod +x ./gradlew  # Make sure the Gradle wrapper is executable
-    - ./gradlew clean build
+    # Build the Docker image
+    - docker build -t my-spring-boot-app .
+    # Save the Docker image as an artifact
+    - docker save my-spring-boot-app > my-spring-boot-app.tar
   artifacts:
     paths:
-      - Team_5_Phygital/build/libs/*.jar  # Adjust the artifact path accordingly
-    expire_in: 1 week  # Optional: Set an expiration time for artifacts
+      - my-spring-boot-app.tar
 
  
 
