@@ -16,7 +16,7 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
  
-simage: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
+image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
  
 stages:
   - build
