@@ -28,8 +28,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     runtimeOnly("org.postgresql:postgresql")
     implementation("org.webjars:bootstrap:5.3.0")
-    implementation (platform("com.google.cloud:libraries-bom:2.5.0"))
-    implementation ("com.google.cloud:google-cloud-storage")
+//    implementation (platform("com.google.cloud:libraries-bom:2.5.0"))
+//    implementation ("com.google.cloud:google-cloud-storage")
 
 
 

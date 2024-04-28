@@ -34,6 +34,11 @@ public class SubTheme {
         this.flow = flow;
     }
 
+    public SubTheme(String testSubtheme) {
+        this.name = testSubtheme;
+        this.information = "test";
+    }
+
     public int getId() {
         return id;
     }
