@@ -21,15 +21,18 @@ stages:          # List of stages for jobs, and their order of execution
   - test
   - deploy
  
-build-job:       # This job runs in the build stage, which runs first.
-  stage: build
 
+ 
+build:
   image: openjdk:17
+  stage: build
   script:
-    - ./gradlew cleanBuild
+    - chmod +x ./gradlew  # Make sure the Gradle wrapper is executable
+    - ./gradlew clean build
   artifacts:
     paths:
       - build/libs/*.jar
+    expire_in: 1 week  # Optional: Set an expiration time for artifacts
 
 
 
