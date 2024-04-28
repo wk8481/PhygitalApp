@@ -52,7 +52,7 @@ build:
 
    
 unit-test-job:   # This job runs in the test stage.
-  image: openjdk:11
+  image: openjdk:17
   stage: test    # It only starts when the job in the build stage completes successfully.
   tags:
     - test
@@ -78,19 +78,19 @@ check-files-job:  # This job runs in the test stage.
  
 integration_test:
   stage: test
-  image: openjdk:11
+  image: openjdk:17
   script:
     - ./gradlew integrationTest
  
 code_quality:
   stage: test
-  image: openjdk:11
+  image: openjdk:17
   script:
     - ./gradlew check
  
 dependency_check:
   stage: test
-  image: openjdk:11
+  image: openjdk:17
   script:
     - ./gradlew dependencyCheckAnalyze
  
