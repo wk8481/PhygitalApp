@@ -26,7 +26,7 @@ build-job:       # This job runs in the build stage, which runs first.
 
   image: openjdk:17
   script:
-    - ./gradlew build
+    - ./gradlew cleanBuild
   artifacts:
     paths:
       - build/libs/*.jar
