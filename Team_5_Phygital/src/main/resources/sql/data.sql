@@ -2,7 +2,7 @@
 INSERT INTO users (email, password, role)
 VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
        ('ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'MANAGER'),
+       ('william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT'),
        ('emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
 
 -- Administrator
@@ -18,8 +18,8 @@ INSERT INTO sharing_platform (name, contact_email, total_participants, administr
 VALUES ('Platform A', 'platformA@example.com', 100, 1);
 
 -- Project
-INSERT INTO project (name, active, total_participants, avg_time_spent, sharing_platform_id)
-VALUES ('Project X', true, 50, 4.5, 1);
+INSERT INTO project (name, background_color_hex, active, total_participants, avg_time_spent, sharing_platform_id)
+VALUES ('Project X', '#fffff', true, 50, 4.5, 1);
 
 -- -- Theme
 INSERT INTO theme (name, information, project_id)

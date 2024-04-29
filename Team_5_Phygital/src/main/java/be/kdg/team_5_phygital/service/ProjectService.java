@@ -1,5 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Theme;
@@ -8,7 +9,14 @@ import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,24 +49,60 @@ public class ProjectService {
     }
 
     @Transactional
-    public Project saveProject(String name, String backgroundColorHex, String fontName, String logoPath, int sharingPlatformId) {
+    public Project saveProject(String name, String backgroundColorHex, String fontName, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
-        Project project = new Project(name, backgroundColorHex, fontName, logoPath, sharingPlatform);
+        Project project = new Project(name, backgroundColorHex, fontName, sharingPlatform);
         themeRepository.save(new Theme("Unnamed Theme", "", project));
         return projectRepository.save(project);
     }
 
-    public boolean updateProject(int projectId, String name, String backgroundColorHex, String fontName, String logoPath) {
+    @Transactional
+    public boolean updateProject(int projectId, UpdateProjectDto updateProjectDto, MultipartFile logoFile) throws IOException {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {
             return false;
         }
-        project.setName(name);
-        project.setBackgroundColorHex(backgroundColorHex);
-        project.setFontName(fontName);
-        project.setLogoPath(logoPath);
+        project.setName(updateProjectDto.getName());
+        project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
+        project.setFontName(updateProjectDto.getFontName());
+
+        // Handle logo file upload
+        if (logoFile != null && !logoFile.isEmpty()) {
+            // Save the logo file and update the logoPath
+            String savedLogoPath = saveLogoFile(logoFile, projectId);
+            project.setLogoPath(savedLogoPath);
+        }
+
         projectRepository.save(project);
         return true;
+    }
+
+    private String saveLogoFile(MultipartFile logoFile, int projectId) throws IOException {
+        // Define the directory where you want to store the logo files
+        String uploadDir = "Team_5_Phygital/src/main/resources/static/images";
+
+        // Create the directory if it doesn't exist
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Extract the original file name and file extension
+        String originalFileName = logoFile.getOriginalFilename();
+        assert originalFileName != null;
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+        // Generate a unique file name for the logo file using the project ID
+        String uniqueFileName = "project" + projectId + "-logo" + fileExtension;
+
+        // Construct the path where the logo file will be saved
+        Path filePath = Paths.get(uploadDir + File.separator + uniqueFileName);
+
+        // Copy the logo file to the specified location
+        Files.copy(logoFile.getInputStream(), filePath);
+
+        // Return the saved path
+        return uploadDir + "/" + uniqueFileName;
     }
 
     @Transactional

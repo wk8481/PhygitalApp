@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Project</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/project.js" type="module"></script>
     <script src="/js/utils.js"></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <!-- Logo image -->
+    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -23,7 +39,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table" th:object="${project}">
+                <table class="table-borderless" th:object="${project}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -48,7 +64,8 @@
                             <label class="form-label" for="bgColorInput">Background Color:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="bgColorInput" type="color" th:value="${project.backgroundColorHex}">
+                            <input class="form-control" id="bgColorInput" th:value="${project.backgroundColorHex}"
+                                   type="color">
                         </td>
                     </tr>
                     <!-- Font -->
@@ -58,8 +75,9 @@
                         </th>
                         <td class="col-sm-8">
                             <select class="form-control" id="fontInput" th:selected="${project.fontName}">
-                                <option value="Arial">Arial</option>
+                                <option value="Helvetica Neue">Helvetica Neue</option>
                                 <option value="Times New Roman">Times New Roman</option>
+                                <option value="Calibri">Calibri</option>
                                 <option value="Verdana">Verdana</option>
                             </select>
                         </td>
@@ -68,7 +86,7 @@
                     <tr>
                         <th class="col-sm-4">Logo:</th>
                         <td class="col-sm-8">
-                            <input type="file" id="logoInput" accept="image/*">
+                            <input accept="image/*" id="logoInput" type="file">
                         </td>
                     </tr>
                     </tbody>
@@ -90,7 +108,7 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Flows -->
                     <div class="col-md-4">
-                        <table class="table">
+                        <table class="table-borderless">
                             <tbody>
                             <tr th:each="flows:${flow}">
                                 <td>
@@ -99,16 +117,12 @@
                                 </td>
                                 <td th:if="${flows.isCircular}">Circular flow</td>
                                 <td th:unless="${flows.isCircular}">Not circular flow</td>
-                                <td>
-                                    <i class="fas fa-bars"></i>
-                                </td>
                             </tr>
                             <tr>
                                 <td>
                                     <a th:href="@{/admin/project/{projectId}/flow/new(projectId=${project.id})}">
                                         <i class="fas fa-plus"></i></a>
                                 </td>
-                                <td></td>
                                 <td></td>
                             </tr>
                             </tbody>

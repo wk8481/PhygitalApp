@@ -26,7 +26,7 @@
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Statistics</h2>
                 <div>
-                    <table id="statsTable" class="table table-bordered">
+                    <table id="statsTable" class="table-borderless">
                         <thead>
                         <tr>
                             <th>Statistic</th>
@@ -64,14 +64,6 @@
                     <button class="btn btn-primary" id="exportButton" type="button">
                         Export
                     </button>
-                </div>
-            </div>
-            <!-- Project Stats Button -->
-            <div class="col-md-2 center-container text-center">
-                <div class="center-container">
-                    <a class="btn btn-secondary" th:href="@{/admin/project/{projectId}/stats(projectId=${project.id})}">
-                        Project Stats
-                    </a>
                 </div>
             </div>
         </div>

@@ -8,7 +8,6 @@ import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -39,8 +38,7 @@ public class InstallationController {
     public ModelAndView getProjectSelectionPage() {
         var mav = new ModelAndView();
         mav.setViewName("installation/project-selection");
-        mav.addObject("all_projects",
-        projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
+        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
         return mav;
     }
 
@@ -48,9 +46,8 @@ public class InstallationController {
     public ModelAndView getFlowSelectionPage(@RequestParam("projectId") int projectId) {
         var mav = new ModelAndView();
         mav.setViewName("installation/flow-selection");
-        mav.addObject("all_flows",
-        flowService.getFlowsByProjectId(projectId).stream()
-                .map(flow -> new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular())).toList());
+        mav.addObject("project", projectService.getProject(projectId));
+        mav.addObject("all_flows", flowService.getFlowsByProjectId(projectId).stream().map(flow -> new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular())).toList());
         return mav;
     }
 
@@ -73,14 +70,12 @@ public class InstallationController {
         mav.setViewName("installation/sub-themes");
         Flow flow = flowService.getFlow(flowId);
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
-        mav.addObject("all_sub_themes",
-                subThemeService.getSubThemeByFlowId(flowId).stream()
-                        .map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowId(flowId).stream().map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
         return mav;
     }
 
     @GetMapping("questions")
-    public ModelAndView getQuestions(@RequestParam("subThemeId") int subThemeId){
+    public ModelAndView getQuestions(@RequestParam("subThemeId") int subThemeId) {
         var mav = new ModelAndView();
         mav.setViewName("installation/questionPages/question");
         SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
@@ -107,7 +102,7 @@ public class InstallationController {
     }
 
     @GetMapping("ranged-question")
-    public String getRangedQuestionPage(){
+    public String getRangedQuestionPage() {
         return "installation/ranged-question";
     }
 
