@@ -4,6 +4,8 @@ import be.kdg.team_5_phygital.domain.PossibleAnswers;
 import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.repository.PossibleAnswersRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Optional;
 public class PossibleAnswerService {
     private final PossibleAnswersRepository possibleAnswersRepository;
     private final QuestionService questionService;
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 
     public PossibleAnswerService(PossibleAnswersRepository possibleAnswersRepository, QuestionService questionService) {
@@ -34,13 +37,9 @@ public class PossibleAnswerService {
     }
 
     @Transactional
-    public PossibleAnswers savePossibleAnswers(String text, int questionId) {
-        PossibleAnswers answerExists = possibleAnswersRepository.findPossibleAnswersByAnswerEquals(text).orElse(null);
-        if (answerExists != null) {
-            return answerExists;
-        }
-
-        return possibleAnswersRepository.save(new PossibleAnswers(questionService.getQuestion(questionId), text));
+    public void savePossibleAnswers(String text, Question question) {
+        PossibleAnswers answer = new PossibleAnswers(text, question);
+        possibleAnswersRepository.save(answer);
     }
 
 //    public boolean updatePossibleAnswers(int possibleAnswersId, String name) {

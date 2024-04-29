@@ -11,7 +11,7 @@ public class PossibleAnswers {
 
     private String answer;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
     private Question question;
 
@@ -20,6 +20,11 @@ public class PossibleAnswers {
 
     public PossibleAnswers() {
 
+    }
+
+    public PossibleAnswers(String answer, Question question) {
+        this.answer = answer;
+        this.question = question;
     }
 
     public int getId() {
