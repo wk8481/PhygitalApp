@@ -17,51 +17,50 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 #include:
 #  - template: SAST.gitlab-ci.yml
-
-
-#stages:
-#  - build
-#  - deploy
-
-
  
-#image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
  
-#variables:
+ 
+stages:
+  - build
+ 
+ 
+ 
+image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
+ 
+variables:
   # Define the services variables for both databases
- # POSTGRES_DB_BUILD: 'postgres_phygital_db'
- # POSTGRES_USER_BUILD: 'admin'
- # POSTGRES_PASSWORD_BUILD: 'admin'
- # POSTGRES_PORT_BUILD: '5433'
-
-  #POSTGRES_DB_TEST: 'phygital_test'
-  #POSTGRES_USER_TEST: 'admin'
-  #POSTGRES_PASSWORD_TEST: 'admin'
-  #POSTGRES_PORT_TEST: '5445'
-
-  #DOCKER_HUB_REPO: "zamlamb/phygital"
-
-#build:
- # image: docker:19.03
- # stage: build
- #services:
- #   - docker:dind
- # script:
+  POSTGRES_DB_BUILD: 'postgres_phygital_db'
+  POSTGRES_USER_BUILD: 'admin'
+  POSTGRES_PASSWORD_BUILD: 'admin'
+  POSTGRES_PORT_BUILD: '5433'
+ 
+  POSTGRES_DB_TEST: 'phygital_test'
+  POSTGRES_USER_TEST: 'admin'
+  POSTGRES_PASSWORD_TEST: 'admin'
+  POSTGRES_PORT_TEST: '5445'
+ 
+  DOCKER_HUB_REPO: "zamlamb/phygital"
+ 
+build:
+  image: docker:19.03
+  stage: build
+  services:
+    - docker:dind
+  script:
     # Build the Docker image
-  #  - cd Team_5_Phygital
-  #  - docker build -t my-phygital-boot-app .
-  #  - docker tag my-phygital-boot-app:latest
-  #   $DOCKER_HUB_REPO:latest
-  #  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  #  - docker push $DOCKER_HUB_REPO:latest
-  #artifacts:
-  #  paths:
-   #   - create-vm-and-transfer-jar.sh
-   # expire_in: 30 days
-    
-
-
-
+    - cd Team_5_Phygital
+    - docker build -t my-phygital-boot-app .
+    - docker tag my-phygital-boot-app:latest
+     $DOCKER_HUB_REPO:latest
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push $DOCKER_HUB_REPO:latest
+  artifacts:
+    paths:
+      - create-vm-and-transfer-jar.sh
+    expire_in: 30 days
+ 
+ 
+ 
 # unit-test-job:
 #   image: gradle:jdk17
 #   stage: test
@@ -76,9 +75,9 @@
 #     when: always
 #     paths:
 #       - Team_5_Phygital/build/reports/tests/test/index.html
-
-
-
+ 
+ 
+ 
 # check-files-job:  # This job runs in the test stage.
 #    stage: test
 #    image: alpine:latest
@@ -115,21 +114,20 @@
 #   script:
 #     - cd Team_5_Phygital
 #     - ./gradlew dependencyCheckAnalyze
-
-
-#deploy:
- # image: google/cloud-sdk:latest
-  #stage: deploy
-  #before_script:
-   # - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
-    #- dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
-    #- echo "$GCLOUD_SERVICE_KEY" > ${HOME}/gcloud-service-key.json
-    #- gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-    #- gcloud config set project $PROJECT_ID
-    #- gcloud config set compute/zone $ZONE
-  #script:
-   # - pwd  
-   # - ls -la  
-   # - chmod +x create-vm-and-transfer-jar.sh
-   # - ./create-vm-and-transfer-jar.sh
  
+ 
+# deploy:
+#   image: google/cloud-sdk:latest
+#   stage: deploy
+#   before_script:
+#     - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
+#     - dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
+#     - echo "$GCLOUD_SERVICE_KEY" > ${HOME}/gcloud-service-key.json
+#     - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+#     - gcloud config set project $PROJECT_ID
+#     - gcloud config set compute/zone $ZONE
+#   script:
+#     - pwd  
+#     - ls -la  
+#     - chmod +x create-vm-and-transfer-jar.sh
+#     - ./create-vm-and-transfer-jar.sh
