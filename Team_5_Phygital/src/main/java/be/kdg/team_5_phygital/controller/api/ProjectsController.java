@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,8 +61,8 @@ public class ProjectsController {
     }
 
     @PatchMapping("{projectId}")
-    ResponseEntity<Void> updateProject(@PathVariable int projectId, @RequestBody UpdateProjectDto updateProjectDto) {
-        if (projectService.updateProject(projectId, updateProjectDto.getName(), updateProjectDto.getBackgroundColorHex(), updateProjectDto.getFontName(), updateProjectDto.getLogoPath())) {
+    ResponseEntity<Void> updateProject(@PathVariable int projectId, @Valid UpdateProjectDto updateProjectDto, @RequestParam(value = "logo", required = false) MultipartFile logoFile) throws IOException {
+        if (projectService.updateProject(projectId, updateProjectDto, logoFile)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
