@@ -56,7 +56,7 @@ public class ProjectsController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         logger.info("Creating new project: {}", projectDto.getName());
-        Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getBackgroundColorHex(), projectDto.getFontName(), projectDto.getLogoPath(), projectDto.getSharingPlatformId());
+        Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getBackgroundColorHex(), projectDto.getFontName(), projectDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 
