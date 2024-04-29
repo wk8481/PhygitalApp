@@ -33,10 +33,6 @@ variables:
 build:
   image: docker:19.03
   stage: build
-  services:
-    - name: postgres:16.1-alpine
-      alias: postgres_phygital_db
-      command: ["postgres", "-c", "max_connections=200"]
   script:
     # Build the Docker image
     - cd Team_5_Phygital
@@ -46,6 +42,8 @@ build:
   artifacts:
     paths:
       - Team_5_Phygital/my-phygital-boot-app.tar
+
+
 
 unit-test-job:
   image: gradle:jdk17
