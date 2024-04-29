@@ -19,7 +19,6 @@
 #  - template: SAST.gitlab-ci.yml
 
 
-
 stages:
   - build
   - deploy
