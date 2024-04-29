@@ -19,9 +19,9 @@
 #  - template: SAST.gitlab-ci.yml
 
 
-
 stages:
   - build
+  - deploy
 
 
  
@@ -115,4 +115,21 @@ build:
 #   script:
 #     - cd Team_5_Phygital
 #     - ./gradlew dependencyCheckAnalyze
+
+
+deploy:
+  image: google/cloud-sdk:latest
+  stage: deploy
+  before_script:
+    - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
+    - dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
+    - echo "$GCLOUD_SERVICE_KEY" > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+    - gcloud config set project $PROJECT_ID
+    - gcloud config set compute/zone $ZONE
+  script:
+    - pwd  
+    - ls -la  
+    - chmod +x create-vm-and-transfer-jar.sh
+    - ./create-vm-and-transfer-jar.sh
  
