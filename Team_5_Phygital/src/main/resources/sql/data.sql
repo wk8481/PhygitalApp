@@ -19,7 +19,7 @@ VALUES ('Platform A', 'platformA@example.com', 100, 1);
 
 -- Project
 INSERT INTO project (name, background_color_hex, active, total_participants, avg_time_spent, sharing_platform_id)
-VALUES ('Project X', '#FFFFFF', true, 50, 4.5, 1);
+VALUES ('Project X', '#fffff', true, 50, 4.5, 1);
 
 -- -- Theme
 INSERT INTO theme (name, information, project_id)

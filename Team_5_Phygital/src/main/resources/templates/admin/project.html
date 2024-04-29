@@ -7,7 +7,7 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/project.js" type="module"></script>
     <script src="/js/utils.js"></script>
-    <style th:inline="text">
+    <style>
         body {
             background-color: [[${project.backgroundColorHex}]];
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
@@ -39,7 +39,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table" th:object="${project}">
+                <table class="table-borderless" th:object="${project}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -108,7 +108,7 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Flows -->
                     <div class="col-md-4">
-                        <table class="table">
+                        <table class="table-borderless">
                             <tbody>
                             <tr th:each="flows:${flow}">
                                 <td>

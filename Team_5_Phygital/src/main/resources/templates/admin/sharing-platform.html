@@ -23,7 +23,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table" th:object="${platform}">
+                <table class="table-borderless" th:object="${platform}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -70,7 +70,7 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Projects -->
                     <div class="col-md-6">
-                        <table class="table">
+                        <table class="table-borderless">
                             <tbody>
                             <tr th:each="project:${projects}">
                                 <td>
@@ -100,7 +100,7 @@
                 <div class="row justify-content-center">
                     <!-- Supervisors -->
                     <div class="col-md-6">
-                        <table class="table">
+                        <table class="table-borderless">
                             <tbody>
                             <tr th:each="sv:${supervisor}">
                                 <td>
