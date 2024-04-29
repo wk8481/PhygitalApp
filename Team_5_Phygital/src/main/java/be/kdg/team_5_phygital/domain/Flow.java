@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.domain;
 import be.kdg.team_5_phygital.domain.util.Location;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,12 @@ public class Flow {
     private String name;
 
     private boolean isCircular;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
+
+    private double duration;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "project_id")
@@ -56,6 +63,30 @@ public class Flow {
 
     public void setCircular(boolean circular) {
         isCircular = circular;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 
     public Project getProject() {
