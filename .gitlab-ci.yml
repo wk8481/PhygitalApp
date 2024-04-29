@@ -15,6 +15,15 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+include:
+  - template: SAST.gitlab-ci.yml
+
+
+stages:
+  - build
+  - test
+  - deploy
+  - destroy
  
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
  
@@ -39,11 +48,14 @@ build:
     # Build the Docker image
     - cd Team_5_Phygital
     - docker build -t my-phygital-boot-app .
-    # Save the Docker image as an artifact
-    - docker save my-phygital-boot-app > my-phygital-boot-app.tar
+    - docker tag my-phygital-boot-app:latest
+     $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest
   artifacts:
     paths:
-      - Team_5_Phygital/my-phygital-boot-app.tar
+      - create-vm-and-transfer-jar.sh
+    expire_in: 30 days
 
 
 
@@ -105,8 +117,18 @@ dependency_check:
     - cd Team_5_Phygital
     - ./gradlew dependencyCheckAnalyze
  
-deploy_to_cloud:  # This job runs in the deploy stage.
-    stage: deploy # It only runs when *both* jobs in the test stage complete successfully.
-    image: google/cloud-sdk:alpine
-    script:
-        - echo "Deploying to gcloud..."
+deploy:
+  image: google/cloud-sdk:latest
+  stage: deploy
+  before_script:
+    - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
+    - dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
+    - echo "$GCP_JSON_KEY" > ${HOME}/gcloud-service-key.json
+    - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+    - gcloud config set project $PROJECT_ID
+    - gcloud config set compute/zone $ZONE
+  script:
+    - pwd  
+    - ls -la  
+    - chmod +x create-vm-and-transfer-jar.sh
+    - ./create-vm-and-transfer-jar.sh
