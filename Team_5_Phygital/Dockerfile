@@ -17,5 +17,5 @@ RUN chmod +x ./gradlew
 COPY src src
 # Build the JAR file
 RUN ./gradlew build -x test
- Set the entrypoint script to initialize the container
+# Set the entrypoint script to initialize the container
 ENTRYPOINT ["java", "-jar", "build/libs/my-phygital-boot-app.jar"]
