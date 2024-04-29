@@ -7,9 +7,9 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/project.js" type="module"></script>
     <script src="/js/utils.js"></script>
-    <style>
+    <style th:inline="text">
         body {
-            /*background-color: ${project.backgroundColorHex}*/;
+            background-color: [[${project.backgroundColorHex}]];
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
 
             #logo {

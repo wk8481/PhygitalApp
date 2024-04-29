@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>New Flow</title>
@@ -10,6 +9,7 @@
     <script src="/js/utils.js"></script>
     <style>
         body {
+            background-color: [[${project.backgroundColorHex}]];
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
 
             #logo {
@@ -27,7 +27,7 @@
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <!-- Logo -->
-    <img id="logo" th:src="@{/images/logo.jpg}" alt="">
+    <img alt="" id="logo" th:src="@{/images/logo.jpg}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
