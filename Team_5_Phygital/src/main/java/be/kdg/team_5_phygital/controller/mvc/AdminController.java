@@ -2,17 +2,21 @@ package be.kdg.team_5_phygital.controller.mvc;
 
 import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("admin")
 public class AdminController {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final SharingPlatformService sharingPlatformService;
     private final SharingPlatformAdminService sharingPlatformAdminService;
@@ -22,8 +26,9 @@ public class AdminController {
     private final FlowService flowService;
     private final SubThemeService subThemeService;
     private final QuestionService questionService;
+    private final PossibleAnswerService possibleAnswerService;
 
-    public AdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService sharingPlatformAdminService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService) {
+    public AdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService sharingPlatformAdminService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
         this.sharingPlatformService = sharingPlatformService;
         this.sharingPlatformAdminService = sharingPlatformAdminService;
         this.projectService = projectService;
@@ -32,6 +37,7 @@ public class AdminController {
         this.flowService = flowService;
         this.subThemeService = subThemeService;
         this.questionService = questionService;
+        this.possibleAnswerService = possibleAnswerService;
     }
 
     @GetMapping("platform")
@@ -134,6 +140,11 @@ public class AdminController {
     public String getQuestion(@PathVariable int questionId, Model model) {
         Question question = questionService.getQuestion(questionId);
         model.addAttribute("q", question);
+        List<Question> questions = new ArrayList<>();
+        List<PossibleAnswers> possibleAnswers = new ArrayList<>(4);
+        questions.add(question);
+        possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
+        model.addAttribute("pA", possibleAnswers);
         return "admin/question";
     }
 

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -146,6 +147,13 @@ public class QuestionsController {
     ResponseEntity<Void> updateQuestion(@PathVariable int questionId, @RequestBody UpdateQuestionDto updateQuestionDto) {
         if (questionService.updateQuestion(questionId, updateQuestionDto.getText(), updateQuestionDto.getType())) {
             logger.info("Updating question to: {}", updateQuestionDto.getText());
+            Question question = questionService.getQuestion(questionId);
+            List<Question> questions = new ArrayList<>();
+            questions.add(question);
+            possibleAnswerService.getPossibleAnswersByQuestionId(questions).forEach(answer -> possibleAnswerService.deletePossibleAnswers(answer.getId()));
+            for (String answer : updateQuestionDto.getAnswers()) {
+                possibleAnswerService.savePossibleAnswers(answer, questionService.getQuestion(questionId));
+            }
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             logger.error("Could not find question");

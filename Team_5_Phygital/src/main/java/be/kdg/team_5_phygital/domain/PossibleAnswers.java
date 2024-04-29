@@ -22,6 +22,10 @@ public class PossibleAnswers {
 
     }
 
+    public PossibleAnswers(String answer) {
+        this.answer = answer;
+    }
+
     public PossibleAnswers(String answer, Question question) {
         this.answer = answer;
         this.question = question;

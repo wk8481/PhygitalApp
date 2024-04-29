@@ -42,15 +42,16 @@ public class PossibleAnswerService {
         possibleAnswersRepository.save(answer);
     }
 
-//    public boolean updatePossibleAnswers(int possibleAnswersId, String name) {
-//        PossibleAnswers possibleAnswers = possibleAnswersRepository.findById(possibleAnswersId).orElse(null);
-//        if (possibleAnswers == null) {
-//            return false;
-//        }
-//        possibleAnswers.setName(name);
-//        possibleAnswersRepository.save(possibleAnswers);
-//        return true;
-//    }
+    public boolean updatePossibleAnswers(String answer, Question question) {
+        PossibleAnswers possibleAnswers = possibleAnswersRepository.findPossibleAnswersByAnswerAndQuestion(answer, question);
+        if (possibleAnswers == null) {
+            return false;
+        }
+        possibleAnswers.setAnswer(answer);
+        possibleAnswers.setQuestion(question);
+        possibleAnswersRepository.save(possibleAnswers);
+        return true;
+    }
 
     @Transactional
     public boolean deletePossibleAnswers(int possibleAnswersId) {

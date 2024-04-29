@@ -12,10 +12,10 @@ let fields = document.getElementsByClassName("answer-input")
 
 let addButton = document.getElementById("addButton");
 let minusButton = document.getElementById("removeButton");
-let questionType = document.getElementById("questionTypeInput").value;
 
 function changeButtonVisability(){
 
+    let questionType = document.getElementById("questionTypeInput").value;
     if (questionType === "MULTIPLE_CHOICE" || questionType === "SINGLE_CHOICE") {
         addButton.style.visibility = "visible"
         minusButton.style.visibility = "visible"
