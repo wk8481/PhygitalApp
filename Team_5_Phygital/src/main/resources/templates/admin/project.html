@@ -10,7 +10,7 @@
     <style>
         body {
             /*background-color: ${project.backgroundColorHex}*/;
-            font-family: '[[${project.fontName}]]', Arial, sans-serif;
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
 
             #logo {
                 position: fixed;
@@ -75,8 +75,9 @@
                         </th>
                         <td class="col-sm-8">
                             <select class="form-control" id="fontInput" th:selected="${project.fontName}">
-                                <option value="Arial">Arial</option>
+                                <option value="Helvetica Neue">Helvetica Neue</option>
                                 <option value="Times New Roman">Times New Roman</option>
+                                <option value="Calibri">Calibri</option>
                                 <option value="Verdana">Verdana</option>
                             </select>
                         </td>
