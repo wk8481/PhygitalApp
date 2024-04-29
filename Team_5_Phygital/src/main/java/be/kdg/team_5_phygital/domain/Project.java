@@ -61,6 +61,13 @@ public class Project {
         this.sharingPlatform = sharingPlatform;
     }
 
+    public Project(String name, String backgroundColorHex, String fontName, SharingPlatform sharingPlatform) {
+        this.name = name;
+        this.backgroundColorHex = backgroundColorHex;
+        this.fontName = fontName;
+        this.sharingPlatform = sharingPlatform;
+    }
+
     public Project(String name, String backgroundColorHex, String fontName, String logoPath, SharingPlatform sharingPlatform) {
         this.name = name;
         this.backgroundColorHex = backgroundColorHex;

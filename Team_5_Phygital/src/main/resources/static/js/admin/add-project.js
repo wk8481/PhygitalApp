@@ -3,7 +3,6 @@ import {header, token} from "../util/csrf.js";
 const nameInput = document.getElementById("nameInput");
 const bgColor = document.getElementById("bgColorInput").value;
 const font = document.getElementById("fontInput").value;
-const logo = document.getElementById("logoInput").value;
 const createButton = document.getElementById("createButton");
 const platformId = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
 
@@ -17,9 +16,7 @@ async function addNewProject() {
             name: nameInput.value,
             backgroundColorHex: bgColor,
             fontName: font,
-            logoPath: logo,
             sharingPlatformId: platformId
-
         })
     });
 }

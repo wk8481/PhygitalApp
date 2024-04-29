@@ -22,8 +22,8 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/admin/**").hasAnyRole("ADMIN","MANAGER")
-                        .requestMatchers("/installation/**").hasAnyRole("MANAGER", "SUPERVISOR","ADMIN")
+                        .requestMatchers("/admin/**").hasAnyRole("ADMIN","CLIENT")
+                        .requestMatchers("/installation/**").hasAnyRole("ADMIN", "CLIENT","SUPERVISOR")
                         .requestMatchers(antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll()
