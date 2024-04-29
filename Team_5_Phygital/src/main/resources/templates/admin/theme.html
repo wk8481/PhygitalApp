@@ -7,10 +7,27 @@
     <title>Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/theme.js" type="module"></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <!-- Logo -->
+    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -22,7 +39,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table" th:object="${theme}">
+                <table class="table-borderless" th:object="${theme}">
                     <tbody>
                     <!-- Name -->
                     <tr>

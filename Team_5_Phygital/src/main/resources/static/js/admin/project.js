@@ -12,20 +12,37 @@ saveButton.addEventListener("click", updateProject);
 deleteButton.addEventListener("click", deleteProject);
 
 async function updateProject(event) {
-    console.log("Updating project")
-    fetch(`/api/projects/${projectId}`, {
-        method: "PATCH", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [header]: token
-        }, body: JSON.stringify({
-            id: projectId, name: name.value, backgroundColorHex: bgColor.value, fontName: font.value, logoPath: logo.value
-        })
-    })
-        .then(response => {
-            if (response.status === 204) {
+    console.log("Updating project");
 
-            }
+    // Create a FormData object to append the form data, including the logo file
+    const formData = new FormData();
+    formData.append("id", projectId);
+    formData.append("name", name.value);
+    formData.append("backgroundColorHex", bgColor.value);
+    formData.append("fontName", font.value);
+    formData.append("logo", logo.files[0]); // Append the logo file
+
+    try {
+        const response = await fetch(`/api/projects/${projectId}`, {
+            method: "PATCH",
+            headers: {
+                [header]: token
+            },
+            body: formData // Pass the FormData object as the body
         });
+
+        if (response.ok) {
+            // Handle success
+            console.log("Project updated successfully");
+        } else {
+            // Handle error
+            console.error("Error updating project:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Error updating project:", error);
+    }
 }
+
 
 async function deleteProject(event) {
     console.log("Deleting project")

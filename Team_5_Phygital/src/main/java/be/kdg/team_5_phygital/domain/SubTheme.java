@@ -16,7 +16,7 @@ public class SubTheme {
 
     private boolean isVisible;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "flow_id")
     private Flow flow;
 

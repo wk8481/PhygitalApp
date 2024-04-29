@@ -8,10 +8,27 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/flow.js" type="module"></script>
     <script src="/js/utils.js"></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <!-- Logo -->
+    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -24,7 +41,7 @@
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
                 <div class="col-md-8">
-                    <table class="table" th:object="${flow}">
+                    <table class="table-borderless" th:object="${flow}">
                         <tbody>
                         <!-- Name -->
                         <tr>
@@ -55,7 +72,7 @@
                 <div class="row mb-3 justify-content-center">
                     <!-- Sub Themes -->
                     <div class="col-md-8">
-                        <table class="table">
+                        <table class="table-borderless">
                             <tbody>
                             <tr th:each="st:${st}">
                                 <td>
@@ -67,9 +84,6 @@
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="${st.name}"></td>
-                                <td>
-                                    <i class="fas fa-bars"></i>
-                                </td>
                             </tr>
                             <tr>
                                 <td></td>
@@ -77,7 +91,6 @@
                                     <a th:href="@{/admin/flow/{flowId}/sub-theme/new(flowId=${flow.id})}">
                                         <i class="fas fa-plus"></i></a>
                                 </td>
-                                <td></td>
                                 <td></td>
                             </tr>
                             </tbody>
