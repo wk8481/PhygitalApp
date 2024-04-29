@@ -128,25 +128,34 @@ public class AdminController {
     public String getSubTheme(@PathVariable int flowId, @PathVariable int subThemeId, Model model) {
         SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
         List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
+        assert subTheme != null;
+        Project project = subTheme.getFlow().getProject();
         model.addAttribute("st", subTheme);
         model.addAttribute("question", questions);
+        model.addAttribute("project", project);
         return "admin/sub-theme";
     }
 
     @GetMapping("flow/{flowId}/sub-theme/new")
-    public String getNewSubTheme(@PathVariable int flowId) {
+    public String getNewSubTheme(@PathVariable int flowId, Model model) {
+        Project project = flowService.getFlow(flowId).getProject();
+        model.addAttribute("project", project);
         return "admin/new-sub-theme";
     }
 
     @GetMapping("sub-theme/{subThemeId}/question/{questionId}")
     public String getQuestion(@PathVariable int questionId, Model model) {
         Question question = questionService.getQuestion(questionId);
+        Project project = question.getSubTheme().getFlow().getProject();
         model.addAttribute("q", question);
+        model.addAttribute("project", project);
         return "admin/question";
     }
 
     @GetMapping("sub-theme/{subThemeId}/question/new")
-    public String getNewQuestion(@PathVariable int subThemeId) {
+    public String getNewQuestion(@PathVariable int subThemeId, Model model) {
+        Project project = subThemeService.getSubTheme(subThemeId).getFlow().getProject();
+        model.addAttribute("project", project);
         return "admin/new-question";
     }
 
