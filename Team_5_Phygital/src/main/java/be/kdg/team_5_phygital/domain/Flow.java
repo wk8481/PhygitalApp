@@ -21,8 +21,6 @@ public class Flow {
 
     private LocalDateTime endTime;
 
-    private double duration;
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "project_id")
     private Project project;
@@ -79,14 +77,6 @@ public class Flow {
 
     public void setEndTime(LocalDateTime endTime) {
         this.endTime = endTime;
-    }
-
-    public double getDuration() {
-        return duration;
-    }
-
-    public void setDuration(double duration) {
-        this.duration = duration;
     }
 
     public Project getProject() {
