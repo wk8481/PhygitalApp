@@ -33,6 +33,8 @@ variables:
 build:
   image: docker:19.03
   stage: build
+  services:
+    - docker:dind
   script:
     # Build the Docker image
     - cd Team_5_Phygital
