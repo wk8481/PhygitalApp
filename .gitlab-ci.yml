@@ -39,6 +39,8 @@ variables:
   POSTGRES_PASSWORD_TEST: 'admin'
   POSTGRES_PORT_TEST: '5445'
 
+  DOCKER_HUB_REPO: "zamlamb/phygital"
+
 build:
   image: docker:19.03
   stage: build
@@ -48,9 +50,10 @@ build:
     # Build the Docker image
     - cd Team_5_Phygital
     - docker build -t my-phygital-boot-app .
-    - docker tag my-phygital-boot-app:latest $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest  # Corrected line
+    - docker tag my-phygital-boot-app:latest
+     $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest
+    - docker push $DOCKER_HUB_REPO:latest
   artifacts:
     paths:
       - create-vm-and-transfer-jar.sh
@@ -58,61 +61,63 @@ build:
 
 
 
-
-
-# unit-test-job:
-#   image: gradle:jdk17
-#   stage: test
-#   services:
-#     - name: postgres:16.1-alpine
-#       alias: postgres_phygital_test_db
-#       command: ["postgres", "-c", "max_connections=200"]
-#   script:
-#     - cd Team_5_Phygital
-#     - ./gradlew test
-#   artifacts:
-#     when: always
-#     paths:
-#       - Team_5_Phygital/build/reports/tests/test/index.html
+unit-test-job:
+  image: gradle:jdk17
+  stage: test
+  services:
+    - name: postgres:16.1-alpine
+      alias: postgres_phygital_test_db
+      command: ["postgres", "-c", "max_connections=200"]
+  script:
+    - cd Team_5_Phygital
+    - ./gradlew test
+  artifacts:
+    when: always
+    paths:
+      - Team_5_Phygital/build/reports/tests/test/index.html
 
 
 
-# check-files-job:  # This job runs in the test stage.
-#    stage: test
-#    image: alpine:latest
-#    script:
-#       - mkdir checkdir
-#       - find -name *.c > checkdir/testresult.txt 2>/dev/null
-#    artifacts:
-#         paths:
-#           - ./checkdir
  
-# integration_test:
-#   stage: test
-#   image: openjdk:17
-#   script:
-#     - cd Team_5_Phygital
-#     - ./gradlew integrationTest
+
+
  
-# code_quality:
-#   stage: test
-#   image: gradle:latest
-#   script:
-#     - cd Team_5_Phygital
-#     # Install any required dependencies
-#     - gradle wrapper --gradle-version=8.5
-#     # Run code quality checks
-#     - ./gradlew checkstyle pmd findbugs
-#   artifacts:
-#     reports:
-#       codequality: build/reports/
+check-files-job:  # This job runs in the test stage.
+   stage: test
+   image: alpine:latest
+   script:
+      - mkdir checkdir
+      - find -name *.c > checkdir/testresult.txt 2>/dev/null
+   artifacts:
+        paths:
+          - ./checkdir
  
-# dependency_check:
-#   stage: test
-#   image: openjdk:17
-#   script:
-#     - cd Team_5_Phygital
-#     - ./gradlew dependencyCheckAnalyze
+integration_test:
+  stage: test
+  image: openjdk:17
+  script:
+    - cd Team_5_Phygital
+    - ./gradlew integrationTest
+ 
+code_quality:
+  stage: test
+  image: gradle:latest
+  script:
+    - cd Team_5_Phygital
+    # Install any required dependencies
+    - gradle wrapper --gradle-version=8.5
+    # Run code quality checks
+    - ./gradlew checkstyle pmd findbugs
+  artifacts:
+    reports:
+      codequality: build/reports/
+ 
+dependency_check:
+  stage: test
+  image: openjdk:17
+  script:
+    - cd Team_5_Phygital
+    - ./gradlew dependencyCheckAnalyze
  
 deploy:
   image: google/cloud-sdk:latest
@@ -120,7 +125,7 @@ deploy:
   before_script:
     - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
     - dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
-    - echo "$GCP_JSON_KEY" > ${HOME}/gcloud-service-key.json
+    - echo "$GCLOUD_SERVICE_KEY" > ${HOME}/gcloud-service-key.json
     - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
     - gcloud config set project $PROJECT_ID
     - gcloud config set compute/zone $ZONE
