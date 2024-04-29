@@ -48,14 +48,14 @@ build:
     # Build the Docker image
     - cd Team_5_Phygital
     - docker build -t my-phygital-boot-app .
-    - docker tag my-phygital-boot-app:latest
-     $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest
+    - docker tag my-phygital-boot-app:latest $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest  # Corrected line
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_USERNAME/$DOCKER_HUB_REPO:latest
   artifacts:
     paths:
       - create-vm-and-transfer-jar.sh
     expire_in: 30 days
+
 
 
 
