@@ -1,6 +1,9 @@
 # Use the official Gradle image to create a build artifact.# This image will be used in the 'build' stage.
 
 FROM gradle:jdk17-alpine as builder
+
+# Add Label
+LABEL author="William Kasasa <william.kasasa@student.kdg.be>"
 # Set the working directory in the Docker image
 WORKDIR /app
 # Copy the Gradle executable to the Docker image
