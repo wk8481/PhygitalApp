@@ -14,11 +14,5 @@ RUN chmod +x ./gradlew
 COPY src src
 # Build the JAR file
 RUN ./gradlew build -x test
-# Use OpenJDK for the final image.
-FROM openjdk:17-alpine
-# Copy the JAR file from the 'builder' stage to this new stage
-COPY --from=builder /app/build/libs/*.jar /app/app.jar
-# Expose the port that the application listens on
-EXPOSE 8080 8443
-# Run the JAR file
-ENTRYPOINT ["java","-jar","/app/app.jar"]
+ Set the entrypoint script to initialize the container
+ENTRYPOINT ["java", "-jar", "build/libs/my-phygital-boot-app.jar"]
