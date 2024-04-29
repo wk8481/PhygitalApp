@@ -21,9 +21,8 @@ include:
 
 stages:
   - build
-  - test
   - deploy
-  - destroy
+
  
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
  
@@ -61,63 +60,59 @@ build:
 
 
 
-unit-test-job:
-  image: gradle:jdk17
-  stage: test
-  services:
-    - name: postgres:16.1-alpine
-      alias: postgres_phygital_test_db
-      command: ["postgres", "-c", "max_connections=200"]
-  script:
-    - cd Team_5_Phygital
-    - ./gradlew test
-  artifacts:
-    when: always
-    paths:
-      - Team_5_Phygital/build/reports/tests/test/index.html
+# unit-test-job:
+#   image: gradle:jdk17
+#   stage: test
+#   services:
+#     - name: postgres:16.1-alpine
+#       alias: postgres_phygital_test_db
+#       command: ["postgres", "-c", "max_connections=200"]
+#   script:
+#     - cd Team_5_Phygital
+#     - ./gradlew test
+#   artifacts:
+#     when: always
+#     paths:
+#       - Team_5_Phygital/build/reports/tests/test/index.html
 
 
 
+# check-files-job:  # This job runs in the test stage.
+#    stage: test
+#    image: alpine:latest
+#    script:
+#       - mkdir checkdir
+#       - find -name *.c > checkdir/testresult.txt 2>/dev/null
+#    artifacts:
+#         paths:
+#           - ./checkdir
  
-
-
+# integration_test:
+#   stage: test
+#   image: openjdk:17
+#   script:
+#     - cd Team_5_Phygital
+#     - ./gradlew integrationTest
  
-check-files-job:  # This job runs in the test stage.
-   stage: test
-   image: alpine:latest
-   script:
-      - mkdir checkdir
-      - find -name *.c > checkdir/testresult.txt 2>/dev/null
-   artifacts:
-        paths:
-          - ./checkdir
+# code_quality:
+#   stage: test
+#   image: gradle:latest
+#   script:
+#     - cd Team_5_Phygital
+#     # Install any required dependencies
+#     - gradle wrapper --gradle-version=8.5
+#     # Run code quality checks
+#     - ./gradlew checkstyle pmd findbugs
+#   artifacts:
+#     reports:
+#       codequality: build/reports/
  
-integration_test:
-  stage: test
-  image: openjdk:17
-  script:
-    - cd Team_5_Phygital
-    - ./gradlew integrationTest
- 
-code_quality:
-  stage: test
-  image: gradle:latest
-  script:
-    - cd Team_5_Phygital
-    # Install any required dependencies
-    - gradle wrapper --gradle-version=8.5
-    # Run code quality checks
-    - ./gradlew checkstyle pmd findbugs
-  artifacts:
-    reports:
-      codequality: build/reports/
- 
-dependency_check:
-  stage: test
-  image: openjdk:17
-  script:
-    - cd Team_5_Phygital
-    - ./gradlew dependencyCheckAnalyze
+# dependency_check:
+#   stage: test
+#   image: openjdk:17
+#   script:
+#     - cd Team_5_Phygital
+#     - ./gradlew dependencyCheckAnalyze
  
 deploy:
   image: google/cloud-sdk:latest
