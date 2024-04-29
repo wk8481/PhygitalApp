@@ -92,27 +92,35 @@ public class AdminController {
 
     @GetMapping("project/{projectId}/theme")
     public String getTheme(@PathVariable int projectId, Model model) {
+        Project project = projectService.getProject(projectId);
         Theme theme = themeService.getThemeByProjectId(projectId);
+        model.addAttribute("project", project);
         model.addAttribute("theme", theme);
         return "admin/theme";
     }
 
     @GetMapping("sharing-platform/{platformId}/{projectId}/stats")
-    public String getProjectStats(@PathVariable int platformId, @PathVariable int projectId) {
+    public String getProjectStats(@PathVariable int platformId, @PathVariable int projectId, Model model) {
+        Project project = projectService.getProject(projectId);
+        model.addAttribute("project", project);
         return "admin/project-stats";
     }
 
     @GetMapping("project/{projectId}/flow/{flowId}")
     public String getFlow(@PathVariable int projectId, @PathVariable int flowId, Model model) {
+        Project project = projectService.getProject(projectId);
         Flow flow = flowService.getFlow(flowId);
         List<SubTheme> subThemes = subThemeService.getSubThemeByFlowId(flow.getId());
+        model.addAttribute("project", project);
         model.addAttribute("flow", flow);
         model.addAttribute("st", subThemes);
         return "admin/flow";
     }
 
     @GetMapping("project/{projectId}/flow/new")
-    public String getNewFlow(@PathVariable int projectId) {
+    public String getNewFlow(@PathVariable int projectId, Model model) {
+        Project project = projectService.getProject(projectId);
+        model.addAttribute("project", project);
         return "admin/new-flow";
     }
 

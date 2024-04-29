@@ -10,10 +10,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"></script>
+    <style>
+        body {
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 100px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <!-- Logo -->
+    <img id="logo" th:src="@{/images/logo.jpg}" alt="">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
