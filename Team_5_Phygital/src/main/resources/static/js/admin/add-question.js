@@ -64,6 +64,7 @@ function removeAnswerField(){
     }
 }
 async function addNewQuestion() {
+    let questionType = document.getElementById("questionTypeInput").value;
     let answer = []
     if (questionType === "MULTIPLE_CHOICE" || questionType === "SINGLE_CHOICE") {
         let visibleCount = 0;
