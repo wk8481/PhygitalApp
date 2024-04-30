@@ -29,14 +29,16 @@ public class QuestionsController {
     private final UserService userService;
     private final AnswerService answerService;
     private final PossibleAnswerService possibleAnswerService;
+    private final ProjectService projectService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.answerService = answerService;
         this.possibleAnswerService = possibleAnswerService;
+        this.projectService = projectService;
     }
 
     @GetMapping("{id}")
@@ -134,9 +136,9 @@ public class QuestionsController {
         if (answer != null) {
             User user = userService.getUserByMail(newAnswerDto.getUserMail());
             SubTheme subTheme = subThemeService.getSubThemeById(newAnswerDto.getSubThemeId()).orElse(null);
-            logger.error("User: " + newAnswerDto.getUserMail() + " Subtheme: " + newAnswerDto.getSubThemeId());
             answerService.saveAnswer(user, LocalDateTime.now(), newAnswerDto.getQuestion(), newAnswerDto.getAnswer(), subTheme);
 
+            projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");

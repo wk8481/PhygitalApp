@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,6 +47,10 @@ public class ProjectService {
 
     public List<Project> getProjectBySharingPlatformId(int sharingPlatformId) {
         return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
+    }
+
+    public void updateTimeAndParticipants(Project project, float time){
+        projectRepository.updateProjectTimeAndParticipants(project.getId(), time);
     }
 
     @Transactional

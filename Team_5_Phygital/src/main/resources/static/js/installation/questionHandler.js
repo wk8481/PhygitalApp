@@ -25,6 +25,33 @@ window.onload = function () {
         }
     });
 }
+var elapsedTime =0
+var seconds =0
+
+function trackTime() {
+    // Start time when the page loads
+    var startTime = new Date().getTime();
+
+    // Function to calculate and display time spent
+    function displayTime() {
+        var currentTime = new Date().getTime();
+        elapsedTime = currentTime - startTime;
+        seconds = Math.floor(elapsedTime / 1000);
+        var minutes = Math.floor(seconds / 60);
+        console.log("elapsed time: ", seconds)
+
+        var secondsTodisplay =  seconds % 60;
+        // Display time on the page
+        document.getElementById("timer").innerHTML = "Time spent on the page: " + minutes + "m " + secondsTodisplay + "s";
+    }
+
+    // Update time every second
+    setInterval(displayTime, 1000);
+}
+
+// Call trackTime() when the page loads
+trackTime();
+
 
 // Function to handle submitting answers
 function submitAnswer(event) {
@@ -89,7 +116,8 @@ function submitAnswer(event) {
             question: questions,
             answer: answers,
             userMail: user,
-            subThemeId: subtheme
+            subThemeId: subtheme,
+            durationSpend: seconds
         })
     })
         .then(response => {
