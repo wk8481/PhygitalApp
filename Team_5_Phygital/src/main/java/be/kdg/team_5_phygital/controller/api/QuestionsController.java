@@ -4,14 +4,8 @@ import be.kdg.team_5_phygital.controller.api.dto.NewAnswerDto;
 import be.kdg.team_5_phygital.controller.api.dto.NewQuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.QuestionDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateQuestionDto;
-import be.kdg.team_5_phygital.domain.Answers;
-import be.kdg.team_5_phygital.domain.Question;
-import be.kdg.team_5_phygital.domain.SubTheme;
-import be.kdg.team_5_phygital.domain.User;
-import be.kdg.team_5_phygital.service.AnswerService;
-import be.kdg.team_5_phygital.service.QuestionService;
-import be.kdg.team_5_phygital.service.SubThemeService;
-import be.kdg.team_5_phygital.service.UserService;
+import be.kdg.team_5_phygital.domain.*;
+import be.kdg.team_5_phygital.service.*;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -21,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,13 +28,15 @@ public class QuestionsController {
     private final ModelMapper modelMapper;
     private final UserService userService;
     private final AnswerService answerService;
+    private final PossibleAnswerService possibleAnswerService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
         this.userService = userService;
         this.answerService = answerService;
+        this.possibleAnswerService = possibleAnswerService;
     }
 
     @GetMapping("{id}")
@@ -70,6 +67,8 @@ public class QuestionsController {
         return ResponseEntity.ok(questionDtos);
     }
 
+//    IF COMMENTING THIS DOESNT CAUSE ERRORS REMOVE
+/*
     @GetMapping("{subThemeId}/current")
     public ResponseEntity<QuestionDto> getCurrentQuestion(@PathVariable int subThemeId) {
         return subThemeService.getSubThemeById(subThemeId)
@@ -111,6 +110,7 @@ public class QuestionsController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+*/
 
     @PostMapping
     ResponseEntity<QuestionDto> saveQuestion(@RequestBody @Valid NewQuestionDto questionDto) {
@@ -118,8 +118,13 @@ public class QuestionsController {
             logger.error("Could not create new question");
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        logger.info("Creating new question: {}", questionDto.getText());
+        logger.info("Creating new question: {} with answers: {} size: {}", questionDto.getText(), questionDto.getAnswers(), questionDto.getAnswers().size());
         Question createdQuestion = questionService.saveQuestion(questionDto.getText(), questionDto.getType(), questionDto.getSubThemeId());
+        if (questionDto.getAnswers().size() != 1) {
+            for (String answer : questionDto.getAnswers()) {
+                possibleAnswerService.savePossibleAnswers(answer, createdQuestion);
+            }
+        }
         return new ResponseEntity<>(modelMapper.map(createdQuestion, QuestionDto.class), HttpStatus.CREATED);
     }
 
@@ -142,6 +147,13 @@ public class QuestionsController {
     ResponseEntity<Void> updateQuestion(@PathVariable int questionId, @RequestBody UpdateQuestionDto updateQuestionDto) {
         if (questionService.updateQuestion(questionId, updateQuestionDto.getText(), updateQuestionDto.getType())) {
             logger.info("Updating question to: {}", updateQuestionDto.getText());
+            Question question = questionService.getQuestion(questionId);
+            List<Question> questions = new ArrayList<>();
+            questions.add(question);
+            possibleAnswerService.getPossibleAnswersByQuestionId(questions).forEach(answer -> possibleAnswerService.deletePossibleAnswers(answer.getId()));
+            for (String answer : updateQuestionDto.getAnswers()) {
+                possibleAnswerService.savePossibleAnswers(answer, questionService.getQuestion(questionId));
+            }
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             logger.error("Could not find question");
