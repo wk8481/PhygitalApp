@@ -21,7 +21,7 @@
  
  
 stages:
-  - build
+#  - build
 #  - deploy
  
  
@@ -41,23 +41,23 @@ variables:
  
   DOCKER_HUB_REPO: "zamlamb/phygital"
  
-build:
-  image: docker:19.03
-  stage: build
-  services:
-    - docker:dind
-  script:
-    # Build the Docker image
-    - cd Team_5_Phygital
-    - docker build -t my-phygital-boot-app .
-    - docker tag my-phygital-boot-app:latest
-     $DOCKER_HUB_REPO:latest
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $DOCKER_HUB_REPO:latest
-  artifacts:
-    paths:
-      - create-vm-and-transfer-jar.sh
-    expire_in: 30 days
+#build:
+#  image: docker:19.03
+#  stage: build
+#  services:
+#    - docker:dind
+#  script:
+#    # Build the Docker image
+#    - cd Team_5_Phygital
+#    - docker build -t my-phygital-boot-app .
+#    - docker tag my-phygital-boot-app:latest
+#     $DOCKER_HUB_REPO:latest
+#    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#    - docker push $DOCKER_HUB_REPO:latest
+#  artifacts:
+#    paths:
+#      - create-vm-and-transfer-jar.sh
+#    expire_in: 30 days
  
  
  
