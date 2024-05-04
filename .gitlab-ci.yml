@@ -117,7 +117,7 @@ deploy:
   stage: deploy
   before_script:
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
-    - which nslookup || sudo apt-get install dnsutils -y
+    - which nslookup || apt-get install dnsutils -y
     - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
     - IP_ADDRESS=$(cat ${HOME}/ip.txt)
     - if [ -z "$IP_ADDRESS" ]; then IP_ADDRESS="35.241.233.187"; fi
