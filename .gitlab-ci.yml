@@ -129,5 +129,6 @@ deploy:
 
 
   script:
-  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:$CI_COMMIT_REF_NAME; docker container run -d -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_HUB_REPO:$CI_COMMIT_REF_NAME; docker logout docker.io"
+  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:latest; docker container run -d -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_HUB_REPO:latest; docker logout docker.io"
+
     
