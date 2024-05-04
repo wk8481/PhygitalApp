@@ -1,35 +1,24 @@
-package be.kdg.team_5_phygital.domain.util;
+package be.kdg.team_5_phygital.controller.api.dto;
 
-import be.kdg.team_5_phygital.domain.Flow;
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "location")
-public class Location {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class InstallationDto {
     private int id;
+    private String name;
     private String province;
     private String city;
     private String street;
     private int streetNumber;
 
-    @OneToOne
-    @JoinColumn(name = "installation_id")
-    private Flow flow;
-
-    public Flow getFlow() {
-        return flow;
+    public InstallationDto() {
     }
 
-    public void setFlow(Flow flow) {
-        this.flow = flow;
+    public InstallationDto(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Location() {
-    }
-
-    public Location(String province, String city, String street, int streetNumber) {
+    public InstallationDto(int id, String name, String province, String city, String street, int streetNumber) {
+        this.id = id;
+        this.name = name;
         this.province = province;
         this.city = city;
         this.street = street;
@@ -42,6 +31,14 @@ public class Location {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getProvince() {

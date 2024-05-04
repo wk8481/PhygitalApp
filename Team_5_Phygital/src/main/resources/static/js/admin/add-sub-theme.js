@@ -6,13 +6,13 @@ const flowId = extractIdsFromUrl(window.location.href.substring(window.location.
 createButton.addEventListener("click", addNewSubTheme);
 
 async function addNewSubTheme() {
-    const nameInput = document.getElementById("nameInput").value;
+    const name = document.getElementById("nameInput").value;
     const information = document.getElementById("infoInput").value;
     await fetch(`/api/sub-themes`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            name: nameInput,
+            name: name,
             information: information,
             flowId: flowId
         })

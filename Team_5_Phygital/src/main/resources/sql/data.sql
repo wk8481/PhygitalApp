@@ -1,9 +1,8 @@
-
-INSERT INTO users (email, password, role)
-VALUES ('noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT'),
-       ('emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
+INSERT INTO users (name, email, password, role)
+VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
+       ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
+       ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT'),
+       ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
 
 -- Administrator
 INSERT INTO administrator (name)
@@ -16,6 +15,12 @@ VALUES ('Platform Admin', 'admin@example.com', 'platform123');
 -- SharingPlatform
 INSERT INTO sharing_platform (name, contact_email, total_participants, administrator_id)
 VALUES ('Platform A', 'platformA@example.com', 100, 1);
+
+-- Installation
+INSERT INTO installation (name, is_running)
+VALUES ('Groenplaats', false),
+       ('Linkeroever', false),
+       ('Deurne', false);
 
 -- Project
 INSERT INTO project (name, background_color_hex, active, total_participants, avg_time_spent, sharing_platform_id)
@@ -31,9 +36,9 @@ VALUES ('John Doe', 'johndoe@example.com', 'supervisor123', 1),
        ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
-INSERT INTO flow (name, is_circular, project_id)
-VALUES ('Flow 1', true, 1),
-       ('Flow 2', false, 1);
+INSERT INTO flow (name, is_circular, project_id, start_time, end_time)
+VALUES ('Flow 1', true, 1, null, null),
+       ('Flow 2', false, 1, null, null);
 
 -- SubTheme
 INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)

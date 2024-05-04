@@ -1,12 +1,15 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
+import be.kdg.team_5_phygital.domain.Installation;
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.repository.FlowRepository;
+import be.kdg.team_5_phygital.repository.InstallationRepository;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,16 +17,30 @@ import java.util.Optional;
 public class FlowService {
     private final FlowRepository flowRepository;
     private final ProjectRepository projectRepository;
+    private final InstallationRepository installationRepository;
 
-    public FlowService(FlowRepository flowRepository, ProjectRepository projectRepository) {
+    public FlowService(FlowRepository flowRepository, ProjectRepository projectRepository, InstallationRepository installationRepository) {
         this.flowRepository = flowRepository;
         this.projectRepository = projectRepository;
+        this.installationRepository = installationRepository;
     }
 
     public Flow getFlow(int flowId) {
         return flowRepository.findById(flowId).orElse(null);
     }
 
+    public double getFlowDuration(int flowId) {
+        Flow flow = flowRepository.findById(flowId).orElse(null);
+        if (flow == null) {
+            return -1;
+        }
+        LocalDateTime startTime = flow.getStartTime();
+        LocalDateTime endTime = flow.getEndTime();
+        if (startTime == null || endTime == null) {
+            return -1;
+        }
+        return (endTime.getSecond() - startTime.getSecond()) / 60.0;
+    }
 
     public List<Flow> getAllFlows() {
         return flowRepository.findAll();
@@ -34,9 +51,10 @@ public class FlowService {
     }
 
     @Transactional
-    public Flow saveFlow(String name, int projectId) {
+    public Flow saveFlow(String name, int projectId, int installationId) {
         Project project = projectRepository.findById(projectId).orElse(null);
-        return flowRepository.save(new Flow(name, project));
+        Installation installation = installationRepository.findById(projectId).orElse(null);
+        return flowRepository.save(new Flow(name, project, installation));
     }
 
     public boolean updateFlow(int flowId, String name) {

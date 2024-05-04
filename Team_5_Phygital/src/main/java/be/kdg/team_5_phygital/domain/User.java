@@ -2,6 +2,8 @@ package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -9,6 +11,9 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "email")
     private String email;
@@ -30,6 +35,13 @@ public class User {
         this.role = role;
     }
 
+    public User(String name, String email, String password, UserRole role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     public User(int id, String email, String password, UserRole role) {
         this.id = id;
         this.email = email;
@@ -37,6 +49,13 @@ public class User {
         this.role = role;
     }
 
+    public User(int id, String name, String email, String password, UserRole role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
 
     public int getId() {
         return id;
@@ -44,6 +63,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
