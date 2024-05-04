@@ -22,7 +22,7 @@
  
 stages:
   - build
- # - deploy
+  - deploy
  
  
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
@@ -126,5 +126,5 @@ deploy:
      - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
-  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker stop $APP_NAME; docker system prune -a -f; docker pull $DOCKER_REPO:$CI_COMMIT_REF_NAME; docker container run -d --name $APP_NAME -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_REPO:$CI_COMMIT_REF_NAME; docker logout docker.io"
+  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:$CI_COMMIT_REF_NAME; docker container run -d -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_HUB_REPO:$CI_COMMIT_REF_NAME; docker logout docker.io"
     
