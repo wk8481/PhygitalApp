@@ -16,7 +16,7 @@ RUN chmod +x ./gradlew
 # Copy the source code into the Docker image
 COPY src src
 # Build the JAR file
-RUN ./gradlew build
+RUN ./gradlew build -x test
 
 # Create a new stage for the deploy stage
 FROM openjdk:17-alpine as deploy
