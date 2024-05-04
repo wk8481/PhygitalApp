@@ -1,9 +1,6 @@
-# Use the official Gradle image to create a build artifact.
-# This image will be used in the 'build' stage.
-FROM gradle:jdk17-alpine as builder
+# Use the official Gradle image to create a build artifact.# This image will be used in the 'build' stage.
 
-# Add Label
-LABEL author="William Kasasa <william.kasasa@student.kdg.be>"
+FROM gradle:jdk17-alpine as builder
 # Set the working directory in the Docker image
 WORKDIR /app
 # Copy the Gradle executable to the Docker image
@@ -17,15 +14,11 @@ RUN chmod +x ./gradlew
 COPY src src
 # Build the JAR file
 RUN ./gradlew build -x test
-
-# Create a new stage for the deploy stage
-FROM openjdk:17-alpine as deploy
-# Set the working directory in the Docker image
-WORKDIR /deploy
-# Copy the JAR file from the 'builder' stage into the deploy stage
-COPY --from=builder /app/build/libs/my-phygital-boot-app.jar ./my-phygital-boot-app.jar
-# Set the entrypoint script to initialize the container
-ENTRYPOINT ["java", "-jar", "my-phygital-boot-app.jar"]
-
-# Expose ports 80, 443, 8080, and 8443
-EXPOSE 80 443 8080 8443
+# Use OpenJDK for the final image.
+FROM openjdk:17-alpine
+# Copy the JAR file from the 'builder' stage to this new stage
+COPY --from=builder /app/build/libs/*.jar /app/app.jar
+# Expose the port that the application listens on
+EXPOSE 8080 8443 80 443
+# Run the JAR file
+ENTRYPOINT ["java","-jar","/app/app.jar"]
