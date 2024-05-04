@@ -116,14 +116,17 @@ deploy:
   image: google/cloud-sdk:latest
   stage: deploy
   before_script:
-     - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
-     - IP_ADDRESS=$(cat ${HOME}/ip.txt)
-     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-     - eval $(ssh-agent -s)
-     - echo "$TEAM5_PRIV_KEY" | tr -d '\r' | ssh-add -
-     - mkdir -p ~/.ssh
-     - chmod 700 ~/.ssh
-     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
+    - which ssh-agent || ( sudo apt-get update -y && sudo apt-get install openssh-client -y )
+    - which nslookup || sudo apt-get install dnsutils -y
+    - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
+    - IP_ADDRESS=$(cat ${HOME}/ip.txt)
+    - if [ -z "$IP_ADDRESS" ]; then IP_ADDRESS="35.241.233.187"; fi
+    - eval $(ssh-agent -s)
+    - echo "$TEAM5_PRIV_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
+
 
   script:
   - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:$CI_COMMIT_REF_NAME; docker container run -d -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_HUB_REPO:$CI_COMMIT_REF_NAME; docker logout docker.io"
