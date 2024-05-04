@@ -22,7 +22,7 @@
  
 stages:
   - build
-  - deploy
+ # - deploy
  
  
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
@@ -112,17 +112,19 @@ build:
 #     - ./gradlew dependencyCheckAnalyze
  
  
-#deploy:
- # image: google/cloud-sdk:latest
-  #stage: deploy
-  #before_script:
-   # - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
-    #- dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
-    #- echo "$GCP_SERVICE_KEY" > ${HOME}/gcloud-service-key.json
-    #- gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-    #- gcloud config set project $PROJECT_ID
-    #- gcloud config set compute/zone $ZONE
-  #script:
-   # - pwd  
-    #- ls -la  
+deploy:
+  image: google/cloud-sdk:latest
+  stage: deploy
+  before_script:
+     - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
+     - IP_ADDRESS=$(cat ${HOME}/ip.txt)
+     - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+     - eval $(ssh-agent -s)
+     - echo "$TEAM5_PRIV_KEY" | tr -d '\r' | ssh-add -
+     - mkdir -p ~/.ssh
+     - chmod 700 ~/.ssh
+     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
+
+  script:
+  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker stop $APP_NAME; docker system prune -a -f; docker pull $DOCKER_REPO:$CI_COMMIT_REF_NAME; docker container run -d --name $APP_NAME -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_REPO:$CI_COMMIT_REF_NAME; docker logout docker.io"
     
