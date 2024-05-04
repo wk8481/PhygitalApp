@@ -32,6 +32,11 @@ public class Installation {
         this.name = name;
     }
 
+    public Installation(String name, Location location) {
+        this.name = name;
+        this.location = location;
+    }
+
     public Installation(boolean isRunning, UserDetail user) {
         this.isRunning = isRunning;
         this.user = user;

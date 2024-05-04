@@ -14,10 +14,6 @@ public class Location {
     private String street;
     private int streetNumber;
 
-    private int longitude;
-
-    private int latitude;
-
     @OneToOne
     @JoinColumn(name = "installation_id")
     private Flow flow;
@@ -33,15 +29,11 @@ public class Location {
     public Location() {
     }
 
-    public Location(int longitude, int latitude) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-    }
-
-    public Location(String city, int longitude, int latitude) {
+    public Location(String province, String city, String street, int streetNumber) {
+        this.province = province;
         this.city = city;
-        this.longitude = longitude;
-        this.latitude = latitude;
+        this.street = street;
+        this.streetNumber = streetNumber;
     }
 
     public int getId() {
@@ -82,21 +74,5 @@ public class Location {
 
     public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
-    }
-
-    public int getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(int longitude) {
-        this.longitude = longitude;
-    }
-
-    public int getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(int latitude) {
-        this.latitude = latitude;
     }
 }

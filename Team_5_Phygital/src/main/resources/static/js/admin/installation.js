@@ -1,6 +1,10 @@
 import {header, token} from "../util/csrf.js";
 
 const name = document.getElementById("nameInput");
+const province = document.getElementById("provinceInput");
+const city = document.getElementById("cityInput");
+const street = document.getElementById("streetInput");
+const streetNumber = document.getElementById("streetNumberInput");
 const saveButton = document.getElementById("saveButton");
 const deleteButton = document.getElementById("deleteButton");
 const [installationId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "installation");
@@ -15,6 +19,10 @@ async function updateInstallation(event) {
     const formData = new FormData();
     formData.append("id", installationId);
     formData.append("name", name.value);
+    formData.append("province", province.value);
+    formData.append("city", city.value);
+    formData.append("street", street.value);
+    formData.append("streetNumber", streetNumber.value);
 
     try {
         const response = await fetch(`/api/installations/${installationId}`, {

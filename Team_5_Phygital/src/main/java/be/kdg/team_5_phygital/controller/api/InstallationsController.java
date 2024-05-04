@@ -1,11 +1,10 @@
 package be.kdg.team_5_phygital.controller.api;
 
-import be.kdg.team_5_phygital.controller.api.dto.InstallationDto;
-import be.kdg.team_5_phygital.controller.api.dto.NewInstallationDto;
-import be.kdg.team_5_phygital.controller.api.dto.UpdateInstallationDto;
-import be.kdg.team_5_phygital.domain.Flow;
+import be.kdg.team_5_phygital.controller.api.dto.*;
+import be.kdg.team_5_phygital.domain.Installation;
 import be.kdg.team_5_phygital.domain.Installation;
 import be.kdg.team_5_phygital.domain.Project;
+import be.kdg.team_5_phygital.domain.util.Location;
 import be.kdg.team_5_phygital.repository.InstallationRepository;
 import be.kdg.team_5_phygital.service.InstallationService;
 import jakarta.transaction.Transactional;
@@ -55,28 +54,36 @@ public class InstallationsController {
         }
     }
 
-    @Transactional
-    public Installation saveInstallation(String name) {
-        return installationRepository.save(new Installation(name));
+    @PostMapping
+    ResponseEntity<InstallationDto> saveInstallation(@RequestBody @Valid NewInstallationDto installationDto) {
+        if (installationRepository.findByName(installationDto.getName()).isPresent()) {
+            logger.error("Installation already exists");
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+
+        }
+        logger.info("Installation created");
+        Installation createdInstallation = installationService.saveInstallation(installationDto.getName(), installationDto.getProvince(), installationDto.getCity(), installationDto.getStreet(), installationDto.getStreetNumber());
+        return new ResponseEntity<>(modelMapper.map(createdInstallation, InstallationDto.class), HttpStatus.CREATED);
     }
 
-    public boolean updateInstallation(int installationId, String name) {
-        Installation installation = installationRepository.findById(installationId).orElse(null);
-        if (installation == null) {
-            return false;
+    @PatchMapping("{installationId}")
+    ResponseEntity<Void> updateInstallation(@PathVariable int installationId, @RequestBody UpdateInstallationDto updateInstallationDto) {
+        if (installationService.updateInstallation(installationId, updateInstallationDto.getName(), updateInstallationDto.getProvince(), updateInstallationDto.getCity(), updateInstallationDto.getStreet(), updateInstallationDto.getStreetNumber())) {
+            logger.info("Installation updated");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            logger.error("Installation update failed");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        installation.setName(name);
-        installationRepository.save(installation);
-        return true;
     }
 
-    @Transactional
-    public boolean deleteInstallation(int installationId) {
-        Optional<Installation> installation = installationRepository.findById(installationId);
-        if (installation.isEmpty()) {
-            return false;
+    @DeleteMapping("{installationId}")
+    ResponseEntity<Void> deleteInstallation(@PathVariable("installationId") int installationId) {
+        if (installationService.deleteInstallation(installationId)) {
+            logger.info("Installation deleted");
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        installationRepository.deleteById(installationId);
-        return true;
+        logger.error("Installation could not be found");
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
