@@ -12,7 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,5 +80,30 @@ public class SubThemesController {
         }
         logger.error("Couldn't delete sub theme");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping("/{subThemeId}/media")
+    public ResponseEntity<?> uploadMediaFiles(@PathVariable("subThemeId") int subThemeId,
+                                              @RequestParam("files") MultipartFile[] files) {
+        try {
+            subThemeService.uploadMediaFiles(subThemeId, Arrays.asList(files));
+            return ResponseEntity.ok().build();
+        } catch (IOException e) {
+            // Handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    // Endpoint for deleting media files
+    @DeleteMapping("/{subThemeId}/media")
+    public ResponseEntity<?> deleteMediaFiles(@PathVariable("subThemeId") int subThemeId,
+                                              @RequestParam("fileNames") List<String> fileNames) {
+        try {
+            subThemeService.deleteMediaFiles(subThemeId, fileNames);
+            return ResponseEntity.ok().build();
+        } catch (IOException e) {
+            // Handle exception
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }

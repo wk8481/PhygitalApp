@@ -1,5 +1,6 @@
 import {header, token} from "../util/csrf.js";
 
+const uploadInput = document.getElementById("mediaInput");
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
 const [flowId, subThemeId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "sub-theme");
@@ -34,5 +35,24 @@ async function deleteSubTheme(event) {
     });
     if (response.ok){
         window.history.back();
+    }
+}
+
+async function uploadMediaFiles(event) {
+    const files = uploadInput.files;
+    const formData = new FormData();
+    for (const file of files) {
+        formData.append("files", file);
+    }
+    console.log("Uploading media files");
+    const response = await fetch(`/api/sub-themes/${subThemeId}/media`, {
+        method: "POST",
+        headers: {
+            [header]: token
+        },
+        body: formData
+    });
+    if (response.ok) {
+        // Handle success
     }
 }
