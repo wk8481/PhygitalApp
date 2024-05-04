@@ -21,8 +21,8 @@ public class InstallationService {
     }
 
 
-    public Optional<Installation> getInstallationById(int id) {
-        return installationRepository.findById(id);
+    public Installation getInstallation(int id) {
+        return installationRepository.findById(id).orElse(null);
     }
 
 

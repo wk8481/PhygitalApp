@@ -1,4 +1,3 @@
-
 INSERT INTO users (name, email, password, role)
 VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
        ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
@@ -16,6 +15,12 @@ VALUES ('Platform Admin', 'admin@example.com', 'platform123');
 -- SharingPlatform
 INSERT INTO sharing_platform (name, contact_email, total_participants, administrator_id)
 VALUES ('Platform A', 'platformA@example.com', 100, 1);
+
+-- Installation
+INSERT INTO installation (name, is_running)
+VALUES ('Groenplaats', false),
+       ('Linkeroever', false),
+       ('Deurne', false);
 
 -- Project
 INSERT INTO project (name, background_color_hex, active, total_participants, avg_time_spent, sharing_platform_id)

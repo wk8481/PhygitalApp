@@ -59,7 +59,7 @@ public class FlowsController {
 
         }
         logger.info("Flow created");
-        Flow createdFlow = flowService.saveFlow(flowDto.getName(), flowDto.getProjectId());
+        Flow createdFlow = flowService.saveFlow(flowDto.getName(), flowDto.getProjectId(), flowDto.getInstallationId());
         return new ResponseEntity<>(modelMapper.map(createdFlow, FlowDto.class), HttpStatus.CREATED);
     }
 

@@ -11,6 +11,8 @@ public class Installation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name;
+
     private boolean isRunning;
 
     @OneToOne
@@ -22,13 +24,22 @@ public class Installation {
     private UserDetail user;
 
     @OneToMany(mappedBy = "installation")
-    private List<Project> projects;
+    private List<Flow> flows;
 
     public Installation() {}
+
+    public Installation(String name) {
+        this.name = name;
+    }
 
     public Installation(boolean isRunning, UserDetail user) {
         this.isRunning = isRunning;
         this.user = user;
+    }
+
+    public Installation(String name, boolean isRunning) {
+        this.name = name;
+        this.isRunning = isRunning;
     }
 
     public int getId() {
@@ -37,6 +48,14 @@ public class Installation {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isRunning() {
@@ -63,11 +82,11 @@ public class Installation {
         this.user = user;
     }
 
-    public List<Project> getProjects() {
-        return projects;
+    public List<Flow> getFlows() {
+        return flows;
     }
 
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
+    public void setFlows(List<Flow> flows) {
+        this.flows = flows;
     }
 }

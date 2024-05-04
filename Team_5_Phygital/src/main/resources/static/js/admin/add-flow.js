@@ -6,12 +6,13 @@ const projectId = extractIdsFromUrl(window.location.href.substring(window.locati
 createButton.addEventListener("click", addNewSubTheme);
 
 async function addNewSubTheme() {
-    const nameInput = document.getElementById("nameInput").value;
+    const name = document.getElementById("nameInput").value;
+    const installationId = document.getElementById("installationInput").value;
     await fetch(`/api/flows`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({
-            name: nameInput, projectId: projectId
+            name: name, projectId: projectId, installationId: installationId
         })
     });
 }
