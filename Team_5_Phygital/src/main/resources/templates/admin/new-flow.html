@@ -51,6 +51,18 @@
                                 <input class="form-control" id="nameInput" type="text">
                             </td>
                         </tr>
+                        <!-- Installation -->
+                        <tr>
+                            <th class="col-sm-4">
+                                <label class="form-label" for="installationInput">Installation:</label>
+                            </th>
+                            <td class="col-sm-8">
+                                <select class="form-select" id="installationInput">
+                                    <option th:each="installation:${installations}"
+                                            th:value="${installation.id}"
+                                            th:text="${installation.name}"></option>
+                                </select>
+                        </tr>
                         </tbody>
                     </table>
                     <!-- Create Button -->
