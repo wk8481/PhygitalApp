@@ -9,6 +9,7 @@ import be.kdg.team_5_phygital.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,18 @@ public class FlowService {
         return flowRepository.findById(flowId).orElse(null);
     }
 
+    public double getFlowDuration(int flowId) {
+        Flow flow = flowRepository.findById(flowId).orElse(null);
+        if (flow == null) {
+            return -1;
+        }
+        LocalDateTime startTime = flow.getStartTime();
+        LocalDateTime endTime = flow.getEndTime();
+        if (startTime == null || endTime == null) {
+            return -1;
+        }
+        return (endTime.getSecond() - startTime.getSecond()) / 60.0;
+    }
 
     public List<Flow> getAllFlows() {
         return flowRepository.findAll();
