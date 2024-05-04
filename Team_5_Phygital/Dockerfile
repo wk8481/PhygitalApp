@@ -26,3 +26,6 @@ WORKDIR /deploy
 COPY --from=builder /app/build/libs/my-phygital-boot-app.jar ./my-phygital-boot-app.jar
 # Set the entrypoint script to initialize the container
 ENTRYPOINT ["java", "-jar", "my-phygital-boot-app.jar"]
+
+# Expose ports 80, 443, 8080, and 8443
+EXPOSE 80 443 8080 8443
