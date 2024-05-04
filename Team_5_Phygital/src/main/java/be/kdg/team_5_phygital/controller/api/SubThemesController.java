@@ -89,12 +89,10 @@ public class SubThemesController {
             subThemeService.uploadMediaFiles(subThemeId, Arrays.asList(files));
             return ResponseEntity.ok().build();
         } catch (IOException e) {
-            // Handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
-    // Endpoint for deleting media files
     @DeleteMapping("/{subThemeId}/media")
     public ResponseEntity<?> deleteMediaFiles(@PathVariable("subThemeId") int subThemeId,
                                               @RequestParam("fileNames") List<String> fileNames) {
@@ -102,7 +100,6 @@ public class SubThemesController {
             subThemeService.deleteMediaFiles(subThemeId, fileNames);
             return ResponseEntity.ok().build();
         } catch (IOException e) {
-            // Handle exception
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

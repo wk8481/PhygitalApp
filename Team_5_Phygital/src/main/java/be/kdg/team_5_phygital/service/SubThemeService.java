@@ -23,10 +23,6 @@ public class SubThemeService {
         this.flowRepository = flowRepository;
     }
 
-    public SubTheme addSubtheme(SubTheme subtheme) {
-        return subThemeRepository.save(subtheme);
-    }
-
     public SubTheme getSubTheme(int subThemeId) {
         return subThemeRepository.findById(subThemeId).orElse(null);
     }

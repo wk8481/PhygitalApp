@@ -19,9 +19,10 @@ async function updateSubTheme(event) {
             "id": subThemeId, "name": name, "information": info
         })
     })
-        .then(response => {
+        .then(async (response) => {
             if (response.status === 204) {
-
+                // Upload media files
+                await uploadMediaFiles();
             }
         });
 }
