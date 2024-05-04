@@ -18,7 +18,8 @@ RUN chmod +x ./gradlew
 COPY src src
 
 # Build the JAR file
-RUN ./gradlew bootJar
+RUN ./gradlew clean build --refresh-dependencies -x test
+
 
 # Use OpenJDK for the final image.
 FROM openjdk:17-alpine
