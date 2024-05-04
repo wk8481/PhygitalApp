@@ -19,6 +19,6 @@ FROM openjdk:17-alpine
 # Copy the JAR file from the 'builder' stage to this new stage
 COPY --from=builder /app/build/libs/*.jar /app/app.jar
 # Expose the port that the application listens on
-EXPOSE 8080 8443
+EXPOSE 8080 8443 80 443
 # Run the JAR file
 ENTRYPOINT ["java","-jar","/app/app.jar"]

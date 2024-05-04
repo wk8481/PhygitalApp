@@ -12,6 +12,7 @@ import java.util.Optional;
 
 public interface PossibleAnswersRepository extends JpaRepository<PossibleAnswers, Integer> {
 
+    PossibleAnswers findPossibleAnswersByAnswerAndQuestion(String text, Question question);
     @Query("SELECT a FROM PossibleAnswers a WHERE a.question IN :question")
     List<PossibleAnswers> findPossibleAnswersByQuestion(@Param("question") List<Question> question);
 

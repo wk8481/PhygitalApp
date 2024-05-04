@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Client</title>
+    <title>Installation</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/admin/client.js" type="module"></script>
+    <script src="/js/admin/installation.js" type="module"></script>
     <script src="/js/utils.js"></script>
 </head>
 <body>
@@ -15,7 +14,7 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Client</h1>
+            <h1 class="page-title text-primary">Installation</h1>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -23,7 +22,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table-borderless" th:object="${client}">
+                <table class="table-borderless" th:object="${installation}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -31,27 +30,46 @@
                             <label class="form-label" for="nameInput">Name:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="nameInput" th:field="*{name}" type="text">
+                            <input class="form-control" id="nameInput" th:field="*{name}">
                         </td>
                     </tr>
-                    <!-- Email -->
+                    <!-- Province -->
                     <tr>
                         <th class="col-sm-4">
-                            <label class="form-label" for="emailInput">Email:</label>
+                            <label class="form-label" for="provinceInput">Province:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="emailInput" th:field="*{email}" type="text">
+                            <input class="form-control" id="provinceInput">
                         </td>
                     </tr>
-                    <!-- Password -->
+                    <!-- City -->
                     <tr>
                         <th class="col-sm-4">
-                            <label class="form-label" for="passwordInput">Password:</label>
+                            <label class="form-label" for="cityInput">City:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="passwordInput" type="text">
+                            <input class="form-control" id="cityInput">
                         </td>
                     </tr>
+                    <!-- Street -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="streetInput">Street:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="streetInput">
+                        </td>
+                    </tr>
+                    <!-- Street Number -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="streetNumberInput">Street Number:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="streetNumberInput">
+                        </td>
+                    </tr>
+                    </tbody>
                     </tbody>
                 </table>
                 <!-- Save Button -->
@@ -70,9 +88,17 @@
         <div class="row mb-3 justify-content-center">
             <!-- Return Button -->
             <div class="col-md-2 center-container text-center">
-                <div class="center-container text-container">
+                <div class="center-container">
                     <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
                         Return</a>
+                </div>
+            </div>
+            <!-- Delete Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <button class="btn btn-danger" id="deleteButton" type="button">
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>

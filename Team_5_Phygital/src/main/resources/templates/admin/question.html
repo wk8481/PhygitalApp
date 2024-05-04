@@ -7,11 +7,29 @@
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/question.js" type="module"></script>
+    <script src="/js/admin/possibleQuestions.js" type="module"></script>
     <script src="/js/utils.js"></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <!-- Logo -->
+    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -23,7 +41,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table">
+                <table class="table-borderless">
                     <tbody th:object="${q}">
                     <!-- Text -->
                     <tr>
@@ -49,6 +67,19 @@
                             </select>
                         </td>
                     </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <tbody>
+                    <tr>
+                        <a id="addButton" value="Add answer input" class="fas fa-plus" style="visibility: visible"></a>
+                        <a id="removeButton" value="remove answer input"  class="fas fa-minus" style="visibility: visible"></a>
+                    </tr> <br>
+                    <tr id="answerInputs1" ><input type="text" th:value="${pA.size() > 0 and pA[0] != null ? pA[0].answer : ''}" id="answer_1" class="answer-input" th:style="'visibility: ' + (${pA.size() > 0 ? 'visible' : 'hidden'})"></tr><br>
+                    <tr id="answerInputs2" ><input type="text" th:value="${pA.size() > 1 and pA[1] != null ? pA[1].answer : ''}" id="answer_2" class="answer-input" th:style="'visibility: ' + (${pA.size() > 1 ? 'visible' : 'hidden'})"></tr><br>
+                    <tr id="answerInputs3" ><input type="text" th:value="${pA.size() > 2 and pA[2] != null ? pA[2].answer : ''}" id="answer_3" class="answer-input" th:style="'visibility: ' + (${pA.size() > 2 ? 'visible' : 'hidden'})"></tr><br>
+                    <tr id="answerInputs4" ><input type="text" th:value="${pA.size() > 3 and pA[3] != null ? pA[3].answer : ''}" id="answer_4" class="answer-input" th:style="'visibility: ' + (${pA.size() > 3 ? 'visible' : 'hidden'})"></tr><br>
+
                     </tbody>
                 </table>
                 <!-- Save Button -->

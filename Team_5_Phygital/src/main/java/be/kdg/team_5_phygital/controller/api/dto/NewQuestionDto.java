@@ -2,9 +2,12 @@ package be.kdg.team_5_phygital.controller.api.dto;
 
 import be.kdg.team_5_phygital.domain.QuestionType;
 
+import java.util.List;
+
 public class NewQuestionDto {
     private String text;
     private QuestionType type;
+    private List<String> answers;
     private int subThemeId;
 
     public NewQuestionDto() {
@@ -26,6 +29,14 @@ public class NewQuestionDto {
         this.type = type;
     }
 
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
+    }
+
     public int getSubThemeId() {
         return subThemeId;
     }
@@ -33,6 +44,7 @@ public class NewQuestionDto {
     public void setSubThemeId(int subThemeId) {
         this.subThemeId = subThemeId;
     }
+
 
     @Override
     public String toString() {
