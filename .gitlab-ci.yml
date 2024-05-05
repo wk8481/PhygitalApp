@@ -53,8 +53,9 @@ build:
 unit-test-job:
    image: gradle:jdk17
    stage: test
-   script: 
-    ./gradlew test
+   script:
+     - cd Team_5_Phygital 
+     - ./gradlew test
    artifacts:
     when: always
     reports:
