@@ -55,7 +55,7 @@ unit-test-job:
    stage: test
    script:
      - cd Team_5_Phygital 
-     - ./gradlew test
+     - ./gradlew test --scan 
    artifacts:
     when: always
     reports:
