@@ -55,15 +55,16 @@ unit-test-job:
    stage: test
    script:
      - cd Team_5_Phygital 
-     - cd src/main/resources  # Navigate to the resources directory
-     - ls -l                   # List files in the resources directory
-     - cat application.properties  # Print out the contents of application.properties file
-     - cd ../../..  # Navigate back to the project root directory
-     - ./gradlew test --scan 
+     - ./gradlew test --scan
+   variables:
+     SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+     SPRING_DATASOURCE_DRIVER-CLASS-NAME: org.h2.Driver
+     SPRING_DATASOURCE_USERNAME: sa
    artifacts:
     when: always
     reports:
       junit: build/test-results/test/TEST-*.xml
+
 
 
  
