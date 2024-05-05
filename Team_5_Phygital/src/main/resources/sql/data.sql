@@ -13,8 +13,8 @@ INSERT INTO sharing_platform_admin (name, email, password)
 VALUES ('Platform Admin', 'admin@example.com', 'platform123');
 
 -- SharingPlatform
-INSERT INTO sharing_platform (name, contact_email, total_participants, administrator_id)
-VALUES ('Platform A', 'platformA@example.com', 100, 1);
+INSERT INTO sharing_platform (name, contact_email, total_participants, total_time_spent_in_sec, administrator_id)
+VALUES ('Platform A', 'platformA@example.com', 100, 7845, 1);
 
 -- Installation
 INSERT INTO installation (name, is_running)

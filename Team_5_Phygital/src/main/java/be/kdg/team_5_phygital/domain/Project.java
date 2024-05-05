@@ -178,9 +178,6 @@ public class Project {
         return supervisor;
     }
 
-    public Installation getInstallation() {
-        return installation;
-    }
 
     @Override
     public String toString() {

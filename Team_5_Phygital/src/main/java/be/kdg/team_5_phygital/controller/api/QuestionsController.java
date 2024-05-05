@@ -32,8 +32,9 @@ public class QuestionsController {
     private final AnswerService answerService;
     private final PossibleAnswerService possibleAnswerService;
     private final ProjectService projectService;
+    private final SharingPlatformService sharingPlatformService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
@@ -41,6 +42,7 @@ public class QuestionsController {
         this.answerService = answerService;
         this.possibleAnswerService = possibleAnswerService;
         this.projectService = projectService;
+        this.sharingPlatformService = sharingPlatformService;
     }
 
     @GetMapping("{id}")
@@ -166,6 +168,7 @@ public class QuestionsController {
             }
 
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
+            sharingPlatformService.updateTimeAndParticipants(subTheme.getFlow().getProject().getSharingPlatform(), newAnswerDto.getDurationSpend());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");
