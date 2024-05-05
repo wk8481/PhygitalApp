@@ -5,19 +5,20 @@ import be.kdg.team_5_phygital.domain.QuestionType;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.QuestionRepository;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class QuestionServiceUnitTest {
 
     @MockBean
@@ -26,12 +27,16 @@ class QuestionServiceUnitTest {
     @MockBean
     private SubThemeRepository subThemeRepository;
 
+    private QuestionService questionService;
 
+    @BeforeAll
+    void setUp() {
+        questionService = new QuestionService(questionRepository, subThemeRepository);
+    }
 
     @Test
     void testGetQuestionById() {
         // Arrange
-        QuestionService questionService = new QuestionService(questionRepository, subThemeRepository);
         Question expectedQuestion = new Question("Test question", QuestionType.MULTIPLE_CHOICE, new SubTheme("Test subtheme"));
 
         // Mocking repository behavior
@@ -47,7 +52,6 @@ class QuestionServiceUnitTest {
     @Test
     void testGetQuestionByText() {
         // Arrange
-        QuestionService questionService = new QuestionService(questionRepository, subThemeRepository);
         Question expectedQuestion = new Question("Test question", QuestionType.MULTIPLE_CHOICE, new SubTheme("Test subtheme"));
 
         // Mocking repository behavior
@@ -63,7 +67,6 @@ class QuestionServiceUnitTest {
     @Test
     void testSaveQuestion() {
         // Arrange
-        QuestionService questionService = new QuestionService(questionRepository, subThemeRepository);
         SubTheme subTheme = new SubTheme("Test subtheme");
         Question expectedQuestion = new Question("Test question", QuestionType.MULTIPLE_CHOICE, subTheme);
 
@@ -77,5 +80,9 @@ class QuestionServiceUnitTest {
         // Assert
         assertNull(actualQuestion); // Adjusted assertion to expect null
     }
-}
 
+    @AfterAll
+    void tearDown() {
+        questionService = null; // Resetting the service to release resources
+    }
+}

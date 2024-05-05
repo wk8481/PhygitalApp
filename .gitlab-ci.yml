@@ -15,13 +15,14 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
-#include:
-#  - template: SAST.gitlab-ci.yml
+include:
+  - template: SAST.gitlab-ci.yml
  
  
  
 stages:
   - build
+  - test
   - deploy
   - destroy
  
@@ -29,16 +30,7 @@ stages:
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
  
 variables:
-  # Define the services variables for both databases
-  POSTGRES_DB_BUILD: 'postgres_phygital_db'
-  POSTGRES_USER_BUILD: 'admin'
-  POSTGRES_PASSWORD_BUILD: 'admin'
-  POSTGRES_PORT_BUILD: '5433'
- 
-  POSTGRES_DB_TEST: 'phygital_test'
-  POSTGRES_USER_TEST: 'admin'
-  POSTGRES_PASSWORD_TEST: 'admin'
-  POSTGRES_PORT_TEST: '5445'
+
  
   DOCKER_HUB_REPO: "zamlamb/phygital"
  
@@ -58,20 +50,16 @@ build:
  
  
  
-# unit-test-job:
-#   image: gradle:jdk17
-#   stage: test
-#   services:
-#     - name: postgres:16.1-alpine
-#       alias: postgres_phygital_test_db
-#       command: ["postgres", "-c", "max_connections=200"]
-#   script:
-#     - cd Team_5_Phygital
-#     - ./gradlew test
-#   artifacts:
-#     when: always
-#     paths:
-#       - Team_5_Phygital/build/reports/tests/test/index.html
+unit-test-job:
+   image: gradle:jdk17
+   stage: test
+   script:
+     - cd Team_5_Phygital 
+     - ./gradlew test
+   artifacts:
+    when: always
+    reports:
+      junit: build/test-results/test//TEST-*.xml
  
  
  
