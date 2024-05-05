@@ -62,8 +62,8 @@ public class SharingPlatformsController {
     }
 
     @PatchMapping("{platformId}")
-    ResponseEntity<Void> updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto, @RequestParam(value = "logo", required = false) MultipartFile logoFile) throws IOException {
-        if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatformDto, logoFile)) {
+    ResponseEntity<Void> updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto, @RequestParam(value = "logo", required = false) MultipartFile logoFile) throws IOException {
+        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto, logoFile)) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

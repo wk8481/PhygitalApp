@@ -48,6 +48,10 @@ public class ProjectService {
         return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
     }
 
+    public List<Project> searchProjectsByNameLike(String searchTerm) {
+        return projectRepository.findProjectsByNameLikeIgnoreCase("%" + searchTerm + "%");
+    }
+
     @Transactional
     public Project saveProject(String name, String backgroundColorHex, String fontName, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);

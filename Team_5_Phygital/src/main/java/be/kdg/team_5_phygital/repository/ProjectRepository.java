@@ -11,4 +11,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     List<Project> findAllBySharingPlatformId(int sharingPlatformId);
 
     Optional<Project> findByName(String name);
+
+    List<Project> findProjectsByNameLikeIgnoreCase(String searchTerm);
+
 }
