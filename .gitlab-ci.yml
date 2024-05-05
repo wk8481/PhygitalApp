@@ -16,28 +16,20 @@
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 #include:
-#  - template: SAST.gitlab-ci.yml
+ # - template: SAST.gitlab-ci.yml
  
  
  
 stages:
   - build
-#  - deploy
+  - deploy
+  - destroy
  
  
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
  
 variables:
-  # Define the services variables for both databases
-  POSTGRES_DB_BUILD: 'postgres_phygital_db'
-  POSTGRES_USER_BUILD: 'admin'
-  POSTGRES_PASSWORD_BUILD: 'admin'
-  POSTGRES_PORT_BUILD: '5433'
- 
-  POSTGRES_DB_TEST: 'phygital_test'
-  POSTGRES_USER_TEST: 'admin'
-  POSTGRES_PASSWORD_TEST: 'admin'
-  POSTGRES_PORT_TEST: '5445'
+
  
   DOCKER_HUB_REPO: "zamlamb/phygital"
  
@@ -54,27 +46,27 @@ build:
      $DOCKER_HUB_REPO:latest
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_HUB_REPO:latest
-  artifacts:
-    paths:
-      - create-vm-and-transfer-jar.sh
-    expire_in: 30 days
  
  
  
-# unit-test-job:
-#   image: gradle:jdk17
-#   stage: test
-#   services:
-#     - name: postgres:16.1-alpine
-#       alias: postgres_phygital_test_db
-#       command: ["postgres", "-c", "max_connections=200"]
-#   script:
-#     - cd Team_5_Phygital
-#     - ./gradlew test
-#   artifacts:
-#     when: always
-#     paths:
-#       - Team_5_Phygital/build/reports/tests/test/index.html
+#unit-test-job:
+ #  image: gradle:jdk17
+  # stage: test
+   #script:
+    # - cd Team_5_Phygital 
+     #- cd src/main/resources  # Navigate to the resources directory
+     #- ls -l                   # List files in the resources directory
+     #- cat application.properties  # Print out the contents of application.properties file
+     #- cd ../../..  # Navigate back to the project root directory
+     #- ./gradlew test --scan 
+   #artifacts:
+    #when: always
+    #reports:
+     # junit: build/test-results/test/TEST-*.xml
+
+
+
+
  
  
  
@@ -116,18 +108,39 @@ build:
 #     - ./gradlew dependencyCheckAnalyze
  
  
-#deploy:
-#  image: google/cloud-sdk:latest
-#  stage: deploy
-#  before_script:
-#    - apt-get update && apt-get install -y dos2unix  # Ensure dos2unix is installed
-#    - dos2unix create-vm-and-transfer-jar.sh  # Convert line endings
-#    - echo "$GCP_SERVICE_KEY" > ${HOME}/gcloud-service-key.json
-#    - gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-#    - gcloud config set project $PROJECT_ID
-#    - gcloud config set compute/zone $ZONE
-#  script:
-#    - pwd  
-#    - ls -la  
-#    - chmod +x create-vm-and-transfer-jar.sh
-#    - ./create-vm-and-transfer-jar.sh
+deploy:
+  image: google/cloud-sdk:latest
+  stage: deploy
+  before_script:
+    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+    - which nslookup || apt-get install dnsutils -y
+    - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
+    - IP_ADDRESS=$(cat ${HOME}/ip.txt)
+    - if [ -z "$IP_ADDRESS" ]; then IP_ADDRESS="35.241.233.187"; fi
+    - eval $(ssh-agent -s)
+    - echo "$TEAM5_PRIV_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
+
+
+  script:
+  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:latest; docker container run -d -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_HUB_REPO:latest; docker logout docker.io"
+
+
+destroy:
+  image: google/cloud-sdk:latest  # You might need a different image if the destroy operations require specific tools.
+  stage: destroy  # Specify the destroy stage
+  before_script:
+    # Set up SSH agent and other necessary configurations...
+    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+    - eval $(ssh-agent -s)
+    - echo "$TEAM5_PRIV_KEY" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
+  script:
+    # Execute teardown commands to destroy deployed resources...
+    - ssh $TEAM5_USER@$IP_ADDRESS "docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
+
+    

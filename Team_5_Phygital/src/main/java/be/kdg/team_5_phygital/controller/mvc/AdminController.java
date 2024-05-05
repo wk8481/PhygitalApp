@@ -23,17 +23,19 @@ public class AdminController {
     private final ProjectService projectService;
     private final SupervisorService supervisorService;
     private final ThemeService themeService;
+    private final InstallationService installationService;
     private final FlowService flowService;
     private final SubThemeService subThemeService;
     private final QuestionService questionService;
     private final PossibleAnswerService possibleAnswerService;
 
-    public AdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService sharingPlatformAdminService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
+    public AdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService sharingPlatformAdminService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
         this.sharingPlatformService = sharingPlatformService;
         this.sharingPlatformAdminService = sharingPlatformAdminService;
         this.projectService = projectService;
         this.supervisorService = supervisorService;
         this.themeService = themeService;
+        this.installationService = installationService;
         this.flowService = flowService;
         this.subThemeService = subThemeService;
         this.questionService = questionService;
@@ -42,8 +44,10 @@ public class AdminController {
 
     @GetMapping("platform")
     public String getPlatform(Model model) {
-        List<SharingPlatform> platformList = sharingPlatformService.getAllSharingPlatforms();
-        model.addAttribute("platforms", platformList);
+        List<SharingPlatform> platforms = sharingPlatformService.getAllSharingPlatforms();
+        List<Installation> installations = installationService.getAllInstallations();
+        model.addAttribute("platforms", platforms);
+        model.addAttribute("installations", installations);
         return "admin/platform";
     }
 
@@ -52,14 +56,27 @@ public class AdminController {
     public String getSharingPlatform(@PathVariable int platformId, Model model) {
         SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatform(platformId);
         SharingPlatformAdmin client = sharingPlatformAdminService.getAllSharingPlatformAdmins().get(0);
-        List<Project> projectList = projectService.getProjectBySharingPlatformId(platformId);
-        List<Supervisor> supervisorList = supervisorService.findSupervisorBySharingPlatform(sharingPlatform);
+        List<Project> platforms = projectService.getProjectBySharingPlatformId(platformId);
+        List<Supervisor> supervisors = supervisorService.findSupervisorBySharingPlatform(sharingPlatform);
         model.addAttribute("platform", sharingPlatform);
         model.addAttribute("client", client);
-        model.addAttribute("projects", projectList);
-        model.addAttribute("supervisor", supervisorList);
+        model.addAttribute("projects", platforms);
+        model.addAttribute("supervisor", supervisors);
         return "admin/sharing-platform";
     }
+
+    @GetMapping("installation/{installationId}")
+    public String getInstallation(@PathVariable int installationId, Model model) {
+        Installation installation = installationService.getInstallation(installationId);
+        model.addAttribute("installation", installation);
+        return "admin/installation";
+    }
+
+    @GetMapping("installation/new")
+    public String getNewInstallation() {
+        return "admin/new-installation";
+    }
+
 
     @GetMapping("sharing-platform/new")
     public String getNewSharingPlatform() {
@@ -126,7 +143,9 @@ public class AdminController {
     @GetMapping("project/{projectId}/flow/new")
     public String getNewFlow(@PathVariable int projectId, Model model) {
         Project project = projectService.getProject(projectId);
+        List<Installation> installations = installationService.getAllInstallations();
         model.addAttribute("project", project);
+        model.addAttribute("installations", installations);
         return "admin/new-flow";
     }
 
