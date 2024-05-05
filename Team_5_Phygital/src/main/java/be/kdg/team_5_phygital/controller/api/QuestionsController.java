@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -136,7 +138,30 @@ public class QuestionsController {
         if (answer != null) {
             User user = userService.getUserByMail(newAnswerDto.getUserMail());
             SubTheme subTheme = subThemeService.getSubThemeById(newAnswerDto.getSubThemeId()).orElse(null);
-            answerService.saveAnswer(user, LocalDateTime.now(), newAnswerDto.getQuestion(), newAnswerDto.getAnswer(), subTheme);
+            Map<String, String> questionAnswerMap = new HashMap<>();
+            logger.error(newAnswerDto.getAnswer());
+
+            // Split question and answer strings by "|" delimiter
+            String[] questions = newAnswerDto.getQuestion().split("\\|");
+            String[] answers = newAnswerDto.getAnswer().split("\\|");
+
+            // Ensure the lengths of questions and answers are the same
+            if (questions.length == answers.length) {
+                for (int i = 0; i < questions.length; i++) {
+                    // Trim to remove leading/trailing spaces
+                    questionAnswerMap.put(questions[i].trim(), answers[i].trim());
+                }
+            } else {
+                // Handle the case where the number of questions and answers doesn't match
+                throw new IllegalArgumentException("Number of questions does not match number of answers");
+            }
+            for (Map.Entry<String, String> entry : questionAnswerMap.entrySet()) {
+                String q = entry.getKey();
+                String a = entry.getValue();
+                Question question = questionService.getQuestion(Integer.parseInt(q));
+                logger.error("for question: {} there is answer {}", q, a);
+                answerService.saveAnswer(user, LocalDateTime.now(), question, a);
+            }
 
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");

@@ -94,13 +94,16 @@ function submitAnswer(event) {
         // questions.push({question: question})
         answers += answer
         answers += " | "
-        questions+= question
+        questions+= questionId
         questions+= " | "
     }
 
     const user = document.getElementById("userMail").textContent
 
     var urlParams = new URLSearchParams(window.location.search);
+
+    answers = answers.slice(0, -1); // Delete last character
+    questions = questions.slice(0, -1); // Delete last character
 
     // Get the value of the "subThemeId" parameter
     var subtheme = urlParams.get("subThemeId");
