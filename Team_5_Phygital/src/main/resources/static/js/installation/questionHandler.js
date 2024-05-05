@@ -4,7 +4,6 @@ document.getElementById("submit").addEventListener("click", submitAnswer);
 document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
 document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
 
-// document.getElementById("updateButton").addEventListener("click", updateQuestion);
 var questionDivs = document.querySelectorAll('div[id*=question]');
 
 for (let i = 0; i < questionDivs.length; i++) {
@@ -25,6 +24,32 @@ window.onload = function () {
         }
     });
 }
+var elapsedTime =0
+var seconds =0
+
+function trackTime() {
+    // Start time when the page loads
+    var startTime = new Date().getTime();
+
+    // Function to calculate and display time spent
+    function displayTime() {
+        var currentTime = new Date().getTime();
+        elapsedTime = currentTime - startTime;
+        seconds = Math.floor(elapsedTime / 1000);
+        var minutes = Math.floor(seconds / 60);
+
+        var secondsTodisplay =  seconds % 60;
+        // Display time on the page
+        document.getElementById("timer").innerHTML = "Time spent on the page: " + minutes + "m " + secondsTodisplay + "s";
+    }
+
+    // Update time every second
+    setInterval(displayTime, 1000);
+}
+
+// Call trackTime() when the page loads
+trackTime();
+
 
 // Function to handle submitting answers
 function submitAnswer(event) {
@@ -67,7 +92,7 @@ function submitAnswer(event) {
         // questions.push({question: question})
         answers += answer
         answers += " | "
-        questions+= question
+        questions+= questionId
         questions+= " | "
     }
 
@@ -75,9 +100,11 @@ function submitAnswer(event) {
 
     var urlParams = new URLSearchParams(window.location.search);
 
+    answers = answers.slice(0, -1); // Delete last character
+    questions = questions.slice(0, -1); // Delete last character
+
     // Get the value of the "subThemeId" parameter
     var subtheme = urlParams.get("subThemeId");
-    console.log(user + subtheme)
     fetch(`/api/questions/submit`, {
         method: "POST",
         headers: {
@@ -89,12 +116,14 @@ function submitAnswer(event) {
             question: questions,
             answer: answers,
             userMail: user,
-            subThemeId: subtheme
+            subThemeId: subtheme,
+            durationSpend: seconds
         })
     })
         .then(response => {
             if (response.ok) {
                 console.log("Answer submitted successfully.");
+                window.location.href = `/installation/flowCompleted`;
             } else {
                 console.error("Failed to submit answer.");
             }
@@ -138,8 +167,9 @@ function showQuestion(index) {
 
 // Range slider change event listener
 let rangeInput = document.getElementsByClassName('range').item(0);
+if (rangeInput != null){
 let rangeValue = document.getElementById('rangeValue');
 rangeInput.addEventListener("input", function() {
     rangeValue.textContent = "Value: " + rangeInput.value;
 
-});
+})};

@@ -9,13 +9,14 @@
     <script src="/js/installation/questionHandler.js" type="module"></script>
     <script src="/js/utils.js" type="module" ></script>
     <script src="/js/util/csrf.js" type="module"></script>
-</head>
+
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container text-center">
+<main class="container text-center " >
+    <div id="overlay"></div>
     <h1 class="page-title text-primary">Question</h1>
-
-    <div class="row justify-content-center" th:object="${questions}">
+    <div class="table-info" id="timer"></div>
+    <div class="row justify-content-center" id="content" th:object="${questions}">
         <!-- Question Form -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
@@ -52,7 +53,7 @@
                     <button type="submit" id="submit">Save</button>
                 </form>
                 <a class="btn btn-secondary" id="backButton" ><i class="fas fa-arrow-left"></i></a>
-                <a class="btn btn-secondary"><i class="fas fa-stop"></i></a>
+                <a class="btn btn-secondary" id="pauseButton"><i class="fas fa-pause"></i></a>
                 <a class="btn btn-secondary" id="nextButton" ><i class="fas fa-arrow-right"></i></a>
             </section>
         </div>

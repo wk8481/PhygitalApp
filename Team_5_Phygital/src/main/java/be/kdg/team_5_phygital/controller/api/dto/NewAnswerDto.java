@@ -1,6 +1,6 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-import be.kdg.team_5_phygital.domain.Pair;
+import java.sql.Time;
 
 public class NewAnswerDto {
 
@@ -8,9 +8,22 @@ public class NewAnswerDto {
     private String answer;
     private String userMail;
     private int subThemeId;
+    private float durationSpend;
 
     public int getSubThemeId() {
         return subThemeId;
+    }
+
+    public void setUserMail(String userMail) {
+        this.userMail = userMail;
+    }
+
+    public float getDurationSpend() {
+        return durationSpend;
+    }
+
+    public void setDurationSpend(float durationSpend) {
+        this.durationSpend = durationSpend;
     }
 
     public void setSubThemeId(int subThemeId) {
