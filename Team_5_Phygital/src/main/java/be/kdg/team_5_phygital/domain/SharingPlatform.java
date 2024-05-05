@@ -15,6 +15,8 @@ public class SharingPlatform {
 
     private String contactEmail;
 
+    private String logoPath;
+
     private int totalParticipants;
 
     @ManyToOne(optional = false)
@@ -40,6 +42,12 @@ public class SharingPlatform {
     public SharingPlatform(String name, String contactEmail) {
         this.name = name;
         this.contactEmail = contactEmail;
+    }
+
+    public SharingPlatform(String name, String contactEmail, String logoPath) {
+        this.name = name;
+        this.contactEmail = contactEmail;
+        this.logoPath = logoPath;
     }
 
     public SharingPlatform(String name, String contactEmail, int totalParticipants) {
@@ -70,6 +78,14 @@ public class SharingPlatform {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 
     public int getTotalParticipants() {
