@@ -18,7 +18,7 @@ RUN chmod +x ./gradlew
 COPY src src
 
 # Build the JAR file
-RUN ./gradlew clean build 
+RUN ./gradlew bootJar
 
 
 # Use OpenJDK for the final image.
