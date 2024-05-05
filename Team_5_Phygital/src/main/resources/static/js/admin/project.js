@@ -20,7 +20,7 @@ async function updateProject(event) {
     formData.append("name", name.value);
     formData.append("backgroundColorHex", bgColor.value);
     formData.append("fontName", font.value);
-    formData.append("logo", logo.files[0]); // Append the logo file
+    formData.append("logo", logo.files[0]);
 
     try {
         const response = await fetch(`/api/projects/${projectId}`, {
@@ -28,7 +28,7 @@ async function updateProject(event) {
             headers: {
                 [header]: token
             },
-            body: formData // Pass the FormData object as the body
+            body: formData
         });
 
         if (response.ok) {

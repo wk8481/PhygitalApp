@@ -73,13 +73,6 @@ public class SharingPlatformService {
         return sharingPlatformRepository.save(sharingPlatform);
     }
 
-    /**
-     * Update sharing platform boolean.
-     *
-     * @param sharingPlatformId the sharing platform id
-     * @param name              the name
-     * @return the boolean
-     */
     public boolean updateSharingPlatform(int sharingPlatformId, UpdateSharingPlatformDto updateSharingPlatformDto, MultipartFile logoFile) throws IOException {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatform == null) {

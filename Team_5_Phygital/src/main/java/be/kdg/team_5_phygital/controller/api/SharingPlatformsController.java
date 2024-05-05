@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,8 +62,8 @@ public class SharingPlatformsController {
     }
 
     @PatchMapping("{platformId}")
-    ResponseEntity<Void> updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto) {
-        if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatformDto.getName(), updateSharingPlatformDto.getContactEmail())) {
+    ResponseEntity<Void> updateSharingPlatform(@PathVariable int platformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto, @RequestParam(value = "logo", required = false) MultipartFile logoFile) throws IOException {
+        if (sharingPlatformService.updateSharingPlatform(platformId, updateSharingPlatformDto, logoFile)) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
