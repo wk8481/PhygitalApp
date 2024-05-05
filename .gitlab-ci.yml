@@ -55,7 +55,8 @@ unit-test-job:
    stage: test
    script:
      - cd Team_5_Phygital 
-     - ls -l              # List files in the current directory
+     - ls -l  
+     - cd src            # List files in the current directory
      - cat application.properties  # Print out the contents of application.properties file
      - ./gradlew test --scan 
    artifacts:
