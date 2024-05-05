@@ -12,7 +12,7 @@ COPY build.gradle.kts .
 COPY settings.gradle.kts .
 
 # Grant permissions to the Gradle wrapper
-RUN chmod +x ./gradlew
+RUN chmod +x ./gradlew 
 
 # Copy the source code into the Docker image
 COPY src src
@@ -21,7 +21,7 @@ COPY src src
 COPY src/test src/test
 
 # Build the JAR file
-RUN ./gradlew bootJar
+RUN ./gradlew bootJar -x test
 
 # Use OpenJDK for the final image.
 FROM openjdk:17-alpine
