@@ -86,25 +86,32 @@ public class InstallationController {
         return mav;
     }
 
-    @GetMapping("multiple-choice-question")
-    public String getMultipleChoiceQuestionPage() {
-        return "installation/multiple-choice-question";
+    @GetMapping("flowCompleted")
+    public ModelAndView flowComplete(){
+        var mav = new ModelAndView();
+        mav.setViewName("installation/flow-completed");
+        return mav;
     }
 
-    @GetMapping("open-question")
-    public String getOpenQuestionPage() {
-        return "installation/open-question";
-    }
-
-    @GetMapping("closed-question")
-    public String getClosedQuestionPage() {
-        return "installation/closed-question";
-    }
-
-    @GetMapping("ranged-question")
-    public String getRangedQuestionPage() {
-        return "installation/ranged-question";
-    }
+//    @GetMapping("multiple-choice-question")
+//    public String getMultipleChoiceQuestionPage() {
+//        return "installation/multiple-choice-question";
+//    }
+//
+//    @GetMapping("open-question")
+//    public String getOpenQuestionPage() {
+//        return "installation/open-question";
+//    }
+//
+//    @GetMapping("closed-question")
+//    public String getClosedQuestionPage() {
+//        return "installation/closed-question";
+//    }
+//
+//    @GetMapping("ranged-question")
+//    public String getRangedQuestionPage() {
+//        return "installation/ranged-question";
+//    }
 
     @GetMapping("contact-details")
     public String getContactDetailsPage() {

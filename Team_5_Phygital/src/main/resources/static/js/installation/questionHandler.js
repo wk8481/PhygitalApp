@@ -123,6 +123,7 @@ function submitAnswer(event) {
         .then(response => {
             if (response.ok) {
                 console.log("Answer submitted successfully.");
+                window.location.href = `/installation/flowCompleted`;
             } else {
                 console.error("Failed to submit answer.");
             }

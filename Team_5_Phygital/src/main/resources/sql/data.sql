@@ -18,7 +18,7 @@ INSERT INTO sharing_platform (name, contact_email, total_participants, administr
 VALUES ('Platform A', 'platformA@example.com', 100, 1);
 
 -- Project
-INSERT INTO project (name, background_color_hex, active, total_participants, total_time_spent_in_min, sharing_platform_id)
+INSERT INTO project (name, background_color_hex, active, total_participants, total_time_spent_in_sec, sharing_platform_id)
 VALUES ('Project X', '#fffff', true, 50, 452, 1);
 
 -- -- Theme
