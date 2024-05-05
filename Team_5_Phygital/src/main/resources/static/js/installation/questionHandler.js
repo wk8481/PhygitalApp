@@ -4,7 +4,6 @@ document.getElementById("submit").addEventListener("click", submitAnswer);
 document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
 document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
 
-// document.getElementById("updateButton").addEventListener("click", updateQuestion);
 var questionDivs = document.querySelectorAll('div[id*=question]');
 
 for (let i = 0; i < questionDivs.length; i++) {
@@ -38,7 +37,6 @@ function trackTime() {
         elapsedTime = currentTime - startTime;
         seconds = Math.floor(elapsedTime / 1000);
         var minutes = Math.floor(seconds / 60);
-        console.log("elapsed time: ", seconds)
 
         var secondsTodisplay =  seconds % 60;
         // Display time on the page
@@ -107,7 +105,6 @@ function submitAnswer(event) {
 
     // Get the value of the "subThemeId" parameter
     var subtheme = urlParams.get("subThemeId");
-    console.log(user + subtheme)
     fetch(`/api/questions/submit`, {
         method: "POST",
         headers: {
@@ -170,8 +167,9 @@ function showQuestion(index) {
 
 // Range slider change event listener
 let rangeInput = document.getElementsByClassName('range').item(0);
+if (rangeInput != null){
 let rangeValue = document.getElementById('rangeValue');
 rangeInput.addEventListener("input", function() {
     rangeValue.textContent = "Value: " + rangeInput.value;
 
-});
+})};

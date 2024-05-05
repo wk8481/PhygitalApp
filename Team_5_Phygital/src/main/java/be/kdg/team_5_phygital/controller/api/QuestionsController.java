@@ -159,7 +159,9 @@ public class QuestionsController {
                 String q = entry.getKey();
                 String a = entry.getValue();
                 Question question = questionService.getQuestion(Integer.parseInt(q));
-                logger.error("for question: {} there is answer {}", q, a);
+                if (a.isBlank()){
+                    a = null;
+                }
                 answerService.saveAnswer(user, LocalDateTime.now(), question, a);
             }
 

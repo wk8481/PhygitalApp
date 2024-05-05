@@ -77,7 +77,7 @@ public class InstallationController {
     @GetMapping("questions")
     public ModelAndView getQuestions(@RequestParam("subThemeId") int subThemeId) {
         var mav = new ModelAndView();
-        mav.setViewName("installation/questionPages/question");
+        mav.setViewName("installation/question");
         SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
         List<PossibleAnswers> possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
