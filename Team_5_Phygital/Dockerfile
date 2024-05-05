@@ -18,7 +18,7 @@ RUN chmod +x ./gradlew
 COPY src src
 
 # Build the JAR file
-RUN ./gradlew clean build --refresh-dependencies -x test
+RUN ./gradlew clean build --refresh-dependencies 
 
 
 # Use OpenJDK for the final image.
