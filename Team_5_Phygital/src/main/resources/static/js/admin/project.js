@@ -22,7 +22,7 @@ async function updateProject(event) {
     formData.append("backgroundColorHex", bgColor.value);
     formData.append("fontName", font.value);
     formData.append("logo", logo.files[0]);
-    formData.append("isPublic", isPublic.value);
+    formData.append("isPublic", isPublic.checked);
 
     try {
         const response = await fetch(`/api/projects/${projectId}`, {

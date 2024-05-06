@@ -26,7 +26,7 @@ public class Project {
 
     private boolean isActive;
 
-    private boolean isPublic = false;
+    private boolean isPublic;
 
     private int totalParticipants;
 
