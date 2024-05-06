@@ -30,7 +30,7 @@ public class Project {
 
     private int totalParticipants;
 
-    private float avgTimeSpent;
+    private float totalTimeSpentInSec;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "supervisor_id")
@@ -143,12 +143,12 @@ public class Project {
         this.totalParticipants = totalParticipants;
     }
 
-    public float getAvgTimeSpent() {
-        return avgTimeSpent;
+    public float getTotalTimeSpentInSec() {
+        return totalTimeSpentInSec;
     }
 
-    public void setAvgTimeSpent(float avgTimeSpent) {
-        this.avgTimeSpent = avgTimeSpent;
+    public void setTotalTimeSpentInSec(float totalTimeSpent) {
+        this.totalTimeSpentInSec = totalTimeSpent;
     }
 
     public List<Flow> getFlows() {
@@ -181,5 +181,16 @@ public class Project {
 
     public Supervisor getSupervisor() {
         return supervisor;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", totalParticipants=" + totalParticipants +
+                ", totalTimeSpent=" + totalTimeSpentInSec +
+                '}';
     }
 }

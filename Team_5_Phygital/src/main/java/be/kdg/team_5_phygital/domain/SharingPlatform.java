@@ -19,7 +19,9 @@ public class SharingPlatform {
 
     private int totalParticipants;
 
-    @ManyToOne(optional = false)
+    private float totalTimeSpentInSec;
+
+    @ManyToOne()
     @JoinColumn(name = "administrator_id")
     private Administrator administrator;
 
@@ -58,6 +60,14 @@ public class SharingPlatform {
 
     public int getId() {
         return id;
+    }
+
+    public float getTotalTimeSpentInSec() {
+        return totalTimeSpentInSec;
+    }
+
+    public void setTotalTimeSpentInSec(float totalTimeSpentInSec) {
+        this.totalTimeSpentInSec = totalTimeSpentInSec;
     }
 
     public void setId(int id) {
