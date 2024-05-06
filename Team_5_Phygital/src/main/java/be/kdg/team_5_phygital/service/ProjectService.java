@@ -69,6 +69,7 @@ public class ProjectService {
         project.setName(updateProjectDto.getName());
         project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
         project.setFontName(updateProjectDto.getFontName());
+        project.setPublic(updateProjectDto.isPublic());
 
         // Handle logo file upload
         if (logoFile != null && !logoFile.isEmpty()) {
