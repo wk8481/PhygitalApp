@@ -13,8 +13,8 @@ INSERT INTO sharing_platform_admin (name, email, password)
 VALUES ('Platform Admin', 'admin@example.com', 'platform123');
 
 -- SharingPlatform
-INSERT INTO sharing_platform (name, contact_email, total_participants, administrator_id)
-VALUES ('Platform A', 'platformA@example.com', 100, 1);
+INSERT INTO sharing_platform (name, contact_email, total_participants, total_time_spent_in_sec, administrator_id)
+VALUES ('Platform A', 'platformA@example.com', 100, 7845, 1);
 
 -- Installation
 INSERT INTO installation (name, is_running)
@@ -23,8 +23,8 @@ VALUES ('Groenplaats', false),
        ('Deurne', false);
 
 -- Project
-INSERT INTO project (name, background_color_hex, active, total_participants, avg_time_spent, sharing_platform_id)
-VALUES ('Project X', '#fffff', true, 50, 4.5, 1);
+INSERT INTO project (name, background_color_hex, active, total_participants, total_time_spent_in_sec, sharing_platform_id)
+VALUES ('Project X', '#fffff', true, 50, 452, 1);
 
 -- -- Theme
 INSERT INTO theme (name, information, project_id)
@@ -47,8 +47,8 @@ VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1,
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
-VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
-       ('What is your phones battery %?', 'RANGE', true, 1),
+VALUES ('What color do you like?', 'MULTIPLE_CHOICE', true, 1),
+       ('What is your phones battery %?', 'RANGE', true, 2),
        ('Are you happy currently?', 'SINGLE_CHOICE', true, 1),
        ('How do you feel today?', 'OPEN', true, 1);
 

@@ -39,11 +39,11 @@
     </div>
     <div class="row justify-content-center">
         <!-- Statistics -->
-        <div class="col-md-8">
+        <div class="col-md-3">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Statistics</h2>
                 <div>
-                    <table id="statsTable" class="table-borderless">
+                    <table id="statsTable" class="table-borderless" th:object="${project}">
                         <thead>
                         <tr>
                             <th>Statistic</th>
@@ -53,11 +53,11 @@
                         <tbody>
                         <tr>
                             <td>Total Participants</td>
-                            <td>100</td>
+                            <td th:text="${project.totalParticipants}"></td>
                         </tr>
                         <tr>
-                            <td>Time Spent (avg)</td>
-                            <td>15 minutes</td>
+                            <td>Time Spent</td>
+                            <td th:text="${project.totalTimeSpentInSec/project.totalParticipants}"></td>
                         </tr>
                         </tbody>
                     </table>

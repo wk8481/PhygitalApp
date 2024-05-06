@@ -1,9 +1,6 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.Answers;
-import be.kdg.team_5_phygital.domain.SubTheme;
-import be.kdg.team_5_phygital.domain.User;
-import be.kdg.team_5_phygital.domain.UserRole;
+import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.repository.AnswerRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -20,7 +17,7 @@ public class AnswerService {
     }
 
     @Transactional
-    public Answers saveAnswer(User user, LocalDateTime timestamp, String question, String answer, SubTheme subtheme) {
-        return answerRepository.save(new Answers(user, timestamp, question, answer, subtheme));
+    public Answers saveAnswer(User user, LocalDateTime timestamp, Question question, String answer) {
+        return answerRepository.save(new Answers(user, timestamp, question, answer));
     }
 }
