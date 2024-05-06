@@ -14,10 +14,6 @@ public class Project {
 
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "theme_id")
-    private Theme theme;
-
     private String backgroundColorHex;
 
     private String fontName;
@@ -88,14 +84,6 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Theme getTheme() {
-        return theme;
-    }
-
-    public void setTheme(Theme theme) {
-        this.theme = theme;
     }
 
     public String getBackgroundColorHex() {

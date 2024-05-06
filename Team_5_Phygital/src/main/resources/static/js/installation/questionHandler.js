@@ -3,6 +3,80 @@ import {header, token} from "../util/csrf.js";
 document.getElementById("submit").addEventListener("click", submitAnswer);
 document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
 document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
+document.getElementById("pauseButton").addEventListener("click", togglePause);
+
+
+var elapsedTime =0
+var seconds =0
+let minSeconds = 0
+
+// Start time when the page loads
+var startTime = new Date().getTime();
+
+function trackTime() {
+
+    // Function to calculate and display time spent
+
+    displayTime()
+    // Update time every second
+    timerInterval = setInterval(displayTime, 1000);
+}
+
+// Call trackTime() when the page loads
+trackTime();
+function displayTime() {
+    var currentTime = new Date().getTime();
+    elapsedTime = currentTime - startTime;
+    elapsedTime -= minSeconds
+    seconds = Math.floor(elapsedTime / 1000);
+    var minutes = Math.floor(seconds / 60);
+
+    var secondsTodisplay =  seconds % 60;
+    // Display time on the page
+    document.getElementById("timer").innerHTML = "Time spent on the page: " + minutes + "m " + secondsTodisplay + "s";
+}
+
+
+// JavaScript to toggle between pause and resume states
+var paused = false; // Initially, page is not paused
+var timerInterval
+// Function to toggle pause state and update button
+var startPause
+function togglePause() {
+    paused = !paused; // Toggle pause state
+
+    // Update button text and icon based on pause state
+    var button = document.getElementById("pauseButton");
+    const textArea = document.getElementById("notesField")
+    const form = document.getElementById("questionForm")
+
+    if (paused) {
+        // Page is paused
+        startPause = new Date().getTime();
+        button.innerHTML = '';
+        button.innerHTML = '<i class="fas fa-play"></i>';
+        document.getElementById("blockedOverlay").style.display = "block"; // Display the overlay
+        form.style.display = "none"
+        textArea.style.display = "block"
+        clearInterval(timerInterval)
+    } else {
+        // Page is resumed
+        var endPause = new Date().getTime();
+        button.innerHTML = ''
+        button.innerHTML = '<i class="fas fa-pause"></i>';
+        document.getElementById("blockedOverlay").style.display = "none"; // Dont display the overlay
+        minSeconds = endPause - startPause + minSeconds
+        form.style.display = "block"
+        textArea.style.display = "none"
+
+        timerInterval = setInterval(displayTime, 1000);
+    }
+
+    // Perform other actions related to pausing or resuming the page
+    // For example, you can pause or resume certain functionality here
+}
+
+
 
 var questionDivs = document.querySelectorAll('div[id*=question]');
 
@@ -24,31 +98,6 @@ window.onload = function () {
         }
     });
 }
-var elapsedTime =0
-var seconds =0
-
-function trackTime() {
-    // Start time when the page loads
-    var startTime = new Date().getTime();
-
-    // Function to calculate and display time spent
-    function displayTime() {
-        var currentTime = new Date().getTime();
-        elapsedTime = currentTime - startTime;
-        seconds = Math.floor(elapsedTime / 1000);
-        var minutes = Math.floor(seconds / 60);
-
-        var secondsTodisplay =  seconds % 60;
-        // Display time on the page
-        document.getElementById("timer").innerHTML = "Time spent on the page: " + minutes + "m " + secondsTodisplay + "s";
-    }
-
-    // Update time every second
-    setInterval(displayTime, 1000);
-}
-
-// Call trackTime() when the page loads
-trackTime();
 
 
 // Function to handle submitting answers
