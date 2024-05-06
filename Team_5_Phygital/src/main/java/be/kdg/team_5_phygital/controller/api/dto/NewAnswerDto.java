@@ -9,6 +9,15 @@ public class NewAnswerDto {
     private String userMail;
     private int subThemeId;
     private float durationSpend;
+    private String note;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
     public int getSubThemeId() {
         return subThemeId;

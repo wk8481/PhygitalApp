@@ -33,8 +33,10 @@ public class QuestionsController {
     private final PossibleAnswerService possibleAnswerService;
     private final ProjectService projectService;
     private final SharingPlatformService sharingPlatformService;
+    private final SessionService sessionService;
+    private final NotesService notesService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService, SessionService sessionService, NotesService notesService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
@@ -43,7 +45,10 @@ public class QuestionsController {
         this.possibleAnswerService = possibleAnswerService;
         this.projectService = projectService;
         this.sharingPlatformService = sharingPlatformService;
+        this.sessionService = sessionService;
+        this.notesService = notesService;
     }
+
 
     @GetMapping("{id}")
     ResponseEntity<QuestionDto> getQuestion(@PathVariable("id") int questionId) {
@@ -157,6 +162,8 @@ public class QuestionsController {
                 // Handle the case where the number of questions and answers doesn't match
                 throw new IllegalArgumentException("Number of questions does not match number of answers");
             }
+            List<Question> questionList = new ArrayList<>();
+            List<Answers> answerList = new ArrayList<>();
             for (Map.Entry<String, String> entry : questionAnswerMap.entrySet()) {
                 String q = entry.getKey();
                 String a = entry.getValue();
@@ -164,8 +171,12 @@ public class QuestionsController {
                 if (a.isBlank()){
                     a = null;
                 }
-                answerService.saveAnswer(user, LocalDateTime.now(), question, a);
+                questionList.add(question);
+                Answers answer1 = answerService.saveAnswer(a);
+                answerList.add(answer1);
             }
+
+            sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, notesService.createNote(newAnswerDto.getNote())));
 
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             sharingPlatformService.updateTimeAndParticipants(subTheme.getFlow().getProject().getSharingPlatform(), newAnswerDto.getDurationSpend());

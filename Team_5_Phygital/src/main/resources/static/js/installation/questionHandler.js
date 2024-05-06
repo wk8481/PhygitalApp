@@ -147,6 +147,7 @@ function submitAnswer(event) {
 
     const user = document.getElementById("userMail").textContent
 
+    const textArea = document.getElementById("notesField")
     var urlParams = new URLSearchParams(window.location.search);
 
     answers = answers.slice(0, -1); // Delete last character
@@ -166,7 +167,8 @@ function submitAnswer(event) {
             answer: answers,
             userMail: user,
             subThemeId: subtheme,
-            durationSpend: seconds
+            durationSpend: seconds,
+            note: textArea.value
         })
     })
         .then(response => {
