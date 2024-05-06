@@ -79,11 +79,6 @@ public class Project {
         this.id = id;
     }
 
-
-    public void createFlow() {
-        Flow flow = new Flow();
-    }
-
     public String getName() {
         return name;
     }
