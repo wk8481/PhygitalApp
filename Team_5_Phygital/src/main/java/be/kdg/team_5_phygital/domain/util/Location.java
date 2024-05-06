@@ -14,18 +14,6 @@ public class Location {
     private String street;
     private int streetNumber;
 
-    @OneToOne
-    @JoinColumn(name = "installation_id")
-    private Flow flow;
-
-    public Flow getFlow() {
-        return flow;
-    }
-
-    public void setFlow(Flow flow) {
-        this.flow = flow;
-    }
-
     public Location() {
     }
 
