@@ -49,6 +49,10 @@ public class ProjectService {
         return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
     }
 
+    public List<Project> searchProjectsByNameLike(String searchTerm) {
+        return projectRepository.findProjectsByNameLikeIgnoreCase("%" + searchTerm + "%");
+    }
+
     public void updateTimeAndParticipants(Project project, float time){
         projectRepository.updateProjectTimeAndParticipants(project.getId(), time);
     }
@@ -70,6 +74,7 @@ public class ProjectService {
         project.setName(updateProjectDto.getName());
         project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
         project.setFontName(updateProjectDto.getFontName());
+        project.setPublic(updateProjectDto.isPublic());
 
         // Handle logo file upload
         if (logoFile != null && !logoFile.isEmpty()) {

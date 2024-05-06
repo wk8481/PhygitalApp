@@ -6,21 +6,18 @@ public class ProjectDto {
     private String backgroundColorHex;
     private String fontName;
     private String logoPath;
+    private boolean isPublic;
 
     public ProjectDto() {
     }
 
-    public ProjectDto(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public ProjectDto(int id, String name, String backgroundColorHex, String fontName, String logoPath) {
+    public ProjectDto(int id, String name, String backgroundColorHex, String fontName, String logoPath, boolean isPublic) {
         this.id = id;
         this.name = name;
         this.backgroundColorHex = backgroundColorHex;
         this.fontName = fontName;
         this.logoPath = logoPath;
+        this.isPublic = isPublic;
     }
 
     public int getId() {
@@ -61,5 +58,13 @@ public class ProjectDto {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 }

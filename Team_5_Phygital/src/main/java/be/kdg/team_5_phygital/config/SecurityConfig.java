@@ -33,6 +33,9 @@ public class SecurityConfig {
                                 antMatcher(HttpMethod.DELETE, "/api/**")
                         ).authenticated()
                         .anyRequest().authenticated())
+                .csrf(csrf -> csrf.ignoringRequestMatchers(
+                        antMatcher(HttpMethod.POST, "/api/menu-items") // Disable specifically for the client application
+                ))
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/", true)

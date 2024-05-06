@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.controller.api.dto;
 public class NewSharingPlatformDto {
     private String name;
     private String contactEmail;
+    private String logoPath;
 
     public NewSharingPlatformDto() {
     }
@@ -21,5 +22,13 @@ public class NewSharingPlatformDto {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 }

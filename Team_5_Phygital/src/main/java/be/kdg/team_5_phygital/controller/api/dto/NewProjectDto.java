@@ -5,6 +5,7 @@ public class NewProjectDto {
     private String backgroundColorHex;
     private String fontName;
     private String logoPath;
+    private boolean isPublic;
     private int sharingPlatformId;
 
     public NewProjectDto() {
@@ -40,6 +41,14 @@ public class NewProjectDto {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     public int getSharingPlatformId() {

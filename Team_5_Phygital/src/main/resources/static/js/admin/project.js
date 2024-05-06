@@ -4,6 +4,7 @@ const name = document.getElementById("nameInput");
 const bgColor = document.getElementById("bgColorInput");
 const font = document.getElementById("fontInput");
 const logo = document.getElementById("logoInput");
+const isPublic = document.getElementById("isPublicInput");
 const saveButton = document.getElementById("saveButton");
 const deleteButton = document.getElementById("deleteButton");
 const [platformId, projectId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "project");
@@ -20,7 +21,8 @@ async function updateProject(event) {
     formData.append("name", name.value);
     formData.append("backgroundColorHex", bgColor.value);
     formData.append("fontName", font.value);
-    formData.append("logo", logo.files[0]); // Append the logo file
+    formData.append("logo", logo.files[0]);
+    formData.append("isPublic", isPublic.checked);
 
     try {
         const response = await fetch(`/api/projects/${projectId}`, {
@@ -28,7 +30,7 @@ async function updateProject(event) {
             headers: {
                 [header]: token
             },
-            body: formData // Pass the FormData object as the body
+            body: formData
         });
 
         if (response.ok) {

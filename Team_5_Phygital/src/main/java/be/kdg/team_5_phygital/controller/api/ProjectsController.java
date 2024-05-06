@@ -50,6 +50,20 @@ public class ProjectsController {
         }
     }
 
+    @GetMapping("search")
+    ResponseEntity<List<ProjectDto>> searchMenuItems(@RequestParam(required = false) String search) {
+        if (search == null || search.trim().isEmpty()) {
+            return ResponseEntity.ok(projectService.getAllProjects().stream().map(project -> modelMapper.map(project, ProjectDto.class)).toList());
+        } else {
+            List<Project> searchResult = projectService.searchProjectsByNameLike(search);
+            if (searchResult.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                return ResponseEntity.ok(searchResult.stream().map(project -> modelMapper.map(project, ProjectDto.class)).toList());
+            }
+        }
+    }
+
     @PostMapping
     ResponseEntity<ProjectDto> saveProject(@RequestBody @Valid NewProjectDto projectDto) {
         if (projectService.getProjectByName(projectDto.getName()) != null) {
