@@ -20,7 +20,9 @@ public class Project {
 
     private String logoPath;
 
-    private boolean active;
+    private boolean isActive;
+
+    private boolean isPublic;
 
     private int totalParticipants;
 
@@ -73,11 +75,6 @@ public class Project {
         this.id = id;
     }
 
-
-    public void createFlow() {
-        Flow flow = new Flow();
-    }
-
     public String getName() {
         return name;
     }
@@ -111,11 +108,19 @@ public class Project {
     }
 
     public boolean isActive() {
-        return active;
+        return isActive;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.isActive = active;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     public int getTotalParticipants() {

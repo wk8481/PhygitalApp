@@ -16,9 +16,13 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
     Optional<Project> findByName(String name);
 
+    List<Project> findProjectsByNameLikeIgnoreCase(String searchTerm);
+
     @Transactional
     @Modifying
     @Query("UPDATE Project e SET e.totalTimeSpentInSec = e.totalTimeSpentInSec + :timeToAdd, e.totalParticipants = e.totalParticipants + 1 WHERE e.id = :projectId")
     void updateProjectTimeAndParticipants(@Param("projectId") int projectId, @Param("timeToAdd") float timeToAdd);
+
+
 
 }

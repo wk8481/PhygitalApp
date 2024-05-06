@@ -5,6 +5,7 @@ public class UpdateProjectDto {
     private String backgroundColorHex;
     private String fontName;
     private String logoPath;
+    private boolean isPublic;
 
     public UpdateProjectDto() {
     }
@@ -39,5 +40,13 @@ public class UpdateProjectDto {
 
     public void setLogoPath(String logoPath) {
         this.logoPath = logoPath;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 }

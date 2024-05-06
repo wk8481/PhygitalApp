@@ -1,12 +1,19 @@
 package be.kdg.team_5_phygital.service;
 
+import be.kdg.team_5_phygital.controller.api.dto.UpdateSharingPlatformDto;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
 import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepository;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,22 +73,51 @@ public class SharingPlatformService {
         return sharingPlatformRepository.save(sharingPlatform);
     }
 
-    /**
-     * Update sharing platform boolean.
-     *
-     * @param sharingPlatformId the sharing platform id
-     * @param name              the name
-     * @return the boolean
-     */
-    public boolean updateSharingPlatform(int sharingPlatformId, String name, String contactEmail) {
+    public boolean updateSharingPlatform(int sharingPlatformId, UpdateSharingPlatformDto updateSharingPlatformDto, MultipartFile logoFile) throws IOException {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatform == null) {
             return false;
         }
-        sharingPlatform.setName(name);
-        sharingPlatform.setContactEmail(contactEmail);
+        sharingPlatform.setName(updateSharingPlatformDto.getName());
+        sharingPlatform.setContactEmail(updateSharingPlatformDto.getContactEmail());
+
+        // Handle logo file upload
+        if (logoFile != null && !logoFile.isEmpty()) {
+            // Save the logo file and update the logoPath
+            String savedLogoPath = saveLogoFile(logoFile, sharingPlatformId);
+            sharingPlatform.setLogoPath(savedLogoPath);
+        }
+
         sharingPlatformRepository.save(sharingPlatform);
         return true;
+    }
+
+    private String saveLogoFile(MultipartFile logoFile, int sharingPlatformId) throws IOException {
+        // Define the directory where you want to store the logo files
+        String uploadDir = "Team_5_Phygital/src/main/resources/static/images";
+
+        // Create the directory if it doesn't exist
+        File directory = new File(uploadDir);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
+
+        // Extract the original file name and file extension
+        String originalFileName = logoFile.getOriginalFilename();
+        assert originalFileName != null;
+        String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+
+        // Generate a unique file name for the logo file using the platform ID
+        String uniqueFileName = "platform" + sharingPlatformId + "-logo" + fileExtension;
+
+        // Construct the path where the logo file will be saved
+        Path filePath = Paths.get(uploadDir + File.separator + uniqueFileName);
+
+        // Copy the logo file to the specified location
+        Files.copy(logoFile.getInputStream(), filePath);
+
+        // Return the saved path
+        return uploadDir + "/" + uniqueFileName;
     }
 
     /**

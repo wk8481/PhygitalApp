@@ -26,6 +26,13 @@ RUN ./gradlew bootJar
 # Use OpenJDK for the final image.
 FROM openjdk:17-alpine
 
+# Set environment variables for PostgreSQL
+ENV POSTGRES_USER=postgres \
+    POSTGRES_PASSWORD=admin \
+    POSTGRES_DB=phygital \
+    POSTGRES_HOST=35.187.91.110 \
+    POSTGRES_PORT=5432
+
 # Copy the JAR file from the 'builder' stage to this new stage
 COPY --from=builder /app/build/libs/*.jar /app/app.jar
 
