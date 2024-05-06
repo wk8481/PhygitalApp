@@ -1,9 +1,6 @@
 package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.Image;
 
 import java.util.List;
 
@@ -27,7 +24,9 @@ public class Project {
 
     private String logoPath;
 
-    private boolean active;
+    private boolean isActive;
+
+    private boolean isPublic = false;
 
     private int totalParticipants;
 
@@ -126,11 +125,19 @@ public class Project {
     }
 
     public boolean isActive() {
-        return active;
+        return isActive;
     }
 
     public void setActive(boolean active) {
-        this.active = active;
+        this.isActive = active;
+    }
+
+    public boolean isPublic() {
+        return isPublic;
+    }
+
+    public void setPublic(boolean isPublic) {
+        this.isPublic = isPublic;
     }
 
     public int getTotalParticipants() {
