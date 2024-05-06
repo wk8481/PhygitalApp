@@ -78,51 +78,6 @@ public class QuestionsController {
         return ResponseEntity.ok(questionDtos);
     }
 
-//    IF COMMENTING THIS DOESNT CAUSE ERRORS REMOVE
-/*
-    @GetMapping("{subThemeId}/current")
-    public ResponseEntity<QuestionDto> getCurrentQuestion(@PathVariable int subThemeId) {
-        return subThemeService.getSubThemeById(subThemeId)
-                .map(SubTheme::getCurrentIndex)
-                .flatMap(currentIndex -> questionService.getCurrentQuestion(subThemeId, currentIndex))
-                .map(question -> modelMapper.map(question, QuestionDto.class))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("{subThemeId}/next")
-    public ResponseEntity<QuestionDto> getNextQuestion(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
-
-        if (subTheme == null) {
-            return ResponseEntity.notFound().build();
-        }
-        int currentIndex = subTheme.getCurrentIndex();
-        boolean isCircular = subTheme.getFlow().isCircular();
-
-        return questionService.getNextQuestion(subThemeId, currentIndex, isCircular)
-                .map(question -> modelMapper.map(question, QuestionDto.class))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("{subThemeId}/previous")
-    public ResponseEntity<QuestionDto> getPreviousQuestion(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
-        if (subTheme == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        int currentIndex = subTheme.getCurrentIndex();
-        boolean isCircular = subTheme.getFlow().isCircular();
-
-        return questionService.getPreviousQuestion(subThemeId, currentIndex, isCircular)
-                .map(question -> modelMapper.map(question, QuestionDto.class))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-*/
-
     @PostMapping
     ResponseEntity<QuestionDto> saveQuestion(@RequestBody @Valid NewQuestionDto questionDto) {
         if (questionService.getQuestionByText(questionDto.getText()) != null) {
@@ -181,7 +136,7 @@ public class QuestionsController {
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             sharingPlatformService.updateTimeAndParticipants(subTheme.getFlow().getProject().getSharingPlatform(), newAnswerDto.getDurationSpend());
 
-            logger.error("Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
+            logger.info("Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");
