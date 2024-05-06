@@ -175,11 +175,13 @@ public class QuestionsController {
                 Answers answer1 = answerService.saveAnswer(a);
                 answerList.add(answer1);
             }
-
-            sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, notesService.createNote(newAnswerDto.getNote())));
+            Notes note = notesService.createNote(newAnswerDto.getNote());
+            Session session = sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note));
 
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             sharingPlatformService.updateTimeAndParticipants(subTheme.getFlow().getProject().getSharingPlatform(), newAnswerDto.getDurationSpend());
+
+            logger.error("Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");

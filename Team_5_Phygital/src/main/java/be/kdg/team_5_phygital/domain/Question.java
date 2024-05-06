@@ -87,4 +87,11 @@ public class Question {
     public void setSubTheme(SubTheme subTheme) {
         this.subTheme = subTheme;
     }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "text='" + text + '\'' +
+                '}';
+    }
 }

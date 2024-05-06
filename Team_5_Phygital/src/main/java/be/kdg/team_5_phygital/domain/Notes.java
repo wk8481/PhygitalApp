@@ -9,6 +9,7 @@ import java.util.List;
 public class Notes {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String note;
