@@ -33,8 +33,10 @@ public class QuestionsController {
     private final PossibleAnswerService possibleAnswerService;
     private final ProjectService projectService;
     private final SharingPlatformService sharingPlatformService;
+    private final SessionService sessionService;
+    private final NotesService notesService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService, SessionService sessionService, NotesService notesService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
@@ -43,7 +45,10 @@ public class QuestionsController {
         this.possibleAnswerService = possibleAnswerService;
         this.projectService = projectService;
         this.sharingPlatformService = sharingPlatformService;
+        this.sessionService = sessionService;
+        this.notesService = notesService;
     }
+
 
     @GetMapping("{id}")
     ResponseEntity<QuestionDto> getQuestion(@PathVariable("id") int questionId) {
@@ -72,51 +77,6 @@ public class QuestionsController {
         List<QuestionDto> questionDtos = allQuestions.stream().map(question -> modelMapper.map(question, QuestionDto.class)).collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
     }
-
-//    IF COMMENTING THIS DOESNT CAUSE ERRORS REMOVE
-/*
-    @GetMapping("{subThemeId}/current")
-    public ResponseEntity<QuestionDto> getCurrentQuestion(@PathVariable int subThemeId) {
-        return subThemeService.getSubThemeById(subThemeId)
-                .map(SubTheme::getCurrentIndex)
-                .flatMap(currentIndex -> questionService.getCurrentQuestion(subThemeId, currentIndex))
-                .map(question -> modelMapper.map(question, QuestionDto.class))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("{subThemeId}/next")
-    public ResponseEntity<QuestionDto> getNextQuestion(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
-
-        if (subTheme == null) {
-            return ResponseEntity.notFound().build();
-        }
-        int currentIndex = subTheme.getCurrentIndex();
-        boolean isCircular = subTheme.getFlow().isCircular();
-
-        return questionService.getNextQuestion(subThemeId, currentIndex, isCircular)
-                .map(question -> modelMapper.map(question, QuestionDto.class))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("{subThemeId}/previous")
-    public ResponseEntity<QuestionDto> getPreviousQuestion(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
-        if (subTheme == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        int currentIndex = subTheme.getCurrentIndex();
-        boolean isCircular = subTheme.getFlow().isCircular();
-
-        return questionService.getPreviousQuestion(subThemeId, currentIndex, isCircular)
-                .map(question -> modelMapper.map(question, QuestionDto.class))
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-*/
 
     @PostMapping
     ResponseEntity<QuestionDto> saveQuestion(@RequestBody @Valid NewQuestionDto questionDto) {
@@ -157,6 +117,8 @@ public class QuestionsController {
                 // Handle the case where the number of questions and answers doesn't match
                 throw new IllegalArgumentException("Number of questions does not match number of answers");
             }
+            List<Question> questionList = new ArrayList<>();
+            List<Answers> answerList = new ArrayList<>();
             for (Map.Entry<String, String> entry : questionAnswerMap.entrySet()) {
                 String q = entry.getKey();
                 String a = entry.getValue();
@@ -164,11 +126,17 @@ public class QuestionsController {
                 if (a.isBlank()){
                     a = null;
                 }
-                answerService.saveAnswer(user, LocalDateTime.now(), question, a);
+                questionList.add(question);
+                Answers answer1 = answerService.saveAnswer(a);
+                answerList.add(answer1);
             }
+            Notes note = notesService.createNote(newAnswerDto.getNote());
+            Session session = sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note));
 
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             sharingPlatformService.updateTimeAndParticipants(subTheme.getFlow().getProject().getSharingPlatform(), newAnswerDto.getDurationSpend());
+
+            logger.info("Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");
