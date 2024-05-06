@@ -13,28 +13,27 @@ public class Answers {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
     private LocalDateTime timestamp;
 
-    private String questions;
+    @ManyToOne
+    @JoinColumn(name = "question_id")
+    private Question question;
 
     private String answers;
 
-    @OneToOne
-    private SubTheme subtheme;
-
-    public Answers(User user, LocalDateTime timestamp, String questions, String answers, SubTheme subtheme) {
-        this.user = user;
-        this.timestamp = timestamp;
-        this.questions = questions;
-        this.answers = answers;
-        this.subtheme = subtheme;
-    }
 
     public Answers() {
 
+    }
+
+    public Answers(User user, LocalDateTime timestamp, Question question, String answers) {
+        this.user = user;
+        this.timestamp = timestamp;
+        this.question = question;
+        this.answers = answers;
     }
 
     public int getId() {
@@ -61,12 +60,12 @@ public class Answers {
         this.timestamp = timestamp;
     }
 
-    public String getQuestions() {
-        return questions;
+    public Question getQuestion() {
+        return question;
     }
 
-    public void setQuestions(String questions) {
-        this.questions = questions;
+    public void setQuestions(Question question) {
+        this.question = question;
     }
 
     public String getAnswers() {
@@ -77,11 +76,4 @@ public class Answers {
         this.answers = answers;
     }
 
-    public SubTheme getSubtheme() {
-        return subtheme;
-    }
-
-    public void setSubtheme(SubTheme subtheme) {
-        this.subtheme = subtheme;
-    }
 }

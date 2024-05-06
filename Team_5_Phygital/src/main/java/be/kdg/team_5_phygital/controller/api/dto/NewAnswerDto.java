@@ -1,6 +1,6 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-import be.kdg.team_5_phygital.domain.Pair;
+import java.sql.Time;
 
 public class NewAnswerDto {
 

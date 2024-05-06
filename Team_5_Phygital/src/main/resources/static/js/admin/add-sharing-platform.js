@@ -7,7 +7,9 @@ const createButton = document.getElementById("createButton");
 createButton.addEventListener("click", addNewSharingPlatform);
 
 async function addNewSharingPlatform() {
-    await fetch(`/api/sharing-platforms/`, {
+    const name = document.getElementById("nameInput");
+    const contactEmail = document.getElementById("contactInput");
+    await fetch(`/api/sharing-platforms`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [header]: token
         }, body: JSON.stringify({

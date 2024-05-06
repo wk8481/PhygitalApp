@@ -99,4 +99,9 @@ public class SharingPlatformService {
         sharingPlatformRepository.deleteById(sharingPlatformId);
         return true;
     }
+
+    public void updateTimeAndParticipants(SharingPlatform sharingPlatform, float durationSpend) {
+
+        sharingPlatformRepository.updatePlatformTimeAndParticipants(sharingPlatform.getId(), durationSpend);
+    }
 }

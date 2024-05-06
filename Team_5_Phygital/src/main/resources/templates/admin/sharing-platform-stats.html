@@ -22,7 +22,7 @@
     </div>
     <div class="row justify-content-center">
         <!-- Statistics -->
-        <div class="col-md-8">
+        <div class="col-md-3">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Statistics</h2>
                 <div>
@@ -36,11 +36,11 @@
                         <tbody>
                         <tr>
                             <td>Total Participants</td>
-                            <td>500</td>
+                            <td th:text="${platform.totalParticipants}"></td>
                         </tr>
                         <tr>
-                            <td>Time Spent (avg)</td>
-                            <td>15 minutes</td>
+                            <td>Time Spent (avg) in seconds</td>
+                            <td th:text="${platform.totalTimeSpentInSec/platform.totalParticipants}">15 minutes</td>
                         </tr>
                         </tbody>
                     </table>
