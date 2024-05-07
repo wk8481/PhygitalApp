@@ -16,19 +16,19 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
-    implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
-   // implementation("org.webjars:webjars-locator-core:0.48")
-    implementation("org.modelmapper:modelmapper:3.2.0")
-    testImplementation("org.springframework.security:spring-security-test")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    runtimeOnly("org.postgresql:postgresql")
-    implementation("org.webjars:bootstrap:5.3.0")
-    runtimeOnly("com.h2database:h2")
+    implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+    implementation ("org.springframework.boot:spring-boot-starter-web")
+    implementation ("org.springframework.boot:spring-boot-starter-validation")
+    implementation ("org.springframework.boot:spring-boot-starter-security")
+    implementation ("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+    implementation ("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
+    implementation ("org.modelmapper:modelmapper:3.2.0")
+    developmentOnly ("org.springframework.boot:spring-boot-devtools")
+    runtimeOnly ("org.webjars:bootstrap:5.3.2")
+    runtimeOnly ("com.h2database:h2")
+    runtimeOnly ("org.postgresql:postgresql")
+    testImplementation ("org.springframework.boot:spring-boot-starter-test")
 
 
 
