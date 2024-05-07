@@ -30,7 +30,7 @@ FROM openjdk:17-alpine
 ENV POSTGRES_USER=postgres \
     POSTGRES_PASSWORD=admin \
     POSTGRES_DB=phygital \
-    POSTGRES_HOST=35.187.91.110 \
+    POSTGRES_HOST=34.77.71.78 \
     POSTGRES_PORT=5432
 
 # Copy the JAR file from the 'builder' stage to this new stage
