@@ -17,7 +17,7 @@ public class AnswerService {
     }
 
     @Transactional
-    public Answers saveAnswer(User user, LocalDateTime timestamp, Question question, String answer) {
-        return answerRepository.save(new Answers(user, timestamp, question, answer));
+    public Answers saveAnswer( String answer) {
+        return answerRepository.save(new Answers(answer));
     }
 }
