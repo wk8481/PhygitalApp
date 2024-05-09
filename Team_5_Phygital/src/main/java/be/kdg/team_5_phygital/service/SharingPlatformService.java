@@ -2,8 +2,8 @@ package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.controller.api.dto.UpdateSharingPlatformDto;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
-import be.kdg.team_5_phygital.domain.SharingPlatformAdmin;
-import be.kdg.team_5_phygital.repository.SharingPlatformAdminRepository;
+import be.kdg.team_5_phygital.domain.Client;
+import be.kdg.team_5_phygital.repository.ClientRepository;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -23,17 +23,17 @@ import java.util.Optional;
 @Service
 public class SharingPlatformService {
     private final SharingPlatformRepository sharingPlatformRepository;
-    private final SharingPlatformAdminRepository sharingPlatformAdminRepository;
+    private final ClientRepository clientRepository;
 
     /**
      * Instantiates a new Sharing platform service.
      *
      * @param sharingPlatformRepository      the sharing platform repository
-     * @param sharingPlatformAdminRepository the sharing platform admin repository
+     * @param clientRepository the sharing platform admin repository
      */
-    public SharingPlatformService(SharingPlatformRepository sharingPlatformRepository, SharingPlatformAdminRepository sharingPlatformAdminRepository) {
+    public SharingPlatformService(SharingPlatformRepository sharingPlatformRepository, ClientRepository clientRepository) {
         this.sharingPlatformRepository = sharingPlatformRepository;
-        this.sharingPlatformAdminRepository = sharingPlatformAdminRepository;
+        this.clientRepository = clientRepository;
     }
 
 
@@ -69,7 +69,7 @@ public class SharingPlatformService {
     @Transactional
     public SharingPlatform saveSharingPlatform(String name, String contactEmail) {
         SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail);
-        sharingPlatformAdminRepository.save(new SharingPlatformAdmin("Unnamed Client", "default@email.com", "password", sharingPlatform));
+        clientRepository.save(new Client("Unnamed Client", "default@email.com", "password", sharingPlatform));
         return sharingPlatformRepository.save(sharingPlatform);
     }
 

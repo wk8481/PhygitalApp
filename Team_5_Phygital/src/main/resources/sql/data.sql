@@ -9,7 +9,7 @@ INSERT INTO administrator (name)
 VALUES ('Admin 1');
 
 -- SharingPlatformAdmin
-INSERT INTO sharing_platform_admin (name, email, password)
+INSERT INTO client (name, email, password)
 VALUES ('Platform Admin', 'admin@example.com', 'platform123');
 
 -- SharingPlatform

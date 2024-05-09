@@ -32,7 +32,7 @@ public class SharingPlatform {
     private List<Supervisor> supervisors;
 
     @OneToOne(mappedBy = "sharingPlatform")
-    private SharingPlatformAdmin sharingPlatformAdmin;
+    private Client client;
 
 
     public SharingPlatform() {}
@@ -130,11 +130,11 @@ public class SharingPlatform {
         this.supervisors = supervisors;
     }
 
-    public SharingPlatformAdmin getSharingPlatformAdmin() {
-        return sharingPlatformAdmin;
+    public Client getSharingPlatformAdmin() {
+        return client;
     }
 
-    public void setSharingPlatformAdmin(SharingPlatformAdmin sharingPlatformAdmin) {
-        this.sharingPlatformAdmin = sharingPlatformAdmin;
+    public void setSharingPlatformAdmin(Client client) {
+        this.client = client;
     }
 }

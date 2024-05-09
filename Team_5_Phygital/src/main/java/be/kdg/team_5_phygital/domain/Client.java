@@ -3,7 +3,7 @@ package be.kdg.team_5_phygital.domain;
 import jakarta.persistence.*;
 
 @Entity
-public class SharingPlatformAdmin {
+public class Client {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +19,16 @@ public class SharingPlatformAdmin {
     @JoinColumn(name = "sharing_platform_id")
     private SharingPlatform sharingPlatform;
 
-    public SharingPlatformAdmin() {
+    public Client() {
     }
 
-    public SharingPlatformAdmin(String name, String email, String password) {
+    public Client(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
     }
 
-    public SharingPlatformAdmin(String name, String email, String password, SharingPlatform sharingPlatform) {
+    public Client(String name, String email, String password, SharingPlatform sharingPlatform) {
         this.name = name;
         this.email = email;
         this.password = password;

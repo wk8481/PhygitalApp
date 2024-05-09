@@ -19,7 +19,7 @@ public class AdminController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private final SharingPlatformService sharingPlatformService;
-    private final SharingPlatformAdminService sharingPlatformAdminService;
+    private final ClientService clientService;
     private final ProjectService projectService;
     private final SupervisorService supervisorService;
     private final ThemeService themeService;
@@ -29,9 +29,9 @@ public class AdminController {
     private final QuestionService questionService;
     private final PossibleAnswerService possibleAnswerService;
 
-    public AdminController(SharingPlatformService sharingPlatformService, SharingPlatformAdminService sharingPlatformAdminService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
+    public AdminController(SharingPlatformService sharingPlatformService, ClientService clientService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
         this.sharingPlatformService = sharingPlatformService;
-        this.sharingPlatformAdminService = sharingPlatformAdminService;
+        this.clientService = clientService;
         this.projectService = projectService;
         this.supervisorService = supervisorService;
         this.themeService = themeService;
@@ -55,7 +55,7 @@ public class AdminController {
     @GetMapping("sharing-platform/{platformId}")
     public String getSharingPlatform(@PathVariable int platformId, Model model) {
         SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatform(platformId);
-        SharingPlatformAdmin client = sharingPlatformAdminService.getAllSharingPlatformAdmins().get(0);
+        Client client = clientService.getAllSharingPlatformAdmins().get(0);
         List<Project> platforms = projectService.getProjectBySharingPlatformId(platformId);
         List<Supervisor> supervisors = supervisorService.findSupervisorBySharingPlatform(sharingPlatform);
         model.addAttribute("platform", sharingPlatform);
@@ -85,7 +85,7 @@ public class AdminController {
 
     @GetMapping("sharing-platform/{platformId}/client/{clientId}")
     public String getClient(@PathVariable int platformId, @PathVariable int clientId, Model model) {
-        SharingPlatformAdmin client = sharingPlatformAdminService.getAllSharingPlatformAdmins().get(0);
+        Client client = clientService.getAllSharingPlatformAdmins().get(0);
         model.addAttribute("client", client);
         return "admin/client";
     }

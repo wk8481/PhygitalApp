@@ -1,14 +1,14 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
-public class SharingPlatformAdminDto {
+public class ClientDto {
     private int id;
     private String name;
     private String email;
 
-    public SharingPlatformAdminDto() {
+    public ClientDto() {
     }
 
-    public SharingPlatformAdminDto(int id, String name, String email) {
+    public ClientDto(int id, String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
