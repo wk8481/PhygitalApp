@@ -31,9 +31,6 @@ public class Flow {
     @OneToMany(fetch = FetchType.LAZY)
     private List<SubTheme> subThemes;
 
-    @OneToMany(mappedBy = "flow")
-    private List<UserDetail> userDetail;
-
     public Flow() {
     }
 
@@ -110,13 +107,5 @@ public class Flow {
 
     public void setSubThemes(List<SubTheme> subThemes) {
         this.subThemes = subThemes;
-    }
-
-    public List<UserDetail> getUserDetail() {
-        return userDetail;
-    }
-
-    public void setUserDetail(List<UserDetail> userDetail) {
-        this.userDetail = userDetail;
     }
 }

@@ -21,7 +21,7 @@ public class Installation {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserDetail user;
+    private User user;
 
     @OneToMany(mappedBy = "installation")
     private List<Flow> flows;
@@ -37,7 +37,7 @@ public class Installation {
         this.location = location;
     }
 
-    public Installation(boolean isRunning, UserDetail user) {
+    public Installation(boolean isRunning, User user) {
         this.isRunning = isRunning;
         this.user = user;
     }
@@ -79,11 +79,11 @@ public class Installation {
         this.location = location;
     }
 
-    public UserDetail getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDetail user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

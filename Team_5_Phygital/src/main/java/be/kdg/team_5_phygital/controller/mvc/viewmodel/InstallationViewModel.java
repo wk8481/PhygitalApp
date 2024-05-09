@@ -1,7 +1,7 @@
 package be.kdg.team_5_phygital.controller.mvc.viewmodel;
 
 import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.domain.UserDetail;
+import be.kdg.team_5_phygital.domain.User;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public class InstallationViewModel {
    private int id;
    private boolean isRunning;
 
-   private UserDetail user;
+   private User user;
 
     private List<Project> projects;
 
@@ -19,7 +19,7 @@ public class InstallationViewModel {
     public InstallationViewModel() {
     }
 
-    public InstallationViewModel(int id, boolean isRunning, UserDetail user, List<Project> projects) {
+    public InstallationViewModel(int id, boolean isRunning, User user, List<Project> projects) {
         this.id = id;
         this.isRunning = isRunning;
         this.user = user;
@@ -44,11 +44,11 @@ public class InstallationViewModel {
         isRunning = running;
     }
 
-    public UserDetail getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(UserDetail user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
