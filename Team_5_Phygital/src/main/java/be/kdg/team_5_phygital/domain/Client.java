@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.domain;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "client")
 public class Client {
 
     @Id

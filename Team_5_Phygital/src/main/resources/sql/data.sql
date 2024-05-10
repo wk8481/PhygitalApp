@@ -8,7 +8,7 @@ VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm62
 INSERT INTO administrator (name)
 VALUES ('Admin 1');
 
--- SharingPlatformAdmin
+-- Client
 INSERT INTO client (name, email, password)
 VALUES ('Platform Admin', 'admin@example.com', 'platform123');
 
