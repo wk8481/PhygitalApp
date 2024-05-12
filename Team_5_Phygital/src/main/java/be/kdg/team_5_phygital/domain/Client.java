@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @DiscriminatorValue("CLIENT")
 public class Client extends User {
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sharing_platform_id")
     private SharingPlatform sharingPlatform;
 

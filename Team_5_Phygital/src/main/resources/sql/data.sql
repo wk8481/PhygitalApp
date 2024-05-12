@@ -1,13 +1,20 @@
--- User
-INSERT INTO phygital_user (name, email, password, role, user_type)
-VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN'),
-       ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN'),
-       ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT', 'CLIENT'),
-       ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR');
+-- Admin
+INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
+VALUES
+    ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN', NULL),
+    ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN', NULL);
 
 -- SharingPlatform
 INSERT INTO sharing_platform (name, contact_email, total_participants, total_time_spent_in_sec, administrator_id)
 VALUES ('Platform A', 'platformA@example.com', 100, 7845, 1);
+
+-- Client
+INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
+VALUES ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT', 'CLIENT', 1);
+
+-- Supervisor
+INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
+VALUES ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR', 1);
 
 -- Installation
 INSERT INTO installation (name, is_running)

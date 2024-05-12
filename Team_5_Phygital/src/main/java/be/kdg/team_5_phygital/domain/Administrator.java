@@ -7,9 +7,9 @@ import java.util.List;
 @Entity
 @DiscriminatorValue("ADMIN")
 public class Administrator extends User {
-
     @OneToMany(mappedBy = "administrator")
     private List<SharingPlatform> sharingPlatforms;
+
     @OneToMany(mappedBy = "administrator")
     private List<Project> projects;
 
