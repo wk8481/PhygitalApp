@@ -1,16 +1,9 @@
-INSERT INTO users (name, email, password, role)
-VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT'),
-       ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
-
--- Administrator
-INSERT INTO administrator (name)
-VALUES ('Admin 1');
-
--- Client
-INSERT INTO client (name, email, password)
-VALUES ('Platform Admin', 'admin@example.com', 'platform123');
+-- User
+INSERT INTO phygital_user (name, email, password, role, user_type)
+VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN'),
+       ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN'),
+       ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT', 'CLIENT'),
+       ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR');
 
 -- SharingPlatform
 INSERT INTO sharing_platform (name, contact_email, total_participants, total_time_spent_in_sec, administrator_id)
@@ -29,11 +22,6 @@ VALUES ('Project X', '#fffff', true, false, 50, 4.5, 1);
 -- -- Theme
 INSERT INTO theme (name, information, project_id)
 VALUES ('Theme X', 'Information for Theme X', 1);
-
--- Supervisor
-INSERT INTO supervisor (name, email, password, sharing_platform_id)
-VALUES ('John Doe', 'johndoe@example.com', 'supervisor123', 1),
-       ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
 INSERT INTO flow (name, is_circular, project_id, start_time, end_time)

@@ -5,14 +5,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "administrator")
-public class Administrator {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
+@DiscriminatorValue("ADMIN")
+public class Administrator extends User {
 
     @OneToMany(mappedBy = "administrator")
     private List<SharingPlatform> sharingPlatforms;
@@ -23,32 +17,25 @@ public class Administrator {
     }
 
     public Administrator(String name) {
-        this.name = name;
+        super(name);
+    }
+
+    public Administrator(String name, String email, String password, List<SharingPlatform> sharingPlatforms) {
+        super(name, email, password, UserRole.ADMIN);
+        this.sharingPlatforms = sharingPlatforms;
     }
 
     public Administrator(String name, List<SharingPlatform> sharingPlatforms, List<Project> projects) {
-        this.name = name;
+        super(name);
         this.sharingPlatforms = sharingPlatforms;
         this.projects = projects;
     }
 
-    public int getId() {
-        return id;
+    public Administrator(String name, String email, String password, List<SharingPlatform> sharingPlatforms, List<Project> projects) {
+        super(name, email, password, UserRole.ADMIN);
+        this.sharingPlatforms = sharingPlatforms;
+        this.projects = projects;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
 
     public List<SharingPlatform> getSharingPlatforms() {
         return sharingPlatforms;
@@ -64,5 +51,13 @@ public class Administrator {
 
     public void setProjects(List<Project> projects) {
         this.projects = projects;
+    }
+
+    @Override
+    public String toString() {
+        return "Administrator{" +
+                "sharingPlatforms=" + sharingPlatforms +
+                ", projects=" + projects +
+                '}';
     }
 }
