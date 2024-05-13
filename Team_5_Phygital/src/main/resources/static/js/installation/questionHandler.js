@@ -100,6 +100,8 @@ window.onload = function () {
 }
 
 
+let users = 1
+
 // Function to handle submitting answers
 function submitAnswer(event) {
     event.preventDefault();

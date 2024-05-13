@@ -16,9 +16,7 @@ public class Flow {
 
     private boolean isCircular;
 
-    private LocalDateTime startTime;
-
-    private LocalDateTime endTime;
+    private float totalTimeSpentInSec;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "project_id")
@@ -69,20 +67,12 @@ public class Flow {
         isCircular = circular;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public float getTotalTimeSpentInSec() {
+        return totalTimeSpentInSec;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setTotalTimeSpentInSec(float totalTimeSpentInSec) {
+        this.totalTimeSpentInSec = totalTimeSpentInSec;
     }
 
     public Project getProject() {
@@ -107,5 +97,11 @@ public class Flow {
 
     public void setSubThemes(List<SubTheme> subThemes) {
         this.subThemes = subThemes;
+    }
+
+    public Flow(String name, boolean isCircular, Project project) {
+        this.name = name;
+        this.isCircular = isCircular;
+        this.project = project;
     }
 }

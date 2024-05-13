@@ -36,9 +36,9 @@ VALUES ('John Doe', 'johndoe@example.com', 'supervisor123', 1),
        ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
-INSERT INTO flow (name, is_circular, project_id, start_time, end_time)
-VALUES ('Flow 1', true, 1, null, null),
-       ('Flow 2', false, 1, null, null);
+INSERT INTO flow (name, is_circular, project_id, total_time_spent_in_sec)
+VALUES ('Flow 1', true, 1, 0),
+       ('Flow 2', false, 1, 0);
 
 -- SubTheme
 INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)

@@ -29,19 +29,6 @@ public class FlowService {
         return flowRepository.findById(flowId).orElse(null);
     }
 
-    public double getFlowDuration(int flowId) {
-        Flow flow = flowRepository.findById(flowId).orElse(null);
-        if (flow == null) {
-            return -1;
-        }
-        LocalDateTime startTime = flow.getStartTime();
-        LocalDateTime endTime = flow.getEndTime();
-        if (startTime == null || endTime == null) {
-            return -1;
-        }
-        return (endTime.getSecond() - startTime.getSecond()) / 60.0;
-    }
-
     public List<Flow> getAllFlows() {
         return flowRepository.findAll();
     }
@@ -51,10 +38,8 @@ public class FlowService {
     }
 
     @Transactional
-    public Flow saveFlow(String name, int projectId, int installationId) {
-        Project project = projectRepository.findById(projectId).orElse(null);
-        Installation installation = installationRepository.findById(projectId).orElse(null);
-        return flowRepository.save(new Flow(name, project, installation));
+    public Flow saveFlow(Flow flow) {
+        return flowRepository.save(flow);
     }
 
     public boolean updateFlow(int flowId, String name) {

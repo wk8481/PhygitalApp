@@ -6,6 +6,7 @@ import be.kdg.team_5_phygital.controller.api.dto.UpdateFlowDto;
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.service.FlowService;
+import be.kdg.team_5_phygital.service.ProjectService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -24,11 +25,15 @@ public class FlowsController {
     private final FlowService flowService;
     private final FlowRepository flowRepository;
     private final ModelMapper modelMapper;
+    private final ProjectsController projectsController;
+    private final ProjectService projectService;
 
-    public FlowsController(FlowService flowService, FlowRepository flowRepository, ModelMapper modelMapper) {
+    public FlowsController(FlowService flowService, FlowRepository flowRepository, ModelMapper modelMapper, ProjectsController projectsController, ProjectService projectService) {
         this.flowService = flowService;
         this.flowRepository = flowRepository;
         this.modelMapper = modelMapper;
+        this.projectsController = projectsController;
+        this.projectService = projectService;
     }
 
     @GetMapping("{id}")
@@ -49,18 +54,6 @@ public class FlowsController {
             List<FlowDto> flowDtos = allFlows.stream().map(flow -> modelMapper.map(flow, FlowDto.class)).collect(Collectors.toList());
             return ResponseEntity.ok(flowDtos);
         }
-    }
-
-    @PostMapping
-    ResponseEntity<FlowDto> saveFlow(@RequestBody @Valid NewFlowDto flowDto) {
-        if (flowRepository.findByName(flowDto.getName()).isPresent()) {
-            logger.error("Flow already exists");
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-
-        }
-        logger.info("Flow created");
-        Flow createdFlow = flowService.saveFlow(flowDto.getName(), flowDto.getProjectId(), flowDto.getInstallationId());
-        return new ResponseEntity<>(modelMapper.map(createdFlow, FlowDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("{flowId}")

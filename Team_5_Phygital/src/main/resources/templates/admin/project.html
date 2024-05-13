@@ -128,13 +128,6 @@
                                 <td th:if="${flows.isCircular}">Circular flow</td>
                                 <td th:unless="${flows.isCircular}">Not circular flow</td>
                             </tr>
-                            <tr>
-                                <td>
-                                    <a th:href="@{/admin/project/{projectId}/flow/new(projectId=${project.id})}">
-                                        <i class="fas fa-plus"></i></a>
-                                </td>
-                                <td></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

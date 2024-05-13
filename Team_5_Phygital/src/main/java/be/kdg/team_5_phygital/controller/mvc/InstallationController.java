@@ -83,6 +83,7 @@ public class InstallationController {
         List<PossibleAnswers> possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
         mav.addObject("questions", questions);
         mav.addObject("possibleAnswers", possibleAnswers);
+//        mav.addObject("isCircular", );
         return mav;
     }
 
