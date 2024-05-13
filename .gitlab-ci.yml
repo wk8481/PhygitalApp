@@ -27,26 +27,17 @@ stages:
   - destroy
  
  
-image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
- 
-variables:
-
- 
-  DOCKER_HUB_REPO: "zamlamb/phygital"
- 
 build:
-  image: docker:19.03
+  image: gradle:jdk17
   stage: build
-  services:
-    - docker:dind
   script:
-    # Build the Docker image
     - cd Team_5_Phygital
-    - docker build -t my-phygital-boot-app .
-    - docker tag my-phygital-boot-app:latest
-     $DOCKER_HUB_REPO:latest
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $DOCKER_HUB_REPO:latest
+    - ./gradlew bootJar
+    - echo "Copying JAR file to Google Cloud Storage bucket"
+    - gsutil cp build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar gs://jar-team-bucket/
+  artifacts:
+    paths:
+      - Team_5_Phygital/build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar
  
  
  
@@ -111,8 +102,7 @@ deploy:
   image: google/cloud-sdk:latest
   stage: deploy
   before_script:
-    - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
-    - which nslookup || apt-get install dnsutils -y
+    - which nslookup || apt-get update -y && apt-get install dnsutils -y
     - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
     - IP_ADDRESS=$(cat ${HOME}/ip.txt)
     - if [ -z "$IP_ADDRESS" ]; then IP_ADDRESS="35.241.233.187"; fi
@@ -122,14 +112,17 @@ deploy:
     - chmod 700 ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
-
   script:
-  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:latest; docker container run -d -p $HTTP_PORT:8080  -e POSTGRES_USERNAME=$POSTGRES_USERNAME -e POSTGRES_PASSWORD=$POSTGRES_PASSWORD -e POSTGRES_HOST=$POSTGRES_HOST -e POSTGRES_PORT=$POSTGRES_PORT $DOCKER_HUB_REPO:latest; docker logout docker.io"
+    - echo "Downloading JAR file from Google Cloud Storage"
+    - gsutil cp gs://jar-team-bucket/Team_5_Phygital-0.0.1-SNAPSHOT.jar /opt/Team_5_Phygital.jar
+    - echo "Running the JAR file"
+    - java -jar /opt/Team_5_Phygital.jar
+
 
 
 destroy:
-  image: google/cloud-sdk:latest  # You might need a different image if the destroy operations require specific tools.
-  stage: destroy  # Specify the destroy stage
+  image: google/cloud-sdk:latest
+  stage: destroy
   before_script:
     # Set up SSH agent and other necessary configurations...
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
@@ -140,7 +133,9 @@ destroy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
   script:
     # Execute teardown commands to destroy deployed resources...
-    - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io;  docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
+    - echo "Removing deployed JAR file"
+    - ssh $TEAM5_USER@$IP_ADDRESS "rm /opt/Team_5_Phygital.jar"
+    # Add any additional cleanup commands as needed
   when: manual
 
     
