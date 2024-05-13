@@ -31,7 +31,7 @@ stages:
 build:
   image: gradle:jdk17
   stage: build
-  before_script:
+  script:
     - apt-get update && apt-get install -y curl gnupg
     - curl https://sdk.cloud.google.com | bash
     - exec -l $SHELL
