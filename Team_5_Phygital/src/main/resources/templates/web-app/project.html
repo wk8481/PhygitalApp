@@ -10,23 +10,18 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Home</h1>
+            <h1 class="page-title text-primary">Project</h1>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <div class="col-md-12">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4" th:each="project : ${projects}">
-                            <div class="card">
-                                <div class="card-body"
-                                     style="cursor: pointer;"
-                                     th:attr="onclick='location.href=\'/web-app/project?projectId=' + ${project.id} + '\''">
-                                    <h5 class="card-title" th:text="${project.name}"></h5>
-                                </div>
-                            </div>
-                        </div>
+                    <div th:if="${project}">
+                        <h1 th:text="${project.name}"></h1>
+                        <h2>Theme</h2>
+                        <p th:if="${theme}" th:text="${theme.name}"></p>
+                        <p th:if="${theme}" th:text="${theme.information}"></p>
                     </div>
                 </div>
             </section>
