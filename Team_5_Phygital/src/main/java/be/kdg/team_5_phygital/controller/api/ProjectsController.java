@@ -51,7 +51,7 @@ public class ProjectsController {
     }
 
     @GetMapping("search")
-    ResponseEntity<List<ProjectDto>> searchMenuItems(@RequestParam(required = false) String search) {
+    ResponseEntity<List<ProjectDto>> searchProjects(@RequestParam(required = false) String search) {
         if (search == null || search.trim().isEmpty()) {
             return ResponseEntity.ok(projectService.getAllProjects().stream().map(project -> modelMapper.map(project, ProjectDto.class)).toList());
         } else {

@@ -2,12 +2,11 @@ package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "users")
+@Table(name = "phygital_user")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "user_type")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,6 +26,10 @@ public class User {
 
     public User() {
 
+    }
+
+    public User(String name) {
+        this.name = name;
     }
 
     public User(String email, String password, UserRole role) {
@@ -95,5 +98,16 @@ public class User {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
