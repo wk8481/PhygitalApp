@@ -3,19 +3,9 @@ package be.kdg.team_5_phygital.domain;
 import jakarta.persistence.*;
 
 @Entity
-public class Client {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
-
-    private String email;
-
-    private String password;
-
-    @OneToOne(fetch = FetchType.LAZY)
+@DiscriminatorValue("CLIENT")
+public class Client extends User {
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "sharing_platform_id")
     private SharingPlatform sharingPlatform;
 
@@ -23,48 +13,12 @@ public class Client {
     }
 
     public Client(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        super(name, email, password, UserRole.CLIENT);
     }
 
     public Client(String name, String email, String password, SharingPlatform sharingPlatform) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        super(name, email, password, UserRole.CLIENT);
         this.sharingPlatform = sharingPlatform;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public SharingPlatform getSharingPlatform() {
@@ -73,5 +27,12 @@ public class Client {
 
     public void setSharingPlatform(SharingPlatform sharingPlatform) {
         this.sharingPlatform = sharingPlatform;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "sharingPlatform=" + sharingPlatform +
+                '}';
     }
 }
