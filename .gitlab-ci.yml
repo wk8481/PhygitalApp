@@ -27,10 +27,15 @@ stages:
   - destroy
  
  
+
 build:
   image: gradle:jdk17
   stage: build
-  script:
+  before_script:
+    - apt-get update && apt-get install -y curl gnupg
+    - curl https://sdk.cloud.google.com | bash
+    - exec -l $SHELL
+    - gcloud components install gsutil
     - cd Team_5_Phygital
     - ./gradlew bootJar
     - echo "Copying JAR file to Google Cloud Storage bucket"
@@ -38,6 +43,7 @@ build:
   artifacts:
     paths:
       - Team_5_Phygital/build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar
+
  
  
  
