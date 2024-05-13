@@ -140,6 +140,7 @@ destroy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
   script:
     # Execute teardown commands to destroy deployed resources...
-    - ssh $TEAM5_USER@$IP_ADDRESS "docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
+    - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io;  docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
+  when: manual
 
     
