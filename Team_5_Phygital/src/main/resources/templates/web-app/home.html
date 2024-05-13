@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Phygital</title>
+    <thymeleaf th:replace="~{fragments/web-includes :: meta_script_link}"></thymeleaf>
+</head>
+<body class="container">
+<header th:replace="~{fragments/web-includes::header}"></header>
+<main>
+    <section id="section-home">
+        <h1>Home</h1>
+        <!-- Search bar with icon -->
+        <form class="search-container" id="search-form">
+            <input aria-label="Search Projects" id="search-input" placeholder="Search projects..." type="text">
+            <a id="search-button"><i class="fas fa-search"></i></a>
+        </form>
+        <!-- Search results placeholder -->
+        <div id="search-results"></div>
+    </section>
+</main>
+</body>
+</html>
