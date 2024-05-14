@@ -13,23 +13,15 @@
             <h1 class="page-title text-primary">Home</h1>
         </div>
     </div>
+    <!-- Blog Section -->
     <div class="row justify-content-center">
-        <div class="col-md-6">
-            <section class="mt-5 text-center">
-                <div class="col-md-12">
-                    <div class="row justify-content-center">
-                        <div class="col-md-4" th:each="project : ${projects}">
-                            <div class="card">
-                                <div class="card-body"
-                                     style="cursor: pointer;"
-                                     th:attr="onclick='location.href=\'/web-app/project?projectId=' + ${project.id} + '\''">
-                                    <h5 class="card-title" th:text="${project.name}"></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div class="col-md-8">
+            <div class="blog-post" th:each="project : ${projects}">
+                <h3 class="mb-3" th:text="${project.name}"></h3>
+                <p class="text-muted mb-3">Posted on: 12-12-2000</p>
+                <p>Description</p>
+                <a class="btn btn-primary" th:href="@{/web-app/project(projectId=${project.id})}">Read More</a>
+            </div>
         </div>
     </div>
 </main>
