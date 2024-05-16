@@ -16,6 +16,8 @@ public class Flow {
 
     private boolean isCircular;
 
+    private int totalParticipants;
+
     private float totalTimeSpentInSec;
 
     @ManyToOne(optional = false)
@@ -73,6 +75,14 @@ public class Flow {
 
     public void setTotalTimeSpentInSec(float totalTimeSpentInSec) {
         this.totalTimeSpentInSec = totalTimeSpentInSec;
+    }
+
+    public int getTotalParticipants() {
+        return totalParticipants;
+    }
+
+    public void setTotalParticipants(int totalParticipants) {
+        this.totalParticipants = totalParticipants;
     }
 
     public Project getProject() {

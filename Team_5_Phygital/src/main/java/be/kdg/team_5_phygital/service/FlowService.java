@@ -42,6 +42,13 @@ public class FlowService {
         return flowRepository.save(flow);
     }
 
+    @Transactional
+    public void updateTimeAndParticipants(Flow flow, float time){
+
+        flowRepository.updateFlowTimeAndParticipants(flow.getId(), time);
+    }
+
+    @Transactional
     public boolean updateFlow(int flowId, String name) {
         Flow flow = flowRepository.findById(flowId).orElse(null);
         if (flow == null) {
