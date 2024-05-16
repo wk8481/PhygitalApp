@@ -31,8 +31,8 @@ public class SharingPlatform {
     @OneToMany(mappedBy = "sharingPlatform")
     private List<Supervisor> supervisors;
 
-    @OneToOne(mappedBy = "sharingPlatform")
-    private Client client;
+    @OneToMany(mappedBy = "sharingPlatform")
+    private List<Client> clients;
 
 
     public SharingPlatform() {}
@@ -130,11 +130,11 @@ public class SharingPlatform {
         this.supervisors = supervisors;
     }
 
-    public Client getSharingPlatformAdmin() {
-        return client;
+    public List<Client> getSharingPlatformAdmin() {
+        return clients;
     }
 
-    public void setSharingPlatformAdmin(Client client) {
-        this.client = client;
+    public void setSharingPlatformAdmin(List<Client> clients) {
+        this.clients = clients;
     }
 }

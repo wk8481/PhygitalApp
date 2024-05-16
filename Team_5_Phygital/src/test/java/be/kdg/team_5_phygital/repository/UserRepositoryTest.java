@@ -18,7 +18,7 @@ class UserRepositoryTest {
     void testFindAllUsers() {
         final int usersList = userRepository.findAll().size();
 
-        assertEquals(4, usersList);
+        assertEquals(5, usersList);
     }
 
 

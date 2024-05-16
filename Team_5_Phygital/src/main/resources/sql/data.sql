@@ -1,20 +1,21 @@
-INSERT INTO users (name, email, password, role)
-VALUES ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN'),
-       ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT'),
-       ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR');
-
--- Administrator
-INSERT INTO administrator (name)
-VALUES ('Admin 1');
-
--- Client
-INSERT INTO client (name, email, password)
-VALUES ('Platform Admin', 'admin@example.com', 'platform123');
+-- Admin
+INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
+VALUES
+    ('Noah', 'noah@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN', NULL),
+    ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN', NULL);
 
 -- SharingPlatform
 INSERT INTO sharing_platform (name, contact_email, total_participants, total_time_spent_in_sec, administrator_id)
 VALUES ('Platform A', 'platformA@example.com', 100, 7845, 1);
+
+-- Client
+INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
+VALUES ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT', 'CLIENT', 1);
+
+-- Supervisor
+INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
+VALUES ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR', 1),
+       ('Lukas', 'lukas@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR', 1);
 
 -- Installation
 INSERT INTO installation (name, is_running)
@@ -29,11 +30,6 @@ VALUES ('Project X', '#fffff', true, false, 50, 4.5, 1);
 -- -- Theme
 INSERT INTO theme (name, information, project_id)
 VALUES ('Theme X', 'Information for Theme X', 1);
-
--- Supervisor
-INSERT INTO supervisor (name, email, password, sharing_platform_id)
-VALUES ('John Doe', 'johndoe@example.com', 'supervisor123', 1),
-       ('Jefke Vermeule', 'jefkevermeule@example.com', '123supervisor', 1);
 
 -- Flow
 INSERT INTO flow (name, is_circular, project_id, total_time_spent_in_sec, total_participants)

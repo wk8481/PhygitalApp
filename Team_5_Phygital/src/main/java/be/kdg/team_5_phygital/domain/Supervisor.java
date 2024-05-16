@@ -5,15 +5,8 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "supervisor")
-public class Supervisor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String name;
-    private String email;
-    private String password;
-
+@DiscriminatorValue("SUPERVISOR")
+public class Supervisor extends User {
     @ManyToOne
     @JoinColumn(name = "sharing_platform_id")
     private SharingPlatform sharingPlatform;
@@ -25,25 +18,20 @@ public class Supervisor {
     }
 
     public Supervisor(String name, String email, SharingPlatform sharingPlatform) {
-        this.name = name;
-        this.email = email;
+        super(name, email, UserRole.SUPERVISOR);
         this.sharingPlatform = sharingPlatform;
     }
 
     public Supervisor(String name, String email) {
-        this.name = name;
-        this.email = email;
+        super(name, email, UserRole.SUPERVISOR);
     }
 
     public Supervisor(String name, String email, String password) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        super(name, email, password, UserRole.SUPERVISOR);
     }
 
     public Supervisor(String name, String email, Project project) {
-        this.name = name;
-        this.email = email;
+        super(name, email, UserRole.SUPERVISOR);
         // no project entity?
     }
 
@@ -55,38 +43,6 @@ public class Supervisor {
         this.sharingPlatform = sharingPlatform;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public List<Project> getProjects() {
         return projects;
     }
@@ -96,16 +52,16 @@ public class Supervisor {
     }
 
     public Supervisor(int id, String name, String email, String password, SharingPlatform sharingPlatform, List<Project> projects) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
+        super(name, email, password, UserRole.SUPERVISOR);
         this.sharingPlatform = sharingPlatform;
         this.projects = projects;
     }
 
     @Override
     public String toString() {
-        return "Supervisor{" + "id=" + id + ", name='" + name + '\'' + ", email='" + email + '\'' + ", password='" + password + '\'' + ", sharingPlatform=" + sharingPlatform + ", projects=" + projects + '}';
+        return "Supervisor{" +
+                "sharingPlatform=" + sharingPlatform +
+                ", projects=" + projects +
+                '}';
     }
 }
