@@ -15,10 +15,19 @@ public class Session {
 
     private LocalDateTime timestamp;
 
-    @OneToMany(fetch = FetchType.LAZY)
+//    @OneToMany(fetch = FetchType.LAZY)
+//    private List<Question> questions;
+
+    @ManyToMany()
+    @JoinTable(name = "session_question",
+            joinColumns = @JoinColumn(name = "session_id"),
+            inverseJoinColumns = @JoinColumn(name = "question_id"))
     private List<Question> questions;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @ManyToMany()
+    @JoinTable(name = "session_answer",
+            joinColumns = @JoinColumn(name = "session_id"),
+            inverseJoinColumns = @JoinColumn(name = "answer_id"))
     private List<Answers> answers;
 
     @ManyToOne
@@ -91,5 +100,14 @@ public class Session {
         this.user = user;
     }
 
-
+    @Override
+    public String toString() {
+        return "Session{" +
+                "sessionId=" + sessionId +
+                ", questions=" + questions +
+                ", answers=" + answers +
+                ", user=" + user +
+                ", note=" + note +
+                '}';
+    }
 }

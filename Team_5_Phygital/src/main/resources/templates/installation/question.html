@@ -36,18 +36,16 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center " >
-
-
-
     <!-- Overlay to cover the content when blocked -->
     <div class="blocked-overlay" id="blockedOverlay"></div>
     <h1 class="page-title text-primary">Question</h1>
     <div class="table-info" id="timer"></div>
+    <div id="userCount"> </div>
     <div class="row justify-content-center" id="content" th:object="${questions}">
         <!-- Question Form -->
         <div class="col-md-6">
-            <section class="mt-5 text-center">
-                <textarea id="notesField" class="col-md-12"></textarea>
+            <section class="mt-5 text-center" id="main">
+                <textarea id="notesField" class="col-md-12" placeholder="Take some notes here"> </textarea>
                 <form id="questionForm" th:object="${questions}">
                     <div th:each="question, index: ${questions}" th:id="${'question' + index.index}">
                         <h2 class="text-secondary" th:id="${'questionId_'+question.id}" th:text="${'Question ' + (index.index+1)}">Question Number</h2>
@@ -78,19 +76,24 @@
                         </div>
                     </div>
 
+                </form>
 <!--                    <button type="submit" id="submit">Save</button>-->
 
                     <button class="btn btn-primary" id="submit" type="button">
                         Save
                     </button>
-                </form>
                 <hr>
+                <a class="btn btn-secondary" th:if="${isCircular}" id="minUser" ><i class="fas fa-minus"></i></a>
+                <a class="btn" th:if="${isCircular}"  type="hidden"></a>
+                <a class="btn btn-secondary" th:if="${isCircular}" id="plusUser"><i class="fas fa-plus"></i></a>
+                <br>
                 <a class="btn btn-secondary" id="backButton" ><i class="fas fa-arrow-left"></i></a>
                 <a class="btn btn-secondary" id="pauseButton"><i id="pauseIcon" class="fas fa-pause"></i></a>
                 <a class="btn btn-secondary" id="nextButton" ><i class="fas fa-arrow-right"></i></a>
             </section>
         </div>
     </div>
+    <br>
     <!-- Return Button -->
     <div class="center-container">
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>

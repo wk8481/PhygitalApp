@@ -126,14 +126,7 @@
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:if="${flows.isCircular}">Circular flow</td>
-                                <td th:unless="${flows.isCircular}">Not circular flow</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <a th:href="@{/admin/project/{projectId}/flow/new(projectId=${project.id})}">
-                                        <i class="fas fa-plus"></i></a>
-                                </td>
-                                <td></td>
+                                <td th:unless="${flows.isCircular}">Linear flow</td>
                             </tr>
                             </tbody>
                         </table>
