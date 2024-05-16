@@ -77,7 +77,7 @@ INSERT INTO notes(note)
 VALUES ('sdaf');
 
 INSERT INTO session(note_id, session_id, sub_theme_id, user_id, timestamp)
-VALUES (1, 1, 1, 1, now());
+VALUES (1, 1, 1, 1, '2024-05-16T19:12:05.622719');
 
 INSERT INTO session_answer(answer_id, session_id)
 VALUES (1, 1),

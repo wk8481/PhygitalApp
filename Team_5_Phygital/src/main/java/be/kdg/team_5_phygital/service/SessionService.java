@@ -27,9 +27,9 @@ public class SessionService {
 
     }
 
-    public Optional<Session> getSessionOfUser(User user){
+    public Optional<Session> getSessionOfUser(User user, SubTheme subTheme){
 
-        return sessionRepository.findSessionByUserIs(user);
+        return sessionRepository.findSessionByUserIsAndSubTheme(user, subTheme);
     }
 
     @Transactional

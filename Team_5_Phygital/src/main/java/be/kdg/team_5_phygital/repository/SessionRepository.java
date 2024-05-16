@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public interface SessionRepository extends JpaRepository<Session, Integer> {
 
-    Optional<Session> findSessionByUserIs(@Param("user") User user);
+    Optional<Session> findSessionByUserIsAndSubTheme(User user, SubTheme subTheme);
 
     @Query("FROM Session s LEFT JOIN FETCH s.answers WHERE s = :session")
     Session getAnswersOfSession(@Param("session") Session session);

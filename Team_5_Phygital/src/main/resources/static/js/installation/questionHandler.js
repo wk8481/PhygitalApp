@@ -202,7 +202,6 @@ function submitAnswer(event) {
                 answer = document.getElementsByClassName('range').item(0).value;
                 break
             case "singleChoice":
-
                 answer = document.querySelector('input[name=' + answerName + ']:checked').value
                 break
         }
@@ -256,6 +255,9 @@ function submitAnswer(event) {
 
 
 function moveToNextQuestion() {
+    if (isCircular) {
+        submitAnswer()
+    }
     if (queue === 0){
         if (currentIndex < questionDivs.length - 1) {
             currentIndex++;
@@ -271,9 +273,7 @@ function moveToNextQuestion() {
         minUser()
     }
 
-    if (isCircular) {
-        submitAnswer()
-    }else if (currentIndex === questionDivs.length-1){
+    if (!isCircular && currentIndex === questionDivs.length-1){
         document.getElementById("submit").style.visibility = "visible"
 
     }
