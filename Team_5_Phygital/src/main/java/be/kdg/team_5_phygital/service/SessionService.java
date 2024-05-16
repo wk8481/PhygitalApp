@@ -28,15 +28,8 @@ public class SessionService {
     }
 
     public Optional<Session> getSessionOfUser(User user, SubTheme subTheme){
-
-        return sessionRepository.findSessionByUserIsAndSubTheme(user, subTheme);
-    }
-
-    @Transactional
-    public Session updateSessionAnswers(Session session, Answers answer){
-       Session ans = session;
-        log.error("Ans {}", ans);
-        return null;
+        LocalDateTime oneHourAgo = LocalDateTime.now().minusHours(1);
+        return sessionRepository.findSessionByUserAndSubThemeWithinLastHour(user, subTheme, oneHourAgo);
     }
 
     public Session getAnswersOfSession(Session session){

@@ -36,7 +36,7 @@ public class Session {
     @OneToOne
     private Notes note;
 
-    @OneToOne
+    @ManyToOne
     private SubTheme subTheme;
 
     public SubTheme getSubTheme() {

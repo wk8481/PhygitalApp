@@ -128,12 +128,13 @@ public class QuestionsController {
                 Answers answer1 = answerService.saveAnswer(a);
                 answerList.add(answer1);
             }
-            Notes note = notesService.createNote(newAnswerDto.getNote());
 
             if (sessionService.getSessionOfUser(user, subTheme).isEmpty()){
+                Notes note = notesService.createNote(newAnswerDto.getNote());
                 sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note, subTheme));
             } else {
                 Session session = sessionService.getSessionOfUser(user, subTheme).orElse(null);
+                notesService.updateNote(session.getNote(), newAnswerDto.getNote());
                 sessionService.addAnswerToSession(session, answerList.get(0));
                 sessionService.addQuestionToSession(session, questionList.get(0));
                 sessionService.updateTime(session);
