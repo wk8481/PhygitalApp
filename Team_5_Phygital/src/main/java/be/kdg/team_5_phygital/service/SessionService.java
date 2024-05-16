@@ -62,5 +62,6 @@ public class SessionService {
     public void updateTime(Session session){
 
         session.setTimestamp(LocalDateTime.now());
+        sessionRepository.save(session);
     }
 }
