@@ -3,12 +3,12 @@ let isCircular
 
 var isCircularExists = document.getElementById("minUser");
 
+document.getElementById("submit").style.visibility = "hidden"
 let currentIndex = 0;
 if (isCircularExists !== null) {
     isCircular = true
     document.getElementById("minUser").addEventListener("click", minUser);
     document.getElementById("plusUser").addEventListener("click", plusUser);
-    document.getElementById("submit").style.display = "none"
     document.getElementById("nextButton").classList.remove("btn-secondary")
     document.getElementById("nextButton").classList.add("btn-primary")
 } else {
@@ -151,7 +151,7 @@ function submitAnswer(event) {
             let answerName = "answer" + i
             switch (questionNr.querySelector("div").querySelector("div").id) {
                 case "open":
-                    answer = document.getElementById("answerInput" + i).value
+                    answer = document.getElementById(answerName).value
                     break
                 case "multipleChoice":
                     answer = ""
@@ -164,7 +164,7 @@ function submitAnswer(event) {
                     answer = answer.slice(0, -2); // Delete last two characters
                     break
                 case "range":
-                    answer = document.getElementsByClassName('range').item(0).value;
+                    answer = document.getElementById(answerName).value;
                     break
                 case "singleChoice":
 
@@ -186,7 +186,7 @@ function submitAnswer(event) {
         let answerName = "answer" + currentIndex
         switch (questionNr.querySelector("div").querySelector("div").id) {
             case "open":
-                answer = document.getElementById("answerInput" + i).value
+                answer = document.getElementById(answerName).value
                 break
             case "multipleChoice":
                 answer = ""
@@ -256,12 +256,11 @@ function submitAnswer(event) {
 
 
 function moveToNextQuestion() {
-
-    submitAnswer()
     if (queue === 0){
         if (currentIndex < questionDivs.length - 1) {
             currentIndex++;
             showQuestion(currentIndex);
+
         } else {
             if (isCircular) {
                 currentIndex = 0
@@ -271,9 +270,19 @@ function moveToNextQuestion() {
     } else {
         minUser()
     }
+
+    if (isCircular) {
+        submitAnswer()
+    }else if (currentIndex === questionDivs.length-1){
+        document.getElementById("submit").style.visibility = "visible"
+
+    }
 }
 
 function moveToPreviousQuestion() {
+    if(!isCircular) {
+        document.getElementById("submit").style.visibility = "hidden"
+    }
     if (currentIndex > 0) {
         currentIndex--;
         showQuestion(currentIndex);
@@ -288,11 +297,14 @@ function showQuestion(index) {
     questionDivs[index].style.display = 'block';
 }
 
-// Range slider change event listener
-let rangeInput = document.getElementsByClassName('range').item(0);
-if (rangeInput != null){
-let rangeValue = document.getElementById('rangeValue');
-rangeInput.addEventListener("input", function() {
-    rangeValue.textContent = "Value: " + rangeInput.value;
+// Range slider change event listener for all range inputs
+let rangeInputs = document.getElementsByClassName('range');
 
-})};
+Array.from(rangeInputs).forEach(function(rangeInput) {
+    let rangeValue = rangeInput.nextElementSibling;
+    rangeInput.addEventListener("input", function() {
+        if (rangeValue != null) {
+            rangeValue.textContent = "Value: " + rangeInput.value;
+        }
+    });
+});

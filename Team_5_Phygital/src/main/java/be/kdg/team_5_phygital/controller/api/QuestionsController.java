@@ -131,7 +131,7 @@ public class QuestionsController {
             Notes note = notesService.createNote(newAnswerDto.getNote());
 
             if (sessionService.getSessionOfUser(user).isEmpty()){
-                sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note));
+                sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note, subTheme));
             } else {
                 Session session = sessionService.getSessionOfUser(user).orElse(null);
                 sessionService.addAnswerToSession(session, answerList.get(0));

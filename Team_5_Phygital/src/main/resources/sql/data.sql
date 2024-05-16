@@ -68,3 +68,23 @@ values (1, 'Green'),
        (7, 'No');
 
 
+Insert INTO answer(answers)
+values ('green'),
+       ('71'),
+       ('yes');
+
+INSERT INTO notes(note)
+VALUES ('sdaf');
+
+INSERT INTO session(note_id, session_id, sub_theme_id, user_id, timestamp)
+VALUES (1, 1, 1, 1, now());
+
+INSERT INTO session_answer(answer_id, session_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);
+
+INSERT INTO session_question(question_id, session_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);

@@ -1,6 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
+import be.kdg.team_5_phygital.domain.Session;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;

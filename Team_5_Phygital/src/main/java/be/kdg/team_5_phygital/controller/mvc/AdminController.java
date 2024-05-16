@@ -28,8 +28,9 @@ public class AdminController {
     private final SubThemeService subThemeService;
     private final QuestionService questionService;
     private final PossibleAnswerService possibleAnswerService;
+    private final SessionService sessionService;
 
-    public AdminController(SharingPlatformService sharingPlatformService, ClientService clientService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
+    public AdminController(SharingPlatformService sharingPlatformService, ClientService clientService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService, SessionService sessionService) {
         this.sharingPlatformService = sharingPlatformService;
         this.clientService = clientService;
         this.projectService = projectService;
@@ -40,6 +41,7 @@ public class AdminController {
         this.subThemeService = subThemeService;
         this.questionService = questionService;
         this.possibleAnswerService = possibleAnswerService;
+        this.sessionService = sessionService;
     }
 
     @GetMapping("platform")
@@ -203,5 +205,15 @@ public class AdminController {
         Project project = projectService.getProject(projectId);
         model.addAttribute("project", project);
         return "admin/project-stats";
+    }
+
+    @GetMapping("subTheme/{subThemeId}/sessions")
+    public String getSubThemeAnswers(@PathVariable int subThemeId, Model model) {
+        List<Session> session = sessionService.getSessions(subThemeService.getSubTheme(subThemeId));
+        List<Session> session_questions = sessionService.getQuestionsOfSessions(session);
+        List<Session> session_answers = sessionService.getAnswersOfSessions(session);
+        model.addAttribute("sessions_q", session_questions);
+        model.addAttribute("sessions_a", session_answers);
+        return "admin/subtheme-sessions";
     }
 }
