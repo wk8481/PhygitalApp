@@ -57,7 +57,7 @@ public class Administrator extends User {
     public String toString() {
         return "Administrator{" +
                 "sharingPlatforms=" + sharingPlatforms +
-                ", projects=" + projects +
+                ", all_projects=" + projects +
                 '}';
     }
 }

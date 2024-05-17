@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Phygital</title>
+    <thymeleaf th:replace="~{fragments/web-includes :: meta_script_link}"></thymeleaf>
+</head>
+<body class="container">
+<header th:replace="~{fragments/web-includes::header}"></header>
+<main class="container text-center">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Home</h1>
+        </div>
+    </div>
+    <!-- Blog Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="blog-post" th:each="project : ${projects}">
+                <h3 class="mb-3" th:text="${project.name}"></h3>
+                <p class="text-muted mb-3">Posted on: 12-12-2000</p>
+                <p>Description</p>
+                <a class="btn btn-primary" th:href="@{/web-app/project(projectId=${project.id})}">Read More</a>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>
