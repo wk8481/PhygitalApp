@@ -58,11 +58,11 @@ public class AdminController {
     public String getSharingPlatform(@PathVariable int platformId, Model model) {
         SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatform(platformId);
         Client client = clientService.getAllSharingPlatformAdmins().get(0);
-        List<Project> platforms = projectService.getProjectBySharingPlatformId(platformId);
+        List<Project> projects = projectService.getProjectBySharingPlatformId(platformId);
         List<Supervisor> supervisors = supervisorService.findSupervisorBySharingPlatform(sharingPlatform);
         model.addAttribute("platform", sharingPlatform);
         model.addAttribute("client", client);
-        model.addAttribute("projects", platforms);
+        model.addAttribute("projects", projects);
         model.addAttribute("supervisor", supervisors);
         return "admin/sharing-platform";
     }

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>Home</title>
@@ -20,17 +20,17 @@
     </div>
 
     <div sec:authorize="hasRole('ADMIN')">
-    <div class="row justify-content-center">
-        <div class="row mb-3 justify-content-center">
-            <div class="col-md-6">
-                <div class="card" onclick="location.href='/admin/platform';" style="cursor: pointer;">
-                    <div class="card-body">
-                        <h5 class="card-title">Admin</h5>
+        <div class="row justify-content-center">
+            <div class="row mb-3 justify-content-center">
+                <div class="col-md-6">
+                    <div class="card" onclick="location.href='/admin/platform';" style="cursor: pointer;">
+                        <div class="card-body">
+                            <h5 class="card-title">Admin</h5>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     <div sec:authorize="hasAnyRole('ADMIN','CLIENT')">
         <div class="row mb-3 justify-content-center">
@@ -44,16 +44,24 @@
         </div>
     </div>
 
-        <div class="row mb-3 justify-content-center">
-            <div class="col-md-6">
-                <div class="card" onclick="location.href='/installation/project-selection';" style="cursor: pointer;">
-                    <div class="card-body">
-                        <h5 class="card-title">Installation</h5>
-                    </div>
+    <div class="row mb-3 justify-content-center">
+        <div class="col-md-6">
+            <div class="card" onclick="location.href='/installation/project-selection';" style="cursor: pointer;">
+                <div class="card-body">
+                    <h5 class="card-title">Installation</h5>
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="row mb-3 justify-content-center">
+        <div class="col-md-6">
+            <div class="card" onclick="location.href='/web-app/home';" style="cursor: pointer;">
+                <div class="card-body">
+                    <h5 class="card-title">Web Application</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

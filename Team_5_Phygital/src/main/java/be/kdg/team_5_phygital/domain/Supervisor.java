@@ -61,7 +61,7 @@ public class Supervisor extends User {
     public String toString() {
         return "Supervisor{" +
                 "sharingPlatform=" + sharingPlatform +
-                ", projects=" + projects +
+                ", all_projects=" + projects +
                 '}';
     }
 }
