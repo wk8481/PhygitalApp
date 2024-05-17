@@ -3,7 +3,9 @@ package be.kdg.team_5_phygital.controller.api;
 import be.kdg.team_5_phygital.controller.api.dto.NewProjectDto;
 import be.kdg.team_5_phygital.controller.api.dto.ProjectDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
+import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.Project;
+import be.kdg.team_5_phygital.service.FlowService;
 import be.kdg.team_5_phygital.service.ProjectService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -24,10 +26,12 @@ public class ProjectsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ProjectService projectService;
     private final ModelMapper modelMapper;
+    private final FlowService flowService;
 
-    public ProjectsController(ProjectService projectService, ModelMapper modelMapper) {
+    public ProjectsController(ProjectService projectService, ModelMapper modelMapper, FlowService flowService) {
         this.projectService = projectService;
         this.modelMapper = modelMapper;
+        this.flowService = flowService;
     }
 
     @GetMapping("{id}")
@@ -71,6 +75,8 @@ public class ProjectsController {
         }
         logger.info("Creating new project: {}", projectDto.getName());
         Project createdProject = projectService.saveProject(projectDto.getName(), projectDto.getBackgroundColorHex(), projectDto.getFontName(), projectDto.getSharingPlatformId());
+        flowService.saveFlow(new Flow("flow 1", true, createdProject));
+        flowService.saveFlow(new Flow("flow 2", false, createdProject));
         return new ResponseEntity<>(modelMapper.map(createdProject, ProjectDto.class), HttpStatus.CREATED);
     }
 

@@ -81,8 +81,10 @@ public class InstallationController {
         SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
         List<PossibleAnswers> possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
+        boolean isCircular = subTheme.isCircularFlow();
         mav.addObject("questions", questions);
         mav.addObject("possibleAnswers", possibleAnswers);
+        mav.addObject("isCircular", isCircular);
         return mav;
     }
 
