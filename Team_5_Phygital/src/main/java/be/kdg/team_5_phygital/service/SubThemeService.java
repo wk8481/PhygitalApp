@@ -28,10 +28,6 @@ public class SubThemeService {
         return subThemeRepository.findById(subThemeId).orElse(null);
     }
 
-    public Optional<SubTheme> getSubThemeById(int subThemeId) {
-        return subThemeRepository.findById(subThemeId);
-    }
-
     public SubTheme getSubThemeByName(String name) {
         return subThemeRepository.findByName(name).orElse(null);
     }

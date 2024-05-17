@@ -71,7 +71,7 @@ public class QuestionsController {
 
     @GetMapping("{subThemeId}")
     public ResponseEntity<List<QuestionDto>> getAllQuestionsBySubTheme(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> allQuestions = questionService.getQuestionsBySubTheme(subTheme);
         List<QuestionDto> questionDtos = allQuestions.stream().map(question -> modelMapper.map(question, QuestionDto.class)).collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
@@ -98,7 +98,7 @@ public class QuestionsController {
         Answers answer = modelMapper.map(newAnswerDto, Answers.class);
         if (answer != null) {
             User user = userService.getUserByMail(newAnswerDto.getUserMail());
-            SubTheme subTheme = subThemeService.getSubThemeById(newAnswerDto.getSubThemeId()).orElse(null);
+            SubTheme subTheme = subThemeService.getSubTheme(newAnswerDto.getSubThemeId());
             Map<String, String> questionAnswerMap = new HashMap<>();
 
             // Split question and answer strings by "|" delimiter

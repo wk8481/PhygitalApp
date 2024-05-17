@@ -40,7 +40,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2>Info</h2>
-                <table class="table-borderless" th:object="${st}">
+                <table class="table-borderless" th:object="${subTheme}">
                     <tbody>
                     <!-- Name -->
                     <tr>
@@ -94,7 +94,7 @@
                                     <input id="visibility" type="checkbox">
                                 </td>
                                 <td>
-                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/{questionId}(subThemeId=${st.id}, questionId=${question.id})}"><i
+                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/{questionId}(subThemeId=${subTheme.id}, questionId=${question.id})}"><i
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="'Question '+ ${qIndex.count}">Question</td>
@@ -102,7 +102,7 @@
                             <tr>
                                 <td></td>
                                 <td>
-                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/new(subThemeId=${st.id})}">
+                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/new(subThemeId=${subTheme.id})}">
                                         <i class="fas fa-plus"></i></a>
                                 </td>
                                 <td></td>
@@ -124,11 +124,11 @@
                         Return</a>
                 </div>
             </div>
-            <!-- Statistics Button -->
+            <!-- Sessions Button -->
             <div class="col-md-2 center-container text-center">
                 <div class="center-container">
-                    <a class="btn btn-secondary" th:href="@{/admin/subTheme/{subthemeId}/sessions(subthemeId=${st.getId()})}">
-                        Statistics
+                    <a class="btn btn-secondary" th:href="@{/admin/sub-theme/{subThemeId}/sessions(subThemeId=${subTheme.getId()})}">
+                        Sessions
                     </a>
                 </div>
             </div>

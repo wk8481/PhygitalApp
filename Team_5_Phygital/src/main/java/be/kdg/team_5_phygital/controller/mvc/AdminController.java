@@ -153,10 +153,10 @@ public class AdminController {
 
     @GetMapping("flow/{flowId}/sub-theme/{subThemeId}")
     public String getSubTheme(@PathVariable int flowId, @PathVariable int subThemeId, Model model) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
         Project project = flowService.getFlow(flowId).getProject();
-        model.addAttribute("st", subTheme);
+        model.addAttribute("subTheme", subTheme);
         model.addAttribute("questions", questions);
         model.addAttribute("project", project);
         return "admin/sub-theme";
@@ -207,13 +207,15 @@ public class AdminController {
         return "admin/project-stats";
     }
 
-    @GetMapping("subTheme/{subThemeId}/sessions")
+    @GetMapping("sub-theme/{subThemeId}/sessions")
     public String getSubThemeAnswers(@PathVariable int subThemeId, Model model) {
+        Project project = projectService.getProject(subThemeService.getSubTheme(subThemeId).getFlow().getId());
         List<Session> session = sessionService.getSessions(subThemeService.getSubTheme(subThemeId));
         List<Session> session_questions = sessionService.getQuestionsOfSessions(session);
         List<Session> session_answers = sessionService.getAnswersOfSessions(session);
+        model.addAttribute("project", project);
         model.addAttribute("sessions_q", session_questions);
         model.addAttribute("sessions_a", session_answers);
-        return "admin/subtheme-sessions";
+        return "admin/sub-theme-sessions";
     }
 }
