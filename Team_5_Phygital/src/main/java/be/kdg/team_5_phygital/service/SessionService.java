@@ -21,6 +21,10 @@ public class SessionService {
         this.sessionRepository = sessionRepository;
     }
 
+    public Session getSession(int id) {
+        return sessionRepository.findById(id).orElse(null);
+    }
+
     @Transactional
     public Session createSession(Session session) {
         return sessionRepository.save(session);
