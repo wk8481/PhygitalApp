@@ -178,6 +178,7 @@ public class AdminController {
         List<PossibleAnswers> possibleAnswers = new ArrayList<>(4);
         questions.add(question);
         possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
+        model.addAttribute("project", project);
         model.addAttribute("pA", possibleAnswers);
         return "admin/question";
     }
@@ -216,6 +217,6 @@ public class AdminController {
         model.addAttribute("project", project);
         model.addAttribute("sessions_q", session_questions);
         model.addAttribute("sessions_a", session_answers);
-        return "admin/sub-theme-sessions";
+        return "admin/sessions";
     }
 }

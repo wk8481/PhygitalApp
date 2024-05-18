@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="phygital@localhost" uuid="a3da145c-3f41-4ac1-bb70-052bda4e5b24">
+    <data-source source="LOCAL" name="phygital@localhost" uuid="9635fc1e-1a57-4953-bb14-1e07a87ac0ca">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5444/phygital</jdbc-url>
       <jdbc-additional-properties>
