@@ -6,24 +6,32 @@
 </head>
 <body class="container">
 <header th:replace="~{fragments/web-includes::header}"></header>
-<main class="container text-center">
+<main class="container text-center" th:if="${project}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Project</h1>
+            <h1 class="page-title text-primary" th:text="${project.name}"></h1>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <div class="col-md-12">
-                    <div th:if="${project}">
-                        <h1 th:text="${project.name}"></h1>
-                        <h2>Theme</h2>
-                        <p th:if="${theme}" th:text="${theme.name}"></p>
+                    <div>
+                        <h2 class="text-secondary" th:if="${theme}" th:text="${theme.name}"></h2>
                         <p th:if="${theme}" th:text="${theme.information}"></p>
                     </div>
                 </div>
+            </section>
+            <!-- Comment Section -->
+            <section class="mt-5">
+                <h2 class="text-secondary">Add a Comment</h2>
+                <textarea id="comment" rows="4" cols="50"></textarea><br>
+                <button onclick="addComment()">Submit Comment</button>
+            </section>
+            <section class="mt-5">
+                <h2 class="text-secondary">Comments</h2>
+                <div id="comments"></div>
             </section>
         </div>
     </div>
