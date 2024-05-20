@@ -21,7 +21,7 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <h3 class="card-title text-secondary" th:text="${project.name}"></h3>
-                            <p class="card-text text-muted">Posted on: 12-12-2000</p>
+                            <p class="card-text text-muted" th:text="${project.sharingPlatform.name}"></p>
                             <a class="btn btn-primary" th:href="@{/web-app/project/{projectId}(projectId=${project.id})}">Read More</a>
                         </div>
                     </div>

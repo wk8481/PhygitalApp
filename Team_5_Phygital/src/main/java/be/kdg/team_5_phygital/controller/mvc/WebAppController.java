@@ -1,7 +1,9 @@
 package be.kdg.team_5_phygital.controller.mvc;
 
 
+import be.kdg.team_5_phygital.domain.Comment;
 import be.kdg.team_5_phygital.domain.Project;
+import be.kdg.team_5_phygital.domain.Theme;
 import be.kdg.team_5_phygital.service.CommentService;
 import be.kdg.team_5_phygital.service.ProjectService;
 import be.kdg.team_5_phygital.service.ThemeService;
@@ -44,9 +46,12 @@ public class WebAppController {
 
     @GetMapping("project/{projectId}")
     public String getProject(@PathVariable int projectId, Model model) {
-        model.addAttribute("project", projectService.getProject(projectId));
-        model.addAttribute("theme", themeService.getThemeByProjectId(projectId));
-        model.addAttribute("comments", commentService.getCommentsByProjectId(projectId));
+        Project project = projectService.getProject(projectId);
+        Theme theme = themeService.getThemeByProjectId(projectId);
+        List<Comment> comments = commentService.getCommentsByProjectId(projectId);
+        model.addAttribute("project", project);
+        model.addAttribute("theme", theme);
+        model.addAttribute("comments", comments);
         return "web-app/project";
     }
 }

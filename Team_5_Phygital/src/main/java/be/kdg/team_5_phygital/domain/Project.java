@@ -35,11 +35,11 @@ public class Project {
     @OneToMany(mappedBy = "project")
     private List<Flow> flows;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "sharing_platform_id")
     private SharingPlatform sharingPlatform;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "administrator_id")
     private Administrator administrator;
 
