@@ -7,7 +7,7 @@
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/question.js" type="module"></script>
-    <script src="/js/admin/possibleQuestions.js" type="module"></script>
+    <script src="/js/admin/possible-questions.js" type="module"></script>
     <script src="/js/utils.js"></script>
     <style>
         body {
@@ -41,53 +41,54 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Info</h2>
-                <table class="table-borderless">
-                    <tbody th:object="${q}">
-                    <!-- Text -->
-                    <tr>
-                        <th class="col-sm-4">
-                            <label class="form-label" for="textInput">Text:</label>
-                        </th>
-                        <td class="col-sm-8">
-                            <textarea class="form-control" id="textInput" rows="4" th:field="*{text}"></textarea>
-                        </td>
-                    </tr>
-                    <!-- Question Type -->
-                    <tr>
-                        <th class="col-sm-4">
-                            <label class="form-label" for="questionTypeInput">Question Type:</label>
-                        </th>
-                        <td class="col-sm-8">
-                            <select class="form-control" id="questionTypeInput">
-                                <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
-                                        th:selected="${type == q.type}"
-                                        th:text="${type}"
-                                        th:value="${type}">>
-                                </option>
-                            </select>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <tbody>
-                    <tr>
-                        <a id="addButton" value="Add answer input" class="fas fa-plus" style="visibility: visible"></a>
-                        <a id="removeButton" value="remove answer input"  class="fas fa-minus" style="visibility: visible"></a>
-                    </tr> <br>
-                    <tr id="answerInputs1" ><input type="text" th:value="${pA.size() > 0 and pA[0] != null ? pA[0].answer : ''}" id="answer_1" class="answer-input" th:style="'visibility: ' + (${pA.size() > 0 ? 'visible' : 'hidden'})"></tr><br>
-                    <tr id="answerInputs2" ><input type="text" th:value="${pA.size() > 1 and pA[1] != null ? pA[1].answer : ''}" id="answer_2" class="answer-input" th:style="'visibility: ' + (${pA.size() > 1 ? 'visible' : 'hidden'})"></tr><br>
-                    <tr id="answerInputs3" ><input type="text" th:value="${pA.size() > 2 and pA[2] != null ? pA[2].answer : ''}" id="answer_3" class="answer-input" th:style="'visibility: ' + (${pA.size() > 2 ? 'visible' : 'hidden'})"></tr><br>
-                    <tr id="answerInputs4" ><input type="text" th:value="${pA.size() > 3 and pA[3] != null ? pA[3].answer : ''}" id="answer_4" class="answer-input" th:style="'visibility: ' + (${pA.size() > 3 ? 'visible' : 'hidden'})"></tr><br>
-
-                    </tbody>
-                </table>
-                <!-- Save Button -->
-                <div class="row mt-3 justify-content-center">
-                    <div class="col-sm-4">
-                        <button class="btn btn-primary" id="saveButton" type="button">
-                            Save
-                        </button>
+                <div class="col-md-12">
+                    <table class="table-borderless">
+                        <tbody th:object="${q}">
+                        <!-- Text -->
+                        <tr>
+                            <th class="col-sm-1">
+                                <label class="form-label" for="textInput">Text:</label>
+                            </th>
+                            <td class="col-sm-6">
+                                <textarea class="form-control" id="textInput" rows="4" th:field="*{text}"></textarea>
+                            </td>
+                        </tr>
+                        <!-- Question Type -->
+                        <tr>
+                            <th class="col-sm-1">
+                                <label class="form-label" for="questionTypeInput">Question Type:</label>
+                            </th>
+                            <td class="col-sm-6">
+                                <select class="form-control" id="questionTypeInput">
+                                    <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
+                                            th:selected="${type == q.type}"
+                                            th:text="${type}"
+                                            th:value="${type}">>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table-borderless">
+                        <tbody>
+                        <tr id="answerInputs1" ><label for="answer_1"></label><input type="text" th:value="${pA.size() > 0 and pA[0] != null ? pA[0].answer : ''}" id="answer_1" class="answer-input" th:style="'visibility: ' + (${pA.size() > 0 ? 'visible' : 'hidden'})"></tr><br>
+                        <tr id="answerInputs2" ><label for="answer_2"></label><input type="text" th:value="${pA.size() > 1 and pA[1] != null ? pA[1].answer : ''}" id="answer_2" class="answer-input" th:style="'visibility: ' + (${pA.size() > 1 ? 'visible' : 'hidden'})"></tr><br>
+                        <tr id="answerInputs3" ><label for="answer_3"></label><input type="text" th:value="${pA.size() > 2 and pA[2] != null ? pA[2].answer : ''}" id="answer_3" class="answer-input" th:style="'visibility: ' + (${pA.size() > 2 ? 'visible' : 'hidden'})"></tr><br>
+                        <tr id="answerInputs4" ><label for="answer_4"></label><input type="text" th:value="${pA.size() > 3 and pA[3] != null ? pA[3].answer : ''}" id="answer_4" class="answer-input" th:style="'visibility: ' + (${pA.size() > 3 ? 'visible' : 'hidden'})"></tr><br>
+                        <tr>
+                            <button id="addButton" value="Add answer input" class="fas fa-plus" style="visibility: visible"></button>
+                            <button id="removeButton" value="remove answer input"  class="fas fa-minus" style="visibility: visible"></button>
+                        </tr> <br>
+                        </tbody>
+                    </table>
+                    <!-- Save Button -->
+                    <div class="row mt-3 justify-content-center">
+                        <div class="col-sm-4">
+                            <button class="btn btn-primary" id="saveButton" type="button">
+                                Save
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>

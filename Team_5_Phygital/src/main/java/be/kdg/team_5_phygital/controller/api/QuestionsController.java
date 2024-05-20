@@ -71,7 +71,7 @@ public class QuestionsController {
 
     @GetMapping("{subThemeId}")
     public ResponseEntity<List<QuestionDto>> getAllQuestionsBySubTheme(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> allQuestions = questionService.getQuestionsBySubTheme(subTheme);
         List<QuestionDto> questionDtos = allQuestions.stream().map(question -> modelMapper.map(question, QuestionDto.class)).collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
@@ -98,7 +98,7 @@ public class QuestionsController {
         Answers answer = modelMapper.map(newAnswerDto, Answers.class);
         if (answer != null) {
             User user = userService.getUserByMail(newAnswerDto.getUserMail());
-            SubTheme subTheme = subThemeService.getSubThemeById(newAnswerDto.getSubThemeId()).orElse(null);
+            SubTheme subTheme = subThemeService.getSubTheme(newAnswerDto.getSubThemeId());
             Map<String, String> questionAnswerMap = new HashMap<>();
 
             // Split question and answer strings by "|" delimiter
@@ -128,12 +128,13 @@ public class QuestionsController {
                 Answers answer1 = answerService.saveAnswer(a);
                 answerList.add(answer1);
             }
-            Notes note = notesService.createNote(newAnswerDto.getNote());
 
-            if (sessionService.getSessionOfUser(user).isEmpty()){
-                sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note));
+            if (sessionService.getSessionOfUser(user, subTheme).isEmpty()){
+                Notes note = notesService.createNote(newAnswerDto.getNote());
+                sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note, subTheme));
             } else {
-                Session session = sessionService.getSessionOfUser(user).orElse(null);
+                Session session = sessionService.getSessionOfUser(user, subTheme).orElse(null);
+                notesService.updateNote(session.getNote(), newAnswerDto.getNote());
                 sessionService.addAnswerToSession(session, answerList.get(0));
                 sessionService.addQuestionToSession(session, questionList.get(0));
                 sessionService.updateTime(session);

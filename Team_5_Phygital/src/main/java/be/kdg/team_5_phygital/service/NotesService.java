@@ -17,4 +17,10 @@ public class NotesService {
     public Notes createNote(String note){
         return notesRepository.save(new Notes(note));
     }
+
+    @Transactional
+    public void updateNote(Notes note, String newNote){
+        note.setNote(newNote);
+        notesRepository.save(note);
+    }
 }

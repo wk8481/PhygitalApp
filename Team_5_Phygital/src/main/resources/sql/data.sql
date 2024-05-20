@@ -67,6 +67,27 @@ values (1, 'Green'),
        (7, 'Yes'),
        (7, 'No');
 
+Insert INTO answer(answers)
+values ('green'),
+       ('71'),
+       ('yes');
+
+INSERT INTO notes(note)
+VALUES ('sdaf');
+
+INSERT INTO session(note_id, sub_theme_id, user_id, timestamp)
+VALUES (1, 1, 1, '2024-05-16T19:12:05.622719');
+
+INSERT INTO session_answer(answer_id, session_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);
+
+INSERT INTO session_question(question_id, session_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);
+
 INSERT INTO comment (text, project_id)
 VALUES ('Comment 1', 1),
        ('Comment 2', 1);

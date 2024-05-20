@@ -36,12 +36,24 @@ public class Session {
     @OneToOne
     private Notes note;
 
-    public Session(LocalDateTime timestamp, List<Question> questions, List<Answers> answers, User user, Notes note) {
+    @ManyToOne
+    private SubTheme subTheme;
+
+    public SubTheme getSubTheme() {
+        return subTheme;
+    }
+
+    public void setSubTheme(SubTheme subTheme) {
+        this.subTheme = subTheme;
+    }
+
+    public Session(LocalDateTime timestamp, List<Question> questions, List<Answers> answers, User user, Notes note, SubTheme subTheme) {
         this.timestamp = timestamp;
         this.questions = questions;
         this.answers = answers;
         this.user = user;
         this.note = note;
+        this.subTheme = subTheme;
     }
 
     public Session(int sessionId) {
