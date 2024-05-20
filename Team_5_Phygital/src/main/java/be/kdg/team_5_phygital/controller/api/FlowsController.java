@@ -23,17 +23,11 @@ import java.util.stream.Collectors;
 public class FlowsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final FlowService flowService;
-    private final FlowRepository flowRepository;
     private final ModelMapper modelMapper;
-    private final ProjectsController projectsController;
-    private final ProjectService projectService;
 
-    public FlowsController(FlowService flowService, FlowRepository flowRepository, ModelMapper modelMapper, ProjectsController projectsController, ProjectService projectService) {
+    public FlowsController(FlowService flowService, ModelMapper modelMapper) {
         this.flowService = flowService;
-        this.flowRepository = flowRepository;
         this.modelMapper = modelMapper;
-        this.projectsController = projectsController;
-        this.projectService = projectService;
     }
 
     @GetMapping("{id}")

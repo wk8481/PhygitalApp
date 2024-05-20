@@ -25,30 +25,31 @@
                 <div class="col-md-6">
                     <div class="card" onclick="location.href='/admin/platform';" style="cursor: pointer;">
                         <div class="card-body">
-                            <h5 class="card-title">Admin</h5>
+                            <h5 class="card-title">Platform</h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div sec:authorize="hasAnyRole('ADMIN','CLIENT')">
+    <div sec:authorize="hasAnyRole('CLIENT')">
         <div class="row mb-3 justify-content-center">
             <div class="col-md-6">
                 <div class="card" onclick="location.href='/admin/sharing-platform/1';" style="cursor: pointer;">
                     <div class="card-body">
-                        <h5 class="card-title">Organization</h5>
+                        <h5 class="card-title">Sharing Platform</h5>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="row mb-3 justify-content-center">
-        <div class="col-md-6">
-            <div class="card" onclick="location.href='/installation/project-selection';" style="cursor: pointer;">
-                <div class="card-body">
-                    <h5 class="card-title">Installation</h5>
+    <div sec:authorize="isAuthenticated">
+        <div class="row mb-3 justify-content-center">
+            <div class="col-md-6">
+                <div class="card" onclick="location.href='/installation/project-selection';" style="cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title">Installation</h5>
+                    </div>
                 </div>
             </div>
         </div>

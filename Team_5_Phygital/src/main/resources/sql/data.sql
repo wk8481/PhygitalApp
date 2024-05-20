@@ -67,7 +67,6 @@ values (1, 'Green'),
        (7, 'Yes'),
        (7, 'No');
 
-
 Insert INTO answer(answers)
 values ('green'),
        ('71'),
@@ -88,3 +87,7 @@ INSERT INTO session_question(question_id, session_id)
 VALUES (1, 1),
        (2, 1),
        (3, 1);
+
+INSERT INTO comment (text, project_id)
+VALUES ('Comment 1', 1),
+       ('Comment 2', 1);
