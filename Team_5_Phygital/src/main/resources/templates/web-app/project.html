@@ -3,6 +3,8 @@
 <head>
     <title>Phygital</title>
     <thymeleaf th:replace="~{fragments/web-includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/web-app/post-comment.js" type="module"></script>
+    <script src="/js/utils.js"></script>
 </head>
 <body class="container">
 <header th:replace="~{fragments/web-includes::header}"></header>
@@ -26,8 +28,13 @@
             <!-- Comment Section -->
             <section class="mt-5">
                 <h4 class="text-secondary">Add a Comment</h4>
-                <textarea id="comment" rows="4" cols="50"></textarea><br>
-                <button onclick="addComment()">Submit Comment</button>
+                <label for="commentInput"></label>
+                <textarea id="commentInput" rows="4" cols="50"></textarea><br>
+                <div class="col-sm-4">
+                    <button class="btn btn-secondary" id="postButton" type="button">
+                        Post
+                    </button>
+                </div>
             </section>
             <section class="mt-5">
                 <h4 class="text-secondary">Comments</h4>
