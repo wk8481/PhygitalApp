@@ -27,18 +27,19 @@
             </section>
             <!-- Comment Section -->
             <section class="mt-5">
-                <h4 class="text-secondary">Add a Comment</h4>
-                <label for="commentInput"></label>
-                <textarea id="commentInput" rows="4" cols="50"></textarea><br>
-                <div class="col-sm-4">
-                    <button class="btn btn-secondary" id="postButton" type="button">
-                        Post
-                    </button>
-                </div>
-            </section>
-            <section class="mt-5">
                 <h4 class="text-secondary">Comments</h4>
-                <div id="comments"></div>
+                <div id="comments">
+                    <div th:each="comment : ${comments}">
+                        <div class="comment mb-3 p-3 border rounded">
+                            <p class="text-muted" th:text="${comment.text}"></p>
+                        </div>
+                    </div>
+                </div>
+                <label for="commentInput"></label>
+                <textarea cols="50" id="commentInput" rows="4"></textarea><br>
+                <button class="btn btn-secondary" id="postButton" type="button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
             </section>
         </div>
     </div>
