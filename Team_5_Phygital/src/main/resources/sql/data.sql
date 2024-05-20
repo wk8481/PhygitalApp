@@ -67,4 +67,6 @@ values (1, 'Green'),
        (7, 'Yes'),
        (7, 'No');
 
-
+INSERT INTO comment (text, project_id)
+VALUES ('Comment 1', 1),
+       ('Comment 2', 1);

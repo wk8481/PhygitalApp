@@ -1,8 +1,6 @@
 package be.kdg.team_5_phygital.repository;
 
 import be.kdg.team_5_phygital.domain.Flow;
-import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.domain.Question;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

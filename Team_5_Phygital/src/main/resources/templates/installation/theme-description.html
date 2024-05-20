@@ -20,10 +20,9 @@
         <!-- Theme Section -->
         <div class="col-md-6">
             <section class="mt-5 text-center">
-                <h2 class="text-secondary">Theme Information</h2>
+                <h2 class="text-secondary" th:text="${one_theme.name}"></h2>
                 <!-- Display the single theme -->
                 <div>
-                    <h3 th:text="${one_theme.name}"></h3>
                     <p th:text="${one_theme.information}"></p>
                 </div>
                 <!-- Continue Button -->
