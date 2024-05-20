@@ -43,6 +43,8 @@ public class Project {
     @JoinColumn(name = "administrator_id")
     private Administrator administrator;
 
+    @OneToMany(mappedBy = "project")
+    private List<Comment> comments;
 
     public Project() {
     }
