@@ -118,8 +118,8 @@ public class Session {
                 "sessionId=" + sessionId +
                 ", questions=" + questions +
                 ", answers=" + answers +
-                ", user=" + user +
-                ", note=" + note +
+                ", user=" + user.getName() +
+                ", note=" + note.getNote() +
                 '}';
     }
 }

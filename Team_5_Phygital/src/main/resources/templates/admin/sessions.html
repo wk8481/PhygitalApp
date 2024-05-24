@@ -43,13 +43,19 @@
                     <thead>
                     <tr>
                         <th>Session ID</th>
+                        <th>Supervisor</th>
                         <th>Date & Time</th>
+                        <th>CSV Export</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="ses1 : ${sessions_q}">
-                        <td th:text="${ses1.sessionId}"></td>
-                        <td th:text="${#temporals.format(ses1.timestamp, 'dd/mm/yy HH:mm')}"></td>
+                    <tr th:each="ses : ${sessions_comb}" th:href="@{'/api/sub-themes/session/' + ${ses.getSessionId()} + '/download-csv'}">
+                        <td th:text="${ses.sessionId}"></td>
+                        <td th:text="${ses.getUser().getName()}"></td>
+                        <td th:text="${#temporals.format(ses.timestamp, 'dd/MM/yy HH:mm')}"></td>
+                        <td>
+                            <a th:href="@{'/api/sub-themes/session/' + ${ses.sessionId} + '/download-csv'}"><i class="fa fa-download"></i></a>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
