@@ -210,13 +210,12 @@ public class AdminController {
 
     @GetMapping("sub-theme/{subThemeId}/sessions")
     public String getSessions(@PathVariable int subThemeId, Model model) {
-        Project project = projectService.getProject(subThemeService.getSubTheme(subThemeId).getFlow().getId());
+        Project project = subThemeService.getSubTheme(subThemeId).getFlow().getProject();
         List<Session> session = sessionService.getSessions(subThemeService.getSubTheme(subThemeId));
-        List<Session> session_questions = sessionService.getQuestionsOfSessions(session);
-        List<Session> session_answers = sessionService.getAnswersOfSessions(session);
+        List<Session> session_comb = sessionService.getAnswersAndQuestionsOfSession(session);
         model.addAttribute("project", project);
-        model.addAttribute("sessions_q", session_questions);
-        model.addAttribute("sessions_a", session_answers);
+        model.addAttribute("sessions_comb", session_comb);
+
         return "admin/sessions";
     }
 }
