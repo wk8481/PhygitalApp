@@ -27,7 +27,7 @@ public class SecurityConfig {
                         .requestMatchers("/web-app/**").permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
-                        .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll()
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/scss/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.POST, "/api/**"),
                                 antMatcher(HttpMethod.PATCH, "/api/**"),

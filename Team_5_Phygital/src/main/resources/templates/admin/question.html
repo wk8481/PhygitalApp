@@ -6,9 +6,9 @@
 <head>
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/admin/question.js" type="module"></script>
-    <script src="/js/admin/possible-questions.js" type="module"></script>
-    <script src="/js/utils.js"></script>
+    <script src="/js/admin/bundle-question.js" defer></script>
+    <script src="/js/admin/bundle-possible-questions.js" defer></script>
+    <script src="/js/bundle-utils.js" defer></script>
     <style>
         body {
             background-color: [[${project.backgroundColorHex}]];

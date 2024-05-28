@@ -6,7 +6,7 @@
 <head>
     <title>Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/admin/theme.js" type="module"></script>
+    <script src="/js/admin/bundle-theme.js" defer></script>
     <style>
         body {
             background-color: [[${project.backgroundColorHex}]];
