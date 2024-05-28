@@ -28,8 +28,9 @@ public class AdminController {
     private final SubThemeService subThemeService;
     private final QuestionService questionService;
     private final PossibleAnswerService possibleAnswerService;
+    private final SessionService sessionService;
 
-    public AdminController(SharingPlatformService sharingPlatformService, ClientService clientService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService) {
+    public AdminController(SharingPlatformService sharingPlatformService, ClientService clientService, ProjectService projectService, SupervisorService supervisorService, ThemeService themeService, InstallationService installationService, FlowService flowService, SubThemeService subThemeService, QuestionService questionService, PossibleAnswerService possibleAnswerService, SessionService sessionService) {
         this.sharingPlatformService = sharingPlatformService;
         this.clientService = clientService;
         this.projectService = projectService;
@@ -40,6 +41,7 @@ public class AdminController {
         this.subThemeService = subThemeService;
         this.questionService = questionService;
         this.possibleAnswerService = possibleAnswerService;
+        this.sessionService = sessionService;
     }
 
     @GetMapping("platform")
@@ -56,11 +58,11 @@ public class AdminController {
     public String getSharingPlatform(@PathVariable int platformId, Model model) {
         SharingPlatform sharingPlatform = sharingPlatformService.getSharingPlatform(platformId);
         Client client = clientService.getAllSharingPlatformAdmins().get(0);
-        List<Project> platforms = projectService.getProjectBySharingPlatformId(platformId);
+        List<Project> projects = projectService.getProjectBySharingPlatformId(platformId);
         List<Supervisor> supervisors = supervisorService.findSupervisorBySharingPlatform(sharingPlatform);
         model.addAttribute("platform", sharingPlatform);
         model.addAttribute("client", client);
-        model.addAttribute("projects", platforms);
+        model.addAttribute("projects", projects);
         model.addAttribute("supervisor", supervisors);
         return "admin/sharing-platform";
     }
@@ -151,10 +153,10 @@ public class AdminController {
 
     @GetMapping("flow/{flowId}/sub-theme/{subThemeId}")
     public String getSubTheme(@PathVariable int flowId, @PathVariable int subThemeId, Model model) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
         Project project = flowService.getFlow(flowId).getProject();
-        model.addAttribute("st", subTheme);
+        model.addAttribute("subTheme", subTheme);
         model.addAttribute("questions", questions);
         model.addAttribute("project", project);
         return "admin/sub-theme";
@@ -176,6 +178,7 @@ public class AdminController {
         List<PossibleAnswers> possibleAnswers = new ArrayList<>(4);
         questions.add(question);
         possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
+        model.addAttribute("project", project);
         model.addAttribute("pA", possibleAnswers);
         return "admin/question";
     }
@@ -203,5 +206,16 @@ public class AdminController {
         Project project = projectService.getProject(projectId);
         model.addAttribute("project", project);
         return "admin/project-stats";
+    }
+
+    @GetMapping("sub-theme/{subThemeId}/sessions")
+    public String getSessions(@PathVariable int subThemeId, Model model) {
+        Project project = subThemeService.getSubTheme(subThemeId).getFlow().getProject();
+        List<Session> session = sessionService.getSessions(subThemeService.getSubTheme(subThemeId));
+        List<Session> session_comb = sessionService.getAnswersAndQuestionsOfSession(session);
+        model.addAttribute("project", project);
+        model.addAttribute("sessions_comb", session_comb);
+
+        return "admin/sessions";
     }
 }

@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -35,8 +32,9 @@ public class QuestionsController {
     private final SharingPlatformService sharingPlatformService;
     private final SessionService sessionService;
     private final NotesService notesService;
+    private final FlowService flowService;
 
-    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService, SessionService sessionService, NotesService notesService) {
+    public QuestionsController(QuestionService questionService, SubThemeService subThemeService, ModelMapper modelMapper, UserService userService, AnswerService answerService, PossibleAnswerService possibleAnswerService, ProjectService projectService, SharingPlatformService sharingPlatformService, SessionService sessionService, NotesService notesService, FlowService flowService) {
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.modelMapper = modelMapper;
@@ -47,6 +45,7 @@ public class QuestionsController {
         this.sharingPlatformService = sharingPlatformService;
         this.sessionService = sessionService;
         this.notesService = notesService;
+        this.flowService = flowService;
     }
 
 
@@ -72,7 +71,7 @@ public class QuestionsController {
 
     @GetMapping("{subThemeId}")
     public ResponseEntity<List<QuestionDto>> getAllQuestionsBySubTheme(@PathVariable int subThemeId) {
-        SubTheme subTheme = subThemeService.getSubThemeById(subThemeId).orElse(null);
+        SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
         List<Question> allQuestions = questionService.getQuestionsBySubTheme(subTheme);
         List<QuestionDto> questionDtos = allQuestions.stream().map(question -> modelMapper.map(question, QuestionDto.class)).collect(Collectors.toList());
         return ResponseEntity.ok(questionDtos);
@@ -99,9 +98,8 @@ public class QuestionsController {
         Answers answer = modelMapper.map(newAnswerDto, Answers.class);
         if (answer != null) {
             User user = userService.getUserByMail(newAnswerDto.getUserMail());
-            SubTheme subTheme = subThemeService.getSubThemeById(newAnswerDto.getSubThemeId()).orElse(null);
+            SubTheme subTheme = subThemeService.getSubTheme(newAnswerDto.getSubThemeId());
             Map<String, String> questionAnswerMap = new HashMap<>();
-            logger.error(newAnswerDto.getAnswer());
 
             // Split question and answer strings by "|" delimiter
             String[] questions = newAnswerDto.getQuestion().split("\\|");
@@ -130,13 +128,22 @@ public class QuestionsController {
                 Answers answer1 = answerService.saveAnswer(a);
                 answerList.add(answer1);
             }
-            Notes note = notesService.createNote(newAnswerDto.getNote());
-            Session session = sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note));
 
+            if (sessionService.getSessionOfUser(user, subTheme).isEmpty()){
+                Notes note = notesService.createNote(newAnswerDto.getNote());
+                sessionService.createSession(new Session(LocalDateTime.now(), questionList, answerList, user, note, subTheme));
+            } else {
+                Session session = sessionService.getSessionOfUser(user, subTheme).orElse(null);
+                notesService.updateNote(session.getNote(), newAnswerDto.getNote());
+                sessionService.addAnswerToSession(session, answerList.get(0));
+                sessionService.addQuestionToSession(session, questionList.get(0));
+                sessionService.updateTime(session);
+            }
             projectService.updateTimeAndParticipants(subTheme.getFlow().getProject(), newAnswerDto.getDurationSpend());
             sharingPlatformService.updateTimeAndParticipants(subTheme.getFlow().getProject().getSharingPlatform(), newAnswerDto.getDurationSpend());
+            flowService.updateTimeAndParticipants(subTheme.getFlow(), newAnswerDto.getDurationSpend());
 
-            logger.info("Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
+//            logger.info("\n Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");

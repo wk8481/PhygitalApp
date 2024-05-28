@@ -1,10 +1,41 @@
 import {header, token} from "../util/csrf.js";
+let isCircular
+
+var isCircularExists = document.getElementById("minUser");
+
+document.getElementById("submit").style.visibility = "hidden"
+let currentIndex = 0;
+if (isCircularExists !== null) {
+    isCircular = true
+    document.getElementById("minUser").addEventListener("click", minUser);
+    document.getElementById("plusUser").addEventListener("click", plusUser);
+    document.getElementById("nextButton").classList.remove("btn-secondary")
+    document.getElementById("nextButton").classList.add("btn-primary")
+} else {
+    isCircular = false
+}
 
 document.getElementById("submit").addEventListener("click", submitAnswer);
 document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
 document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
 document.getElementById("pauseButton").addEventListener("click", togglePause);
+const userCount = document.getElementById("userCount")
+let queue = 0
 
+function minUser(){
+    if (queue>0){
+        queue--
+    }
+    userCount.innerText = "There are/is " + queue + " people in the queue."
+}
+
+function plusUser(){
+    if (queue < 15) {
+        queue++
+    }
+    userCount.innerHTML = "There are/is " + queue + " people in the queue."
+
+}
 
 var elapsedTime =0
 var seconds =0
@@ -100,27 +131,66 @@ window.onload = function () {
 }
 
 
+
 // Function to handle submitting answers
 function submitAnswer(event) {
-    event.preventDefault();
+    if (event != null) {
+        event.preventDefault();
+    }
 
     let answers = ""
     let questions = ""
 
-    for (let i = 0; i < questionDivs.length; i++) {
+    if (!isCircular) {
+        for (let i = 0; i < questionDivs.length; i++) {
+            let answer;
+            let question = document.getElementById("question_" + i).textContent;
+            let questionNr = document.getElementById("question" + i)
+            let questionId = questionNr.querySelector("h2").id.split("_")[1]
+
+            let answerName = "answer" + i
+            switch (questionNr.querySelector("div").querySelector("div").id) {
+                case "open":
+                    answer = document.getElementById(answerName).value
+                    break
+                case "multipleChoice":
+                    answer = ""
+                    const s = document.querySelectorAll('input[name=' + answerName + ']:checked')
+                    for (let sElement of s) {
+                        answer += sElement.value
+                        answer += ", "
+                    }
+
+                    answer = answer.slice(0, -2); // Delete last two characters
+                    break
+                case "range":
+                    answer = document.getElementById(answerName).value;
+                    break
+                case "singleChoice":
+
+                    answer = document.querySelector('input[name=' + answerName + ']:checked').value
+                    break
+            }
+
+            answers += answer
+            answers += " | "
+            questions += questionId
+            questions += " | "
+        }
+    } else {
         let answer;
-        let question = document.getElementById("question_"+i).textContent;
-        let questionNr = document.getElementById("question" + i)
+        let question = document.getElementById("question_" + currentIndex).textContent;
+        let questionNr = document.getElementById("question" + currentIndex)
         let questionId = questionNr.querySelector("h2").id.split("_")[1]
 
-        let answerName = "answer"+i
+        let answerName = "answer" + currentIndex
         switch (questionNr.querySelector("div").querySelector("div").id) {
             case "open":
-                answer = document.getElementById("answerInput" + i).value
+                answer = document.getElementById(answerName).value
                 break
             case "multipleChoice":
                 answer = ""
-                const s = document.querySelectorAll('input[name='+answerName+']:checked')
+                const s = document.querySelectorAll('input[name=' + answerName + ']:checked')
                 for (let sElement of s) {
                     answer += sElement.value
                     answer += ", "
@@ -132,17 +202,14 @@ function submitAnswer(event) {
                 answer = document.getElementsByClassName('range').item(0).value;
                 break
             case "singleChoice":
-
-                answer = document.querySelector('input[name='+answerName+']:checked').value
+                answer = document.querySelector('input[name=' + answerName + ']:checked').value
                 break
         }
 
-        // console.log(answer)
-        // questions.push({question: question})
         answers += answer
         answers += " | "
-        questions+= questionId
-        questions+= " | "
+        questions += questionId
+        questions += " | "
     }
 
     const user = document.getElementById("userMail").textContent
@@ -152,7 +219,7 @@ function submitAnswer(event) {
 
     answers = answers.slice(0, -1); // Delete last character
     questions = questions.slice(0, -1); // Delete last character
-
+    document.getElementById("questionForm").reset()
     // Get the value of the "subThemeId" parameter
     var subtheme = urlParams.get("subThemeId");
     fetch(`/api/questions/submit`, {
@@ -174,7 +241,9 @@ function submitAnswer(event) {
         .then(response => {
             if (response.ok) {
                 console.log("Answer submitted successfully.");
-                window.location.href = `/installation/flowCompleted`;
+                if (!isCircular) {
+                    window.location.href = `/installation/flowCompleted`;
+                }
             } else {
                 console.error("Failed to submit answer.");
             }
@@ -184,24 +253,36 @@ function submitAnswer(event) {
         });
 }
 
-let currentIndex = 0;
 
-// Function to move to the next question
 function moveToNextQuestion() {
-    // Implement logic to move to the next question
-    console.log("Moving to next question");
-    // Example: window.location.href = "/next-question";
-    if (currentIndex < questionDivs.length - 1) {
-        currentIndex++;
-        showQuestion(currentIndex);
+    if (isCircular) {
+        submitAnswer()
+    }
+    if (queue === 0){
+        if (currentIndex < questionDivs.length - 1) {
+            currentIndex++;
+            showQuestion(currentIndex);
+
+        } else {
+            if (isCircular) {
+                currentIndex = 0
+                showQuestion(currentIndex)
+            }
+    }
+    } else {
+        minUser()
+    }
+
+    if (!isCircular && currentIndex === questionDivs.length-1){
+        document.getElementById("submit").style.visibility = "visible"
+
     }
 }
 
-// Function to move to the previous question
 function moveToPreviousQuestion() {
-    // Implement logic to move to the previous question
-    console.log("Moving to previous question");
-    // Example: window.location.href = "/previous-question";
+    if(!isCircular) {
+        document.getElementById("submit").style.visibility = "hidden"
+    }
     if (currentIndex > 0) {
         currentIndex--;
         showQuestion(currentIndex);
@@ -216,11 +297,14 @@ function showQuestion(index) {
     questionDivs[index].style.display = 'block';
 }
 
-// Range slider change event listener
-let rangeInput = document.getElementsByClassName('range').item(0);
-if (rangeInput != null){
-let rangeValue = document.getElementById('rangeValue');
-rangeInput.addEventListener("input", function() {
-    rangeValue.textContent = "Value: " + rangeInput.value;
+// Range slider change event listener for all range inputs
+let rangeInputs = document.getElementsByClassName('range');
 
-})};
+Array.from(rangeInputs).forEach(function(rangeInput) {
+    let rangeValue = rangeInput.nextElementSibling;
+    rangeInput.addEventListener("input", function() {
+        if (rangeValue != null) {
+            rangeValue.textContent = "Value: " + rangeInput.value;
+        }
+    });
+});

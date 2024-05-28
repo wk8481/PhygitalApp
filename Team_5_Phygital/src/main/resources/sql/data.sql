@@ -32,21 +32,26 @@ INSERT INTO theme (name, information, project_id)
 VALUES ('Theme X', 'Information for Theme X', 1);
 
 -- Flow
-INSERT INTO flow (name, is_circular, project_id, start_time, end_time)
-VALUES ('Flow 1', true, 1, null, null),
-       ('Flow 2', false, 1, null, null);
+INSERT INTO flow (name, is_circular, project_id, total_time_spent_in_sec, total_participants)
+VALUES ('Flow 1', true, 1, 0, 0),
+       ('Flow 2', false, 1, 0, 0);
 
 -- SubTheme
 INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)
 VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1, 0),
-       ('local voting in brussels', 'Information for voting in Brussels', true, 1, 0);
+       ('local voting in brussels', 'Information for voting in Brussels', true, 1, 0),
+       ('local voting in brussels', 'Information for voting in Brussels', true, 2, 0);
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
 VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
        ('What is your phones battery %?', 'RANGE', true, 1),
        ('Are you happy currently?', 'SINGLE_CHOICE', true, 1),
-       ('How do you feel today?', 'OPEN', true, 1);
+       ('How do you feel today?', 'OPEN', true, 1),
+       ('What color do you like more?', 'MULTIPLE_CHOICE', true, 3),
+       ('What is your phones battery %?', 'RANGE', true, 3),
+       ('Are you happy currently?', 'SINGLE_CHOICE', true, 3),
+       ('How do you feel today?', 'OPEN', true, 3);
 
 INSERT INTO possible_answers(question_id, answer)
 values (1, 'Green'),
@@ -54,6 +59,35 @@ values (1, 'Green'),
        (1, 'Blue'),
        (1, 'Yellow'),
        (3, 'Yes'),
-       (3, 'No');
+       (3, 'No'),
+       (5, 'Green'),
+       (5, 'Black'),
+       (5, 'Blue'),
+       (5, 'Yellow'),
+       (7, 'Yes'),
+       (7, 'No');
 
+Insert INTO answer(answers)
+values ('green'),
+       ('71'),
+       ('yes');
 
+INSERT INTO notes(note)
+VALUES ('sdaf');
+
+INSERT INTO session(note_id, sub_theme_id, user_id, timestamp)
+VALUES (1, 1, 1, '2024-05-16T19:12:05.622719');
+
+INSERT INTO session_answer(answer_id, session_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);
+
+INSERT INTO session_question(question_id, session_id)
+VALUES (1, 1),
+       (2, 1),
+       (3, 1);
+
+INSERT INTO comment (text, project_id)
+VALUES ('Comment 1', 1),
+       ('Comment 2', 1);
