@@ -30,14 +30,14 @@ FROM openjdk:17-alpine
 ENV POSTGRES_USER=postgres \
     POSTGRES_PASSWORD=admin \
     POSTGRES_DB=phygital \
-    POSTGRES_HOST=104.155.5.189 \
+    POSTGRES_HOST=34.79.136.42 \
     POSTGRES_PORT=5432
 
 # Copy the JAR file from the 'builder' stage to this new stage
 COPY --from=builder /app/build/libs/*.jar /app/app.jar
 
 # Expose the port that the application listens on
-EXPOSE 8080 8433 
+EXPOSE 8081
 
 # Run the JAR file
 ENTRYPOINT ["java","-jar","/app/app.jar"]
