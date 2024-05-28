@@ -73,7 +73,7 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
-  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:latest; docker container run -d --rm -p 443:8443 $DOCKER_HUB_REPO:latest; docker logout docker.io"
+  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:latest; docker container run -d --rm -p 80:8081 $DOCKER_HUB_REPO:latest; docker logout docker.io"
 
 
 destroy:
