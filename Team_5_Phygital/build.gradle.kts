@@ -2,6 +2,7 @@ plugins {
     java
     id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.4"
+    id("com.github.node-gradle.node") version "7.0.2"
 }
 
 group = "be.kdg"
@@ -15,6 +16,10 @@ repositories {
     mavenCentral()
 }
 
+tasks.named<Copy>("processResources") {
+    dependsOn("npm_run_build")
+}
+
 dependencies {
     implementation ("com.opencsv:opencsv:5.5.2")
     implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
@@ -26,15 +31,9 @@ dependencies {
     implementation ("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
     implementation ("org.modelmapper:modelmapper:3.2.0")
     developmentOnly ("org.springframework.boot:spring-boot-devtools")
-    runtimeOnly ("org.webjars:bootstrap:5.3.2")
     runtimeOnly ("com.h2database:h2")
     runtimeOnly ("org.postgresql:postgresql")
     testImplementation ("org.springframework.boot:spring-boot-starter-test")
-
-
-
-
-
 }
 
 tasks.withType<Test> {
