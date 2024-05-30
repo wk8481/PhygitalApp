@@ -12,7 +12,7 @@ function getEntries(dir, entries = {}) {
         if (fs.statSync(fullPath).isDirectory()) {
             getEntries(fullPath, entries);
         } else if (file.match(/.*\.js$/)) {
-            const entryName = path.relative('Team_5_Phygital/src/main/js', fullPath).replace(/\.js$/, '');
+            const entryName = path.relative('src/main/js', fullPath).replace(/\.js$/, '');
             entries[entryName] = `./${fullPath.replace(/\\/g, '/')}`;
         }
     });
@@ -21,7 +21,7 @@ function getEntries(dir, entries = {}) {
 }
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
-const entries = getEntries('./Team_5_Phygital/src/main/js');
+const entries = getEntries('./src/main/js');
 
 const config = {
     entry: entries,
@@ -33,7 +33,7 @@ const config = {
             const outputFilename = `bundle-${path.basename(name)}.js`;
             return path.join(outputPath, outputFilename);
         },
-        path: path.resolve(dirname, 'Team_5_Phygital/src/main/resources/static/js'),
+        path: path.resolve(dirname, 'src/main/resources/static/js'),
         clean: true,
     },
     devtool: 'source-map',

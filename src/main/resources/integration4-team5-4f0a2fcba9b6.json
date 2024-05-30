@@ -1,0 +1,13 @@
+//{
+//  "type": "service_account",
+//  "project_id": "integration4-team5",
+//  "private_key_id": "4f0a2fcba9b64b558061bed37cd09aa9d777fff2",
+//  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCM77+HqWMlXA+N\nY2S51ojEq2FSkfpGF7nV3kDkNe1h4mEYG92gHWjuTlObaTCQYgSHgA7ArpXcb7a/\nP+ewu9W8AvtdwIDMzSpvHIwbvDTkUBjVoBY4DrH1eowP48O8JNdggyfjixX62lwQ\neHnBaWk71TaJTlmiRtJDmq5HAlBGtRptUrfup/AwnWMExejbUBfVQ6dI+cO0t39d\nCpBcBDPzH8TCaSMzfPCk/E37WdVPgUVsCGfFzzbs/KbTfzJNu9tn8K/xQxAUG/CE\nmIPvnlLv/xmq4+O8Rzy0qxVvOOdpx81KHr2kXf8O1tOE3eCPPjeG7JwFZeHB2b/b\nMXWoP69pAgMBAAECggEAIsaJoQTX1QEZSU7sLLrV9ok/M2uXsLHsBeyYYHc6Arwk\nLxm5HugC20JyeNeExyuYaILdoQezLLhYBGrVVZOTkpe9xI1aeq5pOQ93NuTCvE9T\nQWsF8IEXwjWh183gn00L4+GY9xl7q/EzZFEF4gaLk9rxYQH3NgZ5nXrOY/EbM8bg\nZ0SQ+fFCgeAlt9aFoJVekjcmExShVgrRnI4h0sFSY291ONUTFaBs3IyPWKEBIXM/\nr7fd9qI2gXfrvzu5HGD0x1nIjg+EUNKJrFGNQTHm2AdrbMS/6QqkKITeIqf1az4d\n4+zCLUzqL0vwvE3IF4KaPXY3vzToZovLVD/K2K1LHQKBgQC/xwr/mnCpPAtIzix5\nv6GEzOeTFsv49Nwl97iTroQnp9+7x2wBK5WE2U9SUiIss2EwU9GktF9c5vdZkcGg\ndHBS4TFg2gbNFif0gueWO2L2EeX3WTM/Hnh6Tem0hz88yUOlf2nm8dWA8ch6EPkG\nm3aJzDBajIyxmZ/e8UAu33eJ5wKBgQC8IiQQsECkUsT9MhVx+Mp3PYYjApCBncVJ\nWm7G+z40llJ/zUfS8eQe27izEuHsO1yFsxwPebo9CNDl/XBfjX7/LGRYu/QtlVhs\nS/tG2fA6qIXGEeu2fiMmdyPN3H8WXkmYXTHGFwaTzGFZj0XnX0apV+FsVc3wSdj+\n+dGhE2fyLwKBgQC0vJ187swmclQgNU5tH1DVm1bTpLRu2DVyAtiNNfeOeAO/MN50\n6+Jp5XOAHa/feN6rcRMuql8FaxbJ7zgQRCxnr5udr1yhg7P8GDKxvx4w0gVs60AE\nyG66tRr/7EaIvxVlr4LbCCcy8qsBf2Vx+Knqi+k2LSebaTDmJ29ZvXknGQKBgHCA\n3h5YuB9MG97pz2c7hx/tW8Sd6PqJ9YubF7nITve1mRoyESx1WJyXeokj1pSlHvwZ\nEsOyYIvVNM8EUunhPLutuUhTBX8o2xrQCTDibUU2t+CtoM6d+bkr7+5QWHNw6QPD\nX1t9M4K46tJa2ku1bxUfp39YhHGYR7qafCCd8UAjAoGAd4jg04bB43HNBikB+sb5\nkuqvcbqFoLYkyR236Gd3A1DsW0p40Fwef47dildqPlUBFo8sOldU9W6xUqvMjU4+\neoMNa6V1vQCP9oYjLZti3DI3kj3RIbLy3IQ4cXkB6t6lN7p7XqPYZtaUc/J0aDR+\nt1L3KOr2yh+/xZRTAMFRy78=\n-----END PRIVATE KEY-----\n",
+//  "client_email": "phygitalteam5service@integration4-team5.iam.gserviceaccount.com",
+//  "client_id": "104776650945247083879",
+//  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+//  "token_uri": "https://oauth2.googleapis.com/token",
+//  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+//  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/phygitalteam5service%40integration4-team5.iam.gserviceaccount.com",
+//  "universe_domain": "googleapis.com"
+//}
