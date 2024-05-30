@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Project</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/admin/bundle-project.js" defer></script>
+    <script src="/js/bundle-utils.js" defer></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container text-center">
+    <!-- Logo image -->
+    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Project</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <!-- Details Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Info</h2>
+                <table class="table-borderless" th:object="${project}">
+                    <tbody>
+                    <!-- Name -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="nameInput">Name:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="nameInput" th:field="*{name}">
+                        </td>
+                    </tr>
+                    <!-- Theme -->
+                    <tr>
+                        <th class="col-sm-4">Theme:</th>
+                        <td class="col-sm-8">
+                            <a th:href="@{/admin/project/{projectId}/theme(projectId=${project.id})}"><i
+                                    class="fas fa-edit"></i></a>
+                        </td>
+                    </tr>
+                    <!-- Background Color -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="bgColorInput">Background Color:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="bgColorInput" th:value="${project.backgroundColorHex}"
+                                   type="color">
+                        </td>
+                    </tr>
+                    <!-- Font -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="fontInput">Font:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <select class="form-control" id="fontInput" th:selected="${project.fontName}">
+                                <option value="Helvetica Neue">Helvetica Neue</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Calibri">Calibri</option>
+                                <option value="Verdana">Verdana</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!-- Logo -->
+                    <tr>
+                        <th class="col-sm-4">Logo:</th>
+                        <td class="col-sm-8">
+                            <input accept="image/*" id="logoInput" type="file">
+                        </td>
+                    </tr>
+                    <!-- Public -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="isPublicInput">Public:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-check" id="isPublicInput" th:checked="${project.isPublic}"
+                                   type="checkbox">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- Save Button -->
+                <div class="row mt-3 justify-content-center">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" id="saveButton" type="button">
+                            Save
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Flows Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <h2 class="text-secondary">Flows</h2>
+                <div class="row mb-3 justify-content-center">
+                    <!-- Flows -->
+                    <div class="col-md-4">
+                        <table class="table-borderless">
+                            <tbody>
+                            <tr th:each="flows:${flow}">
+                                <td>
+                                    <a th:href="@{/admin/project/{projectId}/flow/{flowId}(projectId=${project.id}, flowId=${flows.id})}"><i
+                                            class="fas fa-edit"></i></a>
+                                </td>
+                                <td th:if="${flows.isCircular}">Circular flow</td>
+                                <td th:unless="${flows.isCircular}">Linear flow</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Bottom Page Buttons Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <!-- Return Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
+                        Return</a>
+                </div>
+            </div>
+            <!-- Stats Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <a class="btn btn-secondary" th:href="@{/admin/project/{projectId}/stats(projectId=${project.id})}">
+                        Statistics
+                    </a>
+                </div>
+            </div>
+            <!-- Delete Button -->
+            <div class="col-md-2 center-container text-center">
+                <div class="center-container">
+                    <button class="btn btn-danger" id="deleteButton" type="button">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>

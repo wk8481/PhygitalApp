@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Phygital</title>
+    <thymeleaf th:replace="~{fragments/web-includes :: meta_script_link}"></thymeleaf>
+    <script src="/js/web-app/bundle-post-comment.js" defer></script>
+    <script src="/js/bundle-utils.js" defer></script>
+</head>
+<body class="container">
+<header th:replace="~{fragments/web-includes::header}"></header>
+<main class="container text-center" th:if="${project}">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary" th:text="${project.name}"></h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <div class="col-md-12">
+                    <div>
+                        <h2 class="text-secondary" th:if="${theme}" th:text="${theme.name}"></h2>
+                        <p th:if="${theme}" th:text="${theme.information}"></p>
+                    </div>
+                </div>
+            </section>
+            <!-- Comment Section -->
+            <section class="mt-5">
+                <h4 class="text-secondary">Comments</h4>
+                <div id="comments">
+                    <div th:each="comment : ${comments}">
+                        <div class="comment mb-3 p-3 border rounded">
+                            <p class="text-muted" th:text="${comment.text}"></p>
+                        </div>
+                    </div>
+                </div>
+                <label for="commentInput"></label>
+                <textarea cols="50" id="commentInput" rows="4"></textarea><br>
+                <button class="btn btn-secondary" id="postButton" type="button">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </section>
+        </div>
+    </div>
+</main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>
