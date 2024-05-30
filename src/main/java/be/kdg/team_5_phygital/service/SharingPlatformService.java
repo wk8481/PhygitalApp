@@ -1,6 +1,7 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.controller.api.dto.UpdateSharingPlatformDto;
+import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Client;
 import be.kdg.team_5_phygital.repository.ClientRepository;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class SharingPlatformService {
     private final SharingPlatformRepository sharingPlatformRepository;
     private final ClientRepository clientRepository;
+    private final ProjectService projectService;
 
     /**
      * Instantiates a new Sharing platform service.
@@ -31,9 +33,10 @@ public class SharingPlatformService {
      * @param sharingPlatformRepository      the sharing platform repository
      * @param clientRepository the sharing platform admin repository
      */
-    public SharingPlatformService(SharingPlatformRepository sharingPlatformRepository, ClientRepository clientRepository) {
+    public SharingPlatformService(SharingPlatformRepository sharingPlatformRepository, ClientRepository clientRepository, ProjectService projectService) {
         this.sharingPlatformRepository = sharingPlatformRepository;
         this.clientRepository = clientRepository;
+        this.projectService = projectService;
     }
 
 
@@ -94,7 +97,7 @@ public class SharingPlatformService {
 
     private String saveLogoFile(MultipartFile logoFile, int sharingPlatformId) throws IOException {
         // Define the directory where you want to store the logo files
-        String uploadDir = "Team_5_Phygital/src/main/resources/static/images";
+        String uploadDir = "src/main/resources/static/images";
 
         // Create the directory if it doesn't exist
         File directory = new File(uploadDir);
@@ -132,6 +135,11 @@ public class SharingPlatformService {
         if (sharingPlatform.isEmpty()) {
             return false;
         }
+        for (Project project : projectService.getProjectBySharingPlatformId(sharingPlatform.get().getId())) {
+            projectService.deleteProject(project.getId());
+        }
+        clientRepository.deleteAll(getSharingPlatform(sharingPlatformId).getSharingPlatformAdmin());
+
         sharingPlatformRepository.deleteById(sharingPlatformId);
         return true;
     }

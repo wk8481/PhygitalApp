@@ -1,9 +1,11 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.controller.api.dto.UpdateProjectDto;
+import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.domain.SharingPlatform;
 import be.kdg.team_5_phygital.domain.Theme;
+import be.kdg.team_5_phygital.repository.CommentRepository;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
@@ -26,11 +28,15 @@ public class ProjectService {
     private final ProjectRepository projectRepository;
     private final SharingPlatformRepository sharingPlatformRepository;
     private final ThemeRepository themeRepository;
+    private final CommentRepository commentRepository;
+    private final FlowService flowService;
 
-    public ProjectService(ProjectRepository projectRepository, SharingPlatformRepository sharingPlatformRepository, ThemeRepository themeRepository) {
+    public ProjectService(ProjectRepository projectRepository, SharingPlatformRepository sharingPlatformRepository, ThemeRepository themeRepository, CommentRepository commentRepository, FlowService flowService) {
         this.projectRepository = projectRepository;
         this.sharingPlatformRepository = sharingPlatformRepository;
         this.themeRepository = themeRepository;
+        this.commentRepository = commentRepository;
+        this.flowService = flowService;
     }
 
     public Project getProject(int id) {
@@ -89,7 +95,7 @@ public class ProjectService {
 
     private String saveLogoFile(MultipartFile logoFile, int projectId) throws IOException {
         // Define the directory where you want to store the logo files
-        String uploadDir = "Team_5_Phygital/src/main/resources/static/images";
+        String uploadDir = "src/main/resources/static/images";
 
         // Create the directory if it doesn't exist
         File directory = new File(uploadDir);
@@ -121,6 +127,12 @@ public class ProjectService {
         if (project.isEmpty()) {
             return false;
         }
+
+        for (Flow flow: flowService.getFlowsByProjectId(projectId)) {
+            flowService.deleteFlow(flow.getId());
+        }
+        themeRepository.delete(themeRepository.findByProjectId(projectId));
+        commentRepository.deleteAll(commentRepository.findCommentsByProjectIdEquals(projectId));
         projectRepository.deleteById(projectId);
         return true;
     }

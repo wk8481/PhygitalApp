@@ -21,6 +21,8 @@ public class Client extends User {
         this.sharingPlatform = sharingPlatform;
     }
 
+
+
     public SharingPlatform getSharingPlatform() {
         return sharingPlatform;
     }

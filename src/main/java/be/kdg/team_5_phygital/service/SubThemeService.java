@@ -1,9 +1,10 @@
 package be.kdg.team_5_phygital.service;
 
 import be.kdg.team_5_phygital.domain.Flow;
-import be.kdg.team_5_phygital.domain.Session;
+import be.kdg.team_5_phygital.domain.Question;
 import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.FlowRepository;
+import be.kdg.team_5_phygital.repository.SessionRepository;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -18,10 +19,14 @@ import java.util.Optional;
 public class SubThemeService {
     private final SubThemeRepository subThemeRepository;
     private final FlowRepository flowRepository;
+    private final QuestionService questionService;
+    private final SessionRepository sessionRepository;
 
-    public SubThemeService(SubThemeRepository subThemeRepository, FlowRepository flowRepository) {
+    public SubThemeService(SubThemeRepository subThemeRepository, FlowRepository flowRepository, QuestionService questionService, SessionRepository sessionRepository) {
         this.subThemeRepository = subThemeRepository;
         this.flowRepository = flowRepository;
+        this.questionService = questionService;
+        this.sessionRepository = sessionRepository;
     }
 
     public SubTheme getSubTheme(int subThemeId) {
@@ -61,6 +66,10 @@ public class SubThemeService {
         if (subTheme.isEmpty()) {
             return false;
         }
+        for (Question question : questionService.getQuestionsBySubTheme(subTheme.get())) {
+            questionService.deleteQuestion(question.getId());
+        }
+        sessionRepository.deleteAll(sessionRepository.getSessionsBySubTheme(subTheme.get()));
         subThemeRepository.deleteById(subThemeId);
         return true;
     }
@@ -76,7 +85,7 @@ public class SubThemeService {
         for (MultipartFile file : files) {
             String fileName = file.getOriginalFilename();
             // Save the file to a directory
-            File destFile = new File("Team_5_Phygital/src/main/resources/static/media/" + fileName);
+            File destFile = new File("src/main/resources/static/media/" + fileName);
             file.transferTo(destFile);
             // Add the file to the sub theme's list of media files
             subTheme.addMediaFile(fileName);
@@ -96,7 +105,7 @@ public class SubThemeService {
         // Delete each specified media file
         for (String fileName : fileNames) {
             // Delete the file from the directory
-            File file = new File("Team_5_Phygital/src/main/resources/static/media/" + fileName);
+            File file = new File("src/main/resources/static/media/" + fileName);
             if (file.exists()) {
                 file.delete();
             }

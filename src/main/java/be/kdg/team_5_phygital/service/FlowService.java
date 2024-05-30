@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.service;
 import be.kdg.team_5_phygital.domain.Flow;
 import be.kdg.team_5_phygital.domain.Installation;
 import be.kdg.team_5_phygital.domain.Project;
+import be.kdg.team_5_phygital.domain.SubTheme;
 import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.repository.InstallationRepository;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
@@ -18,12 +19,15 @@ public class FlowService {
     private final FlowRepository flowRepository;
     private final ProjectRepository projectRepository;
     private final InstallationRepository installationRepository;
+    private final SubThemeService subThemeService;
 
-    public FlowService(FlowRepository flowRepository, ProjectRepository projectRepository, InstallationRepository installationRepository) {
+    public FlowService(FlowRepository flowRepository, ProjectRepository projectRepository, InstallationRepository installationRepository, SubThemeService subThemeService) {
         this.flowRepository = flowRepository;
         this.projectRepository = projectRepository;
         this.installationRepository = installationRepository;
+        this.subThemeService = subThemeService;
     }
+
 
     public Flow getFlow(int flowId) {
         return flowRepository.findById(flowId).orElse(null);
@@ -64,6 +68,9 @@ public class FlowService {
         Optional<Flow> flow = flowRepository.findById(flowId);
         if (flow.isEmpty()) {
             return false;
+        }
+        for (SubTheme subTheme : subThemeService.getSubThemeByFlowId(flowId)) {
+            subThemeService.deleteSubTheme(subTheme.getId());
         }
         flowRepository.deleteById(flowId);
         return true;

@@ -1,9 +1,9 @@
 package be.kdg.team_5_phygital.service;
 
-import be.kdg.team_5_phygital.domain.Question;
-import be.kdg.team_5_phygital.domain.QuestionType;
-import be.kdg.team_5_phygital.domain.SubTheme;
+import be.kdg.team_5_phygital.domain.*;
+import be.kdg.team_5_phygital.repository.PossibleAnswersRepository;
 import be.kdg.team_5_phygital.repository.QuestionRepository;
+import be.kdg.team_5_phygital.repository.SessionRepository;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -15,10 +15,14 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final SubThemeRepository subThemeRepository;
+    private final PossibleAnswersRepository possibleAnswersRepository;
+    private final SessionRepository sessionRepository;
 
-    public QuestionService(QuestionRepository questionRepository, SubThemeRepository subThemeRepository) {
+    public QuestionService(QuestionRepository questionRepository, SubThemeRepository subThemeRepository, PossibleAnswersRepository possibleAnswersRepository, SessionRepository sessionRepository) {
         this.questionRepository = questionRepository;
         this.subThemeRepository = subThemeRepository;
+        this.possibleAnswersRepository = possibleAnswersRepository;
+        this.sessionRepository = sessionRepository;
     }
 
     public Question getQuestion(int questionId) {
@@ -64,6 +68,13 @@ public class QuestionService {
         Optional<Question> question = questionRepository.findById(questionId);
         if (question.isEmpty()) {
             return false;
+        }
+        for (PossibleAnswers possibleAnswer : question.get().getPossibleAnswers()) {
+            possibleAnswersRepository.deleteById(possibleAnswer.getId());
+        }
+        List<Session> sessions = sessionRepository.findAll();
+        for (Session session : sessions) {
+            session.getQuestions().remove(question.orElse(null));
         }
         questionRepository.deleteById(questionId);
         return true;
