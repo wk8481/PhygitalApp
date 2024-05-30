@@ -37,7 +37,7 @@ ENV POSTGRES_USER=postgres \
 COPY --from=builder /app/build/libs/*.jar /app/app.jar
 
 # Expose the port that the application listens on
-EXPOSE 8081
+EXPOSE 8080 8081
 
 # Run the JAR file
 ENTRYPOINT ["java","-jar","/app/app.jar"]
