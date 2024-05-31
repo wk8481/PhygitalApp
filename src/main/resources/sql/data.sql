@@ -17,11 +17,18 @@ INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platf
 VALUES ('Emre', 'emre@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR', 1),
        ('Lukas', 'lukas@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'SUPERVISOR', 'SUPERVISOR', 1);
 
+-- Location
+INSERT INTO location (province, city, street, street_number)
+VALUES
+    ('Antwerp', 'Antwerp', 'Groenplaats', '1'),
+    ('Antwerp', 'Antwerp', 'Linkeroever', '2'),
+    ('Antwerp', 'Antwerp', 'Deurne', '3');
+
 -- Installation
-INSERT INTO installation (name, is_running)
-VALUES ('Groenplaats', false),
-       ('Linkeroever', false),
-       ('Deurne', false);
+INSERT INTO installation (name, is_running, location_id)
+VALUES ('Groenplaats', false, 1),
+       ('Linkeroever', false, 2),
+       ('Deurne', false, 3);
 
 -- Project
 INSERT INTO project (name, background_color_hex, is_active, is_public, total_participants, total_time_spent_in_sec, sharing_platform_id)
@@ -32,9 +39,9 @@ INSERT INTO theme (name, information, project_id)
 VALUES ('Theme X', 'Information for Theme X', 1);
 
 -- Flow
-INSERT INTO flow (name, is_circular, project_id, total_time_spent_in_sec, total_participants)
-VALUES ('Flow 1', true, 1, 0, 0),
-       ('Flow 2', false, 1, 0, 0);
+INSERT INTO flow (name, is_circular, project_id, total_time_spent_in_sec, total_participants, info)
+VALUES ('Flow 1', true, 1, 0, 0, 'this flow is circular'),
+       ('Flow 2', false, 1, 0, 0, 'this flow is linear');
 
 -- SubTheme
 INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)

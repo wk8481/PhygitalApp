@@ -35,6 +35,11 @@ public class Supervisor extends User {
         // no project entity?
     }
 
+    public Supervisor(String name, String email, String password, SharingPlatform sharingPlatform) {
+        super(name, email, password, UserRole.SUPERVISOR);
+        this.sharingPlatform = sharingPlatform;
+    }
+
     public SharingPlatform getSharingPlatform() {
         return sharingPlatform;
     }

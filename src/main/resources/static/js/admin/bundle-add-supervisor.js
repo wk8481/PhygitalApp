@@ -33,23 +33,22 @@ function extractIdsFromUrl(url, partOfUrl) {
     // Used to extract the 2 id's that are in the link, needed to update entity
 
     // Define the regular expression pattern to match IDs
-    const pattern = new RegExp("/(\\d+)/" + partOfUrl + "/(\\d+)");
-
-    // Execute the regular expression on the URL
-    const match = url.match(pattern);
+    const mainPattern = new RegExp("/(\\d+)/" + partOfUrl + "/(\\d+)");
+    const creatingPattern = new RegExp("/(\\d+)/" + partOfUrl + "/new");
+    const specialPattern = new RegExp("/" + partOfUrl + "/(\\d+)");
+    let match
 
     // If match is found, extract the IDs
-    if (match) {
+    if ((match = url.match(mainPattern)) !== null) {
         const firstId = match[1];
         const secondId = match[2];
         return [firstId, secondId];
+    } else if ((match = url.match(creatingPattern)) !== null) {
+        return match[1]
+    } else if ((match = url.match(specialPattern)) !== null) {
+        return match[1]
     } else {
-        const pattern2 = new RegExp("/(\\d+)/" + partOfUrl + "/new");
-        const match2 = url.match(pattern2);
-        if (match2){
-            return match2[1]
-        }
-        // Return null or handle error
+        return null;
     }
 }
 
@@ -125,20 +124,22 @@ __webpack_require__.r(__webpack_exports__);
  // Adjust the path as per your file structure
 
 
-const createButton = document.getElementById("createButton");
+const createButton = document.querySelector("#createButton");
 createButton.addEventListener("click", addNewSupervisor);
 
 const sharingPlatformId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), "supervisor");
-console.log(sharingPlatformId)
+
 async function addNewSupervisor() {
     let name = document.getElementById("nameInput").value;
     let email = document.getElementById("emailInput").value;
+    let password = document.getElementById("passwordInput").value;
     await fetch(`/api/supervisors`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
             name: name,
             email:  email,
+            password: password,
             sharingPlatformId: sharingPlatformId
         })
     });
