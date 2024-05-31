@@ -21,7 +21,7 @@ COPY src src
 COPY src/test src/test
 
 # Build the JAR file
-RUN ./gradlew --build-cache assemble
+RUN ./gradlew bootJar
 
 # Use OpenJDK for the final image.
 FROM openjdk:17-alpine
