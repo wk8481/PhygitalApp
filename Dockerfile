@@ -1,6 +1,6 @@
 # Use the official Gradle image to create a build artifact.
 # This image will be used in the 'build' stage.
-FROM gradle:jdk17-alpine as builder
+FROM larsdroid/jdk-gradle-node:21-8.7.0-20.12.1-alpine as builder
 
 # Set the working directory in the Docker image
 WORKDIR /app
@@ -21,7 +21,7 @@ COPY src src
 COPY src/test src/test
 
 # Build the JAR file
-RUN ./gradlew bootJar
+RUN ./gradlew --build-cache assemble
 
 # Use OpenJDK for the final image.
 FROM openjdk:17-alpine
@@ -30,7 +30,7 @@ FROM openjdk:17-alpine
 ENV POSTGRES_USER=postgres \
     POSTGRES_PASSWORD=admin \
     POSTGRES_DB=phygital \
-    POSTGRES_HOST=34.79.136.42 \
+    POSTGRES_HOST=35.189.209.222 \
     POSTGRES_PORT=5432
 
 # Copy the JAR file from the 'builder' stage to this new stage
