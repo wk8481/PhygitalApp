@@ -1,4 +1,5 @@
 import {header, token} from "../util/csrf.js";
+import { extractIdsFromUrl } from '../utils.js';
 
 const postButton = document.getElementById("postButton");
 const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "comment");

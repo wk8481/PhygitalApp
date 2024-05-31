@@ -74,7 +74,7 @@ async function updateQuestion(event) {
     })
         .then(response => {
             if (response.status === 204) {
-
+                location
             }
         });
 }

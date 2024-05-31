@@ -49,4 +49,15 @@ public class UpdateInstallationDto {
     public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
     }
+
+    @Override
+    public String toString() {
+        return "UpdateInstallationDto{" +
+                "name='" + name + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", streetNumber=" + streetNumber +
+                '}';
+    }
 }

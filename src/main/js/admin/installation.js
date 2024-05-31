@@ -3,14 +3,8 @@ import { extractIdsFromUrl } from '../utils.js'; // Adjust the path as per your 
 
 
 
-const name = document.getElementById("nameInput");
-const province = document.getElementById("provinceInput");
-const city = document.getElementById("cityInput");
-const street = document.getElementById("streetInput");
-const streetNumber = document.getElementById("streetNumberInput");
 const saveButton = document.getElementById("saveButton");
 const deleteButton = document.getElementById("deleteButton");
-const [installationId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "installation");
 
 saveButton.addEventListener("click", updateInstallation);
 deleteButton.addEventListener("click", deleteInstallation);
@@ -18,20 +12,31 @@ deleteButton.addEventListener("click", deleteInstallation);
 async function updateInstallation(event) {
     console.log("Updating installation");
 
+    const name = document.getElementById("nameInput");
+    const province = document.getElementById("provinceInput");
+    const city = document.getElementById("cityInput");
+    const street = document.getElementById("streetInput");
+    const streetNumber = document.getElementById("streetNumberInput");
+    const [installationId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "installation");
+
     // Create a FormData object to append the form data, including the logo file
     const formData = new FormData();
-    formData.append("id", installationId);
-    formData.append("name", name.value);
-    formData.append("province", province.value);
-    formData.append("city", city.value);
-    formData.append("street", street.value);
-    formData.append("streetNumber", streetNumber.value);
+    const body = {
+    id: installationId,
+    name: name.value,
+    province: province.value,
+    city: city.value,
+    street: street.value,
+    streetNumber: streetNumber.value
+}
+    const dtoBlob = new Blob([JSON.stringify(body)], { type: "application/json" });
+    formData.append("updateInstallation", dtoBlob);
 
     try {
         const response = await fetch(`/api/installations/${installationId}`, {
             method: "PATCH",
             headers: {
-                [header]: token
+                "Accept": "application/json", [header]: token
             },
             body: formData // Pass the FormData object as the body
         });

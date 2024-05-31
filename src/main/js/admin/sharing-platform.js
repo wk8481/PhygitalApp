@@ -3,33 +3,41 @@ import { extractIdsFromUrl } from '../utils.js'; // Adjust the path as per your 
 
 
 
-const name = document.getElementById("nameInput");
-const contactEmail = document.getElementById("contactEmailInput");
-const logo = document.getElementById("logoInput");
 const saveButton = document.querySelector("#saveButton");
 const deleteButton = document.querySelector("#deleteButton");
-const sharingPlatformId = extractIdsFromUrl(window.location.href.substring(window.location.href), "platform");
-
 saveButton.addEventListener("click", updateSharingPlatform);
 deleteButton.addEventListener("click", deleteSharingPlatform);
 
 async function updateSharingPlatform(event) {
-    console.log("Updating platform")
+    event.preventDefault(); // Prevent the default form submission
+    console.log("Updating platform");
+
+    const name = document.getElementById("nameInput");
+    const contactEmail = document.getElementById("contactEmailInput");
+    const logo = document.getElementById("logoInput");
+    const sharingPlatformId = extractIdsFromUrl(window.location.href, "sharing-platform");
 
     // Create a FormData object to append the form data, including the logo file
     const formData = new FormData();
-    formData.append("id", sharingPlatformId);
-    formData.append("name", name.value);
-    formData.append("contactEmail", contactEmail.value);
+    const dto = {
+        id: sharingPlatformId,
+        name: name.value,
+        contactEmail: contactEmail.value
+    };
+
+    // Convert the JSON object to a Blob with MIME type application/json
+    const dtoBlob = new Blob([JSON.stringify(dto)], { type: "application/json" });
+    formData.append("updateSharingPlatformDto", dtoBlob);
     formData.append("logo", logo.files[0]);
 
     try {
         const response = await fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
             method: "PATCH",
             headers: {
+                "Accept": "application/json",
                 [header]: token
             },
-            body: formData
+            body: formData // Send formData as-is
         });
 
         if (response.ok) {
@@ -44,8 +52,11 @@ async function updateSharingPlatform(event) {
     }
 }
 
+
 async function deleteSharingPlatform(event) {
     console.log("Deleting sharing platform")
+    const sharingPlatformId = extractIdsFromUrl(window.location.href, "sharing-platform");
+
     const response = await fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
         method: "DELETE", headers: {
             [header]: token
