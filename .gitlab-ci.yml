@@ -17,18 +17,18 @@
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
 include:
   - template: SAST.gitlab-ci.yml
- 
+
 stages:
   - build
   - test
   - deploy
   - destroy
- 
+
 image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
- 
+
 variables:
   DOCKER_HUB_REPO: "zamlamb/phygital"
- 
+
 build:
   image: docker:19.03
   stage: build
@@ -36,27 +36,25 @@ build:
     - docker:dind
   script:
     # Build the Docker image
-    - cd Team_5_Phygital
     - docker build -t my-phygital-boot-app .
     - docker tag my-phygital-boot-app:latest $DOCKER_HUB_REPO:latest
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - docker push $DOCKER_HUB_REPO:latest
- 
+
 unit-test-job:
    image: gradle:jdk17
    stage: test
    script:
-     - cd Team_5_Phygital 
      - cd src/main/resources  # Navigate to the resources directory
      - ls -l                   # List files in the resources directory
      - cat application.properties  # Print out the contents of application.properties file
      - cd ../../..  # Navigate back to the project root directory
-     - ./gradlew test --scan 
+     - ./gradlew test --scan
    artifacts:
     when: always
     reports:
       junit: build/test-results/test/TEST-*.xml
- 
+
 deploy:
   image: google/cloud-sdk:latest
   stage: deploy
