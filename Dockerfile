@@ -1,6 +1,6 @@
 # Use the official Gradle image to create a build artifact.
 # This image will be used in the 'build' stage.
-FROM larsdroid/jdk-gradle-node:21-8.7.0-20.12.1-alpine as builder
+FROM gradle:jdk17-alpine as builder
 
 # Set the working directory in the Docker image
 WORKDIR /app
