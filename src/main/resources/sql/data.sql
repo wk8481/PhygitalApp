@@ -58,7 +58,10 @@ VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
        ('What color do you like more?', 'MULTIPLE_CHOICE', true, 3),
        ('What is your phones battery %?', 'RANGE', true, 3),
        ('Are you happy currently?', 'SINGLE_CHOICE', true, 3),
-       ('How do you feel today?', 'OPEN', true, 3);
+       ('How do you feel today?', 'OPEN', true, 3),
+       ('would you go to work as chairman, secretary or assistant during voting if you were selected to do so?','SINGLE_CHOICE', true,2),
+       ('Should there be a fine for people who do not show up','SINGLE_CHOICE', true,2),
+       ('Should the fine be higher for people with a higher income?','SINGLE_CHOICE',true, 2);
 
 INSERT INTO possible_answers(question_id, answer)
 values (1, 'Green'),
@@ -72,7 +75,16 @@ values (1, 'Green'),
        (5, 'Blue'),
        (5, 'Yellow'),
        (7, 'Yes'),
-       (7, 'No');
+       (7, 'No'),
+       (8, 'Yes'),
+       (8, 'No'),
+       (9, 'Yes'),
+       (9, 'No'),
+        (10, 'Yes'),
+        (10, 'No'),
+        (11, 'Yes'),
+        (11, 'No'),
+        (11, 'There should be no fine');
 
 Insert INTO answer(answers)
 values ('green'),
