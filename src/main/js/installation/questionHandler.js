@@ -155,13 +155,18 @@ function submitAnswer(event) {
                     break
                 case "multipleChoice":
                     answer = ""
-                    const s = document.querySelectorAll('input[name=' + answerName + ']:checked')
-                    for (let sElement of s) {
-                        answer += sElement.value
-                        answer += ", "
-                    }
+                    const inputs = document.querySelectorAll('input[name="' + answerName + '"]');
 
-                    answer = answer.slice(0, -2); // Delete last two characters
+                    inputs.forEach(input => {
+                        if (input.checked) {
+                            answer += input.value + ', ';
+                        }
+                    });
+
+                    // Remove the trailing comma and space
+                    if (answer.endsWith(', ')) {
+                        answer = answer.slice(0, -2);
+                    }
                     break
                 case "range":
                     answer = document.getElementById(answerName).value;
