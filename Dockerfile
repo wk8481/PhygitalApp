@@ -1,6 +1,4 @@
-# Set Gradle environment variables
-ENV GRADLE_HOME=/opt/gradle
-ENV PATH=$PATH:$GRADLE_HOME/bin
+
 
 # Use the official Gradle image to create a build artifact
 # This image will be used in the 'build' stage.
@@ -10,13 +8,9 @@ FROM gradle:jdk17-alpine as builder
 WORKDIR /app
 
 # Copy the Gradle executable to the Docker image
-COPY gradlew .
-COPY gradle gradle
+COPY --from=gradle /opt/gradle /opt/gradle
 COPY build.gradle.kts .
 COPY settings.gradle.kts .
-
-# Grant permissions to the Gradle wrapper
-RUN chmod +x ./gradlew
 
 # Copy the source code into the Docker image
 COPY src src

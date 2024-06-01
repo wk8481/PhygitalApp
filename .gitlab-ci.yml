@@ -18,30 +18,32 @@ cache:
   paths:
     - .gradle/
 
+variables:
+  DOCKER_HUB_REPO: "zamlamb/phygital"
 
 build:
+  image: docker:19.03
   stage: build
+  services:
+    - docker:dind
   script:
-    - echo "JAVA_HOME is $JAVA_HOME"
-    - java -version
-    - echo "Build start..."
-    - chmod +x ./gradlew
-    - ./gradlew bootJar
-  artifacts:
-    paths:
-      - build/libs/*.jar
-    expire_in: 1 hour
+    # Build the Docker image
+    - docker build -t my-phygital-boot-app .
+    - docker tag my-phygital-boot-app:latest $DOCKER_HUB_REPO:latest
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+    - docker push $DOCKER_HUB_REPO:latest
+
 
 
 
 unit-test-job:
-   stage: test
-   script:
-     - echo "Running JUnit tests"
-     - chmod +x ./gradlew
-     - ./gradlew test --scan
-     - echo "SAST will run via the template"
-   artifacts:
+  stage: test
+  script:
+    - echo "Running JUnit tests"
+    - chmod +x ./gradlew
+    - ./gradlew test --scan
+    - echo "SAST will run via the template"
+  artifacts:
     reports:
       junit: build/test-results/**/*.xml
 
@@ -61,8 +63,8 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
-  - echo "Deploying the application..."
-  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker pull $DOCKER_USERNAME/phygital-team5:latest; docker run -d -p 8080:8080 $DOCKER_USERNAME/phygital-team5:latest"
+    - echo "Deploying the application..."
+    - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker pull $DOCKER_USERNAME/phygital-team5:latest; docker run -d -p 8080:8080 $DOCKER_USERNAME/phygital-team5:latest"
   when: manual
 
 
