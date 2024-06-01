@@ -87,3 +87,5 @@ destroy:
   script:
     - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io;  docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
   when: manual
+
+  
