@@ -1,20 +1,9 @@
-# This file is a template, and might need editing before it works on your project.
-# This is a sample GitLab CI/CD configuration file that should run without any modifications.
-# It demonstrates a basic 3 stage CI/CD pipeline. Instead of real tests or scripts,
-# it uses echo commands to simulate the pipeline execution.
-#
-# A pipeline is composed of independent jobs that run scripts, grouped into stages.
-# Stages run in sequential order, but jobs within stages run in parallel.
-#
-# For more information, see: https://docs.gitlab.com/ee/ci/yaml/index.html#stages
-#
-# You can copy and paste this template into a new `.gitlab-ci.yml` file.
-# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
-#
-# To contribute improvements to CI/CD templates, please follow the Development guide at:
-# https://docs.gitlab.com/ee/development/cicd/templates.html
-# This specific template is located at:
-# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Getting-Started.gitlab-ci.yml
+image: larsdroid/jdk-gradle-node:21-8.7.0-20.12.1-alpine
+
+before_script:
+  - GRADLE_USER_HOME="$(pwd)/.gradle"
+  - export GRADLE_USER_HOME
+
 include:
   - template: SAST.gitlab-ci.yml
 
@@ -24,36 +13,39 @@ stages:
   - deploy
   - destroy
 
-image: openjdk:17-jdk-slim  # Use an OpenJDK 17 image
+# Cache configuration for dependencies
+cache:
+  paths:
+    - .gradle/
 
-variables:
-  DOCKER_HUB_REPO: "zamlamb/phygital"
 
 build:
-  image: docker:19.03
   stage: build
-  services:
-    - docker:dind
+  image: gradle:jdk17
   script:
-    # Build the Docker image
-    - docker build -t my-phygital-boot-app .
-    - docker tag my-phygital-boot-app:latest $DOCKER_HUB_REPO:latest
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $DOCKER_HUB_REPO:latest
+    - echo "JAVA_HOME is $JAVA_HOME"
+    - java -version
+    - echo "Build start..."
+    - chmod +x ./gradlew
+    - ./gradlew bootJar
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 hour
+
+
 
 unit-test-job:
    image: gradle:jdk17
    stage: test
    script:
-     - cd src/main/resources  # Navigate to the resources directory
-     - ls -l                   # List files in the resources directory
-     - cat application.properties  # Print out the contents of application.properties file
-     - cd ../../..  # Navigate back to the project root directory
+     - echo "Running JUnit tests"
+     - chmod +x ./gradlew
      - ./gradlew test --scan
+     - echo "SAST will run via the template"
    artifacts:
-    when: always
     reports:
-      junit: build/test-results/test/TEST-*.xml
+      junit: build/test-results/**/*.xml
 
 deploy:
   image: google/cloud-sdk:latest
@@ -71,7 +63,9 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
-  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker system prune -a -f; docker pull $DOCKER_HUB_REPO:latest; docker container run -d --rm -p 80:8081 $DOCKER_HUB_REPO:latest; docker logout docker.io"
+  - echo "Deploying the application..."
+  - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker pull $DOCKER_USERNAME/phygital-team5:latest; docker run -d -p 8080:8080 $DOCKER_USERNAME/phygital-team5:latest"
+  when: manual
 
 
 destroy:

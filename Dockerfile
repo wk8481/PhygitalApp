@@ -1,4 +1,8 @@
-# Use the official Gradle image to create a build artifact.
+# Set Gradle environment variables
+ENV GRADLE_HOME=/opt/gradle
+ENV PATH=$PATH:$GRADLE_HOME/bin
+
+# Use the official Gradle image to create a build artifact
 # This image will be used in the 'build' stage.
 FROM gradle:jdk17-alpine as builder
 
