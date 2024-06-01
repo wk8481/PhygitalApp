@@ -18,21 +18,19 @@ cache:
   paths:
     - .gradle/
 
-variables:
-  DOCKER_HUB_REPO: "zamlamb/phygital"
 
 build:
-  image: docker:19.03
   stage: build
-  services:
-    - docker:dind
   script:
-    # Build the Docker image
-    - docker build -t my-phygital-boot-app .
-    - docker tag my-phygital-boot-app:latest $DOCKER_HUB_REPO:latest
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-    - docker push $DOCKER_HUB_REPO:latest
-
+    - echo "JAVA_HOME is $JAVA_HOME"
+    - java -version
+    - echo "Build start..."
+    - chmod +x ./gradlew
+    - ./gradlew bootJar
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 hour
 
 
 
