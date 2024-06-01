@@ -21,7 +21,6 @@ cache:
 
 build:
   stage: build
-  image: gradle:jdk17
   script:
     - echo "JAVA_HOME is $JAVA_HOME"
     - java -version
@@ -36,7 +35,6 @@ build:
 
 
 unit-test-job:
-   image: gradle:jdk17
    stage: test
    script:
      - echo "Running JUnit tests"
@@ -82,4 +80,4 @@ destroy:
     - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io;  docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
   when: manual
 
-  
+
