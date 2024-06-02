@@ -125,8 +125,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const nameInput = document.getElementById("nameInput");
-const bgColor = document.getElementById("bgColorInput").value;
-const font = document.getElementById("fontInput").value;
 const createButton = document.getElementById("createButton");
 const platformId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), "project");
 
@@ -138,8 +136,6 @@ async function addNewProject() {
             "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
             name: nameInput.value,
-            backgroundColorHex: bgColor,
-            fontName: font,
             sharingPlatformId: platformId
         })
     });
