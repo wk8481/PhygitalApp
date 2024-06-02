@@ -52,14 +52,15 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public boolean updateQuestion(int questionId, String text, QuestionType type) {
-        Question project = questionRepository.findById(questionId).orElse(null);
-        if (project == null) {
+    public boolean updateQuestion(int questionId, String text, QuestionType type, boolean isVisible) {
+        Question question = questionRepository.findById(questionId).orElse(null);
+        if (question == null) {
             return false;
         }
-        project.setText(text);
-        project.setType(type);
-        questionRepository.save(project);
+        question.setText(text);
+        question.setType(type);
+        question.setVisible(isVisible);
+        questionRepository.save(question);
         return true;
     }
 

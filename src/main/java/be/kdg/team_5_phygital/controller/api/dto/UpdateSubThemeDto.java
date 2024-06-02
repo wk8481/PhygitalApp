@@ -2,8 +2,8 @@ package be.kdg.team_5_phygital.controller.api.dto;
 
 public class UpdateSubThemeDto {
     private String name;
-
     private String information;
+    private boolean isVisible;
 
     public UpdateSubThemeDto() {
     }
@@ -22,5 +22,13 @@ public class UpdateSubThemeDto {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 }

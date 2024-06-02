@@ -51,6 +51,7 @@ public class Project {
 
     public Project(String name, SharingPlatform sharingPlatform) {
         this.name = name;
+        this.backgroundColorHex = "#FFFFFF";
         this.sharingPlatform = sharingPlatform;
     }
 

@@ -173,7 +173,7 @@ public class AdminController {
     public String getQuestion(@PathVariable int subThemeId, @PathVariable int questionId, Model model) {
         Question question = questionService.getQuestion(questionId);
         Project project = question.getSubTheme().getFlow().getProject();
-        model.addAttribute("q", question);
+        model.addAttribute("question", question);
         List<Question> questions = new ArrayList<>();
         List<PossibleAnswers> possibleAnswers = new ArrayList<>(4);
         questions.add(question);

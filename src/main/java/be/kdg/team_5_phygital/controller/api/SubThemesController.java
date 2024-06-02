@@ -75,9 +75,9 @@ public class SubThemesController {
     }
 
     @PatchMapping("{subThemeId}")
-    ResponseEntity<Void> updateSubTheme(@PathVariable int subThemeId, @RequestBody UpdateSubThemeDto updateSubthemeDto) {
-        if (subThemeService.updateSubTheme(subThemeId, updateSubthemeDto.getName(), updateSubthemeDto.getInformation())) {
-            logger.info("Updating sub theme to: {}", updateSubthemeDto.getName());
+    ResponseEntity<Void> updateSubTheme(@PathVariable int subThemeId, @RequestBody UpdateSubThemeDto updateSubThemeDto) {
+        if (subThemeService.updateSubTheme(subThemeId, updateSubThemeDto.getName(), updateSubThemeDto.getInformation(), updateSubThemeDto.isVisible())) {
+            logger.info("Updating sub theme to: {}", updateSubThemeDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

@@ -61,6 +61,7 @@ async function updateQuestion(event) {
         answer = 0;
     }
     const question = document.getElementById("textInput").value;
+    const isVisible = document.getElementById("isVisibleInput").checked;
     console.log("Updating question")
     fetch(`/api/questions/${questionId}`, {
         method: "PATCH", headers: {
@@ -69,6 +70,7 @@ async function updateQuestion(event) {
             "id": questionId,
             "text": question,
             "type": questionType,
+            "isVisible": isVisible,
             "answers": answer
         })
     })

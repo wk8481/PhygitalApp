@@ -67,6 +67,16 @@
                             <input type="file" id="mediaInput" name="mediaInput" multiple>
                         </td>
                     </tr>
+                    <!-- Visible -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="isVisibleInput">Visible:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-check" id="isVisibleInput" th:checked="${subTheme.isVisible}"
+                                   type="checkbox">
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
                 <!-- Save Button -->
@@ -90,17 +100,12 @@
                             <tbody>
                             <tr th:each="question, qIndex:${questions}">
                                 <td>
-                                    <label for="visibility"></label>
-                                    <input id="visibility" type="checkbox">
-                                </td>
-                                <td>
                                     <a th:href="@{/admin/sub-theme/{subThemeId}/question/{questionId}(subThemeId=${subTheme.id}, questionId=${question.id})}"><i
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="'Question '+ ${qIndex.count}">Question</td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td>
                                     <a th:href="@{/admin/sub-theme/{subThemeId}/question/new(subThemeId=${subTheme.id})}">
                                         <i class="fas fa-plus"></i></a>

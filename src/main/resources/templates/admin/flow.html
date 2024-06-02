@@ -76,17 +76,12 @@
                             <tbody>
                             <tr th:each="st:${st}">
                                 <td>
-                                    <label for="visibility"></label>
-                                    <input id="visibility" type="checkbox">
-                                </td>
-                                <td>
                                     <a th:href="@{/admin/flow/{flowId}/sub-theme/{stId}(flowId=${flow.id}, stId=${st.id})}"><i
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="${st.name}"></td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td>
                                     <a th:href="@{/admin/flow/{flowId}/sub-theme/new(flowId=${flow.id})}">
                                         <i class="fas fa-plus"></i></a>
