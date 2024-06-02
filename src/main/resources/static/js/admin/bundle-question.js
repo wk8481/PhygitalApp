@@ -147,6 +147,7 @@ let minusButton = document.getElementById("removeButton");
 changeButtonVisability();
 
 function changeButtonVisability(){
+    let rangeFields = document.getElementsByClassName("range");
 
     let questionType = document.getElementById("questionTypeInput").value;
     if (questionType === "MULTIPLE_CHOICE" || questionType === "SINGLE_CHOICE") {
@@ -157,25 +158,56 @@ function changeButtonVisability(){
             if (answerField.style.visibility !== "visible") {
                 answerField.style.visibility = "visible";
             }
+            for (let i = 0; i < rangeFields.length; i++) {
+                rangeFields[i].style.visibility = "hidden"
+            }
         }
-    } else{
+    }
+    else{
         addButton.style.visibility = "hidden"
         minusButton.style.visibility = "hidden"
         for (let field of fields) {
             field.style.visibility = "hidden"
         }
+        if (questionType === "RANGE"){
+            for (let i = 0; i < rangeFields.length; i++) {
+                rangeFields[i].style.visibility = "visible"
+            }
+        } else {
+            for (let i = 0; i < rangeFields.length; i++) {
+                rangeFields[i].style.visibility = "hidden"
+            }
+        }
     }
 }
 async function updateQuestion(event) {
     let answer = []
+    let rangeFields = document.getElementsByClassName("range");
 
     const questionType = document.getElementById("questionTypeInput").value;
-    if (questionType === "MULTIPLE_CHOICE" || questionType === "SINGLE_CHOICE") {
+    if (questionType === "MULTIPLE_CHOICE" || questionType === "SINGLE_CHOICE" || questionType === "RANGE") {
         let visibleCount = 0;
         for (let field of fields) {
             if (field.style.visibility === "visible") {
-                answer.push(field.value)
-                visibleCount++;
+                if (questionType === "RANGE"){
+                    if (parseInt(rangeFields[0].value) < parseInt(rangeFields[2].value) && parseInt(rangeFields[1].value) < parseInt(rangeFields[2].value)){
+                        answer.push(field.value)
+                        visibleCount++;
+                    } else if (parseInt(rangeFields[0].value) > parseInt(rangeFields[2].value) ){
+                        alert("Check the red field ( " +rangeFields[0].placeholder +" ) for mistakes, minimum value should be less than maximum");
+                        rangeFields[0].style.borderColor = "red";
+                        rangeFields[2].style.borderColor = "red";
+                        return;
+                    } else if(parseInt(rangeFields[1].value) > parseInt(rangeFields[2].value)){
+                        alert("Check the red field ( " +rangeFields[1].placeholder +" ) for mistakes, step value should be less than maximum");
+                        rangeFields[1].style.borderColor = "red";
+                        rangeFields[2].style.borderColor = "red";
+                        return;
+                    }
+                }else {
+                    answer.push(field.value)
+                    visibleCount++;
+                }
             }
         }
     }
@@ -196,7 +228,7 @@ async function updateQuestion(event) {
     })
         .then(response => {
             if (response.status === 204) {
-                location
+                window.history.back();
             }
         });
 }

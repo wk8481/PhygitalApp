@@ -47,7 +47,8 @@ VALUES ('Flow 1', true, 1, 0, 0, 'this flow is circular'),
 INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)
 VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1, 0),
        ('local voting in brussels', 'Information for voting in Brussels', true, 1, 0),
-       ('local voting in brussels', 'Information for voting in Brussels', true, 2, 0);
+       ('local voting in brussels', 'Information for voting in Brussels', true, 2, 0),
+       ('test', 'test', true, 1, 0);
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
@@ -61,19 +62,26 @@ VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
        ('How do you feel today?', 'OPEN', true, 3),
        ('would you go to work as chairman, secretary or assistant during voting if you were selected to do so?','SINGLE_CHOICE', true,2),
        ('Should there be a fine for people who do not show up','SINGLE_CHOICE', true,2),
-       ('Should the fine be higher for people with a higher income?','SINGLE_CHOICE',true, 2);
+       ('Should the fine be higher for people with a higher income?','SINGLE_CHOICE',true, 2),
+       ('test', 'RANGE', true, 4);
 
 INSERT INTO possible_answers(question_id, answer)
 values (1, 'Green'),
        (1, 'Black'),
        (1, 'Blue'),
        (1, 'Yellow'),
+       (2, '1'),
+       (2, '1'),
+       (2, '100'),
        (3, 'Yes'),
        (3, 'No'),
        (5, 'Green'),
        (5, 'Black'),
        (5, 'Blue'),
        (5, 'Yellow'),
+       (6, '1'),
+       (6, '1'),
+       (6, '100'),
        (7, 'Yes'),
        (7, 'No'),
        (8, 'Yes'),
@@ -84,7 +92,10 @@ values (1, 'Green'),
         (10, 'No'),
         (11, 'Yes'),
         (11, 'No'),
-        (11, 'There should be no fine');
+        (11, 'There should be no fine'),
+       (12, '100'),
+       (12, '1'),
+       (12, '200');
 
 Insert INTO answer(answers)
 values ('green'),

@@ -63,8 +63,10 @@
                                 </div>
                             </div>
                             <div th:case="'RANGE'" id="range">
-                                <input type="range" class="range" th:id="${'answer' + index.index}" min="0" max="100" step="1" value="50">
-                                <span id="rangeValue">Value: 50</span>
+                                <input type="range" class="range" th:name="${'answer' + index.index}" th:id="${'sliderQuestionId_' + question.id}">
+                                <br>
+                                <span id="rangeValue"> </span>
+
                             </div>
                             <div th:case="'OPEN'" id="open">
                                 <input type="text" th:id="${'answer' + index.index}" required>
@@ -97,6 +99,17 @@
     <!-- Return Button -->
     <div class="center-container">
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
+    <div id="none">
+        <div th:each="q: ${questions}" >
+            <div th:if="${q.getType().toString() == 'RANGE'}">
+                <div th:each="pa: ${possibleAnswers}" id="rangeContent">
+                    <div th:if="${pa.question.id == q.id}">
+                        <p th:text="${q.id + ' ' + pa.answer}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>
