@@ -49,6 +49,12 @@ deploy:
   image: google/cloud-sdk:latest
   stage: deploy
   before_script:
+
+    - echo "Setting up GCP Authentication..."
+    - echo "$GCP_SERVICE_KEY" | base64 -d > gcp-service-key.json
+    - gcloud auth activate-service-account --key-file gcp-service-key.json
+    - gcloud config set project $PROJECT_ID
+
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
     - which nslookup || apt-get install dnsutils -y
     - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
@@ -62,6 +68,8 @@ deploy:
 
   script:
     - echo "Deploying the application..."
+    - chmod +x jarupload.sh
+    - ./jarupload.sh
     - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker pull $DOCKER_USERNAME/phygital-team5:latest; docker run -d -p 8080:8080 $DOCKER_USERNAME/phygital-team5:latest"
   when: manual
 
