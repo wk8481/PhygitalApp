@@ -69,9 +69,19 @@ deploy:
   script:
     - echo "Deploying the application..."
     - chmod +x jarupload.sh
+    - chmod +x deployjar.sh
     - ./jarupload.sh
+    - sleep 10
+    - ./deployjar.sh
+    - sleep 10
+    - echo "Application starting.."
+    - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl start phygital.service"
+    - echo "Application started successfully"
     - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker pull $DOCKER_USERNAME/phygital-team5:latest; docker run -d -p 8080:8080 $DOCKER_USERNAME/phygital-team5:latest"
   when: manual
+  environment:
+    name: production
+    url: https://phygital-team5.duckdns.org:8443
 
 
 destroy:
