@@ -37,9 +37,9 @@ public class SupervisorService {
     }
 
     @Transactional
-    public Supervisor saveSupervisor(String name, String email, int sharingPlatformId) {
+    public Supervisor saveSupervisor(String name, String email, String password, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
-        return supervisorRepository.save(new Supervisor(name, email, sharingPlatform));
+        return supervisorRepository.save(new Supervisor(name, email, password, sharingPlatform));
     }
 
     public boolean updateSupervisor(int supervisorId, String name, String email) {

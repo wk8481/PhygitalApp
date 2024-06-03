@@ -21,17 +21,17 @@ public class SharingPlatform {
 
     private float totalTimeSpentInSec;
 
-    @ManyToOne()
+    @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "administrator_id")
     private Administrator administrator;
 
     @OneToMany(mappedBy = "sharingPlatform")
     private List<Project> projects;
 
-    @OneToMany(mappedBy = "sharingPlatform")
+    @OneToMany(mappedBy = "sharingPlatform", cascade = CascadeType.REMOVE)
     private List<Supervisor> supervisors;
 
-    @OneToMany(mappedBy = "sharingPlatform")
+    @OneToMany(mappedBy = "sharingPlatform", cascade = CascadeType.REMOVE)
     private List<Client> clients;
 
 

@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -61,14 +62,19 @@ public class SharingPlatformsController {
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatform, SharingPlatformDto.class), HttpStatus.CREATED);
     }
 
-    @PatchMapping("{platformId}")
-    ResponseEntity<Void> updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto, @RequestParam(value = "logo", required = false) MultipartFile logoFile) throws IOException {
+    @PatchMapping(value = "/{sharingPlatformId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<Void> updateSharingPlatform(
+            @PathVariable int sharingPlatformId,
+            @RequestPart("updateSharingPlatformDto") UpdateSharingPlatformDto updateSharingPlatformDto,
+            @RequestPart(value = "logo", required = false) MultipartFile logoFile) throws IOException {
+
         if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto, logoFile)) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
     }
 
     @DeleteMapping("{platformId}")

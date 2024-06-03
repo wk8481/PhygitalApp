@@ -20,6 +20,8 @@ public class Flow {
 
     private float totalTimeSpentInSec;
 
+    private String info;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "project_id")
     private Project project;
@@ -59,6 +61,14 @@ public class Flow {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 
     public boolean isCircular() {
