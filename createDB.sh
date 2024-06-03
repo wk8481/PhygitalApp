@@ -37,6 +37,22 @@ echo "psql -h $pg_ip -U postgres"
 echo "Enter the password when prompted."
 echo "Remember to store the password securely in ~/.pgpass."
 
+# Fetch the IP address associated with the VM instance
+vm_instance_name="team5-vm"
+vm_ip=$(gcloud compute instances describe "$vm_instance_name" --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
+
+# Check if VM IP is obtained successfully
+if [ -z "$vm_ip" ]; then
+    echo "Failed to retrieve IP address for VM $vm_instance_name"
+    exit 1
+fi
+
+# Patch the PostgreSQL instance to authorize local IP and VM IP
+gcloud sql instances patch $pg --authorized-networks="$auth_ip/32,$vm_ip/32"
+
+# Output confirmation message
+echo "Patched PostgreSQL instance $pg to authorize local IP $auth_ip and VM IP $vm_ip"
+
 # Connect to PostgreSQL and execute commands to create databases
 PGPASSWORD=$pg_password psql -h $pg_ip -U postgres <<EOF
 CREATE DATABASE phygital;
