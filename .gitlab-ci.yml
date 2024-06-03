@@ -77,7 +77,6 @@ deploy:
     - echo "Application starting.."
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl start phygital.service"
     - echo "Application started successfully"
-    - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io; docker pull $DOCKER_USERNAME/phygital-team5:latest; docker run -d -p 8080:8080 $DOCKER_USERNAME/phygital-team5:latest"
   when: manual
   environment:
     name: production
@@ -88,14 +87,27 @@ destroy:
   image: google/cloud-sdk:latest
   stage: destroy
   before_script:
+    - echo "Setting up GCP Authentication..."
+    - echo "$GCP_SERVICE_KEY" | base64 -d > gcp-service-key.json
+    - gcloud auth activate-service-account --key-file gcp-service-key.json
+    - gcloud config set project $PROJECT_ID
+
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+    - which nslookup || apt-get install dnsutils -y
+    - "echo $(nslookup phygital-team5.duckdns.org | awk '/^Address: / { print $2 }') > ${HOME}/ip.txt"
+    - IP_ADDRESS=$(cat ${HOME}/ip.txt)
+    - if [ -z "$IP_ADDRESS" ]; then IP_ADDRESS="35.241.233.187"; fi
     - eval $(ssh-agent -s)
     - echo "$TEAM5_PRIV_KEY" | tr -d '\r' | ssh-add -
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
   script:
-    - ssh $TEAM5_USER@$IP_ADDRESS "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD docker.io;  docker stop \$(docker ps -q); docker rm \$(docker ps -a -q); docker system prune -af"
+    - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl stop phygital.service"
+    - chmod +x dismantle.sh
+    - sudo ./dismantle.sh
+
   when: manual
+
 
 
