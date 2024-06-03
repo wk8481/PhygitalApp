@@ -124,18 +124,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const postButton = document.getElementById("postButton");
-const projectId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), "comment");
-
+const projectId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), "project");
 postButton.addEventListener("click", addNewComment);
 
 async function addNewComment() {
-    const text = document.getElementById("textInput").value;
+    const text = document.getElementById("commentInput").value;
     await fetch(`/api/comments`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
             text: text, projectId: projectId
         })
+    }).then(response => {
+        if (response.status === 201) {
+            window.location.reload();
+        }
     });
 }
 
