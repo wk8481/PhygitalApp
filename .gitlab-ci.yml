@@ -67,11 +67,20 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
-    - echo "Deploying the application..."
+    - echo "Uploading the application..."
     - chmod +x jarupload.sh
     - chmod +x deployjar.sh
+    - chmod +x createDB.sh
     - ./jarupload.sh
     - sleep 10
+    - echo "Uploaded successfully"
+    - sleep 10
+    - echo "Creating database..."
+    - ./createDB.sh
+    - sleep 10
+    - echo "Database created successfully"
+    - sleep 10
+    - echo "Deploying the application..."
     - ./deployjar.sh
     - sleep 10
     - echo "Application starting.."
