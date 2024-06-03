@@ -34,7 +34,7 @@ build:
 
 
 
-unit-test-job:
+test:
   stage: test
   script:
     - echo "Running JUnit tests"
@@ -81,7 +81,11 @@ deploy:
   environment:
     name: production
     url: https://phygital-team5.duckdns.org:8443
-
+  only:
+    refs:
+      - main
+  needs:
+    - test
 
 destroy:
   image: google/cloud-sdk:latest
@@ -108,6 +112,5 @@ destroy:
     - sudo ./dismantle.sh
 
   when: manual
-
 
 
