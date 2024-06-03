@@ -5,6 +5,8 @@ import be.kdg.team_5_phygital.domain.Project;
 import be.kdg.team_5_phygital.repository.CommentRepository;
 import be.kdg.team_5_phygital.repository.ProjectRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.Optional;
 
 @Service
 public class CommentService {
+    private static final Logger log = LoggerFactory.getLogger(CommentService.class);
     private final CommentRepository commentRepository;
     private final ProjectRepository projectRepository;
 

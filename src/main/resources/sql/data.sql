@@ -119,5 +119,5 @@ VALUES (1, 1),
        (3, 1);
 
 INSERT INTO comment (text, project_id)
-VALUES ('Comment 1', 1),
-       ('Comment 2', 1);
+VALUES ('I love how the questionaire is short and simple', 1),
+       ('Thank you to the lady that was there to help me with the questions i didnt understand', 1);
