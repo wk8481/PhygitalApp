@@ -58,7 +58,7 @@ public class FlowService {
         if (flow == null) {
             return false;
         }
-        flow.setName(name);
+        flow.setInfo(name);
         flowRepository.save(flow);
         return true;
     }

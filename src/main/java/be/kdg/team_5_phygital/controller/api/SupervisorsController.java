@@ -4,6 +4,7 @@ import be.kdg.team_5_phygital.controller.api.dto.NewSupervisorDto;
 import be.kdg.team_5_phygital.controller.api.dto.SupervisorDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateSupervisorDto;
 import be.kdg.team_5_phygital.domain.Supervisor;
+import be.kdg.team_5_phygital.service.PasswordHasher;
 import be.kdg.team_5_phygital.service.SupervisorService;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -22,10 +23,12 @@ public class SupervisorsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final SupervisorService supervisorService;
     private final ModelMapper modelMapper;
+    private final PasswordHasher passwordHasher;
 
-    public SupervisorsController(SupervisorService supervisorService, ModelMapper modelMapper) {
+    public SupervisorsController(SupervisorService supervisorService, ModelMapper modelMapper, PasswordHasher passwordHasher) {
         this.supervisorService = supervisorService;
         this.modelMapper = modelMapper;
+        this.passwordHasher = passwordHasher;
     }
 
     @GetMapping("{id}")
@@ -53,8 +56,8 @@ public class SupervisorsController {
         if (supervisorService.getSupervisorByName(supervisorDto.getName()) != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        logger.info("Creating new supervisor: {}", supervisorDto.getName());
-        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail(), supervisorDto.getSharingPlatformId());
+        logger.info("Creating new supervisor: {} with mail: {}", supervisorDto.getName(), supervisorDto.getEmail());
+        Supervisor createdSupervisor = supervisorService.saveSupervisor(supervisorDto.getName(), supervisorDto.getEmail(), passwordHasher.hashPassword(supervisorDto.getPassword()), supervisorDto.getSharingPlatformId());
         return new ResponseEntity<>(modelMapper.map(createdSupervisor, SupervisorDto.class), HttpStatus.CREATED);
     }
 

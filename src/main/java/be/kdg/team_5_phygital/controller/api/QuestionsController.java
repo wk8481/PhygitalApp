@@ -144,6 +144,7 @@ public class QuestionsController {
             flowService.updateTimeAndParticipants(subTheme.getFlow(), newAnswerDto.getDurationSpend());
 
 //            logger.info("\n Answers submitted: {} \n to questions: {} \n for sessionid: {} \n with note: {}", session.getAnswers().toString(), session.getQuestions().toString(), session.getSessionId(), session.getNote().getNote());
+//            logger.info("\n Question received: {} \n Answer receivede: {}",newAnswerDto.getQuestion(), newAnswerDto.getAnswer());
             return ResponseEntity.status(HttpStatus.CREATED).body("Answer submitted successfully.");
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to submit answer.");

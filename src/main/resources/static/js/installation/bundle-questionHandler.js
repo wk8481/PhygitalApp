@@ -88,6 +88,47 @@ let isCircular
 
 var isCircularExists = document.getElementById("minUser");
 
+let dataArray = [];
+
+function parseContent() {
+    var content = document.querySelectorAll("#rangeContent p");
+
+    content.forEach(function(element) {
+        var numbers = element.innerText.split(' ');
+        var questionId = parseInt(numbers[0]);
+        var answer = parseInt(numbers[1]);
+        dataArray.push({ questionId: questionId, answer: answer });
+    });
+    const quotient = Math.floor(dataArray.length / 3);
+
+    for (let i = 0; i < quotient; i++) {
+        let id = dataArray[0].questionId
+        let min = dataArray[0].answer
+        let step = dataArray[1].answer
+        let max = dataArray[2].answer
+        dataArray.shift()
+        dataArray.shift()
+        dataArray.shift()
+
+        console.log("id min step max ", id, min, step, max)
+
+        updateSliders(id, min, step, max)
+    }
+
+    return dataArray;
+}
+
+function updateSliders(questionId, min, step, max) {
+    var slider = document.getElementById("sliderQuestionId_" + questionId);
+        slider.min = min;
+        slider.step = step;
+        slider.max = max;
+        slider.defaultValue = (max+min)/2;
+}
+
+parseContent()
+
+
 document.getElementById("submit").style.visibility = "hidden"
 let currentIndex = 0;
 if (isCircularExists !== null) {
@@ -213,6 +254,7 @@ window.onload = function () {
             div.style.display = 'none';
         }
     });
+    document.getElementById("none").style.display = "none"
 }
 
 
@@ -240,13 +282,18 @@ function submitAnswer(event) {
                     break
                 case "multipleChoice":
                     answer = ""
-                    const s = document.querySelectorAll('input[name=' + answerName + ']:checked')
-                    for (let sElement of s) {
-                        answer += sElement.value
-                        answer += ", "
-                    }
+                    const inputs = document.querySelectorAll('input[name="' + answerName + '"]');
 
-                    answer = answer.slice(0, -2); // Delete last two characters
+                    inputs.forEach(input => {
+                        if (input.checked) {
+                            answer += input.value + ', ';
+                        }
+                    });
+
+                    // Remove the trailing comma and space
+                    if (answer.endsWith(', ')) {
+                        answer = answer.slice(0, -2);
+                    }
                     break
                 case "range":
                     answer = document.getElementById(answerName).value;
@@ -269,6 +316,7 @@ function submitAnswer(event) {
         let questionId = questionNr.querySelector("h2").id.split("_")[1]
 
         let answerName = "answer" + currentIndex
+        console.log(answerName)
         switch (questionNr.querySelector("div").querySelector("div").id) {
             case "open":
                 answer = document.getElementById(answerName).value
@@ -284,7 +332,7 @@ function submitAnswer(event) {
                 answer = answer.slice(0, -2); // Delete last two characters
                 break
             case "range":
-                answer = document.getElementsByClassName('range').item(0).value;
+                answer = document.getElementsByName(answerName).item(0).value;
                 break
             case "singleChoice":
                 answer = document.querySelector('input[name=' + answerName + ']:checked').value
@@ -374,6 +422,8 @@ function moveToPreviousQuestion() {
     }
 }
 
+
+
 function showQuestion(index) {
 
     for (var i = 0; i < questionDivs.length; i++) {
@@ -387,6 +437,7 @@ let rangeInputs = document.getElementsByClassName('range');
 
 Array.from(rangeInputs).forEach(function(rangeInput) {
     let rangeValue = rangeInput.nextElementSibling;
+    rangeValue = rangeValue.nextElementSibling;
     rangeInput.addEventListener("input", function() {
         if (rangeValue != null) {
             rangeValue.textContent = "Value: " + rangeInput.value;

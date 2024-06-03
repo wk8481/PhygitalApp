@@ -67,9 +67,13 @@ public class InstallationsController {
     }
 
     @PatchMapping("{installationId}")
-    ResponseEntity<Void> updateInstallation(@PathVariable int installationId, @RequestBody UpdateInstallationDto updateInstallationDto) {
+    ResponseEntity<Void> updateInstallation(@PathVariable int installationId,
+                                            @RequestPart("updateInstallation") UpdateInstallationDto updateInstallationDto
+
+                                            ) {
         if (installationService.updateInstallation(installationId, updateInstallationDto.getName(), updateInstallationDto.getProvince(), updateInstallationDto.getCity(), updateInstallationDto.getStreet(), updateInstallationDto.getStreetNumber())) {
-            logger.info("Installation updated");
+            logger.info("Installation {} updated", updateInstallationDto);
+
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             logger.error("Installation update failed");

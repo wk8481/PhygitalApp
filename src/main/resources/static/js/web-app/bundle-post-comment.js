@@ -17,6 +17,42 @@ const header = document.querySelector('meta[name="_csrf_header"]').content;
 const token = document.querySelector('meta[name="_csrf"]').content;
 
 
+/***/ }),
+
+/***/ "./src/main/js/utils.js":
+/*!******************************!*\
+  !*** ./src/main/js/utils.js ***!
+  \******************************/
+/***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   extractIdsFromUrl: () => (/* binding */ extractIdsFromUrl)
+/* harmony export */ });
+function extractIdsFromUrl(url, partOfUrl) {
+    // Used to extract the 2 id's that are in the link, needed to update entity
+
+    // Define the regular expression pattern to match IDs
+    const mainPattern = new RegExp("/(\\d+)/" + partOfUrl + "/(\\d+)");
+    const creatingPattern = new RegExp("/(\\d+)/" + partOfUrl + "/new");
+    const specialPattern = new RegExp("/" + partOfUrl + "/(\\d+)");
+    let match
+
+    // If match is found, extract the IDs
+    if ((match = url.match(mainPattern)) !== null) {
+        const firstId = match[1];
+        const secondId = match[2];
+        return [firstId, secondId];
+    } else if ((match = url.match(creatingPattern)) !== null) {
+        return match[1]
+    } else if ((match = url.match(specialPattern)) !== null) {
+        return match[1]
+    } else {
+        return null;
+    }
+}
+
+
 /***/ })
 
 /******/ 	});
@@ -83,21 +119,26 @@ var __webpack_exports__ = {};
   \*********************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/csrf.js */ "./src/main/js/util/csrf.js");
+/* harmony import */ var _utils_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils.js */ "./src/main/js/utils.js");
+
 
 
 const postButton = document.getElementById("postButton");
-const projectId = extractIdsFromUrl(window.location.href.substring(window.location.href), "comment");
-
+const projectId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), "project");
 postButton.addEventListener("click", addNewComment);
 
 async function addNewComment() {
-    const text = document.getElementById("textInput").value;
+    const text = document.getElementById("commentInput").value;
     await fetch(`/api/comments`, {
         method: "POST", headers: {
             "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
             text: text, projectId: projectId
         })
+    }).then(response => {
+        if (response.status === 201) {
+            window.location.reload();
+        }
     });
 }
 
