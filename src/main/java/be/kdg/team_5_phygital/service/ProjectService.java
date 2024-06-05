@@ -64,9 +64,9 @@ public class ProjectService {
     }
 
     @Transactional
-    public Project saveProject(String name, int sharingPlatformId) {
+    public Project saveProject(String name, String backgroundColorHex, String fontName, int sharingPlatformId) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
-        Project project = new Project(name, sharingPlatform);
+        Project project = new Project(name, backgroundColorHex, fontName, sharingPlatform);
         themeRepository.save(new Theme("Unnamed Theme", "", project));
         return projectRepository.save(project);
     }

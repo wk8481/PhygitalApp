@@ -24,12 +24,12 @@ public interface SessionRepository extends JpaRepository<Session, Integer> {
 
     List<Session> getSessionsBySubTheme(@Param("subTheme") SubTheme subTheme);
 
-    @Query("SELECT DISTINCT s FROM Session s LEFT JOIN FETCH s.answers WHERE s IN :sessions")
+    @Query("SELECT s FROM Session s LEFT JOIN FETCH s.answers WHERE s IN :sessions")
     List<Session> getAnswersOfSessions(@Param("sessions") List<Session> sessions);
 
 
-    @Query("SELECT DISTINCT s FROM Session s LEFT JOIN FETCH s.questions WHERE s IN :sessions")
+    @Query("SELECT s FROM Session s LEFT JOIN FETCH s.questions WHERE s IN :sessions")
     List<Session> getQuestionsOfSessions(@Param("sessions") List<Session> sessions);
 
-
+    Session findTopByOrderByTimestampDesc();
 }

@@ -39,7 +39,7 @@
                             <label class="form-label" for="provinceInput">Province:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="provinceInput">
+                            <input class="form-control" id="provinceInput" th:value="${installation.getLocation().getProvince()}">
                         </td>
                     </tr>
                     <!-- City -->
@@ -48,7 +48,7 @@
                             <label class="form-label" for="cityInput">City:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="cityInput">
+                            <input class="form-control" id="cityInput" th:value="${installation.getLocation().getCity()}">
                         </td>
                     </tr>
                     <!-- Street -->
@@ -57,7 +57,7 @@
                             <label class="form-label" for="streetInput">Street:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="streetInput">
+                            <input class="form-control" id="streetInput" th:value="${installation.getLocation().getStreet()}">
                         </td>
                     </tr>
                     <!-- Street Number -->
@@ -66,7 +66,7 @@
                             <label class="form-label" for="streetNumberInput">Street Number:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-control" id="streetNumberInput">
+                            <input class="form-control" id="streetNumberInput" th:value="${installation.getLocation().getStreetNumber()}">
                         </td>
                     </tr>
                     </tbody>

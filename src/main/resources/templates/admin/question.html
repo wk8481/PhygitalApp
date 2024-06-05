@@ -28,8 +28,6 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <!-- Logo -->
-    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -86,6 +84,12 @@
                         <tr id="answerInputs2" ><label for="answer_2"></label><input type="text" th:value="${pA.size() > 1 and pA[1] != null ? pA[1].answer : ''}" id="answer_2" class="answer-input" th:style="'visibility: ' + (${pA.size() > 1 ? 'visible' : 'hidden'})"></tr><br>
                         <tr id="answerInputs3" ><label for="answer_3"></label><input type="text" th:value="${pA.size() > 2 and pA[2] != null ? pA[2].answer : ''}" id="answer_3" class="answer-input" th:style="'visibility: ' + (${pA.size() > 2 ? 'visible' : 'hidden'})"></tr><br>
                         <tr id="answerInputs4" ><label for="answer_4"></label><input type="text" th:value="${pA.size() > 3 and pA[3] != null ? pA[3].answer : ''}" id="answer_4" class="answer-input" th:style="'visibility: ' + (${pA.size() > 3 ? 'visible' : 'hidden'})"></tr><br>
+
+
+                        <tr id="minRangeTR">    <input th:value="${pA.size() > 0 and pA[0] != null ? pA[0].answer : ''}" type="number" placeholder="Minimum value" id="minRange" class="answer-input range"  style="visibility: visible"></tr><br>
+                        <tr id="stepTR" >       <input th:value="${pA.size() > 1 and pA[1] != null ? pA[1].answer : ''}" type="number" id="step" placeholder="Step" class="answer-input range" style="visibility: visible"></tr><br>
+                        <tr id="maxRangeTR" >   <input th:value="${pA.size() > 2 and pA[2] != null ? pA[2].answer : ''}" type   ="number" id="maxRange" placeholder="Maximum value" class="answer-input range" style="visibility: visible"></tr><br>
+
                         <tr>
                             <button id="addButton" value="Add answer input" class="fas fa-plus" style="visibility: visible"></button>
                             <button id="removeButton" value="remove answer input"  class="fas fa-minus" style="visibility: visible"></button>

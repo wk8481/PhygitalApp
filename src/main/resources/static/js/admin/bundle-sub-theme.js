@@ -13,8 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   header: () => (/* binding */ header),
 /* harmony export */   token: () => (/* binding */ token)
 /* harmony export */ });
-const header = document.querySelector('meta[name="_csrf_header"]').content;
-const token = document.querySelector('meta[name="_csrf"]').content;
+const header = document.querySelector('meta[name="_csrf_header"]').content
+const token = document.querySelector('meta[name="_csrf"]').content
 
 
 /***/ }),
@@ -33,23 +33,22 @@ function extractIdsFromUrl(url, partOfUrl) {
     // Used to extract the 2 id's that are in the link, needed to update entity
 
     // Define the regular expression pattern to match IDs
-    const pattern = new RegExp("/(\\d+)/" + partOfUrl + "/(\\d+)");
-
-    // Execute the regular expression on the URL
-    const match = url.match(pattern);
+    const mainPattern = new RegExp('/(\\d+)/' + partOfUrl + '/(\\d+)')
+    const creatingPattern = new RegExp('/(\\d+)/' + partOfUrl + '/new')
+    const specialPattern = new RegExp('/' + partOfUrl + '/(\\d+)')
+    let match
 
     // If match is found, extract the IDs
-    if (match) {
-        const firstId = match[1];
-        const secondId = match[2];
-        return [firstId, secondId];
+    if ((match = url.match(mainPattern)) !== null) {
+        const firstId = match[1]
+        const secondId = match[2]
+        return [firstId, secondId]
+    } else if ((match = url.match(creatingPattern)) !== null) {
+        return match[1]
+    } else if ((match = url.match(specialPattern)) !== null) {
+        return match[1]
     } else {
-        const pattern2 = new RegExp("/(\\d+)/" + partOfUrl + "/new");
-        const match2 = url.match(pattern2);
-        if (match2){
-            return match2[1]
-        }
-        // Return null or handle error
+        return null
     }
 }
 
@@ -126,60 +125,59 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const uploadInput = document.getElementById("mediaInput");
-const saveButton = document.querySelector("#saveButton");
-const deleteButton = document.querySelector("#deleteButton");
-const [flowId, subThemeId] = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), "sub-theme");
+const uploadInput = document.getElementById('mediaInput')
+const saveButton = document.querySelector('#saveButton')
+const deleteButton = document.querySelector('#deleteButton')
+const [flowId, subThemeId] = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), 'sub-theme')
 
-saveButton.addEventListener("click", updateSubTheme);
-deleteButton.addEventListener("click", deleteSubTheme);
+saveButton.addEventListener('click', updateSubTheme)
+deleteButton.addEventListener('click', deleteSubTheme)
 
 async function updateSubTheme(event) {
-    const name = document.getElementById("nameInput").value;
-    const info = document.getElementById("infoInput").value;
-    const isVisible = document.getElementById("isVisibleInput").checked;
-    console.log("Updating sub theme")
+    const name = document.getElementById('nameInput').value
+    const info = document.getElementById('infoInput').value
+    console.log('Updating sub theme')
     fetch(`/api/sub-themes/${subThemeId}`, {
-        method: "PATCH", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
+        method: 'PATCH', headers: {
+            'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
-            "id": subThemeId, "name": name, "information": info, "isVisible": isVisible
+            'id': subThemeId, 'name': name, 'information': info
         })
     })
         .then(async (response) => {
             if (response.status === 204) {
                 // Upload media files
-                await uploadMediaFiles();
+                await uploadMediaFiles()
             }
-        });
+        })
 }
 
 async function deleteSubTheme(event) {
-    console.log("Deleting sub theme")
+    console.log('Deleting sub theme')
     const response = await fetch(`/api/sub-themes/${subThemeId}`, {
-        method: "DELETE", headers: {
+        method: 'DELETE', headers: {
             [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }
-    });
+    })
     if (response.ok){
-        window.history.back();
+        window.history.back()
     }
 }
 
 async function uploadMediaFiles(event) {
-    const files = uploadInput.files;
-    const formData = new FormData();
+    const files = uploadInput.files
+    const formData = new FormData()
     for (const file of files) {
-        formData.append("files", file);
+        formData.append('files', file)
     }
-    console.log("Uploading media files");
+    console.log('Uploading media files')
     const response = await fetch(`/api/sub-themes/${subThemeId}/media`, {
-        method: "POST",
+        method: 'POST',
         headers: {
             [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         },
         body: formData
-    });
+    })
     if (response.ok) {
         // Handle success
     }

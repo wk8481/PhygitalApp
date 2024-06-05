@@ -1,39 +1,80 @@
-import {header, token} from "../util/csrf.js";
+import {header, token} from '../util/csrf.js'
 let isCircular
 
-var isCircularExists = document.getElementById("minUser");
+var isCircularExists = document.getElementById('minUser')
 
-document.getElementById("submit").style.visibility = "hidden"
-let currentIndex = 0;
+let dataArray = []
+
+function parseContent() {
+    var content = document.querySelectorAll('#rangeContent p')
+
+    content.forEach(function(element) {
+        var numbers = element.innerText.split(' ')
+        var questionId = parseInt(numbers[0])
+        var answer = parseInt(numbers[1])
+        dataArray.push({ questionId: questionId, answer: answer })
+    })
+    const quotient = Math.floor(dataArray.length / 3)
+
+    for (let i = 0; i < quotient; i++) {
+        let id = dataArray[0].questionId
+        let min = dataArray[0].answer
+        let step = dataArray[1].answer
+        let max = dataArray[2].answer
+        dataArray.shift()
+        dataArray.shift()
+        dataArray.shift()
+
+        console.log('id min step max ', id, min, step, max)
+
+        updateSliders(id, min, step, max)
+    }
+
+    return dataArray
+}
+
+function updateSliders(questionId, min, step, max) {
+    var slider = document.getElementById('sliderQuestionId_' + questionId)
+    slider.min = min
+    slider.step = step
+    slider.max = max
+    slider.defaultValue = (max+min)/2
+}
+
+parseContent()
+
+
+document.getElementById('submit').style.visibility = 'hidden'
+let currentIndex = 0
 if (isCircularExists !== null) {
     isCircular = true
-    document.getElementById("minUser").addEventListener("click", minUser);
-    document.getElementById("plusUser").addEventListener("click", plusUser);
-    document.getElementById("nextButton").classList.remove("btn-secondary")
-    document.getElementById("nextButton").classList.add("btn-primary")
+    document.getElementById('minUser').addEventListener('click', minUser)
+    document.getElementById('plusUser').addEventListener('click', plusUser)
+    document.getElementById('nextButton').classList.remove('btn-secondary')
+    document.getElementById('nextButton').classList.add('btn-primary')
 } else {
     isCircular = false
 }
 
-document.getElementById("submit").addEventListener("click", submitAnswer);
-document.getElementById("nextButton").addEventListener("click", moveToNextQuestion);
-document.getElementById("backButton").addEventListener("click", moveToPreviousQuestion);
-document.getElementById("pauseButton").addEventListener("click", togglePause);
-const userCount = document.getElementById("userCount")
+document.getElementById('submit').addEventListener('click', submitAnswer)
+document.getElementById('nextButton').addEventListener('click', moveToNextQuestion)
+document.getElementById('backButton').addEventListener('click', moveToPreviousQuestion)
+document.getElementById('pauseButton').addEventListener('click', togglePause)
+const userCount = document.getElementById('userCount')
 let queue = 0
 
 function minUser(){
     if (queue>0){
         queue--
     }
-    userCount.innerText = "There are/is " + queue + " people in the queue."
+    userCount.innerText = 'There are/is ' + queue + ' people in the queue.'
 }
 
 function plusUser(){
     if (queue < 15) {
         queue++
     }
-    userCount.innerHTML = "There are/is " + queue + " people in the queue."
+    userCount.innerHTML = 'There are/is ' + queue + ' people in the queue.'
 
 }
 
@@ -42,7 +83,7 @@ var seconds =0
 let minSeconds = 0
 
 // Start time when the page loads
-var startTime = new Date().getTime();
+var startTime = new Date().getTime()
 
 function trackTime() {
 
@@ -50,57 +91,57 @@ function trackTime() {
 
     displayTime()
     // Update time every second
-    timerInterval = setInterval(displayTime, 1000);
+    timerInterval = setInterval(displayTime, 1000)
 }
 
 // Call trackTime() when the page loads
-trackTime();
+trackTime()
 function displayTime() {
-    var currentTime = new Date().getTime();
-    elapsedTime = currentTime - startTime;
+    var currentTime = new Date().getTime()
+    elapsedTime = currentTime - startTime
     elapsedTime -= minSeconds
-    seconds = Math.floor(elapsedTime / 1000);
-    var minutes = Math.floor(seconds / 60);
+    seconds = Math.floor(elapsedTime / 1000)
+    var minutes = Math.floor(seconds / 60)
 
-    var secondsTodisplay =  seconds % 60;
+    var secondsTodisplay =  seconds % 60
     // Display time on the page
-    document.getElementById("timer").innerHTML = "Time spent on the page: " + minutes + "m " + secondsTodisplay + "s";
+    document.getElementById('timer').innerHTML = 'Time spent on the page: ' + minutes + 'm ' + secondsTodisplay + 's'
 }
 
 
 // JavaScript to toggle between pause and resume states
-var paused = false; // Initially, page is not paused
+var paused = false // Initially, page is not paused
 var timerInterval
 // Function to toggle pause state and update button
 var startPause
 function togglePause() {
-    paused = !paused; // Toggle pause state
+    paused = !paused // Toggle pause state
 
     // Update button text and icon based on pause state
-    var button = document.getElementById("pauseButton");
-    const textArea = document.getElementById("notesField")
-    const form = document.getElementById("questionForm")
+    var button = document.getElementById('pauseButton')
+    const textArea = document.getElementById('notesField')
+    const form = document.getElementById('questionForm')
 
     if (paused) {
         // Page is paused
-        startPause = new Date().getTime();
-        button.innerHTML = '';
-        button.innerHTML = '<i class="fas fa-play"></i>';
-        document.getElementById("blockedOverlay").style.display = "block"; // Display the overlay
-        form.style.display = "none"
-        textArea.style.display = "block"
+        startPause = new Date().getTime()
+        button.innerHTML = ''
+        button.innerHTML = '<i class="fas fa-play"></i>'
+        document.getElementById('blockedOverlay').style.display = 'block' // Display the overlay
+        form.style.display = 'none'
+        textArea.style.display = 'block'
         clearInterval(timerInterval)
     } else {
         // Page is resumed
-        var endPause = new Date().getTime();
+        var endPause = new Date().getTime()
         button.innerHTML = ''
-        button.innerHTML = '<i class="fas fa-pause"></i>';
-        document.getElementById("blockedOverlay").style.display = "none"; // Dont display the overlay
+        button.innerHTML = '<i class="fas fa-pause"></i>'
+        document.getElementById('blockedOverlay').style.display = 'none' // Dont display the overlay
         minSeconds = endPause - startPause + minSeconds
-        form.style.display = "block"
-        textArea.style.display = "none"
+        form.style.display = 'block'
+        textArea.style.display = 'none'
 
-        timerInterval = setInterval(displayTime, 1000);
+        timerInterval = setInterval(displayTime, 1000)
     }
 
     // Perform other actions related to pausing or resuming the page
@@ -109,11 +150,11 @@ function togglePause() {
 
 
 
-var questionDivs = document.querySelectorAll('div[id*=question]');
+var questionDivs = document.querySelectorAll('div[id*=question]')
 
 for (let i = 0; i < questionDivs.length; i++) {
-    let questionNr = document.getElementById("question"+i)
-    let questionId = questionNr.querySelector("h2").id.split("_")[1]
+    let questionNr = document.getElementById('question'+i)
+    let questionId = questionNr.querySelector('h2').id.split('_')[1]
     // Determine answer based on question type
 
 }
@@ -122,12 +163,13 @@ window.onload = function () {
         // Check if the div's ID is "question0"
         if (div.id === 'question0') {
             // If it is, show the div
-            div.style.display = 'block';
-        } else if (div.id.includes("question")) {
+            div.style.display = 'block'
+        } else if (div.id.includes('question')) {
             // If not, hide the div
-            div.style.display = 'none';
+            div.style.display = 'none'
         }
-    });
+    })
+    document.getElementById('none').style.display = 'none'
 }
 
 
@@ -135,95 +177,101 @@ window.onload = function () {
 // Function to handle submitting answers
 function submitAnswer(event) {
     if (event != null) {
-        event.preventDefault();
+        event.preventDefault()
     }
 
-    let answers = ""
-    let questions = ""
+    let answers = ''
+    let questions = ''
 
     if (!isCircular) {
         for (let i = 0; i < questionDivs.length; i++) {
-            let answer;
-            let question = document.getElementById("question_" + i).textContent;
-            let questionNr = document.getElementById("question" + i)
-            let questionId = questionNr.querySelector("h2").id.split("_")[1]
+            let answer
+            let question = document.getElementById('question_' + i).textContent
+            let questionNr = document.getElementById('question' + i)
+            let questionId = questionNr.querySelector('h2').id.split('_')[1]
 
-            let answerName = "answer" + i
-            switch (questionNr.querySelector("div").querySelector("div").id) {
-                case "open":
+            let answerName = 'answer' + i
+            switch (questionNr.querySelector('div').querySelector('div').id) {
+                case 'open':
                     answer = document.getElementById(answerName).value
                     break
-                case "multipleChoice":
-                    answer = ""
-                    const s = document.querySelectorAll('input[name=' + answerName + ']:checked')
-                    for (let sElement of s) {
-                        answer += sElement.value
-                        answer += ", "
-                    }
+                case 'multipleChoice':
+                    answer = ''
+                    const inputs = document.querySelectorAll('input[name="' + answerName + '"]')
 
-                    answer = answer.slice(0, -2); // Delete last two characters
+                    inputs.forEach(input => {
+                        if (input.checked) {
+                            answer += input.value + ', '
+                        }
+                    })
+
+                    // Remove the trailing comma and space
+                    if (answer.endsWith(', ')) {
+                        answer = answer.slice(0, -2)
+                    }
                     break
-                case "range":
-                    answer = document.getElementById(answerName).value;
+                case 'range':
+                    answer = document.getElementById(answerName).value
                     break
-                case "singleChoice":
+                case 'singleChoice':
 
                     answer = document.querySelector('input[name=' + answerName + ']:checked').value
                     break
             }
 
             answers += answer
-            answers += " | "
+            answers += ' | '
             questions += questionId
-            questions += " | "
+            questions += ' | '
         }
     } else {
-        let answer;
-        let question = document.getElementById("question_" + currentIndex).textContent;
-        let questionNr = document.getElementById("question" + currentIndex)
-        let questionId = questionNr.querySelector("h2").id.split("_")[1]
+        let answer
+        let question = document.getElementById('question_' + currentIndex).textContent
+        let questionNr = document.getElementById('question' + currentIndex)
+        let questionId = questionNr.querySelector('h2').id.split('_')[1]
 
-        let answerName = "answer" + currentIndex
-        switch (questionNr.querySelector("div").querySelector("div").id) {
-            case "open":
+        let answerName = 'answer' + currentIndex
+        console.log(answerName)
+        switch (questionNr.querySelector('div').querySelector('div').id) {
+            case 'open':
                 answer = document.getElementById(answerName).value
                 break
-            case "multipleChoice":
-                answer = ""
+            case 'multipleChoice':
+                answer = ''
                 const s = document.querySelectorAll('input[name=' + answerName + ']:checked')
                 for (let sElement of s) {
                     answer += sElement.value
-                    answer += ", "
+                    answer += ', '
                 }
 
-                answer = answer.slice(0, -2); // Delete last two characters
+                answer = answer.slice(0, -2) // Delete last two characters
                 break
-            case "range":
-                answer = document.getElementsByClassName('range').item(0).value;
+            case 'range':
+                answer = document.getElementsByName(answerName).item(0).value
                 break
-            case "singleChoice":
+            case 'singleChoice':
                 answer = document.querySelector('input[name=' + answerName + ']:checked').value
                 break
         }
 
         answers += answer
-        answers += " | "
+        answers += ' | '
         questions += questionId
-        questions += " | "
+        questions += ' | '
     }
 
-    const user = document.getElementById("userMail").textContent
+    const user = document.getElementById('userMail').textContent
 
-    const textArea = document.getElementById("notesField")
-    var urlParams = new URLSearchParams(window.location.search);
+    const textArea = document.getElementById('notesField')
+    var urlParams = new URLSearchParams(window.location.search)
 
-    answers = answers.slice(0, -1); // Delete last character
-    questions = questions.slice(0, -1); // Delete last character
-    document.getElementById("questionForm").reset()
+    answers = answers.slice(0, -1) // Delete last character
+    questions = questions.slice(0, -1) // Delete last character
+    document.getElementById('questionForm').reset()
     // Get the value of the "subThemeId" parameter
-    var subtheme = urlParams.get("subThemeId");
-    fetch(`/api/questions/submit`, {
-        method: "POST",
+    var subtheme = urlParams.get('subThemeId')
+    fetch('/api/questions/submit', {
+        method: 'POST',
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
@@ -240,17 +288,17 @@ function submitAnswer(event) {
     })
         .then(response => {
             if (response.ok) {
-                console.log("Answer submitted successfully.");
+                console.log('Answer submitted successfully.')
                 if (!isCircular) {
-                    window.location.href = `/installation/flowCompleted`;
+                    window.location.href = '/installation/flowCompleted'
                 }
             } else {
-                console.error("Failed to submit answer.");
+                console.error('Failed to submit answer.')
             }
         })
         .catch(error => {
-            console.error('Error:', error);
-        });
+            console.error('Error:', error)
+        })
 }
 
 
@@ -260,51 +308,54 @@ function moveToNextQuestion() {
     }
     if (queue === 0){
         if (currentIndex < questionDivs.length - 1) {
-            currentIndex++;
-            showQuestion(currentIndex);
+            currentIndex++
+            showQuestion(currentIndex)
 
         } else {
             if (isCircular) {
                 currentIndex = 0
                 showQuestion(currentIndex)
             }
-    }
+        }
     } else {
         minUser()
     }
 
     if (!isCircular && currentIndex === questionDivs.length-1){
-        document.getElementById("submit").style.visibility = "visible"
+        document.getElementById('submit').style.visibility = 'visible'
 
     }
 }
 
 function moveToPreviousQuestion() {
     if(!isCircular) {
-        document.getElementById("submit").style.visibility = "hidden"
+        document.getElementById('submit').style.visibility = 'hidden'
     }
     if (currentIndex > 0) {
-        currentIndex--;
-        showQuestion(currentIndex);
+        currentIndex--
+        showQuestion(currentIndex)
     }
 }
+
+
 
 function showQuestion(index) {
 
     for (var i = 0; i < questionDivs.length; i++) {
-        questionDivs[i].style.display = 'none';
+        questionDivs[i].style.display = 'none'
     }
-    questionDivs[index].style.display = 'block';
+    questionDivs[index].style.display = 'block'
 }
 
 // Range slider change event listener for all range inputs
-let rangeInputs = document.getElementsByClassName('range');
+let rangeInputs = document.getElementsByClassName('range')
 
 Array.from(rangeInputs).forEach(function(rangeInput) {
-    let rangeValue = rangeInput.nextElementSibling;
-    rangeInput.addEventListener("input", function() {
+    let rangeValue = rangeInput.nextElementSibling
+    rangeValue = rangeValue.nextElementSibling
+    rangeInput.addEventListener('input', function() {
         if (rangeValue != null) {
-            rangeValue.textContent = "Value: " + rangeInput.value;
+            rangeValue.textContent = 'Value: ' + rangeInput.value
         }
-    });
-});
+    })
+})

@@ -27,8 +27,6 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <!-- Logo -->
-    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -49,7 +47,7 @@
                                 <label class="form-label" for="nameInput">Remarks:</label>
                             </th>
                             <td class="col-sm-8">
-                                <textarea class="form-control" id="nameInput" ></textarea>
+                                <textarea class="form-control" id="nameInput" th:text="${flow.getInfo()}" ></textarea>
                             </td>
                         </tr>
                         </tbody>

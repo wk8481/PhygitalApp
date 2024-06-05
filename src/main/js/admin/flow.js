@@ -1,40 +1,40 @@
-import {header, token} from "../util/csrf.js";
-import { extractIdsFromUrl } from '../utils.js'; // Adjust the path as per your file structure
+import {header, token} from '../util/csrf.js'
+import { extractIdsFromUrl } from '../utils.js' // Adjust the path as per your file structure
 
 
 
-const saveButton = document.querySelector("#saveButton");
-const deleteButton = document.querySelector("#deleteButton");
-const [projectId, flowId] = extractIdsFromUrl(window.location.href.substring(window.location.href), "flow");
+const saveButton = document.querySelector('#saveButton')
+const deleteButton = document.querySelector('#deleteButton')
+const [projectId, flowId] = extractIdsFromUrl(window.location.href.substring(window.location.href), 'flow')
 
-saveButton.addEventListener("click", updateFlow);
-deleteButton.addEventListener("click", deleteFlow);
+saveButton.addEventListener('click', updateFlow)
+deleteButton.addEventListener('click', deleteFlow)
 
 async function updateFlow(event) {
-    const name = document.getElementById("nameInput").value;
-    console.log("Updating flow")
+    const name = document.getElementById('nameInput').value
+    console.log('Updating flow')
     fetch(`/api/flows/${flowId}`, {
-        method: "PATCH", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [header]: token
+        method: 'PATCH', headers: {
+            'Accept': 'application/json', 'Content-Type': 'application/json', [header]: token
         }, body: JSON.stringify({
-            "id": flowId, "name": name,
+            'id': flowId, 'name': name
         })
     })
         .then(response => {
             if (response.status === 204) {
 
             }
-        });
+        })
 }
 
 async function deleteFlow(event) {
-    console.log("Deleting flow")
+    console.log('Deleting flow')
     const response = await fetch(`/api/flows/${flowId}`, {
-        method: "DELETE", headers: {
+        method: 'DELETE', headers: {
             [header]: token
         }
-    });
+    })
     if (response.ok){
-        window.history.back();
+        window.history.back()
     }
 }

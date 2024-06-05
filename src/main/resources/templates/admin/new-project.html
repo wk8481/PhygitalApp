@@ -8,6 +8,21 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/bundle-add-project.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -32,6 +47,29 @@
                         </th>
                         <td class="col-sm-8">
                             <input class="form-control" id="nameInput">
+                        </td>
+                    </tr>
+                    <!-- Background Color -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="bgColorInput">Background Color:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" id="bgColorInput" type="color" value="#ffffff">
+                        </td>
+                    </tr>
+                    <!-- Font -->
+                    <tr>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="fontInput">Font:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <select class="form-control" id="fontInput">
+                                <option value="Helvetica Neue">Helvetica Neue</option>
+                                <option value="Times New Roman">Times New Roman</option>
+                                <option value="Calibri">Calibri</option>
+                                <option value="Verdana">Verdana</option>
+                            </select>
                         </td>
                     </tr>
                     </tbody>

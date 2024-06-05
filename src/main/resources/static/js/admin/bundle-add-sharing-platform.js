@@ -13,8 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   header: () => (/* binding */ header),
 /* harmony export */   token: () => (/* binding */ token)
 /* harmony export */ });
-const header = document.querySelector('meta[name="_csrf_header"]').content;
-const token = document.querySelector('meta[name="_csrf"]').content;
+const header = document.querySelector('meta[name="_csrf_header"]').content
+const token = document.querySelector('meta[name="_csrf"]').content
 
 
 /***/ })
@@ -85,20 +85,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/csrf.js */ "./src/main/js/util/csrf.js");
 
 
-const createButton = document.getElementById("createButton");
+const createButton = document.getElementById('createButton')
 
-createButton.addEventListener("click", addNewSharingPlatform);
+createButton.addEventListener('click', addNewSharingPlatform)
 
 async function addNewSharingPlatform() {
-    const name = document.getElementById("nameInput");
-    const contactEmail = document.getElementById("contactInput");
-    await fetch(`/api/sharing-platforms`, {
-        method: "POST", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
+    const name = document.getElementById('nameInput')
+    const contactEmail = document.getElementById('contactInput')
+    await fetch('/api/sharing-platforms', {
+        method: 'POST', headers: {
+            'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
             name: name.value, contactEmail: contactEmail.value
         })
-    });
+    })
 }
 
 })();

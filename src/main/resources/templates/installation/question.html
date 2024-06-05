@@ -10,6 +10,19 @@
     <script src="/js/bundle-utils.js" defer></script>
     <script src="/js/util/bundle-csrf.js" defer></script>
     <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
         /* Add your CSS styles here to visually block the content */
         .blocked-overlay {
             position: fixed;
@@ -35,7 +48,9 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container text-center " >
+<main class="container text-center">
+    <!-- Logo image -->
+    <img alt="" th:id="logo" th:src="@{'/images/platform' + ${platform.id} + '-logo.jpg'}">
     <!-- Overlay to cover the content when blocked -->
     <div class="blocked-overlay" id="blockedOverlay"></div>
     <h1 class="page-title text-primary">Question</h1>
@@ -63,8 +78,10 @@
                                 </div>
                             </div>
                             <div th:case="'RANGE'" id="range">
-                                <input type="range" class="range" th:id="${'answer' + index.index}" min="0" max="100" step="1" value="50">
-                                <span id="rangeValue">Value: 50</span>
+                                <input type="range" class="range" th:name="${'answer' + index.index}" th:id="${'sliderQuestionId_' + question.id}">
+                                <br>
+                                <span id="rangeValue"> </span>
+
                             </div>
                             <div th:case="'OPEN'" id="open">
                                 <input type="text" th:id="${'answer' + index.index}" required>
@@ -92,11 +109,26 @@
                 <a class="btn btn-secondary" id="nextButton" ><i class="fas fa-arrow-right"></i></a>
             </section>
         </div>
+        <!-- Finish Button -->
+        <div class="center-container">
+            <a th:href="contact-details" class="btn btn-primary">Finish</a>
+        </div>
     </div>
     <br>
     <!-- Return Button -->
     <div class="center-container">
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
+    <div id="none">
+        <div th:each="q: ${questions}" >
+            <div th:if="${q.getType().toString() == 'RANGE'}">
+                <div th:each="pa: ${possibleAnswers}" id="rangeContent">
+                    <div th:if="${pa.question.id == q.id}">
+                        <p th:text="${q.id + ' ' + pa.answer}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 <footer th:insert="~{fragments/footer::copy}"></footer>

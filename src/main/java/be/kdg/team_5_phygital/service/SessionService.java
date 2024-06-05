@@ -24,6 +24,10 @@ public class SessionService {
         return sessionRepository.findById(id).orElse(null);
     }
 
+    public Session getLatestSession(){
+        return sessionRepository.findTopByOrderByTimestampDesc();
+    }
+
     @Transactional
     public Session createSession(Session session) {
         return sessionRepository.save(session);
@@ -77,18 +81,20 @@ public class SessionService {
     }
     @Transactional
     public List<Session> getAnswersAndQuestionsOfSession(List<Session> sessions){
-//        return sessionRepository.getSessionsWithQuestionsAndAnswers(sessions);
         List<Session> sessionsWithAnswers = sessionRepository.getAnswersOfSessions(sessions);
         List<Session> sessionsWithQuestions = sessionRepository.getQuestionsOfSessions(sessions);
-//        List<Session> sessionsWithUser = sessionRepository.get
         Map<Integer, Session> sessionMap = new HashMap<>();
         for (Session session : sessionsWithAnswers) {
-            sessionMap.put(session.getSessionId(), session);
+            sessionMap.put(session.getId(), session);
         }
-        log.error("ses: {}", sessionMap);
         for (Session session : sessionsWithQuestions) {
-            sessionMap.putIfAbsent(session.getSessionId(), session);
+            sessionMap.put(session.getId(), session);
         }
         return new ArrayList<>(sessionMap.values());
+    }
+
+    @Transactional
+    public void addUserEmail(Session session, UserEmail userEmail) {
+        session.addUserEmail(userEmail);
     }
 }

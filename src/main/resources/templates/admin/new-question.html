@@ -27,8 +27,6 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
-    <!-- Logo -->
-    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -72,13 +70,17 @@
                 <table>
                     <tbody>
                     <tr>
-                        <a id="addButton" value="Add answer input" class="fas fa-plus" style="visibility: visible"></a>
-                        <a id="removeButton" value="remove answer input"  class="fas fa-minus" style="visibility: visible"></a>
+                        <button id="addButton" value="Add answer input" class="fas fa-plus" style="visibility: visible"></button>
+                        <button id="removeButton" value="remove answer input"  class="fas fa-minus" style="visibility: visible"></button>
                     </tr> <br>
-                    <tr id="answerInputs1" ><input type="text" id="answer_1" class="answer-input" style="visibility: visible"></tr><br>
-                    <tr id="answerInputs2" ><input type="text" id="answer_2" class="answer-input" style="visibility: visible"></tr><br>
-                    <tr id="answerInputs3" ><input type="text" id="answer_3" class="answer-input" style="visibility: hidden"></tr><br>
-                    <tr id="answerInputs4" ><input type="text" id="answer_4" class="answer-input" style="visibility: hidden"></tr><br>
+                    <tr id="answerInputs1" ><input type="text" id="answer_1" placeholder="Answer 1" class="answer-input" style="visibility: visible"></tr><br>
+                    <tr id="answerInputs2" ><input type="text" id="answer_2" placeholder="Answer 2" class="answer-input" style="visibility: visible"></tr><br>
+                    <tr id="answerInputs3" ><input type="text" id="answer_3" placeholder="Answer 3" class="answer-input" style="visibility: hidden"></tr><br>
+                    <tr id="answerInputs4" ><input type="text" id="answer_4" placeholder="Answer 4" class="answer-input" style="visibility: hidden"></tr><br>
+
+                    <tr id="minRangeTR"> <input type="number" placeholder="Minimum value" value="1" id="minRange" class="answer-input range" style="visibility: hidden"></tr><br>
+                    <tr id="stepTR" > <input type="number" id="step" placeholder="Step" value="1" class="answer-input range" style="visibility: hidden"></tr><br>
+                    <tr id="maxRangeTR" ><input type="number" id="maxRange" placeholder="Maximum value" value="100" class="answer-input range" style="visibility: hidden"></tr><br>
 
                     </tbody>
                 </table>

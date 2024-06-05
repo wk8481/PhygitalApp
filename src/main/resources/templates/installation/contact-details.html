@@ -15,15 +15,23 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Form</h2>
-                <form id="loginForm">
+                <form id="contactForm" method="post" th:action="@{/installation/contact-details}">
                     <div class="form-group">
                         <label for="emailInput">Email:</label>
-                        <input id="emailInput" name="emailInput" type="email">
+                        <input id="emailInput" name="email" type="email" class="form-control" required>
                     </div>
+                    <button class="btn btn-primary" id="submit" type="submit">
+                        Submit
+                    </button>
                 </form>
             </section>
         </div>
+        <!-- Exit Button -->
+        <div class="center-container">
+            <a th:href="@{/}" class="btn btn-secondary">Exit</a>
+        </div>
     </div>
+    <br>
     <!-- Return Button -->
     <div class="center-container">
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>

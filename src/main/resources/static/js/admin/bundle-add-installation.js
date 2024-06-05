@@ -13,8 +13,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   header: () => (/* binding */ header),
 /* harmony export */   token: () => (/* binding */ token)
 /* harmony export */ });
-const header = document.querySelector('meta[name="_csrf_header"]').content;
-const token = document.querySelector('meta[name="_csrf"]').content;
+const header = document.querySelector('meta[name="_csrf_header"]').content
+const token = document.querySelector('meta[name="_csrf"]').content
 
 
 /***/ })
@@ -85,19 +85,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/csrf.js */ "./src/main/js/util/csrf.js");
 
 
-const nameInput = document.getElementById("nameInput");
-const provinceInput = document.getElementById("provinceInput");
-const cityInput = document.getElementById("cityInput");
-const streetInput = document.getElementById("streetInput");
-const streetNumberInput = document.getElementById("streetNumberInput");
-const createButton = document.getElementById("createButton");
+const nameInput = document.getElementById('nameInput')
+const provinceInput = document.getElementById('provinceInput')
+const cityInput = document.getElementById('cityInput')
+const streetInput = document.getElementById('streetInput')
+const streetNumberInput = document.getElementById('streetNumberInput')
+const createButton = document.getElementById('createButton')
 
-createButton.addEventListener("click", addNewInstallation);
+createButton.addEventListener('click', addNewInstallation)
 
 async function addNewInstallation() {
-    await fetch(`/api/installations`, {
-        method: "POST", headers: {
-            "Accept": "application/json", "Content-Type": "application/json", [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
+    await fetch('/api/installations', {
+        method: 'POST', headers: {
+            'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
             name: nameInput.value,
             province: provinceInput.value,
@@ -105,7 +105,7 @@ async function addNewInstallation() {
             street: streetInput.value,
             streetNumber: streetNumberInput.value
         })
-    });
+    })
 }
 
 })();

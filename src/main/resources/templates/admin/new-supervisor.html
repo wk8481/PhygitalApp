@@ -6,7 +6,7 @@
 <head>
     <title>New Supervisor</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/admin/bundle-supervisor.js" defer></script>
+    <script src="/js/admin/bundle-add-supervisor.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
 </head>
 <body>
@@ -42,6 +42,15 @@
                         </th>
                         <td class="col-sm-8">
                             <input class="form-control" id="emailInput" type="text">
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- Password -->
+                        <th class="col-sm-4">
+                            <label class="form-label" for="emailInput">Temporary password:</label>
+                        </th>
+                        <td class="col-sm-8">
+                            <input class="form-control" type="password" id="passwordInput">
                         </td>
                     </tr>
                     </tbody>

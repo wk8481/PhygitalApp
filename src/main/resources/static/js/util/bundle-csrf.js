@@ -42,8 +42,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   header: () => (/* binding */ header),
 /* harmony export */   token: () => (/* binding */ token)
 /* harmony export */ });
-const header = document.querySelector('meta[name="_csrf_header"]').content;
-const token = document.querySelector('meta[name="_csrf"]').content;
+const header = document.querySelector('meta[name="_csrf_header"]').content
+const token = document.querySelector('meta[name="_csrf"]').content
 
 /******/ })()
 ;
