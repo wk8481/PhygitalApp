@@ -5,7 +5,7 @@ gcloud storage cp gs://jar-team-bucket/application.properties /home/nguerin/appl
 gcloud storage cp gs://jar-team-bucket/application.properties /home/team5/application.properties
 
 # Configure the Spring Boot app as a systemd service
-sudo bash -c 'cat <<EOD > /etc/systemd/system/phygital.service
+bash -c 'cat <<EOD > /etc/systemd/system/phygital.service
 [Unit]
 Description=Spring Boot Application
 After=network.target
@@ -20,4 +20,4 @@ WantedBy=multi-user.target
 EOD'
 
 # Only enabling the service here because of the cloud sql proxy which is set up later
-sudo systemctl enable phygital
+systemctl enable phygital
