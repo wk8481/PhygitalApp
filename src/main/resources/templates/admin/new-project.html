@@ -8,6 +8,21 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/bundle-add-project.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
+    <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>

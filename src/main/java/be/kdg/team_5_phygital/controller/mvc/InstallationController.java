@@ -50,9 +50,13 @@ public class InstallationController {
     @GetMapping("flow-selection")
     public ModelAndView getFlowSelectionPage(@RequestParam("projectId") int projectId) {
         var mav = new ModelAndView();
+        Project project = projectService.getProject(projectId);
+        SharingPlatform platform = project.getSharingPlatform();
         mav.setViewName("installation/flow-selection");
         mav.addObject("project", projectService.getProject(projectId));
         mav.addObject("all_flows", flowService.getFlowsByProjectId(projectId).stream().map(flow -> new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular())).toList());
+        mav.addObject("project", project);
+        mav.addObject("platform", platform);
         return mav;
     }
 
@@ -63,9 +67,13 @@ public class InstallationController {
         mav.setViewName("installation/theme-description");
         Flow flow = flowService.getFlow(flowId);
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
+        Project project = projectService.getProject(flow.getProject().getId());
+        SharingPlatform platform = project.getSharingPlatform();
         mav.addObject("one_flow", new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular()));
         mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation()));
         mav.addObject("flow", flow);
+        mav.addObject("project", project);
+        mav.addObject("platform", platform);
         return mav;
     }
 
@@ -75,7 +83,11 @@ public class InstallationController {
         mav.setViewName("installation/sub-themes");
         Flow flow = flowService.getFlow(flowId);
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
+        Project project = projectService.getProject(flow.getProject().getId());
+        SharingPlatform platform = project.getSharingPlatform();
         mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowId(flowId).stream().map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        mav.addObject("project", project);
+        mav.addObject("platform", platform);
         return mav;
     }
 
@@ -87,9 +99,13 @@ public class InstallationController {
         List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
         List<PossibleAnswers> possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
         boolean isCircular = subTheme.isCircularFlow();
+        Project project = projectService.getProject(subTheme.getFlow().getProject().getId());
+        SharingPlatform platform = project.getSharingPlatform();
         mav.addObject("questions", questions);
         mav.addObject("possibleAnswers", possibleAnswers);
         mav.addObject("isCircular", isCircular);
+        mav.addObject("project", project);
+        mav.addObject("platform", platform);
         return mav;
     }
 

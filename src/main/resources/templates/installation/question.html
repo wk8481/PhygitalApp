@@ -10,6 +10,19 @@
     <script src="/js/bundle-utils.js" defer></script>
     <script src="/js/util/bundle-csrf.js" defer></script>
     <style>
+        body {
+            background-color: [[${project.backgroundColorHex}]];
+            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
+
+            #logo {
+                position: fixed;
+                top: 70px;
+                left: 10px;
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
         /* Add your CSS styles here to visually block the content */
         .blocked-overlay {
             position: fixed;
@@ -35,7 +48,9 @@
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
-<main class="container text-center " >
+<main class="container text-center">
+    <!-- Logo image -->
+    <img alt="" th:id="logo" th:src="@{'/images/platform' + ${platform.id} + '-logo.jpg'}">
     <!-- Overlay to cover the content when blocked -->
     <div class="blocked-overlay" id="blockedOverlay"></div>
     <h1 class="page-title text-primary">Question</h1>
