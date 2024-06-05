@@ -91,7 +91,7 @@ deploy:
     - echo "Application starting.."
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl start phygital.service"
     - echo "Application started successfully"
-  when: manual
+#  when:
   environment:
     name: production
     url: https://phygital-team5.duckdns.org:8443
