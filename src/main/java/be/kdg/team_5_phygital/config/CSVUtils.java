@@ -24,7 +24,7 @@ public class CSVUtils {
                 String answer = i < answers.size() ? answers.get(i).getAnswers() : "";
 
                 String[] data = {
-                        String.valueOf(session.getSessionId()),
+                        String.valueOf(session.getId()),
                         session.getUser().getName(),
                         session.getNote().getNote(),
                         question,

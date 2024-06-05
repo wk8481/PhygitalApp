@@ -47,4 +47,4 @@ const token = document.querySelector('meta[name="_csrf"]').content
 
 /******/ })()
 ;
-//# sourceMappingURL=bundle-csrf.js.map
+//# sourceMappingURL=util\bundle-csrf.js.map
