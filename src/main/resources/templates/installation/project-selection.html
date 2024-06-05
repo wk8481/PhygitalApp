@@ -8,6 +8,15 @@
 <head>
     <title>Project Selection</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <style>
+        body {
+            #logo {
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
@@ -30,6 +39,7 @@
                             <div class="card">
                                 <div class="card-body" th:attr="onclick='location.href=\'/installation/flow-selection?projectId=' + ${project.id} + '\''" style="cursor: pointer;">
                                     <h5 class="card-title" th:text="${project.name}"></h5>
+                                    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
                                 </div>
                             </div>
                         </div>
