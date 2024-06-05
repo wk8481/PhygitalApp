@@ -17,11 +17,13 @@ stages:
 cache:
   paths:
     - .gradle/
+    - build/libs/
 
 
 build:
   stage: build
   script:
+    - pwd
     - echo "JAVA_HOME is $JAVA_HOME"
     - java -version
     - echo "Build start..."
@@ -37,6 +39,7 @@ build:
 test:
   stage: test
   script:
+    - pwd
     - echo "Running JUnit tests"
     - chmod +x ./gradlew
     - ./gradlew test --scan
@@ -54,7 +57,7 @@ deploy:
     - echo $GCP_SERVICE_KEY| tr -d '\n'| base64 -di > gcp-service-key.json
     - gcloud auth activate-service-account --key-file=gcp-service-key.json
     - gcloud config set project $PROJECT_ID
-    - gcloud config set compute/zone $ZONE
+#    - gcloud config set compute/zone $ZONE
 
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
     - which nslookup || apt-get install dnsutils -y
@@ -68,6 +71,7 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
+    - pwd
     - echo "Uploading the application..."
     - chmod +x jarupload.sh
     - chmod +x deployjar.sh
@@ -87,7 +91,7 @@ deploy:
     - echo "Application starting.."
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl start phygital.service"
     - echo "Application started successfully"
-  when: manual
+#  when:
   environment:
     name: production
     url: https://phygital-team5.duckdns.org:8443
@@ -105,7 +109,6 @@ destroy:
     - echo $GCP_SERVICE_KEY| tr -d '\n'| base64 -di > gcp-service-key.json
     - gcloud auth activate-service-account --key-file gcp-service-key.json
     - gcloud config set project $PROJECT_ID
-    - gcloud config set compute/zone $ZONE
 
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
     - which nslookup || apt-get install dnsutils -y

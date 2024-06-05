@@ -1,14 +1,21 @@
 #!/bin/bash
 
+# Script Name: createDB.sh
+# Description: This script sets up a PostgreSQL instance on Google Cloud Platform,
+#              authorizes local and VM IP addresses, and creates required databases
+#              if they do not exist.
+
 # Fetch public IP address
 auth_ip=$(curl -s ipinfo.io/ip)
 
 # Instance name
 pg="pg1716984918"
 
-# Prompt for root password interactively
-read -s -p "Enter password for PostgreSQL root user: " pg_password
-echo # This line adds a newline after password input
+# Zone for the VM instance
+zone="europe-west1-d"
+
+# PostgreSQL root user password
+pg_password="admin"
 
 # Check if the PostgreSQL instance already exists
 instance_exists=$(gcloud sql instances list --filter="name=$pg" --format="value(name)")
@@ -16,7 +23,7 @@ instance_exists=$(gcloud sql instances list --filter="name=$pg" --format="value(
 if [ "$instance_exists" == "$pg" ]; then
     echo "PostgreSQL instance $pg already exists. Skipping instance creation."
 else
-    # Create PostgreSQL instance with interactive password input
+    # Create PostgreSQL instance with the specified password
     gcloud sql instances create $pg \
     --tier=db-g1-small \
     --region=europe-west1 \
@@ -46,7 +53,7 @@ echo "Remember to store the password securely in ~/.pgpass."
 
 # Fetch the IP address associated with the VM instance
 vm_instance_name="team5-vm"
-vm_ip=$(gcloud compute instances describe "$vm_instance_name" --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
+vm_ip=$(gcloud compute instances describe "$vm_instance_name" --zone="$zone" --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
 
 # Check if VM IP is obtained successfully
 if [ -z "$vm_ip" ]; then
@@ -55,12 +62,12 @@ if [ -z "$vm_ip" ]; then
 fi
 
 # Patch the PostgreSQL instance to authorize local IP and VM IP
-gcloud sql instances patch $pg --authorized-networks="$auth_ip/32,$vm_ip/32"
+gcloud sql instances patch $pg --authorized-networks="$auth_ip/32,$vm_ip/32" --quiet
 
 # Output confirmation message
 echo "Patched PostgreSQL instance $pg to authorize local IP $auth_ip and VM IP $vm_ip"
 
-# Check and create databases if they do not exist
+# Function to create databases if they do not exist
 create_db_if_not_exists() {
     local db_name=$1
     db_exists=$(PGPASSWORD=$pg_password psql -h $pg_ip -U postgres -tAc "SELECT 1 FROM pg_database WHERE datname='$db_name'")
