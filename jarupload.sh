@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Navigate to the project directory
+cd $CI_PROJECT_DIR
+
 # This script uploads the JAR file and application.properties to a Google Cloud Storage bucket
 # Author: William KASASA
 
