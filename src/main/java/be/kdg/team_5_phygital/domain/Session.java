@@ -11,7 +11,7 @@ public class Session {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int sessionId;
+    private int id;
 
     private LocalDateTime timestamp;
 
@@ -39,6 +39,9 @@ public class Session {
     @ManyToOne
     private SubTheme subTheme;
 
+    @OneToMany(mappedBy = "session", fetch = FetchType.EAGER)
+    private List<UserEmail> userEmails;
+
     public SubTheme getSubTheme() {
         return subTheme;
     }
@@ -56,8 +59,8 @@ public class Session {
         this.subTheme = subTheme;
     }
 
-    public Session(int sessionId) {
-        this.sessionId = sessionId;
+    public Session(int id) {
+        this.id = id;
     }
 
     public Notes getNote() {
@@ -72,12 +75,12 @@ public class Session {
 
     }
 
-    public int getSessionId() {
-        return sessionId;
+    public int getId() {
+        return id;
     }
 
-    public void setSessionId(int sessionId) {
-        this.sessionId = sessionId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public LocalDateTime getTimestamp() {
@@ -112,10 +115,22 @@ public class Session {
         this.user = user;
     }
 
+    public List<UserEmail> getUserEmails() {
+        return userEmails;
+    }
+
+    public void setUserEmails(List<UserEmail> userEmails) {
+        this.userEmails = userEmails;
+    }
+
+    public void addUserEmail(UserEmail userEmail){
+        this.userEmails.add(userEmail);
+    }
+
     @Override
     public String toString() {
         return "Session{" +
-                "sessionId=" + sessionId +
+                "id=" + id +
                 ", questions=" + questions +
                 ", answers=" + answers +
                 ", user=" + user.getName() +
