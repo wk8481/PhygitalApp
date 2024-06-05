@@ -187,4 +187,4 @@ async function uploadMediaFiles(event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-sub-theme.js.map
+//# sourceMappingURL=bundle-sub-theme.js.map

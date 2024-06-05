@@ -193,4 +193,4 @@ async function deleteSharingPlatform(event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-sharing-platform.js.map
+//# sourceMappingURL=bundle-sharing-platform.js.map

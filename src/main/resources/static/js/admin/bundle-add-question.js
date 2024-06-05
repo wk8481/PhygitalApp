@@ -258,4 +258,4 @@ async function addNewQuestion() {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-add-question.js.map
+//# sourceMappingURL=bundle-add-question.js.map

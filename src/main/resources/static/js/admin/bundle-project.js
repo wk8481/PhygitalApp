@@ -187,4 +187,4 @@ async function deleteProject(event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-project.js.map
+//# sourceMappingURL=bundle-project.js.map

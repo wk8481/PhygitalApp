@@ -148,4 +148,4 @@ async function addNewProject() {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-add-project.js.map
+//# sourceMappingURL=bundle-add-project.js.map

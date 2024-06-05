@@ -17,11 +17,13 @@ stages:
 cache:
   paths:
     - .gradle/
+    - build/libs/
 
 
 build:
   stage: build
   script:
+    - pwd
     - echo "JAVA_HOME is $JAVA_HOME"
     - java -version
     - echo "Build start..."
@@ -29,7 +31,7 @@ build:
     - ./gradlew bootJar
   artifacts:
     paths:
-      - build/libs/*.jar
+      - build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar  # Specify the specific JAR file
     expire_in: 1 hour
 
 
@@ -37,6 +39,7 @@ build:
 test:
   stage: test
   script:
+    - pwd
     - echo "Running JUnit tests"
     - chmod +x ./gradlew
     - ./gradlew test --scan
@@ -51,8 +54,8 @@ deploy:
   before_script:
 
     - echo "Setting up GCP Authentication..."
-    - echo "$GCP_SERVICE_KEY" | base64 -d > gcp-service-key.json
-    - gcloud auth activate-service-account --key-file gcp-service-key.json
+    - echo $GCP_SERVICE_KEY| tr -d '\n'| base64 -di > gcp-service-key.json
+    - gcloud auth activate-service-account --key-file=gcp-service-key.json
     - gcloud config set project $PROJECT_ID
 
     - which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
@@ -67,6 +70,7 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
+    - pwd
     - echo "Uploading the application..."
     - chmod +x jarupload.sh
     - chmod +x deployjar.sh
@@ -101,7 +105,7 @@ destroy:
   stage: destroy
   before_script:
     - echo "Setting up GCP Authentication..."
-    - echo "$GCP_SERVICE_KEY" | base64 -d > gcp-service-key.json
+    - echo $GCP_SERVICE_KEY| tr -d '\n'| base64 -di > gcp-service-key.json
     - gcloud auth activate-service-account --key-file gcp-service-key.json
     - gcloud config set project $PROJECT_ID
 
@@ -121,5 +125,7 @@ destroy:
     - sudo ./dismantle.sh
 
   when: manual
+
+
 
 

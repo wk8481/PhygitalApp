@@ -170,4 +170,4 @@ async function deleteSupervisor(event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-supervisor.js.map
+//# sourceMappingURL=bundle-supervisor.js.map

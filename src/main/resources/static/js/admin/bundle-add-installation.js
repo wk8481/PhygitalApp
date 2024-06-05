@@ -112,4 +112,4 @@ async function addNewInstallation() {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-add-installation.js.map
+//# sourceMappingURL=bundle-add-installation.js.map

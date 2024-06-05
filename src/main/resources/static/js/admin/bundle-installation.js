@@ -192,4 +192,4 @@ async function deleteInstallation(event) {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-installation.js.map
+//# sourceMappingURL=bundle-installation.js.map

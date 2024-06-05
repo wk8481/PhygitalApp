@@ -149,4 +149,4 @@ async function addNewSupervisor() {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-add-supervisor.js.map
+//# sourceMappingURL=bundle-add-supervisor.js.map

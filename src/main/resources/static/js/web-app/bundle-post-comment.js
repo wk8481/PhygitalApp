@@ -146,4 +146,4 @@ async function addNewComment() {
 
 /******/ })()
 ;
-//# sourceMappingURL=web-app\bundle-post-comment.js.map
+//# sourceMappingURL=bundle-post-comment.js.map

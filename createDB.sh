@@ -3,25 +3,32 @@
 # Fetch public IP address
 auth_ip=$(curl -s ipinfo.io/ip)
 
-# Generate a unique name for the PostgreSQL instance
-pg="pg$(date +%s)"
+# Instance name
+pg="pg1716984918"
 
 # Prompt for root password interactively
 read -s -p "Enter password for PostgreSQL root user: " pg_password
 echo # This line adds a newline after password input
 
-# Create PostgreSQL instance with interactive password input
-gcloud sql instances create $pg \
---tier=db-g1-small \
---region=europe-west1 \
---authorized-networks=$auth_ip/32 \
---database-version=POSTGRES_15 \
---root-password=$pg_password
+# Check if the PostgreSQL instance already exists
+instance_exists=$(gcloud sql instances list --filter="name=$pg" --format="value(name)")
 
-# Output confirmation message
-echo "PostgreSQL instance $pg created successfully!"
+if [ "$instance_exists" == "$pg" ]; then
+    echo "PostgreSQL instance $pg already exists. Skipping instance creation."
+else
+    # Create PostgreSQL instance with interactive password input
+    gcloud sql instances create $pg \
+    --tier=db-g1-small \
+    --region=europe-west1 \
+    --authorized-networks=$auth_ip/32 \
+    --database-version=POSTGRES_15 \
+    --root-password=$pg_password
 
-# Fetch the IP address of the newly created PostgreSQL instance
+    # Output confirmation message
+    echo "PostgreSQL instance $pg created successfully!"
+fi
+
+# Fetch the IP address of the PostgreSQL instance
 pg_ip=$(gcloud sql instances describe $pg --format='value(ipAddresses.ipAddress)')
 
 # Update .pgpass with PostgreSQL credentials
@@ -53,11 +60,18 @@ gcloud sql instances patch $pg --authorized-networks="$auth_ip/32,$vm_ip/32"
 # Output confirmation message
 echo "Patched PostgreSQL instance $pg to authorize local IP $auth_ip and VM IP $vm_ip"
 
-# Connect to PostgreSQL and execute commands to create databases
-PGPASSWORD=$pg_password psql -h $pg_ip -U postgres <<EOF
-CREATE DATABASE phygital;
-CREATE DATABASE phygital_dwh;
-CREATE DATABASE phygital_actual;
-EOF
+# Check and create databases if they do not exist
+create_db_if_not_exists() {
+    local db_name=$1
+    db_exists=$(PGPASSWORD=$pg_password psql -h $pg_ip -U postgres -tAc "SELECT 1 FROM pg_database WHERE datname='$db_name'")
+    if [ "$db_exists" != "1" ]; then
+        PGPASSWORD=$pg_password psql -h $pg_ip -U postgres -c "CREATE DATABASE $db_name;"
+        echo "Database $db_name created successfully!"
+    else
+        echo "Database $db_name already exists. Skipping creation."
+    fi
+}
 
-echo "Databases phygital, phygital_dwh, and phygital_actual created successfully!"
+create_db_if_not_exists "phygital"
+create_db_if_not_exists "phygital_dwh"
+create_db_if_not_exists "phygital_actual"

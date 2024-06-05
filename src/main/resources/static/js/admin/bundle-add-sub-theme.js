@@ -148,4 +148,4 @@ async function addNewSubTheme() {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-add-sub-theme.js.map
+//# sourceMappingURL=bundle-add-sub-theme.js.map

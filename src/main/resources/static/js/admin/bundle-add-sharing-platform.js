@@ -105,4 +105,4 @@ async function addNewSharingPlatform() {
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-add-sharing-platform.js.map
+//# sourceMappingURL=bundle-add-sharing-platform.js.map

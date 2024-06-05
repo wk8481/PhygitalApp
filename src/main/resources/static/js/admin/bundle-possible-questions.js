@@ -24,4 +24,4 @@ __webpack_require__.r(__webpack_exports__);
 
 /******/ })()
 ;
-//# sourceMappingURL=admin\bundle-possible-questions.js.map
+//# sourceMappingURL=bundle-possible-questions.js.map

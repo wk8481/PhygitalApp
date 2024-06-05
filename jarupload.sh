@@ -1,12 +1,25 @@
 #!/bin/bash
+
+# Navigate to the project directory
+#cd $CI_PROJECT_DIR
+
 # This script uploads the JAR file and application.properties to a Google Cloud Storage bucket
 # Author: William KASASA
+
+
+# Print the current working directory for debugging
+echo "Current working directory: $(pwd)"
+
+# List the contents of the build/libs directory
+echo "Contents of build/libs directory:"
+ls -l build/libs/
+
 
 BUCKET_NAME="jar-team-bucket"
 BUCKET_LOCATION="us"
 PROJECT_NAME="integration4-team5"
-JAR_FILE_PATH="../build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar"
-PROPERTIES_FILE_PATH="../src/main/resources/application.properties"
+JAR_FILE_PATH="build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar"
+PROPERTIES_FILE_PATH="src/main/resources/application.properties"
 
 # Check if the JAR file and properties file exist
 if [ ! -f "$JAR_FILE_PATH" ]; then
