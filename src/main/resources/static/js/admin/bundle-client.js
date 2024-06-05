@@ -133,7 +133,7 @@ async function updateClient(event) {
     const name = document.getElementById('nameInput').value
     const email = document.getElementById('emailInput').value
 
-    console.log('updating client to ' + name)
+    console.log('Updating client to ' + name)
     fetch(`/api/clients/${clientId}`, {
         method: 'PATCH', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token

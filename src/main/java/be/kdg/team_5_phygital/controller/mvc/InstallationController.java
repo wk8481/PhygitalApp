@@ -8,6 +8,7 @@ import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,14 +25,18 @@ public class InstallationController {
     private final QuestionService questionService;
     private final SubThemeService subThemeService;
     private final PossibleAnswerService possibleAnswerService;
+    private final SessionService sessionService;
+    private final UserEmailService userEmailService;
 
-    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService) {
+    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService) {
         this.flowService = flowService;
         this.projectService = projectService;
         this.themeService = themeService;
         this.questionService = questionService;
         this.subThemeService = subThemeService;
         this.possibleAnswerService = possibleAnswerService;
+        this.sessionService = sessionService;
+        this.userEmailService = userEmailService;
     }
 
     @GetMapping("project-selection")
@@ -96,7 +101,17 @@ public class InstallationController {
     }
 
     @GetMapping("contact-details")
-    public String getContactDetailsPage() {
-        return "installation/contact-details";
+    public ModelAndView getContactDetailsPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/contact-details");
+        return mav;
     }
+
+    @PostMapping("contact-details")
+    public void addContactEmail(@RequestParam("email") String email) {
+        Session session = sessionService.getLatestSession();
+        UserEmail userEmail = userEmailService.saveUserEmail(email, session);
+        sessionService.addUserEmail(session, userEmail);
+    }
+
 }

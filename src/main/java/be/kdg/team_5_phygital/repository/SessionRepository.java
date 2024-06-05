@@ -31,5 +31,5 @@ public interface SessionRepository extends JpaRepository<Session, Integer> {
     @Query("SELECT s FROM Session s LEFT JOIN FETCH s.questions WHERE s IN :sessions")
     List<Session> getQuestionsOfSessions(@Param("sessions") List<Session> sessions);
 
-
+    Session findTopByOrderByTimestampDesc();
 }
