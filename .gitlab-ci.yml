@@ -17,11 +17,13 @@ stages:
 cache:
   paths:
     - .gradle/
+    - build/libs/
 
 
 build:
   stage: build
   script:
+    - pwd
     - echo "JAVA_HOME is $JAVA_HOME"
     - java -version
     - echo "Build start..."
@@ -37,6 +39,7 @@ build:
 test:
   stage: test
   script:
+    - pwd
     - echo "Running JUnit tests"
     - chmod +x ./gradlew
     - ./gradlew test --scan
@@ -67,6 +70,7 @@ deploy:
     - echo -e "Host *\n\tStrictHostKeyChecking accept-new\n\n" > ~/.ssh/config
 
   script:
+    - pwd
     - echo "Uploading the application..."
     - chmod +x jarupload.sh
     - chmod +x deployjar.sh

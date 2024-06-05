@@ -1,10 +1,19 @@
 #!/bin/bash
 
 # Navigate to the project directory
-cd $CI_PROJECT_DIR
+#cd $CI_PROJECT_DIR
 
 # This script uploads the JAR file and application.properties to a Google Cloud Storage bucket
 # Author: William KASASA
+
+
+# Print the current working directory for debugging
+echo "Current working directory: $(pwd)"
+
+# List the contents of the build/libs directory
+echo "Contents of build/libs directory:"
+ls -l build/libs/
+
 
 BUCKET_NAME="jar-team-bucket"
 BUCKET_LOCATION="us"
