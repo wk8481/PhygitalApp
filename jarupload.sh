@@ -5,8 +5,8 @@
 BUCKET_NAME="jar-team-bucket"
 BUCKET_LOCATION="us"
 PROJECT_NAME="integration4-team5"
-JAR_FILE_PATH="../build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar"
-PROPERTIES_FILE_PATH="../src/main/resources/application.properties"
+JAR_FILE_PATH="build/libs/Team_5_Phygital-0.0.1-SNAPSHOT.jar"
+PROPERTIES_FILE_PATH="src/main/resources/application.properties"
 
 # Check if the JAR file and properties file exist
 if [ ! -f "$JAR_FILE_PATH" ]; then
