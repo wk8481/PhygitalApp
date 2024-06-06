@@ -214,16 +214,18 @@ async function updateQuestion(event) {
     if (answer.length == null){
         answer = 0
     }
-    const question = document.getElementById('textInput').value
-    console.log('Updating question')
+    const question = document.getElementById("textInput").value;
+    const isVisible = document.getElementById("isVisibleInput").checked;
+    console.log("Updating question")
     fetch(`/api/questions/${questionId}`, {
         method: 'PATCH', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
-            'id': questionId,
-            'text': question,
-            'type': questionType,
-            'answers': answer
+            "id": questionId,
+            "text": question,
+            "type": questionType,
+            "isVisible": isVisible,
+            "answers": answer
         })
     })
         .then(response => {
