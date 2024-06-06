@@ -86,7 +86,7 @@ deploy:
     - scp deployjar.sh $TEAM5_USER@$IP_ADDRESS:/home/$TEAM5_USER/deployjar.sh
     - sleep 5
     - echo "Deploying the application on team5-vm..."
-    - ssh $TEAM5_USER@$IP_ADDRESS "bash /home/$TEAM5_USER/deployjar.sh"
+    - ssh $TEAM5_USER@$IP_ADDRESS "sudo /home/$TEAM5_USER/deployjar.sh"
     - sleep 10
     - echo "Application starting.."
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl start phygital.service"
