@@ -47,11 +47,6 @@ public class QuestionService {
         return questionRepository.save(new Question(text, type, subTheme));
     }
 
-    // TO DELETE
-    public Question addQuestion(Question question) {
-        return questionRepository.save(question);
-    }
-
     public boolean updateQuestion(int questionId, String text, QuestionType type, boolean isVisible) {
         Question question = questionRepository.findById(questionId).orElse(null);
         if (question == null) {
