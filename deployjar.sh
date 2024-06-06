@@ -2,7 +2,7 @@
 
 # Script Name: deployjar.sh
 # Description: This script downloads the application JAR and configuration properties from the GCP bucket,
-#              and runs the Spring Boot application using nohup.
+#              and configures the Spring Boot application as a systemd service.
 
 # Ensure necessary directories exist
 mkdir -p /opt /home/nguerin /home/team5
@@ -32,17 +32,23 @@ if [ ! -f /opt/Team_5_Phygital-0.0.1-SNAPSHOT.jar ]; then
     exit 1
 fi
 
-# Kill any running instance of the application
-pkill -f "java -jar /opt/Team_5_Phygital-0.0.1-SNAPSHOT.jar"
+# Configure the Spring Boot app as a systemd service
+cat <<EOD > /etc/systemd/system/phygital.service
+[Unit]
+Description=Spring Boot Application
+After=network.target
 
-# Determine which application.properties file to use
-if [ -f /home/nguerin/application.properties ]; then
-    CONFIG_PATH=/home/nguerin/application.properties
-else
-    CONFIG_PATH=/home/team5/application.properties
-fi
+[Service]
+User=root
+ExecStart=/bin/bash -c "if [ -f /home/nguerin/application.properties ]; then CONFIG_PATH=/home/nguerin/application.properties; else CONFIG_PATH=/home/team5/application.properties; fi; exec /usr/bin/java -Dspring.config.location=file:\$CONFIG_PATH -jar /opt/Team_5_Phygital-0.0.1-SNAPSHOT.jar"
+SuccessExitStatus=143
 
-# Run the Spring Boot application using nohup
-nohup java -Dspring.config.location=file:$CONFIG_PATH -jar /opt/Team_5_Phygital-0.0.1-SNAPSHOT.jar > /opt/phygital.log 2>&1 &
+[Install]
+WantedBy=multi-user.target
+EOD
 
-echo "Spring Boot application started successfully."
+# Enable and start the systemd service
+systemctl enable phygital.service
+#systemctl start phygital
+
+echo "Spring Boot application enabled successfully."
