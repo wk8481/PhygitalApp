@@ -27,8 +27,9 @@ public class InstallationController {
     private final PossibleAnswerService possibleAnswerService;
     private final SessionService sessionService;
     private final UserEmailService userEmailService;
+    private final SharingPlatformService sharingPlatformService;
 
-    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService) {
+    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService, SharingPlatformService sharingPlatformService) {
         this.flowService = flowService;
         this.projectService = projectService;
         this.themeService = themeService;
@@ -37,6 +38,7 @@ public class InstallationController {
         this.possibleAnswerService = possibleAnswerService;
         this.sessionService = sessionService;
         this.userEmailService = userEmailService;
+        this.sharingPlatformService = sharingPlatformService;
     }
 
     @GetMapping("project-selection")
@@ -110,9 +112,13 @@ public class InstallationController {
     }
 
     @GetMapping("contact-details")
-    public ModelAndView getContactDetailsPage() {
+    public ModelAndView getContactDetailsPage(@RequestParam("platformId") int platformId, @RequestParam("projectId") int projectId) {
         var mav = new ModelAndView();
+        SharingPlatform platform = sharingPlatformService.getSharingPlatform(platformId);
+        Project project = projectService.getProject(projectId);
         mav.setViewName("installation/contact-details");
+        mav.addObject("platform", platform);
+        mav.addObject("project", project);
         return mav;
     }
 

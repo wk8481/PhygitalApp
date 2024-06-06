@@ -111,7 +111,7 @@
         </div>
         <!-- Finish Button -->
         <div class="center-container">
-            <a th:href="contact-details" class="btn btn-primary">Finish</a>
+            <a th:href="@{'/installation/contact-details?platformId=' + ${platform.getId()} + '&projectId=' + ${project.getId()}}" class="btn btn-primary">Finish</a>
         </div>
     </div>
     <br>
