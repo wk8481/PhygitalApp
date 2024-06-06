@@ -49,13 +49,14 @@ public class SubThemeService {
         return subThemeRepository.save(new SubTheme(name, information, flow));
     }
 
-    public boolean updateSubTheme(int subThemeId, String name, String information) {
+    public boolean updateSubTheme(int subThemeId, String name, String information, boolean isVisible) {
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
         if (subTheme == null) {
             return false;
         }
         subTheme.setName(name);
         subTheme.setInformation(information);
+        subTheme.setVisible(isVisible);
         subThemeRepository.save(subTheme);
         return true;
     }

@@ -6,14 +6,16 @@ public class QuestionDto {
     private int id;
     private String text;
     private QuestionType type;
+    private boolean isVisible;
 
     public QuestionDto() {
     }
 
-    public QuestionDto(int id, String text, QuestionType type) {
+    public QuestionDto(int id, String text, QuestionType type, boolean isVisible) {
         this.id = id;
         this.text = text;
         this.type = type;
+        this.isVisible = isVisible;
     }
 
     public int getId() {
@@ -40,12 +42,11 @@ public class QuestionDto {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "QuestionDto{" +
-                "id=" + id +
-                ", text='" + text + '\'' +
-                ", type=" + type +
-                '}';
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 }

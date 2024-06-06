@@ -12,15 +12,6 @@
         body {
             background-color: [[${project.backgroundColorHex}]];
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-
-            #logo {
-                position: fixed;
-                top: 70px;
-                left: 10px;
-                width: 60px;
-                height: auto;
-                z-index: 1000;
-            }
         }
     </style>
 </head>
@@ -74,17 +65,12 @@
                             <tbody>
                             <tr th:each="st:${st}">
                                 <td>
-                                    <label for="visibility"></label>
-                                    <input id="visibility" type="checkbox">
-                                </td>
-                                <td>
                                     <a th:href="@{/admin/flow/{flowId}/sub-theme/{stId}(flowId=${flow.id}, stId=${st.id})}"><i
                                             class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="${st.name}"></td>
                             </tr>
                             <tr>
-                                <td></td>
                                 <td>
                                     <a th:href="@{/admin/flow/{flowId}/sub-theme/new(flowId=${flow.id})}">
                                         <i class="fas fa-plus"></i></a>

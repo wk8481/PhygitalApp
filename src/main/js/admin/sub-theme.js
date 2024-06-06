@@ -12,14 +12,15 @@ saveButton.addEventListener('click', updateSubTheme)
 deleteButton.addEventListener('click', deleteSubTheme)
 
 async function updateSubTheme(event) {
-    const name = document.getElementById('nameInput').value
-    const info = document.getElementById('infoInput').value
-    console.log('Updating sub theme')
+    const name = document.getElementById("nameInput").value;
+    const info = document.getElementById("infoInput").value;
+    const isVisible = document.getElementById("isVisibleInput").checked;
+    console.log("Updating sub theme")
     fetch(`/api/sub-themes/${subThemeId}`, {
         method: 'PATCH', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [header]: token
         }, body: JSON.stringify({
-            'id': subThemeId, 'name': name, 'information': info
+            "id": subThemeId, "name": name, "information": info, "isVisible": isVisible
         })
     })
         .then(async (response) => {

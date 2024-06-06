@@ -128,6 +128,8 @@ __webpack_require__.r(__webpack_exports__);
 document.getElementById('addButton').addEventListener('click', addAnswerField)
 document.getElementById('removeButton').addEventListener('click', removeAnswerField)
 
+const question = document.getElementById("textInput");
+const isVisible = document.getElementById("isVisibleInput");
 const saveButton = document.querySelector('#saveButton')
 const deleteButton = document.querySelector('#deleteButton')
 const [subThemeId, questionId] = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), 'question')
@@ -214,16 +216,16 @@ async function updateQuestion(event) {
     if (answer.length == null){
         answer = 0
     }
-    const question = document.getElementById('textInput').value
-    console.log('Updating question')
+    console.log("Updating question")
     fetch(`/api/questions/${questionId}`, {
         method: 'PATCH', headers: {
-            'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
+            'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }, body: JSON.stringify({
-            'id': questionId,
-            'text': question,
-            'type': questionType,
-            'answers': answer
+            "id": questionId,
+            "text": question.value,
+            "type": questionType,
+            "isVisible": isVisible.checked,
+            "answers": answer
         })
     })
         .then(response => {
