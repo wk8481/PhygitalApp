@@ -41,10 +41,10 @@
                     <li class="nav-item me-2 pt-2" sec:authorize="isAuthenticated()">
                         <span class="navbar-text">Logged in as </span>
                         <span class="navbar-text" id="userMail" th:text="${#authentication.principal.username}"></span>
-                        <span th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="ADMIN"></span>
-                        <span th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" th:text="MANAGER"></span>
-                        <span th:if="${#authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="SUPERVISOR"></span>
-                        <span th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or #authorization.expression('hasRole(''ROLE_MANAGER'')') or #authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="${#authentication.authorities[0].authority}"></span>
+                        <span class="navbar-text" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" th:text="ADMIN"></span>
+                        <span class="navbar-text" th:if="${#authorization.expression('hasRole(''ROLE_MANAGER'')')}" th:text="MANAGER"></span>
+                        <span class="navbar-text" th:if="${#authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="SUPERVISOR"></span>
+                        <span class="navbar-text" th:unless="${#authorization.expression('hasRole(''ROLE_ADMIN'')') or #authorization.expression('hasRole(''ROLE_MANAGER'')') or #authorization.expression('hasRole(''ROLE_SUPERVISOR'')')}" th:text="${#authentication.authorities[0].authority}"></span>
                     </li>
                     <!-- Logout Button -->
                     <li sec:authorize="isAuthenticated()">

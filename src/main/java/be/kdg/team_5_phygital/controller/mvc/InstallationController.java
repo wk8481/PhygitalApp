@@ -109,13 +109,6 @@ public class InstallationController {
         return mav;
     }
 
-    @GetMapping("flowCompleted")
-    public ModelAndView flowComplete(){
-        var mav = new ModelAndView();
-        mav.setViewName("installation/flow-completed");
-        return mav;
-    }
-
     @GetMapping("contact-details")
     public ModelAndView getContactDetailsPage() {
         var mav = new ModelAndView();
@@ -130,4 +123,24 @@ public class InstallationController {
         sessionService.addUserEmail(session, userEmail);
     }
 
+    @GetMapping("project-information")
+    public ModelAndView getProjectInformationPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/project-information");
+        return mav;
+    }
+
+    @GetMapping("organization-information")
+    public ModelAndView getOrganizationInformationPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/organization-information");
+        return mav;
+    }
+
+    @GetMapping("privacy-statement")
+    public ModelAndView getPrivacyStatementPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/privacy-statement");
+        return mav;
+    }
 }

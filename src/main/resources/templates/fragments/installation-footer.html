@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<div class="text-center py-sm-0 fixed-bottom" th:fragment="copy">
+    &copy; 2024 KdG •
+    <a th:href="project-information">Project Information</a> •
+    <a th:href="organization-information">Organization</a> •
+    <a th:href="privacy-statement">Privacy Statement</a>
+</div>
+</body>
+</html>

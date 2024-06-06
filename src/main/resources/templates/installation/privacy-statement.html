@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Privacy Statement</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container text-center">
+    <!-- Title Section -->
+    <div class="col-md-12">
+        <div class="row mb-3 justify-content-center">
+            <h1 class="page-title text-primary">Privacy Statement</h1>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <!-- Description Section -->
+        <div class="col-md-8">
+            <section class="mt-2 text-center">
+                <h5>Introduction</h5>
+                <p>
+                    We value your privacy and comply with GDPR regulations.
+                </p>
+
+                <h5>Data Collection and Use</h5>
+                <p>
+                    We collect your contact information and feedback to improve user experience and inform local governments about youth opinions.
+                </p>
+
+                <h5>Data Sharing</h5>
+                <p>
+                    We share data with local governments and project partners but do not sell your data.
+                </p>
+
+                <h5>Your Rights</h5>
+                <p>
+                    You can access, correct, or delete your data. Contact us at [contact information].
+                </p>
+
+                <p>
+                    Last updated on June 6th, 2024.
+                </p>
+            </section>
+        </div>
+    </div>
+    <!-- Return Button -->
+    <div class="center-container">
+        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
+    </div>
+</main>
+<footer th:insert="~{fragments/installation-footer::copy}"></footer>
+</body>
+</html>
