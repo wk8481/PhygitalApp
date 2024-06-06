@@ -32,7 +32,7 @@ VALUES ('Groenplaats', false, 1),
 
 -- Project
 INSERT INTO project (name, background_color_hex, is_active, is_public, total_participants, total_time_spent_in_sec, sharing_platform_id)
-VALUES ('Project X', '#fffff', true, false, 50, 4.5, 1);
+VALUES ('Project X', '#FFFFFF', true, false, 50, 4.5, 1);
 
 -- -- Theme
 INSERT INTO theme (name, information, project_id)

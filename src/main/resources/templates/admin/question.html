@@ -13,15 +13,6 @@
         body {
             background-color: [[${project.backgroundColorHex}]];
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-
-            #logo {
-                position: fixed;
-                top: 70px;
-                left: 10px;
-                width: 60px;
-                height: auto;
-                z-index: 1000;
-            }
         }
     </style>
 </head>
@@ -41,7 +32,7 @@
                 <h2 class="text-secondary">Info</h2>
                 <div class="col-md-12">
                     <table class="table-borderless">
-                        <tbody th:object="${q}">
+                        <tbody th:object="${question}">
                         <!-- Text -->
                         <tr>
                             <th class="col-sm-1">
@@ -59,11 +50,21 @@
                             <td class="col-sm-6">
                                 <select class="form-control" id="questionTypeInput">
                                     <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
-                                            th:selected="${type == q.type}"
+                                            th:selected="${type == question.type}"
                                             th:text="${type}"
                                             th:value="${type}">>
                                     </option>
                                 </select>
+                            </td>
+                        </tr>
+                        <!-- Visible -->
+                        <tr>
+                            <th class="col-sm-1">
+                                <label class="form-label" for="isVisibleInput">Visible:</label>
+                            </th>
+                            <td class="col-sm-6">
+                                <input class="form-check" id="isVisibleInput" th:checked="${question.isVisible}"
+                                       type="checkbox">
                             </td>
                         </tr>
                         </tbody>

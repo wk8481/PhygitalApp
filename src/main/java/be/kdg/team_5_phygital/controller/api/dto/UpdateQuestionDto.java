@@ -7,6 +7,7 @@ import java.util.List;
 public class UpdateQuestionDto {
     private String text;
     private QuestionType type;
+    private boolean isVisible;
     private List<String> answers;
 
     public UpdateQuestionDto() {
@@ -16,9 +17,10 @@ public class UpdateQuestionDto {
         return answers;
     }
 
-    public UpdateQuestionDto(String text, QuestionType type, List<String> answers) {
+    public UpdateQuestionDto(String text, QuestionType type, boolean isVisible, List<String> answers) {
         this.text = text;
         this.type = type;
+        this.isVisible = isVisible;
         this.answers = answers;
     }
 
@@ -42,11 +44,11 @@ public class UpdateQuestionDto {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "UpdateQuestionDto{" +
-                "text='" + text + '\'' +
-                ", type=" + type +
-                '}';
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
     }
 }
