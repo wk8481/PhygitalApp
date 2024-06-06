@@ -83,7 +83,7 @@ deploy:
     - echo "Database created successfully"
     - sleep 10
     - echo "Copying deploy script to team5-vm..."
-    - gcloud compute scp deployjar.sh $TEAM5_USER@$team5-vm:/home/$TEAM5_USER/deployjar.sh --zone=europe-west1-d
+    - scp deployjar.sh $TEAM5_USER@$IP_ADDRESS:/home/$TEAM5_USER/deployjar.sh
     - sleep 5
     - echo "Deploying the application on team5-vm..."
     - ssh $TEAM5_USER@$IP_ADDRESS "bash /home/$TEAM5_USER/deployjar.sh"
