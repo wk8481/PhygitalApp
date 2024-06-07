@@ -6,9 +6,12 @@
 <head>
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <link rel="stylesheet" href="scss/style.css">
+    <script src="/js/bubbles.js" defer></script>
     <script src="/js/installation/bundle-questionHandler.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
     <script src="/js/util/bundle-csrf.js" defer></script>
+
     <style>
         body {
             background-color: [[${project.backgroundColorHex}]];

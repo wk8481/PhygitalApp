@@ -1,0 +1,46 @@
+// styles.scss
+
+$background-color-start: #6a0dad;
+$background-color-end: #8a2be2;
+$body-height: 100vh;
+$opacity: 0.6;
+$animation-duration-min: 5s;
+$animation-duration-max: 10s;
+$number-of-bubbles: 30;
+$min-bubble-size: 10px;
+$max-bubble-size: 25px;
+
+body {
+  background: linear-gradient(to top, $background-color-start, $background-color-end);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: $body-height;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -50px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  opacity: $opacity;
+  animation: rise infinite;
+
+  &:nth-child(1) {
+    width: $min-bubble-size;
+    height: $min-bubble-size;
+    left: 10%;
+    animation-duration: $animation-duration-min;
+  }
+
+  // Add more bubbles similarly
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-110vh);
+  }
+}

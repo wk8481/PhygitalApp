@@ -6,6 +6,8 @@
 <head>
     <title>Theme</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <link rel="stylesheet" href="scss/style.css">
+    <script src="/js/bubbles.js" defer></script>
     <script src="/js/admin/bundle-theme.js" defer></script>
     <style>
         body {
@@ -13,6 +15,7 @@
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
         }
     </style>
+
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>

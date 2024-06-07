@@ -6,6 +6,8 @@
 <head>
     <thymeleaf th:fragment="meta_script_link" th:remove="tag">
         <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="scss/style.css">
+        <script src="/js/bubbles.js" defer></script>
         <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
         <meta name="_csrf" th:content="${_csrf.token}"/>
         <meta name="_csrf_header" th:content="${_csrf.headerName}"/>

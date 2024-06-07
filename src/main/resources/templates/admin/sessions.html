@@ -4,6 +4,8 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="scss/style.css">
+    <script src="/js/bubbles.js" defer></script>
     <title>Sessions</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/bundle-utils.js" defer></script>
@@ -13,6 +15,7 @@
             font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
         }
     </style>
+
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
