@@ -70,6 +70,8 @@ stop_vm "team5-vm"
 stop_cloud_sql_instance "pg1716984918"
 
 
+
+
 ##!/bin/bash
 #
 ## Function to remove VM's IP from Cloud SQL authorized networks
