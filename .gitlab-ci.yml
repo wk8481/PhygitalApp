@@ -72,10 +72,16 @@ deploy:
     - echo "Uploading the application..."
     - chmod +x jarupload.sh
     - chmod +x deployjar.sh
+    - chmod +x startvm.sh
     - chmod +x createDB.sh
     - ./jarupload.sh
     - sleep 10
     - echo "Uploaded successfully"
+    - sleep 10
+    - echo "Starting the vm..."
+    - ./startvm.sh
+    - sleep 10
+    - echo "VM started successfully"
     - sleep 10
     - echo "Creating database..."
     - ./createDB.sh
