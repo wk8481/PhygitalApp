@@ -13,7 +13,7 @@ remove_vm_ip_from_sql_authorized_networks() {
     local zone="$3"
 
     # Fetch the current authorized networks for the Cloud SQL instance
-    local AUTHORIZED_NETWORKS=$(gcloud sql instances describe "$cloud_sql_instance" --format="value(settings.ipConfiguration.authorizedNetworks)")
+    local AUTHORIZED_NETWORKS=$(gcloud sql instances describe "$cloud_sql_instance" --format="value(settings.ipConfiguration.authorizedNetworks)" | tr ';' '\n')
 
     # Fetch the IP address associated with the VM instance
     local VM_IP=$(gcloud compute instances describe "$vm_instance_name" --zone="$zone" --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
@@ -25,12 +25,19 @@ remove_vm_ip_from_sql_authorized_networks() {
     fi
 
     # Remove the VM's IP address from the authorized networks
-    local NEW_AUTHORIZED_NETWORKS=$(echo "$AUTHORIZED_NETWORKS" | grep -v "$VM_IP")
+    local NEW_AUTHORIZED_NETWORKS=$(echo "$AUTHORIZED_NETWORKS" | grep -v "$VM_IP" | tr '\n' ';')
 
-    # Update the authorized networks for the Cloud SQL instance
-    if ! gcloud sql instances patch "$cloud_sql_instance" --authorized-networks="$NEW_AUTHORIZED_NETWORKS"; then
-        echo "Failed to update authorized networks for $cloud_sql_instance"
-        exit 1
+    # Update the authorized networks for the Cloud SQL instance if NEW_AUTHORIZED_NETWORKS is not empty
+    if [ -n "$NEW_AUTHORIZED_NETWORKS" ]; then
+        if ! gcloud sql instances patch "$cloud_sql_instance" --authorized-networks="$NEW_AUTHORIZED_NETWORKS"; then
+            echo "Failed to update authorized networks for $cloud_sql_instance"
+            exit 1
+        fi
+    else
+        if ! gcloud sql instances patch "$cloud_sql_instance" --clear-authorized-networks; then
+            echo "Failed to clear authorized networks for $cloud_sql_instance"
+            exit 1
+        fi
     fi
 
     echo "Successfully removed $VM_IP from authorized networks for $cloud_sql_instance"
