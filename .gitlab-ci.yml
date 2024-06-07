@@ -123,7 +123,7 @@ destroy:
   script:
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl stop phygital.service"
     - chmod +x dismantle.sh
-    - sudo ./dismantle.sh
+    - ./dismantle.sh
 
   when: manual
 
