@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Script Name: createDB.sh
-# Description: This script creates databases on a Cloud SQL instance on Google Cloud Platform (GCP),
-#              and authorizes the local IP and VM IP to access the Cloud SQL instance.
-
-
 # Function to check if VM is running
 check_vm_running() {
     local vm_instance_name="$1"
@@ -24,7 +19,7 @@ start_sql_instance() {
     local sql_status=$(gcloud sql instances describe "$sql_instance" --format="value(state)")
     if [ "$sql_status" != "RUNNABLE" ]; then
         echo "Starting SQL instance $sql_instance..."
-        gcloud sql instances start "$sql_instance"
+        gcloud sql instances patch "$sql_instance" --activation-policy=ALWAYS
         echo "SQL instance $sql_instance started successfully!"
     else
         echo "SQL instance $sql_instance is already running."
@@ -37,6 +32,10 @@ check_vm_running "team5-vm" "europe-west1-d"
 # Start SQL instance if not running
 start_sql_instance "pg1716984918"
 
+# Script Name: createDB.sh
+# Description: This script sets up a PostgreSQL instance on Google Cloud Platform,
+#              authorizes local and VM IP addresses, and creates required databases
+#              if they do not exist.
 
 # Fetch public IP address
 auth_ip=$(curl -s ipinfo.io/ip)
