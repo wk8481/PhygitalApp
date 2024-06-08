@@ -81,7 +81,7 @@ public class ProjectsController {
     }
 
     @PatchMapping("{projectId}")
-    ResponseEntity<Void> updateProject(@PathVariable int projectId, @Valid UpdateProjectDto updateProjectDto) {
+    ResponseEntity<Void> updateProject(@PathVariable int projectId, @RequestBody     UpdateProjectDto updateProjectDto) {
         if (projectService.updateProject(projectId, updateProjectDto)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

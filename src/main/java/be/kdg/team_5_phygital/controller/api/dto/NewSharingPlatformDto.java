@@ -4,8 +4,17 @@ public class NewSharingPlatformDto {
     private String name;
     private String contactEmail;
     private String logoPath;
+    private String information;
 
     public NewSharingPlatformDto() {
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getName() {

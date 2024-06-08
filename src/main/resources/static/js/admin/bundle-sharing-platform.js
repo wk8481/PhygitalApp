@@ -138,6 +138,7 @@ async function updateSharingPlatform(event) {
     const contactEmail = document.getElementById('contactEmailInput')
     const logoUrl = document.getElementById('logoUrlInput')
     const sharingPlatformId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href, 'sharing-platform')
+    const information = document.getElementById("informationInput")
 
     console.log("Updating sharing platform")
 
@@ -145,7 +146,8 @@ async function updateSharingPlatform(event) {
         id: sharingPlatformId,
         name: name.value,
         contactEmail: contactEmail.value,
-        logoUrl: logoUrl.value
+        logoUrl: logoUrl.value,
+        information: information.value
     }
 
     if (logoUrl) {

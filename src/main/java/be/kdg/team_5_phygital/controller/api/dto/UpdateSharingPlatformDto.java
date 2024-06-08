@@ -3,6 +3,7 @@ package be.kdg.team_5_phygital.controller.api.dto;
 public class UpdateSharingPlatformDto {
     private String name;
     private String contactEmail;
+    private String information;
     private String logoUrl;
 
     public UpdateSharingPlatformDto() {
@@ -22,6 +23,14 @@ public class UpdateSharingPlatformDto {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getLogoUrl() {

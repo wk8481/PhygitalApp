@@ -58,13 +58,13 @@ public class SharingPlatformsController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         logger.info("Creating new sharing platform: {}", sharingPlatformDto.getName());
-        SharingPlatform createdSharingPlatform = sharingPlatformService.saveSharingPlatform(sharingPlatformDto.getName(), sharingPlatformDto.getContactEmail());
+        SharingPlatform createdSharingPlatform = sharingPlatformService.saveSharingPlatform(sharingPlatformDto.getName(), sharingPlatformDto.getContactEmail(), sharingPlatformDto.getInformation());
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatform, SharingPlatformDto.class), HttpStatus.CREATED);
     }
 
     @PatchMapping("{sharingPlatformId}")
     public ResponseEntity<Void> updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestPart UpdateSharingPlatformDto updateSharingPlatformDto) {
-        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto.getName(), updateSharingPlatformDto.getContactEmail(), updateSharingPlatformDto.getLogoUrl())) {
+        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto.getName(), updateSharingPlatformDto.getContactEmail(), updateSharingPlatformDto.getLogoUrl(), updateSharingPlatformDto.getInformation())) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

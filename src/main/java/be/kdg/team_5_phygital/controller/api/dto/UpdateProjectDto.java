@@ -7,8 +7,8 @@ public class UpdateProjectDto {
     private String backgroundColorHex;
     private String fontName;
     private String logoUrl;
-    @JsonProperty("isPublic")
-    private boolean isPublic;
+    @JsonProperty("isVisible")
+    private boolean isVisible;
 
     public UpdateProjectDto() {
     }
@@ -45,11 +45,23 @@ public class UpdateProjectDto {
         this.logoUrl = logoUrl;
     }
 
-    public boolean isPublic() {
-        return isPublic;
+    public boolean isVisible() {
+        return isVisible;
+    }
+    @JsonProperty("isVisible")
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
+
+    @Override
+    public String toString() {
+        return "UpdateProjectDto{" +
+                "name='" + name + '\'' +
+                ", backgroundColorHex='" + backgroundColorHex + '\'' +
+                ", fontName='" + fontName + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", isPublic=" + isVisible +
+                '}';
     }
 }
