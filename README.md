@@ -112,11 +112,6 @@ services:
       - '5444:5432'
 ```
 
-### CI/CD
-
-- Deploy pipeline stars the VM, the GCloud SQL instance, retrieves the jar and starts the application.
-- Destroy stops the application, VM and the GCloud SQL instance.
-
 ### Running the Application
 
 1. Make sure you have Docker installed.
@@ -141,6 +136,13 @@ services:
 - Implement your Domain Model as classes.
 - Include Hibernate specifics, especially relationships.
 - Create static HTML pages using Bootstrap 5.
+
+
+## Changes since deadline
+### CI/CD
+
+- Deploy pipeline starts the VM, the GCloud SQL instance, retrieves the jar and starts the application.
+- Destroy stops the application, VM and the GCloud SQL instance.
 
 ---
 

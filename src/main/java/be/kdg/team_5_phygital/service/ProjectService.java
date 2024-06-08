@@ -74,16 +74,16 @@ public class ProjectService {
     }
 
     @Transactional
-    public boolean updateProject(int projectId, String name, String backgroundColorHex, String fontName, String logoUrl, boolean isPublic) {
+    public boolean updateProject(int projectId, UpdateProjectDto updateProjectDto) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {
             return false;
         }
-        project.setName(name);
-        project.setBackgroundColorHex(backgroundColorHex);
-        project.setFontName(fontName);
-        project.setLogoUrl(logoUrl);
-        project.setPublic(isPublic);
+        project.setName(updateProjectDto.getName());
+        project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
+        project.setFontName(updateProjectDto.getFontName());
+        project.setLogoUrl(updateProjectDto.getLogoUrl());
+        project.setPublic(updateProjectDto.isPublic());
         projectRepository.save(project);
         return true;
     }

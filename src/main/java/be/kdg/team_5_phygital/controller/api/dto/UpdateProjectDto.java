@@ -7,6 +7,7 @@ public class UpdateProjectDto {
     private String backgroundColorHex;
     private String fontName;
     private String logoUrl;
+    @JsonProperty("isPublic")
     private boolean isPublic;
 
     public UpdateProjectDto() {

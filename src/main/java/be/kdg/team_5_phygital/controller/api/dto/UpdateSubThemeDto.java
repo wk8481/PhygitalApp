@@ -6,6 +6,7 @@ public class UpdateSubThemeDto {
     private String name;
     private String information;
     private String mediaUrl;
+    @JsonProperty("isVisible")
     private boolean isVisible;
 
     public UpdateSubThemeDto() {

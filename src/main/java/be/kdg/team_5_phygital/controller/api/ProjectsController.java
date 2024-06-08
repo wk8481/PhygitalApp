@@ -82,7 +82,7 @@ public class ProjectsController {
 
     @PatchMapping("{projectId}")
     ResponseEntity<Void> updateProject(@PathVariable int projectId, @Valid UpdateProjectDto updateProjectDto) {
-        if (projectService.updateProject(projectId, updateProjectDto.getName(), updateProjectDto.getBackgroundColorHex(), updateProjectDto.getFontName(), updateProjectDto.getLogoUrl(), updateProjectDto.isPublic())) {
+        if (projectService.updateProject(projectId, updateProjectDto)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
