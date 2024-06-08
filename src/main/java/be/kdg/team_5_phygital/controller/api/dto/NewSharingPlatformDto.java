@@ -33,6 +33,14 @@ public class NewSharingPlatformDto {
         this.contactEmail = contactEmail;
     }
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
     public String getLogoPath() {
         return logoPath;
     }

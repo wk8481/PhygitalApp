@@ -38,4 +38,5 @@ public class ProjectViewModel {
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
 }

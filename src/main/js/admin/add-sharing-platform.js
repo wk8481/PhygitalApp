@@ -8,7 +8,6 @@ async function addNewSharingPlatform() {
     const name = document.getElementById('nameInput')
     const information = document.getElementById('informationInput');
     const contactEmail = document.getElementById('contactInput')
-    const information = document.getElementById('informationInput')
     await fetch('/api/sharing-platforms', {
         method: 'POST', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [header]: token

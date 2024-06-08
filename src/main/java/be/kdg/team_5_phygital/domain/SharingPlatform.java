@@ -43,9 +43,10 @@ public class SharingPlatform {
         this.name = name;
     }
 
-    public SharingPlatform(String name, String contactEmail) {
+    public SharingPlatform(String name, String contactEmail, String information) {
         this.name = name;
         this.contactEmail = contactEmail;
+        this.information = information;
     }
 
     public SharingPlatform(String name, String contactEmail, String logoUrl, String information) {
