@@ -76,7 +76,7 @@ public class SubThemesController {
 
     @PatchMapping("{subThemeId}")
     ResponseEntity<Void> updateSubTheme(@PathVariable int subThemeId, @RequestBody UpdateSubThemeDto updateSubThemeDto) {
-        if (subThemeService.updateSubTheme(subThemeId, updateSubThemeDto.getName(), updateSubThemeDto.getInformation(), updateSubThemeDto.isVisible())) {
+        if (subThemeService.updateSubTheme(subThemeId, updateSubThemeDto.getName(), updateSubThemeDto.getInformation(), updateSubThemeDto.isVisible(), updateSubThemeDto.getMediaUrl())) {
             logger.info("Updating sub theme to: {}", updateSubThemeDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
@@ -92,28 +92,6 @@ public class SubThemesController {
         }
         logger.error("Couldn't delete sub theme");
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
-
-    @PostMapping("/{subThemeId}/media")
-    public ResponseEntity<?> uploadMediaFiles(@PathVariable("subThemeId") int subThemeId,
-                                              @RequestParam("files") MultipartFile[] files) {
-        try {
-            subThemeService.uploadMediaFiles(subThemeId, Arrays.asList(files));
-            return ResponseEntity.ok().build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @DeleteMapping("/{subThemeId}/media")
-    public ResponseEntity<?> deleteMediaFiles(@PathVariable("subThemeId") int subThemeId,
-                                              @RequestParam("fileNames") List<String> fileNames) {
-        try {
-            subThemeService.deleteMediaFiles(subThemeId, fileNames);
-            return ResponseEntity.ok().build();
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
     }
 
     @GetMapping("/session/{id}/download-csv")

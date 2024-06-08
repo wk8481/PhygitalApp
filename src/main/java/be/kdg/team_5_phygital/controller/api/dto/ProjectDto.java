@@ -5,18 +5,18 @@ public class ProjectDto {
     private String name;
     private String backgroundColorHex;
     private String fontName;
-    private String logoPath;
+    private String logoUrl;
     private boolean isPublic;
 
     public ProjectDto() {
     }
 
-    public ProjectDto(int id, String name, String backgroundColorHex, String fontName, String logoPath, boolean isPublic) {
+    public ProjectDto(int id, String name, String backgroundColorHex, String fontName, String logoUrl, boolean isPublic) {
         this.id = id;
         this.name = name;
         this.backgroundColorHex = backgroundColorHex;
         this.fontName = fontName;
-        this.logoPath = logoPath;
+        this.logoUrl = logoUrl;
         this.isPublic = isPublic;
     }
 
@@ -52,12 +52,12 @@ public class ProjectDto {
         this.fontName = fontName;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public boolean isPublic() {

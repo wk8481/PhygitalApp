@@ -11,7 +11,6 @@ import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,23 +70,16 @@ public class ProjectService {
     }
 
     @Transactional
-    public boolean updateProject(int projectId, UpdateProjectDto updateProjectDto, MultipartFile logoFile) throws IOException {
+    public boolean updateProject(int projectId, String name, String backgroundColorHex, String fontName, String logoUrl, boolean isPublic) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {
             return false;
         }
-        project.setName(updateProjectDto.getName());
-        project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
-        project.setFontName(updateProjectDto.getFontName());
-        project.setPublic(updateProjectDto.isPublic());
-
-        // Handle logo file upload
-        if (logoFile != null && !logoFile.isEmpty()) {
-            // Save the logo file and update the logoPath
-            String savedLogoPath = saveLogoFile(logoFile, projectId);
-            project.setLogoPath(savedLogoPath);
-        }
-
+        project.setName(name);
+        project.setBackgroundColorHex(backgroundColorHex);
+        project.setFontName(fontName);
+        project.setLogoUrl(logoUrl);
+        project.setPublic(isPublic);
         projectRepository.save(project);
         return true;
     }

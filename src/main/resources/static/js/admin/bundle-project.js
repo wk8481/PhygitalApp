@@ -123,8 +123,6 @@ __webpack_require__.r(__webpack_exports__);
 
  // Adjust the path as per your file structure
 
-
-
 const name = document.getElementById('nameInput')
 const bgColor = document.getElementById('bgColorInput')
 const font = document.getElementById('fontInput')

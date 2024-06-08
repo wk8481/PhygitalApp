@@ -51,9 +51,11 @@
                     </tr>
                     <!-- Media -->
                     <tr>
-                        <th class="col-sm-4">Media:</th>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="mediaUrlInput">Media:</label>
+                        </th>
                         <td class="col-sm-8">
-                            <input type="file" id="mediaInput" name="mediaInput" multiple>
+                            <input class="form-control w-100" type="url" id="mediaUrlInput" name="mediaUrlInput" th:field="*{mediaUrl}" placeholder="Enter media URL">
                         </td>
                     </tr>
                     <!-- Visible -->

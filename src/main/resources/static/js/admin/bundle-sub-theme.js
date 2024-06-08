@@ -123,9 +123,6 @@ __webpack_require__.r(__webpack_exports__);
 
  // Adjust the path as per your file structure
 
-
-
-const uploadInput = document.getElementById('mediaInput')
 const saveButton = document.querySelector('#saveButton')
 const deleteButton = document.querySelector('#deleteButton')
 const [flowId, subThemeId] = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), 'sub-theme')
@@ -137,20 +134,33 @@ async function updateSubTheme(event) {
     const name = document.getElementById("nameInput").value;
     const info = document.getElementById("infoInput").value;
     const isVisible = document.getElementById("isVisibleInput").checked;
+    const mediaUrl = document.getElementById('mediaUrlInput').value;
+
     console.log("Updating sub theme")
+
+    const body = {
+        "id": subThemeId, "name": name, "information": info, "isVisible": isVisible
+    };
+
+    if (mediaUrl) {
+        body.mediaUrl = mediaUrl;
+    }
+
     fetch(`/api/sub-themes/${subThemeId}`, {
         method: 'PATCH', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
-        }, body: JSON.stringify({
-            "id": subThemeId, "name": name, "information": info, "isVisible": isVisible
-        })
+        }, body: JSON.stringify(body)
     })
         .then(async (response) => {
             if (response.status === 204) {
-                // Upload media files
-                await uploadMediaFiles()
+                console.log('Sub theme updated successfully');
+            } else {
+                console.error('Failed to update sub theme');
             }
         })
+        .catch(error => {
+            console.error('Error updating sub theme:', error);
+        });
 }
 
 async function deleteSubTheme(event) {
@@ -160,27 +170,8 @@ async function deleteSubTheme(event) {
             [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
         }
     })
-    if (response.ok){
-        window.history.back()
-    }
-}
-
-async function uploadMediaFiles(event) {
-    const files = uploadInput.files
-    const formData = new FormData()
-    for (const file of files) {
-        formData.append('files', file)
-    }
-    console.log('Uploading media files')
-    const response = await fetch(`/api/sub-themes/${subThemeId}/media`, {
-        method: 'POST',
-        headers: {
-            [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
-        },
-        body: formData
-    })
     if (response.ok) {
-        // Handle success
+        window.history.back()
     }
 }
 

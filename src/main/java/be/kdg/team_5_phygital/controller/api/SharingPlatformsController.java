@@ -62,13 +62,9 @@ public class SharingPlatformsController {
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatform, SharingPlatformDto.class), HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/{sharingPlatformId}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<Void> updateSharingPlatform(
-            @PathVariable int sharingPlatformId,
-            @RequestPart("updateSharingPlatformDto") UpdateSharingPlatformDto updateSharingPlatformDto,
-            @RequestPart(value = "logo", required = false) MultipartFile logoFile) throws IOException {
-
-        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto, logoFile)) {
+    @PatchMapping("{sharingPlatformId}")
+    public ResponseEntity<Void> updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestPart UpdateSharingPlatformDto updateSharingPlatformDto) {
+        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto.getName(), updateSharingPlatformDto.getContactEmail(), updateSharingPlatformDto.getLogoUrl())) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

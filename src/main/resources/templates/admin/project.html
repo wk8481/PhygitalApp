@@ -73,9 +73,11 @@
                     </tr>
                     <!-- Logo -->
                     <tr>
-                        <th class="col-sm-4">Logo:</th>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="logoUrlInput">Logo:</label>
+                        </th>
                         <td class="col-sm-8">
-                            <input accept="image/*" id="logoInput" type="file">
+                            <input class="form-control w-100" type="url" id="logoUrlInput" name="logoUrlInput" th:field="*{logoUrl}" placeholder="Enter logo URL">
                         </td>
                     </tr>
                     <!-- Public -->

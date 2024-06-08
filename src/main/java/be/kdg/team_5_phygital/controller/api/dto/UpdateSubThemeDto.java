@@ -4,6 +4,7 @@ public class UpdateSubThemeDto {
     private String name;
     private String information;
     private boolean isVisible;
+    private String mediaUrl;
 
     public UpdateSubThemeDto() {
     }
