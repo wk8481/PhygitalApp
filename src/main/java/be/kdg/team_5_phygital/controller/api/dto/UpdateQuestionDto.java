@@ -8,26 +8,10 @@ import java.util.List;
 public class UpdateQuestionDto {
     private String text;
     private QuestionType type;
-    @JsonProperty("isVisible")
     private boolean isVisible;
     private List<String> answers;
 
     public UpdateQuestionDto() {
-    }
-
-    public List<String> getAnswers() {
-        return answers;
-    }
-
-    public UpdateQuestionDto(String text, QuestionType type, boolean isVisible, List<String> answers) {
-        this.text = text;
-        this.type = type;
-        this.isVisible = isVisible;
-        this.answers = answers;
-    }
-
-    public void setAnswers(List<String> answers) {
-        this.answers = answers;
     }
 
     public String getText() {
@@ -52,5 +36,13 @@ public class UpdateQuestionDto {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public List<String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(List<String> answers) {
+        this.answers = answers;
     }
 }

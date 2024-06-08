@@ -45,7 +45,7 @@ const config = {
                 const name = pathData.chunk.name
                 const outputPath = path.dirname(name)
                 const outputFilename = `bundle-${path.basename(name)}.css`
-                return path.join('../css', outputPath, outputFilename)
+                return path.join('..', 'css', outputPath, outputFilename).replace(/\\/g, '/')
             }
         })
     ],

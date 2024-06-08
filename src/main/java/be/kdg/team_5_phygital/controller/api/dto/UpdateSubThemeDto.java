@@ -35,7 +35,6 @@ public class UpdateSubThemeDto {
         this.mediaUrl = mediaUrl;
     }
 
-    @JsonProperty("isVisible")
     public boolean isVisible() {
         return isVisible;
     }

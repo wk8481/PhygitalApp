@@ -11,13 +11,13 @@ deleteButton.addEventListener('click', deleteSubTheme)
 async function updateSubTheme(event) {
     const name = document.getElementById("nameInput").value;
     const info = document.getElementById("infoInput").value;
-    const isVisible = document.getElementById("isVisibleInput").checked;
     const mediaUrl = document.getElementById('mediaUrlInput').value;
+    const isVisible = document.getElementById("isVisibleInput").checked;
 
-    console.log("Updating sub theme")
+    console.log("Updating sub-theme")
 
     const body = {
-        "id": subThemeId, "name": name, "information": info, "isVisible": isVisible
+        id: subThemeId, name: name, information: info, mediaUrl: mediaUrl, isVisible: isVisible
     };
 
     if (mediaUrl) {

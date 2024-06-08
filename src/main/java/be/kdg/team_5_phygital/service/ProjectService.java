@@ -49,6 +49,10 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    public List<Project> getPublicProjects() {
+        return projectRepository.findProjectsByIsPublicIsTrue();
+    }
+
     public List<Project> getProjectBySharingPlatformId(int sharingPlatformId) {
         return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
     }
@@ -83,6 +87,7 @@ public class ProjectService {
         projectRepository.save(project);
         return true;
     }
+
 
     private String saveLogoFile(MultipartFile logoFile, int projectId) throws IOException {
         // Define the directory where you want to store the logo files

@@ -1,5 +1,7 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UpdateProjectDto {
     private String name;
     private String backgroundColorHex;

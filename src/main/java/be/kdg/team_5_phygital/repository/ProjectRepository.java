@@ -1,7 +1,6 @@
 package be.kdg.team_5_phygital.repository;
 
 import be.kdg.team_5_phygital.domain.Project;
-import be.kdg.team_5_phygital.domain.SharingPlatform;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,6 +14,9 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
     List<Project> findAllBySharingPlatformId(int sharingPlatformId);
 
     Optional<Project> findByName(String name);
+
+    // find all projects where is public is true
+    List<Project> findProjectsByIsPublicIsTrue();
 
     List<Project> findProjectsByNameLikeIgnoreCase(String searchTerm);
 
