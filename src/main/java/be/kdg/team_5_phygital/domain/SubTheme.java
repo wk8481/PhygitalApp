@@ -2,9 +2,6 @@ package be.kdg.team_5_phygital.domain;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "sub_theme")
 public class SubTheme {
@@ -17,8 +14,7 @@ public class SubTheme {
 
     private String information;
 
-    @ElementCollection
-    private List<String> mediaFiles = new ArrayList<>();
+    private String mediaUrl;
 
     private boolean isVisible;
 
@@ -69,20 +65,12 @@ public class SubTheme {
         this.information = information;
     }
 
-    public List<String> getMediaFiles() {
-        return mediaFiles;
+    public String getMediaUrl() {
+        return mediaUrl;
     }
 
-    public void setMediaFiles(List<String> mediaFiles) {
-        this.mediaFiles = mediaFiles;
-    }
-
-    public void addMediaFile(String mediaFile) {
-        this.mediaFiles.add(mediaFile);
-    }
-
-    public void removeMediaFile(String mediaFile) {
-        this.mediaFiles.remove(mediaFile);
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 
     public boolean isVisible() {

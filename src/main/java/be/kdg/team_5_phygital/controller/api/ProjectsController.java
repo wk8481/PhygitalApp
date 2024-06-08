@@ -81,8 +81,8 @@ public class ProjectsController {
     }
 
     @PatchMapping("{projectId}")
-    ResponseEntity<Void> updateProject(@PathVariable int projectId, @Valid UpdateProjectDto updateProjectDto, @RequestParam(value = "logo", required = false) MultipartFile logoFile) throws IOException {
-        if (projectService.updateProject(projectId, updateProjectDto, logoFile)) {
+    ResponseEntity<Void> updateProject(@PathVariable int projectId, @RequestBody     UpdateProjectDto updateProjectDto) {
+        if (projectService.updateProject(projectId, updateProjectDto)) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

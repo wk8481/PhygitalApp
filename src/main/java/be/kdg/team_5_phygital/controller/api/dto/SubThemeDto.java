@@ -5,15 +5,18 @@ public class SubThemeDto {
     private String name;
     private String information;
     private boolean isVisible;
+    private String mediaUrl;
+
 
     public SubThemeDto() {
     }
 
-    public SubThemeDto(int id, String name, String information, boolean isVisible) {
+    public SubThemeDto(int id, String name, String information, boolean isVisible, String mediaUrl) {
         this.id = id;
         this.name = name;
         this.information = information;
         this.isVisible = isVisible;
+        this.mediaUrl = mediaUrl;
     }
 
     public int getId() {
@@ -46,5 +49,13 @@ public class SubThemeDto {
 
     public void setVisible(boolean visible) {
         isVisible = visible;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 }

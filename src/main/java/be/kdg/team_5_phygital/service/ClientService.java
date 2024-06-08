@@ -36,13 +36,14 @@ public class ClientService {
         return clientRepository.save(new Client(name, email, password, sharingPlatform));
     }
 
-    public boolean updateSharingPlatformAdmin(int sharingPlatformId, String name, String email) {
+    public boolean updateSharingPlatformAdmin(int sharingPlatformId, String name, String email, String password) {
         Client client = clientRepository.findById(sharingPlatformId).orElse(null);
         if (client == null) {
             return false;
         }
         client.setName(name);
         client.setEmail(email);
+        client.setPassword(password);
         clientRepository.save(client);
         return true;
     }

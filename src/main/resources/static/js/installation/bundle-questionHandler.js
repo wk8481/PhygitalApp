@@ -2,6 +2,18 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/main/scss/installation/question-handler.scss":
+/*!**********************************************************!*\
+  !*** ./src/main/scss/installation/question-handler.scss ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
 /***/ "./src/main/js/util/csrf.js":
 /*!**********************************!*\
   !*** ./src/main/js/util/csrf.js ***!
@@ -83,6 +95,8 @@ var __webpack_exports__ = {};
   \*****************************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/csrf.js */ "./src/main/js/util/csrf.js");
+/* harmony import */ var _scss_installation_question_handler_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../scss/installation/question-handler.scss */ "./src/main/scss/installation/question-handler.scss");
+
 
 let isCircular
 
@@ -444,6 +458,7 @@ Array.from(rangeInputs).forEach(function(rangeInput) {
         }
     })
 })
+
 })();
 
 /******/ })()

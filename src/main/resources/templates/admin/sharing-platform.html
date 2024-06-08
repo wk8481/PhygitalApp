@@ -46,7 +46,7 @@
                     <!-- Information -->
                     <tr>
                         <th class="col-sm-4">
-                            <label class="form-label" for="informationInput">Contact Email:</label>
+                            <label class="form-label" for="informationInput">Platform information:</label>
                         </th>
                         <td class="col-sm-8">
                             <textarea class="form-control" id="informationInput" th:field="*{information}" type="text" placeholder="Add information about your platform, this will be publicly visible"> </textarea>
@@ -62,9 +62,11 @@
                     </tr>
                     <!-- Logo -->
                     <tr>
-                        <th class="col-sm-4">Logo:</th>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="logoUrlInput">Logo:</label>
+                        </th>
                         <td class="col-sm-8">
-                            <input accept="image/*" id="logoInput" type="file">
+                            <input class="form-control w-100" type="url" id="logoUrlInput" name="logoUrlInput" th:field="*{logoUrl}" placeholder="Enter logo URL">
                         </td>
                     </tr>
                     </tbody>

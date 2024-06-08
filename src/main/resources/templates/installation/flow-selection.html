@@ -6,27 +6,14 @@
 <head>
     <title>Flow Selection</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <style>
-        body {
-            background-color: [[${project.backgroundColorHex}]];
-            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-
-            #logo {
-                position: fixed;
-                top: 70px;
-                left: 10px;
-                width: 60px;
-                height: auto;
-                z-index: 1000;
-            }
-        }
-    </style>
+    <script src="/js/installation/bundle-installation.js" defer></script>
+    <link rel="stylesheet" href="/css/installation/bundle-installation.css">
 </head>
-<body>
+<body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <!-- Logo image -->
-    <img alt="" th:id="logo" th:src="@{'/images/platform' + ${platform.id} + '-logo.jpg'}">
+    <img id="logo" th:src="${platform.logoUrl}" alt="Platform Logo">
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -54,6 +41,7 @@
             </section>
         </div>
     </div>
+    <br>
     <!-- Return Button -->
     <div class="center-container">
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>

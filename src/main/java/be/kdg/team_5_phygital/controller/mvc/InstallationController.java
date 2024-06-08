@@ -42,7 +42,7 @@ public class InstallationController {
     public ModelAndView getProjectSelectionPage() {
         var mav = new ModelAndView();
         mav.setViewName("installation/project-selection");
-        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
+        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList());
         return mav;
     }
 
@@ -84,7 +84,7 @@ public class InstallationController {
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
         Project project = projectService.getProject(flow.getProject().getId());
         SharingPlatform platform = project.getSharingPlatform();
-        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowIdAndIsVisible(flowId).stream().map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowIdAndIsVisible(flowId).stream().map(subTheme -> new SubThemeViewModel(subTheme.getId(), subTheme.getName(), subTheme.getInformation(), subTheme.getMediaUrl(), subTheme.getFlow().getId())).toList());
         mav.addObject("project", project);
         mav.addObject("platform", platform);
         mav.addObject("theme", theme);
@@ -108,6 +108,7 @@ public class InstallationController {
         mav.addObject("isCircular", isCircular);
         mav.addObject("project", project);
         mav.addObject("platform", platform);
+        mav.addObject("subTheme", subTheme);
         return mav;
     }
 

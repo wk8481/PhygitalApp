@@ -4,7 +4,7 @@ public class UpdateSharingPlatformDto {
     private String name;
     private String contactEmail;
     private String information;
-    private String logoPath;
+    private String logoUrl;
 
     public UpdateSharingPlatformDto() {
     }
@@ -33,11 +33,11 @@ public class UpdateSharingPlatformDto {
         this.contactEmail = contactEmail;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 }

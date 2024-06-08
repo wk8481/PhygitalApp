@@ -1,11 +1,14 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UpdateProjectDto {
     private String name;
     private String backgroundColorHex;
     private String fontName;
-    private String logoPath;
-    private boolean isPublic;
+    private String logoUrl;
+    @JsonProperty("isVisible")
+    private boolean isVisible;
 
     public UpdateProjectDto() {
     }
@@ -34,19 +37,31 @@ public class UpdateProjectDto {
         this.fontName = fontName;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
-    public boolean isPublic() {
-        return isPublic;
+    public boolean isVisible() {
+        return isVisible;
+    }
+    @JsonProperty("isVisible")
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 
-    public void setPublic(boolean isPublic) {
-        this.isPublic = isPublic;
+
+    @Override
+    public String toString() {
+        return "UpdateProjectDto{" +
+                "name='" + name + '\'' +
+                ", backgroundColorHex='" + backgroundColorHex + '\'' +
+                ", fontName='" + fontName + '\'' +
+                ", logoUrl='" + logoUrl + '\'' +
+                ", isPublic=" + isVisible +
+                '}';
     }
 }

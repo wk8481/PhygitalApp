@@ -7,14 +7,9 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/bundle-project.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
-    <style>
-        body {
-            background-color: [[${project.backgroundColorHex}]];
-            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-        }
-    </style>
+
 </head>
-<body>
+<body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <!-- Title Section -->
@@ -60,10 +55,10 @@
                     <!-- Font -->
                     <tr>
                         <th class="col-sm-4">
-                            <label class="form-label" for="fontInput">Font:</label>
+                            <label class="form-label" for="fontNameInput">Font:</label>
                         </th>
                         <td class="col-sm-8">
-                            <select class="form-control" id="fontInput" th:selected="${project.fontName}">
+                            <select class="form-control" id="fontNameInput" th:selected="${project.fontName}">
                                 <option value="Helvetica Neue">Helvetica Neue</option>
                                 <option value="Times New Roman">Times New Roman</option>
                                 <option value="Calibri">Calibri</option>
@@ -73,9 +68,11 @@
                     </tr>
                     <!-- Logo -->
                     <tr>
-                        <th class="col-sm-4">Logo:</th>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="logoUrlInput">Logo:</label>
+                        </th>
                         <td class="col-sm-8">
-                            <input accept="image/*" id="logoInput" type="file">
+                            <input class="form-control w-100" type="url" id="logoUrlInput" name="logoUrlInput" th:field="*{logoUrl}" placeholder="Enter logo URL">
                         </td>
                     </tr>
                     <!-- Public -->

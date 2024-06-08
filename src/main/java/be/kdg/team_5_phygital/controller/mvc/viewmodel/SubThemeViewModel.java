@@ -4,16 +4,17 @@ public class SubThemeViewModel {
     private int id;
     private String name;
     private String information;
+    private String mediaUrl;
     private int flowId;
-
 
     public SubThemeViewModel() {
     }
 
-    public SubThemeViewModel(int id, String name, String information, int flowId) {
+    public SubThemeViewModel(int id, String name, String information, String mediaUrl, int flowId) {
         this.id = id;
         this.name = name;
         this.information = information;
+        this.mediaUrl = mediaUrl;
         this.flowId = flowId;
     }
 
@@ -40,6 +41,14 @@ public class SubThemeViewModel {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 
     public int getFlowId() {
