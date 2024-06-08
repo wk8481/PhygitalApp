@@ -7,10 +7,7 @@ import be.kdg.team_5_phygital.controller.mvc.viewmodel.ThemeViewModel;
 import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -45,7 +42,7 @@ public class InstallationController {
     public ModelAndView getProjectSelectionPage() {
         var mav = new ModelAndView();
         mav.setViewName("installation/project-selection");
-        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList());
+        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
         return mav;
     }
 
@@ -133,17 +130,23 @@ public class InstallationController {
         sessionService.addUserEmail(session, userEmail);
     }
 
-    @GetMapping("project-information")
-    public ModelAndView getProjectInformationPage() {
+    @GetMapping("project-information/{projectId}")
+    public ModelAndView getProjectInformationPage(@PathVariable("projectId") int projectId) {
         var mav = new ModelAndView();
         mav.setViewName("installation/project-information");
+        Project project = projectService.getProject(projectId);
+        Theme theme = themeService.getThemeByProjectId(projectId);
+        mav.addObject("project", project);
+        mav.addObject("theme", theme);
         return mav;
     }
 
-    @GetMapping("organization-information")
-    public ModelAndView getOrganizationInformationPage() {
+    @GetMapping("organization-information/{platformId}")
+    public ModelAndView getOrganizationInformationPage(@PathVariable("platformId") int platformId) {
         var mav = new ModelAndView();
         mav.setViewName("installation/organization-information");
+        SharingPlatform platform = sharingPlatformService.getSharingPlatform(platformId);
+        mav.addObject("platform", platform);
         return mav;
     }
 

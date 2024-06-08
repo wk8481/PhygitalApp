@@ -9,6 +9,14 @@ public class UpdateSharingPlatformDto {
     public UpdateSharingPlatformDto() {
     }
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
     public String getName() {
         return name;
     }
@@ -23,14 +31,6 @@ public class UpdateSharingPlatformDto {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
-    }
-
-    public String getInformation() {
-        return information;
-    }
-
-    public void setInformation(String information) {
-        this.information = information;
     }
 
     public String getLogoUrl() {

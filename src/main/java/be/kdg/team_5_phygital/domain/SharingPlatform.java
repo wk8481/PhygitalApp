@@ -61,12 +61,6 @@ public class SharingPlatform {
         this.totalParticipants = totalParticipants;
     }
 
-    public SharingPlatform(String name, String contactEmail, String information) {
-        this.name = name;
-        this.contactEmail = contactEmail;
-        this.information = information;
-    }
-
     public int getId() {
         return id;
     }

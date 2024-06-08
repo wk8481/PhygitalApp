@@ -13,7 +13,7 @@
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Project Information</h1>
+            <h1 class="page-title text-primary" th:text="${'Information about ' + project.getName()}">Project Information</h1>
         </div>
     </div>
     <div class="row justify-content-center">
@@ -21,8 +21,8 @@
         <div class="col-md-8">
             <section class="mt-2 text-center">
                 <h5>Information</h5>
-                <p>
-                    This is a project.
+                <p th:text="${theme.getInformation()} ?: 'This project does not have any public information'">
+
                 </p>
             </section>
         </div>

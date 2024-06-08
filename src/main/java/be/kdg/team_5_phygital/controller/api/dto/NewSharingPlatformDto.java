@@ -9,11 +9,11 @@ public class NewSharingPlatformDto {
     public NewSharingPlatformDto() {
     }
 
-    public String getInformation() {
+    public String getinformation() {
         return information;
     }
 
-    public void setInformation(String information) {
+    public void setinformation(String information) {
         this.information = information;
     }
 

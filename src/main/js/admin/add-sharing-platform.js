@@ -6,6 +6,7 @@ createButton.addEventListener('click', addNewSharingPlatform)
 
 async function addNewSharingPlatform() {
     const name = document.getElementById('nameInput')
+    const information = document.getElementById('informationInput');
     const contactEmail = document.getElementById('contactInput')
     const information = document.getElementById('informationInput')
     await fetch('/api/sharing-platforms', {
