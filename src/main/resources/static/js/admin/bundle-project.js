@@ -155,7 +155,9 @@ async function updateProject(event) {
                 'Accept': 'application/json', 'Content-Type': 'application/json',
                 [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
             },
-            body: JSON.stringify({
+            body:
+                // formData
+                JSON.stringify({
                 'id': projectId,
                 'name': name.value,
                 'backgroundColorHex': bgColor.value,
