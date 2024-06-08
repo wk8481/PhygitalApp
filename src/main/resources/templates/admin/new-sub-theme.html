@@ -8,14 +8,8 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/bundle-add-sub-theme.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
-    <style>
-        body {
-            background-color: [[${project.backgroundColorHex}]];
-            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-        }
-    </style>
 </head>
-<body>
+<body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <!-- Title Section -->

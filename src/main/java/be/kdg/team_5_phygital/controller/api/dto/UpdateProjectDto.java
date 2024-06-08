@@ -1,10 +1,13 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UpdateProjectDto {
     private String name;
     private String backgroundColorHex;
     private String fontName;
-    private String logoPath;
+    private String logoUrl;
+    @JsonProperty("isPublic")
     private boolean isPublic;
 
     public UpdateProjectDto() {
@@ -34,12 +37,12 @@ public class UpdateProjectDto {
         this.fontName = fontName;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public boolean isPublic() {

@@ -34,7 +34,8 @@ public class WebAppController {
 
     @GetMapping("home")
     public String getHome(Model model) {
-        List<Project> projects = projectService.getAllProjects();
+        // get all projects where isPublic is true
+        List<Project> projects = projectService.getPublicProjects();
         model.addAttribute("projects", projects);
         return "web-app/home";
     }

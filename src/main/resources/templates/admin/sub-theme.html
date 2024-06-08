@@ -8,14 +8,8 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/bundle-sub-theme.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
-    <style>
-        body {
-            background-color: [[${project.backgroundColorHex}]];
-            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-        }
-    </style>
 </head>
-<body>
+<body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <!-- Title Section -->
@@ -51,9 +45,11 @@
                     </tr>
                     <!-- Media -->
                     <tr>
-                        <th class="col-sm-4">Media:</th>
+                        <th class="col-sm-4">
+                            <label class="form-label" for="mediaUrlInput">Media:</label>
+                        </th>
                         <td class="col-sm-8">
-                            <input type="file" id="mediaInput" name="mediaInput" multiple>
+                            <input class="form-control w-100" type="url" id="mediaUrlInput" name="mediaUrlInput" th:field="*{mediaUrl}" placeholder="Enter media URL">
                         </td>
                     </tr>
                     <!-- Visible -->

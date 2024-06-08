@@ -137,6 +137,13 @@ services:
 - Include Hibernate specifics, especially relationships.
 - Create static HTML pages using Bootstrap 5.
 
+
+## Changes since deadline
+### CI/CD
+
+- Deploy pipeline starts the VM, the GCloud SQL instance, retrieves the jar and starts the application.
+- Destroy stops the application, VM and the GCloud SQL instance.
+
 ---
 
 This README should provide a clear guide for anyone working with your repository.

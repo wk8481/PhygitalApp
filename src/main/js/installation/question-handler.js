@@ -1,4 +1,5 @@
 import {header, token} from '../util/csrf.js'
+import '../../scss/installation/question-handler.scss'
 let isCircular
 
 var isCircularExists = document.getElementById('minUser')
