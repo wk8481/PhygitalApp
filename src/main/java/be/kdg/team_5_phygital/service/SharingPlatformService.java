@@ -70,19 +70,20 @@ public class SharingPlatformService {
     }
 
     @Transactional
-    public SharingPlatform saveSharingPlatform(String name, String contactEmail) {
-        SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail);
+    public SharingPlatform saveSharingPlatform(String name, String contactEmail, String information) {
+        SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail, information);
         clientRepository.save(new Client("Unnamed Client", "default@email.com", "password", sharingPlatform));
         return sharingPlatformRepository.save(sharingPlatform);
     }
 
-    public boolean updateSharingPlatform(int sharingPlatformId, UpdateSharingPlatformDto updateSharingPlatformDto, MultipartFile logoFile) throws IOException {
+    public boolean updateSharingPlatform(int sharingPlatformId, UpdateSharingPlatformDto updateSharingPlatformDto, MultipartFile logoFile, String information) throws IOException {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatform == null) {
             return false;
         }
         sharingPlatform.setName(updateSharingPlatformDto.getName());
         sharingPlatform.setContactEmail(updateSharingPlatformDto.getContactEmail());
+        sharingPlatform.setInformation(information);
 
         // Handle logo file upload
         if (logoFile != null && !logoFile.isEmpty()) {

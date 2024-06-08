@@ -16,13 +16,15 @@ async function updateSharingPlatform(event) {
     const contactEmail = document.getElementById('contactEmailInput')
     const logo = document.getElementById('logoInput')
     const sharingPlatformId = extractIdsFromUrl(window.location.href, 'sharing-platform')
+    const information = document.getElementById("informationInput")
 
     // Create a FormData object to append the form data, including the logo file
     const formData = new FormData()
     const dto = {
         id: sharingPlatformId,
         name: name.value,
-        contactEmail: contactEmail.value
+        contactEmail: contactEmail.value,
+        information: information.value
     }
 
     // Convert the JSON object to a Blob with MIME type application/json

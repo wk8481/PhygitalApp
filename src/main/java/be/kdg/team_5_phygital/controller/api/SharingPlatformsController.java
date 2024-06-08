@@ -58,7 +58,7 @@ public class SharingPlatformsController {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         logger.info("Creating new sharing platform: {}", sharingPlatformDto.getName());
-        SharingPlatform createdSharingPlatform = sharingPlatformService.saveSharingPlatform(sharingPlatformDto.getName(), sharingPlatformDto.getContactEmail());
+        SharingPlatform createdSharingPlatform = sharingPlatformService.saveSharingPlatform(sharingPlatformDto.getName(), sharingPlatformDto.getContactEmail(), sharingPlatformDto.getinformation());
         return new ResponseEntity<>(modelMapper.map(createdSharingPlatform, SharingPlatformDto.class), HttpStatus.CREATED);
     }
 
@@ -68,7 +68,7 @@ public class SharingPlatformsController {
             @RequestPart("updateSharingPlatformDto") UpdateSharingPlatformDto updateSharingPlatformDto,
             @RequestPart(value = "logo", required = false) MultipartFile logoFile) throws IOException {
 
-        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto, logoFile)) {
+        if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto, logoFile, updateSharingPlatformDto.getInformation())) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
