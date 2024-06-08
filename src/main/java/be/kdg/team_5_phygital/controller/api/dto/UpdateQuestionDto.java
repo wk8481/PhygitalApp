@@ -1,12 +1,14 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
 import be.kdg.team_5_phygital.domain.QuestionType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
 public class UpdateQuestionDto {
     private String text;
     private QuestionType type;
+    @JsonProperty("isVisible")
     private boolean isVisible;
     private List<String> answers;
 

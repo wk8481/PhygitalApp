@@ -1,5 +1,7 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UpdateSubThemeDto {
     private String name;
     private String information;
@@ -24,11 +26,21 @@ public class UpdateSubThemeDto {
         this.information = information;
     }
 
+    @JsonProperty("isVisible")
     public boolean isVisible() {
         return isVisible;
     }
 
     public void setVisible(boolean isVisible) {
         this.isVisible = isVisible;
+    }
+
+    @Override
+    public String toString() {
+        return "UpdateSubThemeDto{" +
+                "name='" + name + '\'' +
+                ", information='" + information + '\'' +
+                ", isVisible=" + isVisible +
+                '}';
     }
 }
