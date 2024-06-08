@@ -32,4 +32,12 @@ public class UpdateSubThemeDto {
     public void setVisible(boolean isVisible) {
         this.isVisible = isVisible;
     }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
+    }
 }

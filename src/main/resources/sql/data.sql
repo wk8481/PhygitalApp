@@ -5,12 +5,15 @@ VALUES
     ('Ruth', 'ruth@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'ADMIN', 'ADMIN', NULL);
 
 -- SharingPlatform
-INSERT INTO sharing_platform (name, contact_email, total_participants, total_time_spent_in_sec, administrator_id)
-VALUES ('Platform A', 'platformA@example.com', 100, 7845, 1);
+INSERT INTO sharing_platform (name, contact_email, logo_url, total_participants, total_time_spent_in_sec, administrator_id)
+VALUES ('Municipal Government', 'belgium@govt.be', 'https://upload.wikimedia.org/wikipedia/commons/4/47/Belgium.be_logo.svg', 100, 7845, 1),
+       ('European Parliament', 'eu@govt.eu', 'https://seeklogo.com/images/E/European_Union-logo-75776F70C0-seeklogo.com.png', 200, 8763, 2);
+
 
 -- Client
 INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
-VALUES ('William', 'william@gmail.com', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT', 'CLIENT', 1);
+VALUES ('William', 'william@govt.be', '$2a$10$Ym.DBt/FfM8jW9jBm9rrpeqsEqZXiKi3R5hm626nzvuQnxIJVIIN6', 'CLIENT', 'CLIENT', 1),
+       ('Jerome', 'jerome@eu.be', '$2a$10$ZlT1y3BSmeFvSVVwGcxj0OgpqUUNVL0oSF9/KDFKZTTxxQm44b6Am', 'CLIENT', 'CLIENT', 2);
 
 -- Supervisor
 INSERT INTO phygital_user (name, email, password, role, user_type, sharing_platform_id)
@@ -45,11 +48,11 @@ VALUES ('Flow 1', true, 1, 0, 0, 'this flow is circular'),
        ('Flow 2', false, 1, 0, 0, 'this flow is linear');
 
 -- SubTheme
-INSERT INTO sub_theme (name, information, is_visible, flow_id, current_index)
-VALUES ('local voting in antwerp', 'Information for voting in Antwerp', true, 1, 0),
-       ('local voting in brussels', 'Information for voting in Brussels', true, 1, 0),
-       ('local voting in brussels', 'Information for voting in Brussels', true, 2, 0),
-       ('test', 'test', true, 1, 0);
+INSERT INTO sub_theme (name, information, media_url, is_visible, flow_id, current_index)
+VALUES ('local voting in antwerp', 'Information for voting in Antwerp', 'https://lp-cms-production.imgix.net/2023-02/belgium-GettyImages-1393370540-rfc.jpeg?w=600&h=400', true, 1, 0),
+       ('local voting in brussels', 'Information for voting in Brussels', 'https://www.visit.brussels/content/dam/visitbrussels/images/b2c/what-to-do/les-incontournables-de-bruxelles/GRAND_PLACE_4212-%C2%A9_visit.brussels_-_Jean-Michel_Byl.jpg', true, 1, 0),
+       ('local voting in brussels', 'Information for voting in Brussels', 'https://traveler.marriott.com/wp-content/uploads/2023/07/GettyImages-1082428738.jpg', true, 2, 0),
+       ('test', 'test', 'https://youth.europa.eu/d8/sites/default/files/styles/1200x600/public/2024-01/voting.png?itok=ibzOMTVc', true, 1, 0);
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
