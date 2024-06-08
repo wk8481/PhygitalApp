@@ -41,6 +41,10 @@ public class QuestionService {
         return questionRepository.getQuestionsBySubThemeEquals(subTheme);
     }
 
+    public List<Question> getQuestionsBySubThemeAndVisible(SubTheme subTheme) {
+        return questionRepository.getQuestionsBySubThemeEqualsAndIsVisibleIsTrue(subTheme);
+    }
+
     @Transactional
     public Question saveQuestion(String text, QuestionType type, int subThemeId) {
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);

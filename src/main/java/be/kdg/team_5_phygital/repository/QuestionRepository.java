@@ -13,4 +13,6 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Optional<Question> findByText(String text);
 
     List<Question> getQuestionsBySubThemeId(int subThemeId);
+
+    List<Question> getQuestionsBySubThemeEqualsAndIsVisibleIsTrue(SubTheme subTheme);
 }

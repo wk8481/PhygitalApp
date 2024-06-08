@@ -7,6 +7,8 @@ import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.repository.SessionRepository;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +19,7 @@ import java.util.Optional;
 
 @Service
 public class SubThemeService {
+    private static final Logger log = LoggerFactory.getLogger(SubThemeService.class);
     private final SubThemeRepository subThemeRepository;
     private final FlowRepository flowRepository;
     private final QuestionService questionService;
@@ -43,6 +46,8 @@ public class SubThemeService {
 
     public List<SubTheme> getSubThemeByFlowId(int flowId) {return subThemeRepository.getSubThemesByFlowId(flowId);}
 
+    public List<SubTheme> getSubThemeByFlowIdAndIsVisible(int flowId) {return subThemeRepository.getSubThemesByFlowIdAndIsVisibleIsTrue(flowId);}
+
     @Transactional
     public SubTheme saveSubTheme(String name, String information, int flowId) {
         Flow flow = flowRepository.findById(flowId).orElse(null);
@@ -50,6 +55,7 @@ public class SubThemeService {
     }
 
     public boolean updateSubTheme(int subThemeId, String name, String information, boolean isVisible) {
+        log.error("Setting isvisible to {}", isVisible);
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
         if (subTheme == null) {
             return false;
