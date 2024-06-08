@@ -56,7 +56,7 @@ VALUES ('local voting in antwerp', 'Information for voting in Antwerp', 'https:/
 
 -- Question
 INSERT INTO question (text, type, is_visible, sub_theme_id)
-VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', true, 1),
+VALUES ('What color do you like more?', 'MULTIPLE_CHOICE', false, 1),
        ('What is your phones battery %?', 'RANGE', true, 1),
        ('Are you happy currently?', 'SINGLE_CHOICE', true, 1),
        ('How do you feel today?', 'OPEN', true, 1),
