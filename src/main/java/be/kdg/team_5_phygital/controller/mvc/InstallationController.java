@@ -45,7 +45,7 @@ public class InstallationController {
     public ModelAndView getProjectSelectionPage() {
         var mav = new ModelAndView();
         mav.setViewName("installation/project-selection");
-        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
+        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList());
         return mav;
     }
 

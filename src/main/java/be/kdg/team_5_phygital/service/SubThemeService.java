@@ -54,16 +54,16 @@ public class SubThemeService {
         return subThemeRepository.save(new SubTheme(name, information, flow));
     }
 
-    public boolean updateSubTheme(int subThemeId, String name, String information, boolean isVisible, String mediaUrl) {
-        log.error("Setting isvisible to {}", isVisible);
+    public boolean updateSubTheme(int subThemeId, String name, String information, String mediaUrl, boolean isVisible) {
+        log.error("Setting visible to {}", isVisible);
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
         if (subTheme == null) {
             return false;
         }
         subTheme.setName(name);
         subTheme.setInformation(information);
-        subTheme.setVisible(isVisible);
         subTheme.setMediaUrl(mediaUrl);
+        subTheme.setVisible(isVisible);
         subThemeRepository.save(subTheme);
         return true;
     }

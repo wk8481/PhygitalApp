@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UpdateSubThemeDto {
     private String name;
     private String information;
-    private boolean isVisible;
     private String mediaUrl;
+    private boolean isVisible;
 
     public UpdateSubThemeDto() {
     }
@@ -27,15 +27,6 @@ public class UpdateSubThemeDto {
         this.information = information;
     }
 
-    @JsonProperty("isVisible")
-    public boolean isVisible() {
-        return isVisible;
-    }
-
-    public void setVisible(boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
     public String getMediaUrl() {
         return mediaUrl;
     }
@@ -44,12 +35,12 @@ public class UpdateSubThemeDto {
         this.mediaUrl = mediaUrl;
     }
 
-    @Override
-    public String toString() {
-        return "UpdateSubThemeDto{" +
-                "name='" + name + '\'' +
-                ", information='" + information + '\'' +
-                ", isVisible=" + isVisible +
-                '}';
+    @JsonProperty("isVisible")
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean isVisible) {
+        this.isVisible = isVisible;
     }
 }

@@ -39,7 +39,7 @@
                             <div class="card">
                                 <div class="card-body" th:attr="onclick='location.href=\'/installation/flow-selection?projectId=' + ${project.id} + '\''" style="cursor: pointer;">
                                     <h5 class="card-title" th:text="${project.name}"></h5>
-                                    <img alt="" th:id="logo" th:src="@{'/images/project' + ${project.id} + '-logo.jpg'}">
+                                    <img id="logo" th:src="${project.logoUrl}" alt="Project Logo">
                                 </div>
                             </div>
                         </div>

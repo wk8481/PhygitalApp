@@ -126,7 +126,7 @@ __webpack_require__.r(__webpack_exports__);
 const name = document.getElementById('nameInput')
 const bgColor = document.getElementById('bgColorInput')
 const font = document.getElementById('fontInput')
-const logo = document.getElementById('logoInput')
+const logoUrl = document.getElementById('logoUrlInput')
 const isPublic = document.getElementById('isPublicInput')
 const saveButton = document.getElementById('saveButton')
 const deleteButton = document.getElementById('deleteButton')
@@ -144,7 +144,7 @@ async function updateProject(event) {
     formData.append('name', name.value)
     formData.append('backgroundColorHex', bgColor.value)
     formData.append('fontName', font.value)
-    formData.append('logo', logo.files[0])
+    formData.append('logoUrl', logoUrl.value)
     formData.append('isPublic', isPublic.checked)
 
     try {
