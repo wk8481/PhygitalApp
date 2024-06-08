@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:insert="~{::title}">Default Title</title>
+    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+        body {
+            background: linear-gradient(rgba(255, 0, 150, 0.5), rgba(0, 255, 255, 0.5));
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        header, footer {
+            width: 100%;
+        }
+
+        .container {
+            text-align: center;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        .balloon {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float 5s infinite;
+            will-change: transform;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const colors = ['#FFCDD2', '#F8BBD0', '#E1BEE7', '#D1C4E9', '#C5CAE9', '#BBDEFB', '#B3E5FC', '#B2EBF2', '#B2DFDB', '#C8E6C9', '#DCEDC8', '#F0F4C3', '#FFECB3', '#FFE0B2', '#FFCCBC', '#D7CCC8'];
+            for (let i = 0; i < 15; i++) {
+                const balloon = document.createElement('div');
+                balloon.classList.add('balloon');
+                balloon.style.width = `${Math.random() * 50 + 20}px`;
+                balloon.style.height = balloon.style.width;
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.left = `${Math.random() * 100}vw`;
+                balloon.style.top = `${Math.random() * 100}vh`;
+                balloon.style.animationDuration = `${Math.random() * 5 + 5}s`;
+                balloon.style.animationDelay = `${Math.random() * 2}s`;
+                document.body.appendChild(balloon);
+            }
+        });
+    </script>
+</head>
+<body>
+<header th:replace="~{fragments/includes::header}"></header>
+<main class="container" th:insert="~{::mainContent}"></main>
+<footer th:insert="~{fragments/footer::copy}"></footer>
+</body>
+</html>
