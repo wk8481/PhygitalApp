@@ -99,7 +99,7 @@ deploy:
     - echo "Application started successfully"
   environment:
     name: production
-    url: https://phygital-team5.duckdns.org:8443
+    url: https://phygital-team5.duckdns.org
   only:
     refs:
       - main
