@@ -9,5 +9,9 @@ import java.util.Optional;
 public interface SubThemeRepository extends JpaRepository<SubTheme, Integer> {
     List<SubTheme> getSubThemesByFlowId(int flowId);
 
+    List<SubTheme> getSubThemesByFlowIdAndIsVisibleIsTrue(int flowId);
+
     Optional<SubTheme> findByName(String name);
+
+
 }

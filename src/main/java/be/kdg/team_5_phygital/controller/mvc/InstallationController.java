@@ -87,7 +87,7 @@ public class InstallationController {
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
         Project project = projectService.getProject(flow.getProject().getId());
         SharingPlatform platform = project.getSharingPlatform();
-        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowId(flowId).stream().map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowIdAndIsVisible(flowId).stream().map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
         mav.addObject("project", project);
         mav.addObject("platform", platform);
         return mav;
@@ -98,7 +98,7 @@ public class InstallationController {
         var mav = new ModelAndView();
         mav.setViewName("installation/question");
         SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
-        List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
+        List<Question> questions = questionService.getQuestionsBySubThemeAndVisible(subTheme);
         List<PossibleAnswers> possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
         boolean isCircular = subTheme.isCircularFlow();
         Project project = projectService.getProject(subTheme.getFlow().getProject().getId());
