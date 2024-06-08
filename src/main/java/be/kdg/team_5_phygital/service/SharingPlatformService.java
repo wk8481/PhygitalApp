@@ -70,13 +70,13 @@ public class SharingPlatformService {
     }
 
     @Transactional
-    public SharingPlatform saveSharingPlatform(String name, String contactEmail) {
-        SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail);
+    public SharingPlatform saveSharingPlatform(String name, String contactEmail, String information) {
+        SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail, information);
         clientRepository.save(new Client("Unnamed Client", "default@email.com", "password", sharingPlatform));
         return sharingPlatformRepository.save(sharingPlatform);
     }
 
-    public boolean updateSharingPlatform(int sharingPlatformId, String name, String contactEmail, String logoUrl) {
+    public boolean updateSharingPlatform(int sharingPlatformId,String name, String contactEmail, String logoUrl, String information) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatform == null) {
             return false;
@@ -84,6 +84,7 @@ public class SharingPlatformService {
         sharingPlatform.setName(name);
         sharingPlatform.setContactEmail(contactEmail);
         sharingPlatform.setLogoUrl(logoUrl);
+        sharingPlatform.setInformation(information);
         sharingPlatformRepository.save(sharingPlatform);
         return true;
     }

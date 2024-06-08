@@ -14,6 +14,7 @@ saveButton.addEventListener('click', updateProject)
 deleteButton.addEventListener('click', deleteProject)
 
 async function updateProject(event) {
+    console.log("visible " + isPublic.checked.toString())
     console.log('Updating project')
 
     // Create a FormData object to append the form data, including the logo file
@@ -23,15 +24,25 @@ async function updateProject(event) {
     formData.append('backgroundColorHex', bgColor.value)
     formData.append('fontName', font.value)
     formData.append('logoUrl', logoUrl.value)
-    formData.append('isPublic', isPublic.checked)
+    formData.append('isVisible', isPublic.checked)
 
     try {
         const response = await fetch(`/api/projects/${projectId}`, {
             method: 'PATCH',
             headers: {
+                'Accept': 'application/json', 'Content-Type': 'application/json',
                 [header]: token
             },
-            body: formData
+            body:
+                // formData
+                JSON.stringify({
+                'id': projectId,
+                'name': name.value,
+                'backgroundColorHex': bgColor.value,
+                'fontName': font.value,
+                'logoUrl': logoUrl.value,
+                'isVisible': isPublic.checked
+            })
         })
 
         if (response.ok) {

@@ -83,7 +83,7 @@ public class ProjectService {
         project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
         project.setFontName(updateProjectDto.getFontName());
         project.setLogoUrl(updateProjectDto.getLogoUrl());
-        project.setPublic(updateProjectDto.isPublic());
+        project.setPublic(updateProjectDto.isVisible());
         projectRepository.save(project);
         return true;
     }

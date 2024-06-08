@@ -21,6 +21,8 @@ public class SharingPlatform {
 
     private float totalTimeSpentInSec;
 
+    private String information;
+
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "administrator_id")
     private Administrator administrator;
@@ -41,15 +43,17 @@ public class SharingPlatform {
         this.name = name;
     }
 
-    public SharingPlatform(String name, String contactEmail) {
+    public SharingPlatform(String name, String contactEmail, String information) {
         this.name = name;
         this.contactEmail = contactEmail;
+        this.information = information;
     }
 
-    public SharingPlatform(String name, String contactEmail, String logoUrl) {
+    public SharingPlatform(String name, String contactEmail, String logoUrl, String information) {
         this.name = name;
         this.contactEmail = contactEmail;
         this.logoUrl = logoUrl;
+        this.information = information;
     }
 
     public SharingPlatform(String name, String contactEmail, int totalParticipants) {
@@ -76,6 +80,14 @@ public class SharingPlatform {
 
     public String getName() {
         return name;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public void setName(String name) {
