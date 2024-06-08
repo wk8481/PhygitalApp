@@ -21,21 +21,29 @@ async function updateSharingPlatform(event) {
     console.log("Updating sharing platform")
 
     const body = {
-        id: sharingPlatformId,
         name: name.value,
         contactEmail: contactEmail.value,
-        logoUrl: logoUrl.value,
-        information: information.value
+        information: information.value,
+        logoUrl: logoUrl.value
     }
 
     if (logoUrl) {
         body.logoUrl = logoUrl;
     }
-
+    console.log(logoUrl.value)
     fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
         method: 'PATCH', headers: {
-            'Accept': 'application/json', 'Content-Type': 'application/json', [header]: token
-        }, body: JSON.stringify(body)
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            [header]: token
+        }, body:
+            // JSON.stringify(body)
+        JSON.stringify({
+            name: name.value,
+            contactEmail: contactEmail.value,
+            information: information.value,
+            logoUrl: logoUrl.value
+        })
     })
         .then(async (response) => {
             if (response.status === 204) {

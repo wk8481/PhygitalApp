@@ -117,6 +117,8 @@ VALUES ('How important is local voting to you?', 'RANGE', true, 1),
 -- Possible Answers
 INSERT INTO possible_answers(question_id, answer)
 VALUES (1, '1'),
+       (1, '1'),
+       (1, '100'),
        (2, 'No'),
        (3, 'Education'),
        (3, 'Healthcare'),

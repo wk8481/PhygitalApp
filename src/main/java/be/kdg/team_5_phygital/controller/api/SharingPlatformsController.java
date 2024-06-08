@@ -63,7 +63,8 @@ public class SharingPlatformsController {
     }
 
     @PatchMapping("{sharingPlatformId}")
-    public ResponseEntity<Void> updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestPart UpdateSharingPlatformDto updateSharingPlatformDto) {
+    public ResponseEntity<Void> updateSharingPlatform(@PathVariable int sharingPlatformId, @RequestBody UpdateSharingPlatformDto updateSharingPlatformDto) {
+        logger.error("err");
         if (sharingPlatformService.updateSharingPlatform(sharingPlatformId, updateSharingPlatformDto.getName(), updateSharingPlatformDto.getContactEmail(), updateSharingPlatformDto.getLogoUrl(), updateSharingPlatformDto.getInformation())) {
             logger.info("Updating sharing platform to: {}", updateSharingPlatformDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
