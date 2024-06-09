@@ -137,7 +137,7 @@ VALUES (1, '1'),
        (8, 'Candidate C'),
        (11, '1'),
        (11, '1'),
-       (11, '100')
+       (11, '100'),
        (12, '1'),
        (12, '1'),
 	   (12, '100'),
@@ -169,7 +169,7 @@ VALUES (1, '1'),
        (24, 'Protecting existing forests'),
        (24, 'Reforestation initiatives'),
        (24, 'Stricter logging regulations'),
-       (24, 'Promoting sustainable land use')
+       (24, 'Promoting sustainable land use');
 
 -- Sample Answers
 INSERT INTO answer(answers)
