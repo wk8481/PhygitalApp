@@ -3,16 +3,17 @@ package be.kdg.team_5_phygital.controller.api.dto;
 public class ThemeDto {
     private int id;
     private String name;
-
     private String information;
+    private String mediaUrl;
 
     public ThemeDto() {
     }
 
-    public ThemeDto(int id, String name, String information) {
+    public ThemeDto(int id, String name, String information, String mediaUrl) {
         this.id = id;
         this.name = name;
         this.information = information;
+        this.mediaUrl = mediaUrl;
     }
 
     public int getId() {
@@ -37,5 +38,13 @@ public class ThemeDto {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 }

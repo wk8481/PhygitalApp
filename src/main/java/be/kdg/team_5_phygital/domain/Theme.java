@@ -9,13 +9,15 @@ public class Theme {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    String name;
+    private String name;
 
-    String information;
+    private String information;
+
+    private String mediaUrl;
 
     @OneToOne
     @JoinColumn(name = "project_id")
-    Project project;
+    private Project project;
 
     public Theme() {
 
@@ -49,6 +51,14 @@ public class Theme {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 
     public Project getProject() {
