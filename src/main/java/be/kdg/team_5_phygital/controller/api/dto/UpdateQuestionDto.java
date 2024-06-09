@@ -8,6 +8,7 @@ import java.util.List;
 public class UpdateQuestionDto {
     private String text;
     private QuestionType type;
+    @JsonProperty("isVisible")
     private boolean isVisible;
     private List<String> answers;
 
@@ -44,5 +45,15 @@ public class UpdateQuestionDto {
 
     public void setAnswers(List<String> answers) {
         this.answers = answers;
+    }
+
+    @Override
+    public String toString() {
+        return "UpdateQuestionDto{" +
+                "text='" + text + '\'' +
+                ", type=" + type +
+                ", isVisible=" + isVisible +
+                ", answers=" + answers +
+                '}';
     }
 }

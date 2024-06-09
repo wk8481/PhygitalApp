@@ -9,14 +9,6 @@ public class NewSharingPlatformDto {
     public NewSharingPlatformDto() {
     }
 
-    public String getinformation() {
-        return information;
-    }
-
-    public void setinformation(String information) {
-        this.information = information;
-    }
-
     public String getName() {
         return name;
     }

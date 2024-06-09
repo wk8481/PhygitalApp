@@ -40,6 +40,13 @@ public class Question {
         this.subTheme = subTheme;
     }
 
+    public Question(String text, QuestionType type, boolean isVisible, SubTheme subTheme) {
+        this.text = text;
+        this.type = type;
+        this.isVisible = isVisible;
+        this.subTheme = subTheme;
+    }
+
     public int getId() {
         return id;
     }

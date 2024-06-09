@@ -145,8 +145,8 @@ async function updateSharingPlatform(event) {
     const body = {
         name: name.value,
         contactEmail: contactEmail.value,
-        information: information.value,
-        logoUrl: logoUrl.value
+        logoUrl: logoUrl.value,
+        information: information.value
     }
 
     if (logoUrl) {

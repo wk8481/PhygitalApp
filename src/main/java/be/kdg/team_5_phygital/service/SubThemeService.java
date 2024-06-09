@@ -55,7 +55,6 @@ public class SubThemeService {
     }
 
     public boolean updateSubTheme(int subThemeId, String name, String information, String mediaUrl, boolean isVisible) {
-        log.error("Setting visible to {}", isVisible);
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
         if (subTheme == null) {
             return false;

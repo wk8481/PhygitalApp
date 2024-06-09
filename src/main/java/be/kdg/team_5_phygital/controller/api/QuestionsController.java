@@ -154,7 +154,7 @@ public class QuestionsController {
     @PatchMapping("{questionId}")
     ResponseEntity<Void> updateQuestion(@PathVariable int questionId, @RequestBody UpdateQuestionDto updateQuestionDto) {
         if (questionService.updateQuestion(questionId, updateQuestionDto.getText(), updateQuestionDto.getType(), updateQuestionDto.isVisible())) {
-            logger.info("Updating question to: {}", updateQuestionDto.getText());
+            logger.info("Updating question to: {}", updateQuestionDto);
             Question question = questionService.getQuestion(questionId);
             List<Question> questions = new ArrayList<>();
             questions.add(question);

@@ -108,7 +108,7 @@ async function updateQuestion(event) {
     })
         .then(response => {
             if (response.status === 204) {
-                window.history.back()
+                // window.history.back()
             }
         })
 }
