@@ -127,6 +127,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const saveButton = document.getElementById('saveButton')
 const deleteButton = document.getElementById('deleteButton')
+const [installationId] = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), 'installation')
 
 saveButton.addEventListener('click', updateInstallation)
 deleteButton.addEventListener('click', deleteInstallation)
@@ -139,8 +140,7 @@ async function updateInstallation(event) {
     const city = document.getElementById('cityInput')
     const street = document.getElementById('streetInput')
     const streetNumber = document.getElementById('streetNumberInput')
-    const [installationId] = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href.substring(window.location.href), 'installation')
-
+    console.log(installationId)
     // Create a FormData object to append the form data, including the logo file
     const formData = new FormData()
     const body = {

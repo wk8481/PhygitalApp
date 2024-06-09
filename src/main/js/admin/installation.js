@@ -5,6 +5,7 @@ import { extractIdsFromUrl } from '../utils.js' // Adjust the path as per your f
 
 const saveButton = document.getElementById('saveButton')
 const deleteButton = document.getElementById('deleteButton')
+const [installationId] = extractIdsFromUrl(window.location.href.substring(window.location.href), 'installation')
 
 saveButton.addEventListener('click', updateInstallation)
 deleteButton.addEventListener('click', deleteInstallation)
@@ -17,8 +18,7 @@ async function updateInstallation(event) {
     const city = document.getElementById('cityInput')
     const street = document.getElementById('streetInput')
     const streetNumber = document.getElementById('streetNumberInput')
-    const [installationId] = extractIdsFromUrl(window.location.href.substring(window.location.href), 'installation')
-
+    console.log(installationId)
     // Create a FormData object to append the form data, including the logo file
     const formData = new FormData()
     const body = {
