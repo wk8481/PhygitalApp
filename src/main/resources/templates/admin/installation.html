@@ -7,9 +7,11 @@
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
     <script src="/js/admin/bundle-installation.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
+
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
+<div th:insert="~{fragments/background :: fragment}"></div>
 <main class="container text-center">
     <!-- Title Section -->
     <div class="col-md-12">

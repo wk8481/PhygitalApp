@@ -6,10 +6,12 @@
 <head>
     <title>Dashboard</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <h1 class="page-title text-primary">Dashboard</h1>
     <div class="row justify-content-center">
         <!-- New Flow Section -->
