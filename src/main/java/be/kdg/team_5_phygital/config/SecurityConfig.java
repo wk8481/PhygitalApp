@@ -25,6 +25,7 @@ public class SecurityConfig {
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN","CLIENT")
                         .requestMatchers("/installation/**").hasAnyRole("ADMIN", "CLIENT","SUPERVISOR")
                         .requestMatchers("/web-app/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/comments").permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/api/**"))
                         .permitAll()
                         .requestMatchers(antMatcher(HttpMethod.GET, "/js/**"), antMatcher(HttpMethod.GET, "/css/**"), antMatcher(HttpMethod.GET, "/images/**"), antMatcher(HttpMethod.GET, "/webjars/**"), regexMatcher(HttpMethod.GET, "\\.ico$")).permitAll().requestMatchers(antMatcher(HttpMethod.GET, "/")).permitAll()
