@@ -50,9 +50,9 @@ VALUES ('Elections', 'https://blogsmedia.lse.ac.uk/blogs.dir/8/files/2020/12/ope
         '#47EABC', false, false, 35, 2.5, 2);
 
 -- Themes
-INSERT INTO theme (name, information, project_id)
-VALUES ('Municipal Elections', 'Municipal elections in the different provinces.', 1),
-       ('Environment', 'Environmental topics.', 2);
+INSERT INTO theme (name, information, media_url, project_id)
+VALUES ('Municipal Elections', 'Municipal elections in the different provinces.', 'https://youth.europa.eu/d8/sites/default/files/styles/1200x600/public/2024-01/voting.png?itok=ibzOMTVc', 1),
+       ('Environment', 'Environmental topics.', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQbkYRYpaLV0NjlhWSzkfvDT8rh3yGzAA-IA&s', 2);
 
 -- Flows
 INSERT INTO flow (name, is_circular, project_id, total_time_spent_in_sec, total_participants, info)

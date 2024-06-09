@@ -38,12 +38,14 @@ public class ThemeService {
         return themeRepository.save(new Theme(name, information, project));
     }
 
-    public boolean updateTheme(int themeId, String name) {
+    public boolean updateTheme(int themeId, String name, String information, String mediaUrl) {
         Theme theme = themeRepository.findById(themeId).orElse(null);
         if (theme == null) {
             return false;
         }
         theme.setName(name);
+        theme.setInformation(information);
+        theme.setMediaUrl(mediaUrl);
         themeRepository.save(theme);
         return true;
     }

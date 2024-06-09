@@ -5,6 +5,8 @@ public class UpdateThemeDto {
 
     private String information;
 
+    private String mediaUrl;
+
     public UpdateThemeDto() {
     }
 
@@ -22,5 +24,13 @@ public class UpdateThemeDto {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 }

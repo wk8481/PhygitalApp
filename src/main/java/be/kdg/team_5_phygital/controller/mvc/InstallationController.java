@@ -69,7 +69,7 @@ public class InstallationController {
         Project project = projectService.getProject(flow.getProject().getId());
         SharingPlatform platform = project.getSharingPlatform();
         mav.addObject("one_flow", new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular()));
-        mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation()));
+        mav.addObject("one_theme", new ThemeViewModel(theme.getId(), theme.getName(), theme.getInformation(), theme.getMediaUrl()));
         mav.addObject("flow", flow);
         mav.addObject("project", project);
         mav.addObject("platform", platform);

@@ -48,7 +48,7 @@ public class ThemesController {
 
     @PatchMapping("{projectId}")
     ResponseEntity<Void> updateTheme(@PathVariable int projectId, @RequestBody UpdateThemeDto updateThemeDto) {
-        if (themeService.updateTheme(themeService.getThemeByProjectId(projectId).getId(), updateThemeDto.getName())) {
+        if (themeService.updateTheme(themeService.getThemeByProjectId(projectId).getId(), updateThemeDto.getName(), updateThemeDto.getInformation(), updateThemeDto.getMediaUrl())) {
             logger.info("Updating theme to: {}", updateThemeDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {
