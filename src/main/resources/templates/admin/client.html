@@ -4,20 +4,19 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Client</title>
-    <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <link rel="stylesheet" href="scss/style.css">
-    <script src="/js/bubbles.js" defer></script>
+    <th:block th:replace="fragments/includes :: meta_script_link"></th:block>
     <script src="/js/admin/bundle-client.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
-
 </head>
 <body>
-<header th:replace="~{fragments/includes::header}"></header>
+<header th:replace="fragments/includes :: header"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
             <h1 class="page-title text-primary">Client</h1>
+
         </div>
     </div>
     <div class="row justify-content-center">
@@ -77,13 +76,12 @@
             <!-- Return Button -->
             <div class="col-md-2 center-container text-center">
                 <div class="center-container text-container">
-                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
-                        Return</a>
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<footer th:insert="~{fragments/footer::copy}"></footer>
+<footer th:insert="fragments/footer :: copy"></footer>
 </body>
 </html>

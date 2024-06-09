@@ -5,12 +5,12 @@
 <head>
     <title>Contact Details</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <link rel="stylesheet" href="scss/style.css">
-    <script src="/js/bubbles.js" defer></script>
+
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <h1 class="page-title text-primary">Contact Details</h1>
     <div class="row justify-content-center">
         <!-- Contact Details Form -->

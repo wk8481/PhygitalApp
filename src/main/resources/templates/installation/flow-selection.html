@@ -6,8 +6,7 @@
 <head>
     <title>Flow Selection</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <link rel="stylesheet" href="scss/style.css">
-    <script src="/js/bubbles.js" defer></script>
+
     <style>
         body {
             background-color: [[${project.backgroundColorHex}]];
@@ -28,6 +27,7 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Logo image -->
     <img alt="" th:id="logo" th:src="@{'/images/platform' + ${platform.id} + '-logo.jpg'}">
     <!-- Title Section -->

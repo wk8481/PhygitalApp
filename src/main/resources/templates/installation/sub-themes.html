@@ -28,6 +28,7 @@
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Logo image -->
     <img alt="" th:id="logo" th:src="@{'/images/platform' + ${platform.id} + '-logo.jpg'}">
     <!-- Title Section -->
