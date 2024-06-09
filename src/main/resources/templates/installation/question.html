@@ -43,6 +43,7 @@
         <div class="col-md-6">
             <section class="mt-5 text-center" id="main">
                 <textarea class="col-md-12" id="notesField" placeholder="Take some notes here"> </textarea>
+                <a th:if="${questions.size() ==0}">There are no questions in here, call your administrator to publicate them</a>
                 <form id="questionForm" th:object="${questions}">
                     <div th:each="question, index: ${questions}" th:id="${'question' + index.index}">
                         <h2 class="text-secondary" th:id="${'questionId_'+question.id}"
