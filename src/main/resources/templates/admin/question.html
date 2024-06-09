@@ -11,14 +11,8 @@
     <script src="/js/admin/bundle-question.js" defer></script>
     <script src="/js/admin/bundle-possible-questions.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
-    <style>
-        body {
-            background-color: [[${project.backgroundColorHex}]];
-            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-        }
-    </style>
 </head>
-<body>
+<body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div th:insert="~{fragments/background :: fragment}"></div>
@@ -55,7 +49,7 @@
                                     <option th:each="type : ${T(be.kdg.team_5_phygital.domain.QuestionType).values}"
                                             th:selected="${type == question.type}"
                                             th:text="${type}"
-                                            th:value="${type}">>
+                                            th:value="${type}">
                                     </option>
                                 </select>
                             </td>

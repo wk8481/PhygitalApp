@@ -15,11 +15,13 @@ public class SharingPlatform {
 
     private String contactEmail;
 
-    private String logoPath;
+    private String logoUrl;
 
     private int totalParticipants;
 
     private float totalTimeSpentInSec;
+
+    private String information;
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "administrator_id")
@@ -41,15 +43,17 @@ public class SharingPlatform {
         this.name = name;
     }
 
-    public SharingPlatform(String name, String contactEmail) {
+    public SharingPlatform(String name, String contactEmail, String information) {
         this.name = name;
         this.contactEmail = contactEmail;
+        this.information = information;
     }
 
-    public SharingPlatform(String name, String contactEmail, String logoPath) {
+    public SharingPlatform(String name, String contactEmail, String logoUrl, String information) {
         this.name = name;
         this.contactEmail = contactEmail;
-        this.logoPath = logoPath;
+        this.logoUrl = logoUrl;
+        this.information = information;
     }
 
     public SharingPlatform(String name, String contactEmail, int totalParticipants) {
@@ -78,6 +82,14 @@ public class SharingPlatform {
         return name;
     }
 
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -90,12 +102,12 @@ public class SharingPlatform {
         this.contactEmail = contactEmail;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public int getTotalParticipants() {

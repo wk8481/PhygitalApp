@@ -9,52 +9,20 @@
     <link rel="stylesheet" href="scss/style.css">
     <script src="/js/bubbles.js" defer></script>
     <script src="/js/installation/bundle-questionHandler.js" defer></script>
+    <script src="/js/installation/bundle-question-handler.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
     <script src="/js/util/bundle-csrf.js" defer></script>
+    <link rel="stylesheet" href="/css/installation/bundle-question-handler.css">
+    <script src="/js/installation/bundle-installation.js" defer></script>
+    <link rel="stylesheet" href="/css/installation/bundle-installation.css">
 
-    <style>
-        body {
-            background-color: [[${project.backgroundColorHex}]];
-            font-family: '[[${project.fontName}]]', Helvetica Neue, sans-serif;
-
-            #logo {
-                position: fixed;
-                top: 70px;
-                left: 10px;
-                width: 60px;
-                height: auto;
-                z-index: 1000;
-            }
-        }
-        /* Add your CSS styles here to visually block the content */
-        .blocked-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
-            z-index: 997; /* Ensure overlay is on top of everything */
-            display: none; /* Initially hide the overlay */
-        }
-        #pauseButton {
-            position: relative;
-            z-index: 998;
-        }
-
-        #notesField{
-            display: none;
-            position: relative;
-            z-index: 999;
-        }
-    </style>
 </head>
-<body>
+<body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Logo image -->
-    <img alt="" th:id="logo" th:src="@{'/images/platform' + ${platform.id} + '-logo.jpg'}">
+    <img id="logo" th:src="${platform.logoUrl}" alt="Platform Logo">
     <!-- Overlay to cover the content when blocked -->
     <div class="blocked-overlay" id="blockedOverlay"></div>
     <h1 class="page-title text-primary">Question</h1>
@@ -96,13 +64,12 @@
                             <hr>
                         </div>
                     </div>
-
+                    <img id="url" th:src="${subTheme.mediaUrl}" alt="Sub Theme media URL">
                 </form>
-<!--                    <button type="submit" id="submit">Save</button>-->
-
-                    <button class="btn btn-primary" id="submit" type="button">
-                        Save
-                    </button>
+                <!-- Save button does not show up -->
+                <button class="btn btn-primary" id="submit" type="button">
+                    Save
+                </button>
                 <hr>
                 <a class="btn btn-secondary" th:if="${isCircular}" id="minUser" ><i class="fas fa-minus"></i></a>
                 <a class="btn" th:if="${isCircular}"  type="hidden"></a>
@@ -115,7 +82,7 @@
         </div>
         <!-- Finish Button -->
         <div class="center-container">
-            <a th:href="contact-details" class="btn btn-primary">Finish</a>
+            <a th:href="@{'/installation/contact-details?platformId=' + ${platform.getId()} + '&projectId=' + ${project.getId()}}" class="btn btn-primary">Finish</a>
         </div>
     </div>
     <br>
@@ -135,6 +102,6 @@
         </div>
     </div>
 </main>
-<footer th:insert="~{fragments/footer::copy}"></footer>
+<footer th:insert="~{fragments/installation-footer::all (projectName = ${project.getName()}, themeId= ${theme.getId()}, projectId = ${project.getId()}, platformName = ${platform.getName()}, platformId = ${platform.getId()})}"></footer>
 </body>
 </html>

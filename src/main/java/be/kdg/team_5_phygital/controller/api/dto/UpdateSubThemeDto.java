@@ -1,8 +1,12 @@
 package be.kdg.team_5_phygital.controller.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class UpdateSubThemeDto {
     private String name;
     private String information;
+    private String mediaUrl;
+    @JsonProperty("isVisible")
     private boolean isVisible;
 
     public UpdateSubThemeDto() {
@@ -22,6 +26,14 @@ public class UpdateSubThemeDto {
 
     public void setInformation(String information) {
         this.information = information;
+    }
+
+    public String getMediaUrl() {
+        return mediaUrl;
+    }
+
+    public void setMediaUrl(String mediaUrl) {
+        this.mediaUrl = mediaUrl;
     }
 
     public boolean isVisible() {

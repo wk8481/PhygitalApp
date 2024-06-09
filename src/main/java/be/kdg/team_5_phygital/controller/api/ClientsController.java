@@ -4,6 +4,7 @@ import be.kdg.team_5_phygital.controller.api.dto.ClientDto;
 import be.kdg.team_5_phygital.controller.api.dto.UpdateClientDto;
 import be.kdg.team_5_phygital.domain.Client;
 import be.kdg.team_5_phygital.service.ClientService;
+import be.kdg.team_5_phygital.service.PasswordHasher;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,10 +21,12 @@ public class ClientsController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final ClientService clientService;
     private final ModelMapper modelMapper;
+    private final PasswordHasher passwordHasher;
 
-    public ClientsController(ClientService clientService, ModelMapper modelMapper) {
+    public ClientsController(ClientService clientService, ModelMapper modelMapper, PasswordHasher passwordHasher) {
         this.clientService = clientService;
         this.modelMapper = modelMapper;
+        this.passwordHasher = passwordHasher;
     }
 
     @GetMapping("{id}")
@@ -46,9 +49,16 @@ public class ClientsController {
         }
     }
 
-    @PatchMapping("{sharingPlatformAdminId}")
-    ResponseEntity<Void> updateSharingPlatformAdmin(@PathVariable int sharingPlatformAdminId, @RequestBody UpdateClientDto updateClientDto) {
-        if (clientService.updateSharingPlatformAdmin(sharingPlatformAdminId, updateClientDto.getName(), updateClientDto.getEmail())) {
+    @PatchMapping("{clientId}")
+    ResponseEntity<Void> updateSharingPlatformAdmin(@PathVariable int clientId, @RequestBody UpdateClientDto updateClientDto) {
+        String password;
+        if (clientService.getSharingPlatformAdmin(clientId).getPassword().isEmpty()) {
+            password = clientService.getSharingPlatformAdmin(clientId).getPassword();
+        } else {
+            password = updateClientDto.getPassword();
+
+        }
+        if (clientService.updateSharingPlatformAdmin(clientId, updateClientDto.getName(), updateClientDto.getEmail(), passwordHasher.hashPassword(password))) {
             logger.info("Updating sharing platform admin to: {}", updateClientDto.getName());
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } else {

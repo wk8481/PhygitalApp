@@ -1,5 +1,37 @@
 #!/bin/bash
 
+# Function to check if VM is running
+check_vm_running() {
+    local vm_instance_name="$1"
+    local zone="$2"
+    local vm_status=$(gcloud compute instances describe "$vm_instance_name" --zone="$zone" --format="value(status)")
+    if [ "$vm_status" != "RUNNING" ]; then
+        echo "VM $vm_instance_name is not running."
+        exit 1
+    fi
+}
+
+# Function to start SQL instance if it's not running
+start_sql_instance() {
+    local sql_instance="$1"
+
+    # Check if SQL instance is running
+    local sql_status=$(gcloud sql instances describe "$sql_instance" --format="value(state)")
+    if [ "$sql_status" != "RUNNABLE" ]; then
+        echo "Starting SQL instance $sql_instance..."
+        gcloud sql instances patch "$sql_instance" --activation-policy=ALWAYS
+        echo "SQL instance $sql_instance started successfully!"
+    else
+        echo "SQL instance $sql_instance is already running."
+    fi
+}
+
+# Check if VM is running
+check_vm_running "team5-vm" "europe-west1-d"
+
+# Start SQL instance if not running
+start_sql_instance "pg1716984918"
+
 # Script Name: createDB.sh
 # Description: This script sets up a PostgreSQL instance on Google Cloud Platform,
 #              authorizes local and VM IP addresses, and creates required databases
@@ -16,24 +48,6 @@ zone="europe-west1-d"
 
 # PostgreSQL root user password
 pg_password="admin"
-
-# Check if the PostgreSQL instance already exists
-instance_exists=$(gcloud sql instances list --filter="name=$pg" --format="value(name)")
-
-if [ "$instance_exists" == "$pg" ]; then
-    echo "PostgreSQL instance $pg already exists. Skipping instance creation."
-else
-    # Create PostgreSQL instance with the specified password
-    gcloud sql instances create $pg \
-    --tier=db-g1-small \
-    --region=europe-west1 \
-    --authorized-networks=$auth_ip/32 \
-    --database-version=POSTGRES_15 \
-    --root-password=$pg_password
-
-    # Output confirmation message
-    echo "PostgreSQL instance $pg created successfully!"
-fi
 
 # Fetch the IP address of the PostgreSQL instance
 pg_ip=$(gcloud sql instances describe $pg --format='value(ipAddresses.ipAddress)')

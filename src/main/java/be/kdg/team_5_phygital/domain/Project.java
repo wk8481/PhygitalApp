@@ -18,7 +18,7 @@ public class Project {
 
     private String fontName;
 
-    private String logoPath;
+    private String logoUrl;
 
     private boolean isActive;
 
@@ -62,11 +62,11 @@ public class Project {
         this.sharingPlatform = sharingPlatform;
     }
 
-    public Project(String name, String backgroundColorHex, String fontName, String logoPath, SharingPlatform sharingPlatform) {
+    public Project(String name, String backgroundColorHex, String fontName, String logoUrl, SharingPlatform sharingPlatform) {
         this.name = name;
         this.backgroundColorHex = backgroundColorHex;
         this.fontName = fontName;
-        this.logoPath = logoPath;
+        this.logoUrl = logoUrl;
         this.sharingPlatform = sharingPlatform;
     }
 
@@ -102,12 +102,12 @@ public class Project {
         this.fontName = fontName;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 
     public boolean isActive() {

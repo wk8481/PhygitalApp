@@ -11,7 +11,6 @@ import be.kdg.team_5_phygital.repository.SharingPlatformRepository;
 import be.kdg.team_5_phygital.repository.ThemeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -19,7 +18,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Time;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +49,10 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    public List<Project> getPublicProjects() {
+        return projectRepository.findProjectsByIsPublicIsTrue();
+    }
+
     public List<Project> getProjectBySharingPlatformId(int sharingPlatformId) {
         return projectRepository.findAllBySharingPlatformId(sharingPlatformId);
     }
@@ -72,7 +74,7 @@ public class ProjectService {
     }
 
     @Transactional
-    public boolean updateProject(int projectId, UpdateProjectDto updateProjectDto, MultipartFile logoFile) throws IOException {
+    public boolean updateProject(int projectId, UpdateProjectDto updateProjectDto) {
         Project project = projectRepository.findById(projectId).orElse(null);
         if (project == null) {
             return false;
@@ -80,18 +82,12 @@ public class ProjectService {
         project.setName(updateProjectDto.getName());
         project.setBackgroundColorHex(updateProjectDto.getBackgroundColorHex());
         project.setFontName(updateProjectDto.getFontName());
-        project.setPublic(updateProjectDto.isPublic());
-
-        // Handle logo file upload
-        if (logoFile != null && !logoFile.isEmpty()) {
-            // Save the logo file and update the logoPath
-            String savedLogoPath = saveLogoFile(logoFile, projectId);
-            project.setLogoPath(savedLogoPath);
-        }
-
+        project.setLogoUrl(updateProjectDto.getLogoUrl());
+        project.setPublic(updateProjectDto.isVisible());
         projectRepository.save(project);
         return true;
     }
+
 
     private String saveLogoFile(MultipartFile logoFile, int projectId) throws IOException {
         // Define the directory where you want to store the logo files

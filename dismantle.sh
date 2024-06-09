@@ -1,87 +1,62 @@
 #!/bin/bash
 
-# Function to remove VM's IP from Cloud SQL authorized networks
-remove_vm_ip_from_sql_authorized_networks() {
+# Author: William
+# Script Name: dismantle.sh
+# Description: This script stops a VM and a Cloud SQL instance on Google Cloud Platform (GCP),
+#              and removes all authorized networks from the Cloud SQL instance.
+
+# Function to clear all authorized networks from Cloud SQL instance
+clear_sql_authorized_networks() {
     local cloud_sql_instance="$1"
-    local vm_instance_name="$2"
 
-    # Fetch the current authorized networks for the Cloud SQL instance
-    local AUTHORIZED_NETWORKS=$(gcloud sql instances describe "$cloud_sql_instance" --format="value(settings.ipConfiguration.authorizedNetworks)")
-
-    # Fetch the IP address associated with the VM instance
-    local VM_IP=$(gcloud compute instances describe "$vm_instance_name" --format="value(networkInterfaces[0].accessConfigs[0].natIP)")
-
-    # Check if VM IP is obtained successfully
-    if [ -z "$VM_IP" ]; then
-        echo "Failed to retrieve IP address for VM $vm_instance_name"
+    # Clear all authorized networks for the Cloud SQL instance
+    if ! gcloud sql instances patch "$cloud_sql_instance" --clear-authorized-networks; then
+        echo "Failed to clear authorized networks for $cloud_sql_instance"
         exit 1
     fi
 
-    # Remove the VM's IP address from the authorized networks
-    local NEW_AUTHORIZED_NETWORKS=$(echo "$AUTHORIZED_NETWORKS" | grep -v "$VM_IP")
-
-    # Update the authorized networks for the Cloud SQL instance
-    if ! gcloud sql instances patch "$cloud_sql_instance" --authorized-networks="$NEW_AUTHORIZED_NETWORKS"; then
-        echo "Failed to update authorized networks for $cloud_sql_instance"
-        exit 1
-    fi
-
-    echo "Successfully removed $VM_IP from authorized networks for $cloud_sql_instance"
+    echo "Cleared all authorized networks for $cloud_sql_instance"
 }
 
-# Function to delete the VM
-delete_vm() {
+# Function to stop the VM
+stop_vm() {
     local vm_name="$1"
+    local zone="$2"
 
-    # Delete the VM
-    echo "Deleting VM $vm_name..."
-    if ! gcloud compute instances delete "$vm_name" --quiet; then
-        echo "Failed to delete VM $vm_name"
+    # Stop the VM
+    echo "Stopping VM $vm_name..."
+    if ! gcloud compute instances stop "$vm_name" --zone="$zone" --quiet; then
+        echo "Failed to stop VM $vm_name"
         exit 1
     fi
 
-    echo "VM $vm_name successfully deleted"
+    echo "VM $vm_name successfully stopped"
 }
 
-# Function to delete the Cloud SQL instance
-delete_cloud_sql_instance() {
+# Function to stop the Cloud SQL instance
+stop_cloud_sql_instance() {
     local cloud_sql_instance="$1"
 
-    # Delete the Cloud SQL instance
-    echo "Deleting Cloud SQL instance $cloud_sql_instance..."
-    if ! gcloud sql instances delete "$cloud_sql_instance" --quiet; then
-        echo "Failed to delete Cloud SQL instance $cloud_sql_instance"
+    # Stop the Cloud SQL instance
+    echo "Stopping Cloud SQL instance $cloud_sql_instance..."
+    if ! gcloud sql instances patch "$cloud_sql_instance" --activation-policy=NEVER; then
+        echo "Failed to stop Cloud SQL instance $cloud_sql_instance"
         exit 1
     fi
 
-    echo "Cloud SQL instance $cloud_sql_instance successfully deleted"
+    echo "Cloud SQL instance $cloud_sql_instance successfully stopped"
 }
 
-# Function to delete the firewall rule
-delete_firewall_rule() {
-    local firewall_rule_name="$1"
+# Variables
+CLOUD_SQL_INSTANCE="pg1716984918"
+VM_INSTANCE_NAME="team5-vm"
+ZONE="europe-west1-d"
 
-    # Delete the firewall rule
-    echo "Deleting firewall rule $firewall_rule_name..."
-    if ! gcloud compute firewall-rules delete "$firewall_rule_name" --quiet; then
-        echo "Failed to delete firewall rule $firewall_rule_name"
-        exit 1
-    fi
+# Call the function to clear all authorized networks
+clear_sql_authorized_networks "$CLOUD_SQL_INSTANCE"
 
-    echo "Firewall rule $firewall_rule_name successfully deleted"
-}
+# Call the function to stop the VM
+stop_vm "$VM_INSTANCE_NAME" "$ZONE"
 
-# Variables for firewall rule
-FIREWALL_RULE_NAME="http-https-postgresql-firewall"
-
-# Call the function to remove VM's IP from Cloud SQL authorized networks
-remove_vm_ip_from_sql_authorized_networks "pg1716984918" "team5-vm"
-
-# Call the function to delete the VM
-delete_vm "team5-vm"
-
-# Call the function to delete the Cloud SQL instance
-delete_cloud_sql_instance "pg1716984918"
-
-# Call the function to delete the firewall rule
-delete_firewall_rule "$FIREWALL_RULE_NAME"
+# Call the function to stop the Cloud SQL instance
+stop_cloud_sql_instance "$CLOUD_SQL_INSTANCE"

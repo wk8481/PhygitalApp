@@ -70,27 +70,21 @@ public class SharingPlatformService {
     }
 
     @Transactional
-    public SharingPlatform saveSharingPlatform(String name, String contactEmail) {
-        SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail);
+    public SharingPlatform saveSharingPlatform(String name, String contactEmail, String information) {
+        SharingPlatform sharingPlatform = new SharingPlatform(name, contactEmail, information);
         clientRepository.save(new Client("Unnamed Client", "default@email.com", "password", sharingPlatform));
         return sharingPlatformRepository.save(sharingPlatform);
     }
 
-    public boolean updateSharingPlatform(int sharingPlatformId, UpdateSharingPlatformDto updateSharingPlatformDto, MultipartFile logoFile) throws IOException {
+    public boolean updateSharingPlatform(int sharingPlatformId,String name, String contactEmail, String logoUrl, String information) {
         SharingPlatform sharingPlatform = sharingPlatformRepository.findById(sharingPlatformId).orElse(null);
         if (sharingPlatform == null) {
             return false;
         }
-        sharingPlatform.setName(updateSharingPlatformDto.getName());
-        sharingPlatform.setContactEmail(updateSharingPlatformDto.getContactEmail());
-
-        // Handle logo file upload
-        if (logoFile != null && !logoFile.isEmpty()) {
-            // Save the logo file and update the logoPath
-            String savedLogoPath = saveLogoFile(logoFile, sharingPlatformId);
-            sharingPlatform.setLogoPath(savedLogoPath);
-        }
-
+        sharingPlatform.setName(name);
+        sharingPlatform.setContactEmail(contactEmail);
+        sharingPlatform.setLogoUrl(logoUrl);
+        sharingPlatform.setInformation(information);
         sharingPlatformRepository.save(sharingPlatform);
         return true;
     }

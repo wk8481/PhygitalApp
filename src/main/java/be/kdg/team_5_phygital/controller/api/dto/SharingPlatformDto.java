@@ -4,17 +4,17 @@ public class SharingPlatformDto {
     private int id;
     private String name;
     private String contactEmail;
-    private String logoPath;
+    private String logoUrl;
 
 
     public SharingPlatformDto() {
     }
 
-    public SharingPlatformDto(int id, String name, String contactEmail, String logoPath) {
+    public SharingPlatformDto(int id, String name, String contactEmail, String logoUrl) {
         this.id = id;
         this.name = name;
         this.contactEmail = contactEmail;
-        this.logoPath = logoPath;
+        this.logoUrl = logoUrl;
     }
 
     public int getId() {
@@ -41,11 +41,11 @@ public class SharingPlatformDto {
         this.contactEmail = contactEmail;
     }
 
-    public String getLogoPath() {
-        return logoPath;
+    public String getLogoUrl() {
+        return logoUrl;
     }
 
-    public void setLogoPath(String logoPath) {
-        this.logoPath = logoPath;
+    public void setLogoUrl(String logoUrl) {
+        this.logoUrl = logoUrl;
     }
 }

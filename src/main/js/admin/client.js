@@ -10,13 +10,14 @@ submitButton.addEventListener('click', updateClient)
 async function updateClient(event) {
     const name = document.getElementById('nameInput').value
     const email = document.getElementById('emailInput').value
+    const password = document.getElementById('passwordInput').value
 
     console.log('Updating client to ' + name)
     fetch(`/api/clients/${clientId}`, {
         method: 'PATCH', headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json', [header]: token
         }, body: JSON.stringify({
-            'id': clientId, 'name': name, 'email': email
+            'id': clientId, 'name': name, 'email': email, 'password': password
         })
     })
         .then(response => {

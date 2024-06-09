@@ -72,10 +72,16 @@ deploy:
     - echo "Uploading the application..."
     - chmod +x jarupload.sh
     - chmod +x deployjar.sh
+    - chmod +x startvm.sh
     - chmod +x createDB.sh
     - ./jarupload.sh
     - sleep 10
     - echo "Uploaded successfully"
+    - sleep 10
+    - echo "Starting the vm..."
+    - ./startvm.sh
+    - sleep 10
+    - echo "VM started successfully"
     - sleep 10
     - echo "Creating database..."
     - ./createDB.sh
@@ -83,17 +89,17 @@ deploy:
     - echo "Database created successfully"
     - sleep 10
     - echo "Copying deploy script to team5-vm..."
-    - gcloud compute scp deployjar.sh $TEAM5_USER@$IP_ADDRESS:/home/$TEAM5_USER/deployjar.sh --zone=europe-west1-d
+    - scp deployjar.sh $TEAM5_USER@$IP_ADDRESS:/home/$TEAM5_USER/deployjar.sh
     - sleep 5
     - echo "Deploying the application on team5-vm..."
-    - ssh $TEAM5_USER@$IP_ADDRESS "bash /home/$TEAM5_USER/deployjar.sh"
+    - ssh $TEAM5_USER@$IP_ADDRESS "sudo /home/$TEAM5_USER/deployjar.sh"
     - sleep 10
     - echo "Application starting.."
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl start phygital.service"
     - echo "Application started successfully"
   environment:
     name: production
-    url: https://phygital-team5.duckdns.org:8443
+    url: https://phygital-team5.duckdns.org
   only:
     refs:
       - main
@@ -123,9 +129,11 @@ destroy:
   script:
     - ssh $TEAM5_USER@$IP_ADDRESS "sudo systemctl stop phygital.service"
     - chmod +x dismantle.sh
-    - sudo ./dismantle.sh
+    - ./dismantle.sh
 
   when: manual
+
+
 
 
 

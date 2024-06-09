@@ -7,6 +7,8 @@ import be.kdg.team_5_phygital.repository.FlowRepository;
 import be.kdg.team_5_phygital.repository.SessionRepository;
 import be.kdg.team_5_phygital.repository.SubThemeRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,6 +19,7 @@ import java.util.Optional;
 
 @Service
 public class SubThemeService {
+    private static final Logger log = LoggerFactory.getLogger(SubThemeService.class);
     private final SubThemeRepository subThemeRepository;
     private final FlowRepository flowRepository;
     private final QuestionService questionService;
@@ -43,19 +46,23 @@ public class SubThemeService {
 
     public List<SubTheme> getSubThemeByFlowId(int flowId) {return subThemeRepository.getSubThemesByFlowId(flowId);}
 
+    public List<SubTheme> getSubThemeByFlowIdAndIsVisible(int flowId) {return subThemeRepository.getSubThemesByFlowIdAndIsVisibleIsTrue(flowId);}
+
     @Transactional
     public SubTheme saveSubTheme(String name, String information, int flowId) {
         Flow flow = flowRepository.findById(flowId).orElse(null);
         return subThemeRepository.save(new SubTheme(name, information, flow));
     }
 
-    public boolean updateSubTheme(int subThemeId, String name, String information, boolean isVisible) {
+    public boolean updateSubTheme(int subThemeId, String name, String information, String mediaUrl, boolean isVisible) {
+        log.error("Setting visible to {}", isVisible);
         SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
         if (subTheme == null) {
             return false;
         }
         subTheme.setName(name);
         subTheme.setInformation(information);
+        subTheme.setMediaUrl(mediaUrl);
         subTheme.setVisible(isVisible);
         subThemeRepository.save(subTheme);
         return true;
@@ -73,48 +80,5 @@ public class SubThemeService {
         sessionRepository.deleteAll(sessionRepository.getSessionsBySubTheme(subTheme.get()));
         subThemeRepository.deleteById(subThemeId);
         return true;
-    }
-
-    public void uploadMediaFiles(int subThemeId, List<MultipartFile> files) throws IOException {
-        SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
-        if (subTheme == null) {
-            // Handle error: Sub theme not found
-            return;
-        }
-
-        // Process and save each uploaded file
-        for (MultipartFile file : files) {
-            String fileName = file.getOriginalFilename();
-            // Save the file to a directory
-            File destFile = new File("src/main/resources/static/media/" + fileName);
-            file.transferTo(destFile);
-            // Add the file to the sub theme's list of media files
-            subTheme.addMediaFile(fileName);
-        }
-
-        // Save the updated sub theme
-        subThemeRepository.save(subTheme);
-    }
-
-    public void deleteMediaFiles(int subThemeId, List<String> fileNames) throws IOException {
-        SubTheme subTheme = subThemeRepository.findById(subThemeId).orElse(null);
-        if (subTheme == null) {
-            // Handle error: Sub theme not found
-            return;
-        }
-
-        // Delete each specified media file
-        for (String fileName : fileNames) {
-            // Delete the file from the directory
-            File file = new File("src/main/resources/static/media/" + fileName);
-            if (file.exists()) {
-                file.delete();
-            }
-            // Remove the file from the sub theme's list of media files
-            subTheme.removeMediaFile(fileName);
-        }
-
-        // Save the updated sub theme
-        subThemeRepository.save(subTheme);
     }
 }

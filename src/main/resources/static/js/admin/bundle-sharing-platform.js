@@ -136,42 +136,47 @@ async function updateSharingPlatform(event) {
 
     const name = document.getElementById('nameInput')
     const contactEmail = document.getElementById('contactEmailInput')
-    const logo = document.getElementById('logoInput')
+    const logoUrl = document.getElementById('logoUrlInput')
     const sharingPlatformId = (0,_utils_js__WEBPACK_IMPORTED_MODULE_1__.extractIdsFromUrl)(window.location.href, 'sharing-platform')
+    const information = document.getElementById("informationInput")
 
-    // Create a FormData object to append the form data, including the logo file
-    const formData = new FormData()
-    const dto = {
-        id: sharingPlatformId,
+    console.log("Updating sharing platform")
+
+    const body = {
         name: name.value,
-        contactEmail: contactEmail.value
+        contactEmail: contactEmail.value,
+        information: information.value,
+        logoUrl: logoUrl.value
     }
 
-    // Convert the JSON object to a Blob with MIME type application/json
-    const dtoBlob = new Blob([JSON.stringify(dto)], { type: 'application/json' })
-    formData.append('updateSharingPlatformDto', dtoBlob)
-    formData.append('logo', logo.files[0])
-
-    try {
-        const response = await fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
-            method: 'PATCH',
-            headers: {
-                'Accept': 'application/json',
-                [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
-            },
-            body: formData // Send formData as-is
+    if (logoUrl) {
+        body.logoUrl = logoUrl;
+    }
+    console.log(logoUrl.value)
+    fetch(`/api/sharing-platforms/${sharingPlatformId}`, {
+        method: 'PATCH', headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            [_util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.header]: _util_csrf_js__WEBPACK_IMPORTED_MODULE_0__.token
+        }, body:
+            // JSON.stringify(body)
+        JSON.stringify({
+            name: name.value,
+            contactEmail: contactEmail.value,
+            information: information.value,
+            logoUrl: logoUrl.value
         })
-
-        if (response.ok) {
-            // Handle success
-            console.log('Sharing platform updated successfully')
-        } else {
-            // Handle error
-            console.error('Error updating sharing platform:', response.statusText)
-        }
-    } catch (error) {
-        console.error('Error updating sharing platform:', error)
-    }
+    })
+        .then(async (response) => {
+            if (response.status === 204) {
+                console.log('Sharing platform updated successfully');
+            } else {
+                console.error('Failed to update sharing platform');
+            }
+        })
+        .catch(error => {
+            console.error('Error updating sharing platform:', error);
+        });
 }
 
 

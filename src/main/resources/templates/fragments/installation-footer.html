@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title></title>
+    <thymeleaf th:replace="~{includes :: meta_script_link}"></thymeleaf>
+</head>
+<body>
+<div class="text-center py-sm-0 fixed-bottom" th:fragment="all (projectName, themeId, projectId, platformName, platformId)">
+    &copy; 2024 KdG •
+    <a th:href="@{/installation/organization-information/{platformId}(platformId = ${platformId})}" th:text="${'Information on '+ platformName}">Organization</a> •
+    <a th:href="@{/installation/project-information/{projectId}(projectId=${projectId})}" th:text="${'Information on ' + projectName}">Project Information</a> •
+    <a th:href="@{/installation/privacy-statement}">Privacy Statement</a>
+</div>
+
+<div class="text-center py-sm-0 fixed-bottom" th:fragment="platform (platformName, platformId)">
+    &copy; 2024 KdG •
+    <a th:href="@{/installation/organization-information/{platformId}(platformId = ${platformId})}" th:text="${'Information on '+ platformName}">Organization</a> •
+    <a th:href="@{/installation/privacy-statement}">Privacy Statement</a>
+</div>
+
+<div class="text-center py-sm-0 fixed-bottom" th:fragment="privacy">
+    &copy; 2024 KdG
+    <a th:href="@{/installation/privacy-statement}">Privacy Statement</a>
+</div>
+
+<div class="text-center py-sm-0 fixed-bottom" th:fragment="clear">
+    &copy; 2024 KdG •
+</div>
+
+</body>
+</html>

@@ -7,10 +7,7 @@ import be.kdg.team_5_phygital.controller.mvc.viewmodel.ThemeViewModel;
 import be.kdg.team_5_phygital.domain.*;
 import be.kdg.team_5_phygital.service.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -27,8 +24,9 @@ public class InstallationController {
     private final PossibleAnswerService possibleAnswerService;
     private final SessionService sessionService;
     private final UserEmailService userEmailService;
+    private final SharingPlatformService sharingPlatformService;
 
-    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService) {
+    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService, SharingPlatformService sharingPlatformService) {
         this.flowService = flowService;
         this.projectService = projectService;
         this.themeService = themeService;
@@ -37,13 +35,14 @@ public class InstallationController {
         this.possibleAnswerService = possibleAnswerService;
         this.sessionService = sessionService;
         this.userEmailService = userEmailService;
+        this.sharingPlatformService = sharingPlatformService;
     }
 
     @GetMapping("project-selection")
     public ModelAndView getProjectSelectionPage() {
         var mav = new ModelAndView();
         mav.setViewName("installation/project-selection");
-        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName())).toList());
+        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList());
         return mav;
     }
 
@@ -85,9 +84,10 @@ public class InstallationController {
         Theme theme = themeService.getThemeByProjectId(flow.getProject().getId());
         Project project = projectService.getProject(flow.getProject().getId());
         SharingPlatform platform = project.getSharingPlatform();
-        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowId(flowId).stream().map(subtheme -> new SubThemeViewModel(subtheme.getId(), subtheme.getName(), subtheme.getInformation(), subtheme.getFlow().getId())).toList());
+        mav.addObject("all_sub_themes", subThemeService.getSubThemeByFlowIdAndIsVisible(flowId).stream().map(subTheme -> new SubThemeViewModel(subTheme.getId(), subTheme.getName(), subTheme.getInformation(), subTheme.getMediaUrl(), subTheme.getFlow().getId())).toList());
         mav.addObject("project", project);
         mav.addObject("platform", platform);
+        mav.addObject("theme", theme);
         return mav;
     }
 
@@ -96,30 +96,30 @@ public class InstallationController {
         var mav = new ModelAndView();
         mav.setViewName("installation/question");
         SubTheme subTheme = subThemeService.getSubTheme(subThemeId);
-        List<Question> questions = questionService.getQuestionsBySubTheme(subTheme);
+        List<Question> questions = questionService.getQuestionsBySubThemeAndVisible(subTheme);
         List<PossibleAnswers> possibleAnswers = possibleAnswerService.getPossibleAnswersByQuestionId(questions);
         boolean isCircular = subTheme.isCircularFlow();
         Project project = projectService.getProject(subTheme.getFlow().getProject().getId());
         SharingPlatform platform = project.getSharingPlatform();
+        Theme theme = themeService.getThemeByProjectId(project.getId());
         mav.addObject("questions", questions);
         mav.addObject("possibleAnswers", possibleAnswers);
         mav.addObject("isCircular", isCircular);
         mav.addObject("project", project);
         mav.addObject("platform", platform);
-        return mav;
-    }
-
-    @GetMapping("flowCompleted")
-    public ModelAndView flowComplete(){
-        var mav = new ModelAndView();
-        mav.setViewName("installation/flow-completed");
+        mav.addObject("subTheme", subTheme);
+        mav.addObject("theme", theme);
         return mav;
     }
 
     @GetMapping("contact-details")
-    public ModelAndView getContactDetailsPage() {
+    public ModelAndView getContactDetailsPage(@RequestParam("platformId") int platformId, @RequestParam("projectId") int projectId) {
         var mav = new ModelAndView();
+        SharingPlatform platform = sharingPlatformService.getSharingPlatform(platformId);
+        Project project = projectService.getProject(projectId);
         mav.setViewName("installation/contact-details");
+        mav.addObject("platform", platform);
+        mav.addObject("project", project);
         return mav;
     }
 
@@ -130,4 +130,30 @@ public class InstallationController {
         sessionService.addUserEmail(session, userEmail);
     }
 
+    @GetMapping("project-information/{projectId}")
+    public ModelAndView getProjectInformationPage(@PathVariable("projectId") int projectId) {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/project-information");
+        Project project = projectService.getProject(projectId);
+        Theme theme = themeService.getThemeByProjectId(projectId);
+        mav.addObject("project", project);
+        mav.addObject("theme", theme);
+        return mav;
+    }
+
+    @GetMapping("organization-information/{platformId}")
+    public ModelAndView getOrganizationInformationPage(@PathVariable("platformId") int platformId) {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/organization-information");
+        SharingPlatform platform = sharingPlatformService.getSharingPlatform(platformId);
+        mav.addObject("platform", platform);
+        return mav;
+    }
+
+    @GetMapping("privacy-statement")
+    public ModelAndView getPrivacyStatementPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/privacy-statement");
+        return mav;
+    }
 }
