@@ -4,35 +4,39 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Organization Information</title>
+    <title>Installation Manual</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
 </head>
-<body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
     <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
-            <h1 class="page-title text-primary">Organization Information</h1>
+            <h1 class="page-title text-primary">Installation Manual</h1>
         </div>
     </div>
     <div class="row justify-content-center">
-        <!-- Description Section -->
-        <div class="col-md-8">
-            <section class="mt-2 text-center">
-                <h5>Information</h5>
-                <p th:text="${platform.getInformation() ?: 'This organization has not published any information.'}">
-
-                </p>
+        <!-- Manual Section -->
+        <div class="col-md-6">
+            <section class="mt-5 text-center">
+                <div>
+                    <p>
+                        1. Choose a project
+                    </p>
+                    <p>
+                        2. Choose a flow
+                    </p>
+                </div>
             </section>
         </div>
     </div>
+    <br>
     <!-- Return Button -->
     <div class="center-container">
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
-<footer th:insert="~{fragments/installation-footer::privacy}"></footer>
+<footer th:insert="~{fragments/footer::copy}"></footer>
 </body>
 </html>

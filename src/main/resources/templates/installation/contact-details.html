@@ -5,8 +5,8 @@
 <head>
     <title>Contact Details</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-    <script src="/js/installation/bundle-installation.js" defer></script>
-    <link rel="stylesheet" href="/css/installation/bundle-installation.css">
+    <link href="/css/installation/bundle-question-handler.css" rel="stylesheet">
+    <link href="/css/installation/bundle-installation.css" rel="stylesheet">
 </head>
 <body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
@@ -25,14 +25,14 @@
         <div class="col-md-6">
             <section class="mt-5 text-center">
                 <h2 class="text-secondary">Form</h2>
-                <form id="contactForm" method="post" th:action="@{/installation/contact-details}">
+                <form id="contactForm" th:action="@{/installation/contact-details}" method="post">
+                    <input type="hidden" name="platformId" th:value="${platform.getId()}">
+                    <input type="hidden" name="projectId" th:value="${project.getId()}">
                     <div class="form-group">
                         <label for="emailInput">Email:</label>
                         <input id="emailInput" name="email" type="email" class="form-control" required>
                     </div>
-                    <button class="btn btn-primary" id="submit" type="submit">
-                        Submit
-                    </button>
+                    <button class="btn btn-primary" id="submit" type="submit">Submit</button>
                 </form>
             </section>
         </div>
@@ -47,6 +47,6 @@
         <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
 </main>
-<footer th:insert="~{fragments/installation-footer::platform (platformName =${platform.getName()}, platformId = ${platform.getId()})}"></footer>
+<footer th:insert="~{fragments/installation-footer::platform (platformName=${platform.getName()}, platformId=${platform.getId()})}"></footer>
 </body>
 </html>

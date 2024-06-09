@@ -44,10 +44,10 @@ VALUES ('Groenplaats', false, 1),
 INSERT INTO project (name, logo_url, background_color_hex, is_active, is_public, total_participants,
                      total_time_spent_in_sec, sharing_platform_id)
 VALUES ('Elections', 'https://blogsmedia.lse.ac.uk/blogs.dir/8/files/2020/12/openelectionslogo-e1607071322402.png',
-        '#FFFFFF', true, false, 50, 4.5, 1),
+        '#FFFFFF', true, true, 50, 4.5, 1),
        ('Environment',
         'https://static.vecteezy.com/system/resources/previews/007/634/526/non_2x/environment-logo-icon-design-template-free-vector.jpg',
-        '#47EABC', false, false, 35, 2.5, 2);
+        '#47EABC', false, true, 35, 2.5, 2);
 
 -- Themes
 INSERT INTO theme (name, information, media_url, project_id)

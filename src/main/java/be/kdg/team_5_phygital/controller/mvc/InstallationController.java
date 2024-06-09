@@ -9,6 +9,7 @@ import be.kdg.team_5_phygital.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -56,6 +57,13 @@ public class InstallationController {
         mav.addObject("all_flows", flowService.getFlowsByProjectId(projectId).stream().map(flow -> new FlowViewModel(flow.getId(), flow.getName(), flow.isCircular())).toList());
         mav.addObject("project", project);
         mav.addObject("platform", platform);
+        return mav;
+    }
+
+    @GetMapping("manual")
+    public ModelAndView getManualPage() {
+        var mav = new ModelAndView();
+        mav.setViewName("installation/manual");
         return mav;
     }
 
@@ -124,10 +132,12 @@ public class InstallationController {
     }
 
     @PostMapping("contact-details")
-    public void addContactEmail(@RequestParam("email") String email) {
+    public String addContactEmail(@RequestParam("email") String email, @RequestParam("platformId") int platformId, @RequestParam("projectId") int projectId) {
         Session session = sessionService.getLatestSession();
         UserEmail userEmail = userEmailService.saveUserEmail(email, session);
         sessionService.addUserEmail(session, userEmail);
+
+        return "redirect:/installation/contact-details?platformId=" + platformId + "&projectId=" + projectId;
     }
 
     @GetMapping("project-information/{projectId}")

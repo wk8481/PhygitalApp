@@ -1,232 +1,125 @@
 <!DOCTYPE html>
-
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <title>Question</title>
-
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
-
-
-
-    <link rel="stylesheet" href="/css/installation/bundle-question-handler.css">
-
-    <link rel="stylesheet" href="/css/installation/bundle-installation.css">
-
-
-
-
-    <script src="/js/installation/bundle-question-handler.js" defer></script>
-
-    <script src="/js/bundle-utils.js" defer></script>
-
-    <script src="/js/util/bundle-csrf.js" defer></script>
-
-    <script src="/js/installation/bundle-installation.js" defer></script>
-
+    <link href="/css/installation/bundle-question-handler.css" rel="stylesheet">
+    <link href="/css/installation/bundle-installation.css" rel="stylesheet">
+    <script defer src="/js/installation/bundle-question-handler.js"></script>
+    <script defer src="/js/bundle-utils.js"></script>
+    <script defer src="/js/util/bundle-csrf.js"></script>
+    <script defer src="/js/installation/bundle-installation.js"></script>
     <style>
-
         body, html {
-
             height: 100%;
-
             margin: 0;
-
         }
-
         main {
-
             flex: 1;
-
-            padding-bottom: 80px; /* Adjust this value to match your footer's height */
-
+            padding-bottom: 80px;
         }
-
         footer {
-
             position: absolute;
-
             bottom: 0;
-
             width: 100%;
-
-            height: 60px; /* Adjust based on your footer's actual height */
-
+            height: 60px;
         }
-
     </style>
-
 </head>
-
 <body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
-
 <header th:replace="~{fragments/includes::header}"></header>
-
 <main class="container text-center">
-
     <div th:insert="~{fragments/background :: fragment}"></div>
-
     <!-- Logo image -->
-
-    <img id="logo" th:src="${platform.logoUrl}" alt="Platform Logo">
-
+    <img alt="Platform Logo" id="logo" th:src="${platform.logoUrl}">
     <!-- Overlay to cover the content when blocked -->
-
     <div class="blocked-overlay" id="blockedOverlay"></div>
-
     <h1 class="page-title text-primary">Question</h1>
-
     <div class="table-info" id="timer"></div>
-
-    <div id="userCount"> </div>
-
+    <div id="userCount"></div>
     <div class="row justify-content-center" id="content" th:object="${questions}">
-
         <!-- Question Form -->
-
         <div class="col-md-6">
-
             <section class="mt-5 text-center" id="main">
-
-                <textarea id="notesField" class="col-md-12" placeholder="Take some notes here"> </textarea>
-
+                <textarea class="col-md-12" id="notesField" placeholder="Take some notes here"> </textarea>
                 <form id="questionForm" th:object="${questions}">
-
                     <div th:each="question, index: ${questions}" th:id="${'question' + index.index}">
-
-                        <h2 class="text-secondary" th:id="${'questionId_'+question.id}" th:text="${'Question ' + (index.index+1)}">Question Number</h2>
-
+                        <h2 class="text-secondary" th:id="${'questionId_'+question.id}"
+                            th:text="${'Question ' + (index.index+1)}">Question Number</h2>
                         <div th:switch="${question.type.toString()}">
-
-                            <label th:id="${'question_'+index.index}" th:text="${question.text}" >Question:</label>
-
-                            <div th:case="'SINGLE_CHOICE'" id="singleChoice">
-
+                            <label th:id="${'question_'+index.index}" th:text="${question.text}">Question:</label>
+                            <div id="singleChoice" th:case="'SINGLE_CHOICE'">
                                 <div class="form-group" th:each="answer:${possibleAnswers}">
-
-                                    <input type="radio" th:name="${'answer'+index.index}" th:if="${question.id == answer.question.id}" th:value="${answer.answer}" th:text="${answer.answer}">
-
+                                    <input th:if="${question.id == answer.question.id}"
+                                           th:name="${'answer'+index.index}"
+                                           th:text="${answer.answer}" th:value="${answer.answer}"
+                                           type="radio">
                                 </div>
-
                             </div>
-
-                            <div th:case="'MULTIPLE_CHOICE'" id="multipleChoice">
-
+                            <div id="multipleChoice" th:case="'MULTIPLE_CHOICE'">
                                 <div class="form-group" th:each="answer:${possibleAnswers}">
-
-                                    <input type="checkbox" th:name="${'answer'+index.index}" th:if="${question.id == answer.question.id}" th:value="${answer.answer}"  th:text="${answer.answer}">
-
+                                    <input th:if="${question.id == answer.question.id}"
+                                           th:name="${'answer'+index.index}"
+                                           th:text="${answer.answer}" th:value="${answer.answer}"
+                                           type="checkbox">
                                 </div>
-
                             </div>
-
-                            <div th:case="'RANGE'" id="range">
-
-                                <input type="range" class="range" th:name="${'answer' + index.index}" th:id="${'sliderQuestionId_' + question.id}">
-
+                            <div id="range" th:case="'RANGE'">
+                                <input class="range" th:id="${'sliderQuestionId_' + question.id}"
+                                       th:name="${'answer' + index.index}"
+                                       type="range">
                                 <br>
-
                                 <span id="rangeValue"> </span>
-
                             </div>
-
-                            <div th:case="'OPEN'" id="open">
-
-                                <input type="text" th:id="${'answer' + index.index}" required>
-
+                            <div id="open" th:case="'OPEN'">
+                                <input required th:id="${'answer' + index.index}" type="text">
                             </div>
-
                             <div th:case="*">
-
                                 <p>Unsupported question type</p>
-
                             </div>
-
                             <hr>
-
                         </div>
-
                     </div>
-
-                    <img id="url" th:src="${subTheme.mediaUrl}" alt="Sub Theme media URL">
-
+                    <img alt="Sub Theme media URL" id="url" th:src="${subTheme.mediaUrl}">
                 </form>
-
                 <!-- Save button does not show up -->
-
                 <button class="btn btn-primary" id="submit" type="button">
-
                     Save
-
                 </button>
-
                 <hr>
-
-                <a class="btn btn-secondary" th:if="${isCircular}" id="minUser" ><i class="fas fa-minus"></i></a>
-
-                <a class="btn" th:if="${isCircular}"  type="hidden"></a>
-
-                <a class="btn btn-secondary" th:if="${isCircular}" id="plusUser"><i class="fas fa-plus"></i></a>
-
+                <a class="btn btn-secondary" id="minUser" th:if="${isCircular}"><i class="fas fa-minus"></i></a>
+                <a class="btn" th:if="${isCircular}" type="hidden"></a>
+                <a class="btn btn-secondary" id="plusUser" th:if="${isCircular}"><i class="fas fa-plus"></i></a>
                 <br>
-
-                <a class="btn btn-secondary" id="backButton" ><i class="fas fa-arrow-left"></i></a>
-
-                <a class="btn btn-secondary" id="pauseButton"><i id="pauseIcon" class="fas fa-pause"></i></a>
-
-                <a class="btn btn-secondary" id="nextButton" ><i class="fas fa-arrow-right"></i></a>
-
+                <a class="btn btn-secondary" id="backButton"><i class="fas fa-arrow-left"></i></a>
+                <a class="btn btn-secondary" id="pauseButton"><i class="fas fa-pause" id="pauseIcon"></i></a>
+                <a class="btn btn-secondary" id="nextButton"><i class="fas fa-arrow-right"></i></a>
             </section>
-
         </div>
-
         <!-- Finish Button -->
-
         <div class="center-container">
-
-            <a th:href="@{'/installation/contact-details?platformId=' + ${platform.getId()} + '&projectId=' + ${project.getId()}}" class="btn btn-primary">Finish</a>
-
+            <a class="btn btn-primary"
+               th:href="@{'/installation/contact-details?platformId=' + ${platform.getId()} + '&projectId=' + ${project.getId()}}">Finish</a>
         </div>
-
     </div>
-
     <br>
-
     <!-- Return Button -->
-
     <div class="center-container">
-
-        <a href="javascript:history.back()" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Return</a>
-
+        <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
     </div>
-
     <div id="none">
-
-        <div th:each="q: ${questions}" >
-
+        <div th:each="q: ${questions}">
             <div th:if="${q.getType().toString() == 'RANGE'}">
-
-                <div th:each="pa: ${possibleAnswers}" id="rangeContent">
-
+                <div id="rangeContent" th:each="pa: ${possibleAnswers}">
                     <div th:if="${pa.question.id == q.id}">
-
                         <p th:text="${q.id + ' ' + pa.answer}"></p>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </main>
-
 <footer th:insert="~{fragments/installation-footer::all (projectName = ${project.getName()}, themeId= ${theme.getId()}, projectId = ${project.getId()}, platformName = ${platform.getName()}, platformId = ${platform.getId()})}"></footer>
-
 </body>
-
 </html>
