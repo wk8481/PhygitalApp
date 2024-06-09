@@ -11,6 +11,7 @@
 <body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Logo image -->
     <img id="logo" th:src="${platform.logoUrl}" alt="Platform Logo">
     <!-- Title Section -->
@@ -19,6 +20,7 @@
             <h1 class="page-title text-primary">Contact Details</h1>
         </div>
     </div>
+    <h1 class="page-title text-primary">Contact Details</h1>
     <div class="row justify-content-center">
         <!-- Contact Details Form -->
         <div class="col-md-6">

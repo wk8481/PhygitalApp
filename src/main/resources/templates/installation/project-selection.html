@@ -8,11 +8,23 @@
 <head>
     <title>Project Selection</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <link rel="stylesheet" href="scss/style.css">
+    <script src="/js/bubbles.js" defer></script>
+    <style>
+        body {
+            #logo {
+                width: 60px;
+                height: auto;
+                z-index: 1000;
+            }
+        }
+    </style>
 
 </head>
 <body>
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">

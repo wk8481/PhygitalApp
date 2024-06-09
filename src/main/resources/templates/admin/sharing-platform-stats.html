@@ -1,8 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Sharing Platform Statistics</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
@@ -12,8 +9,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/5.2.0/js/tableexport.min.js"></script>
 </head>
 <body>
-<header th:replace="~{fragments/includes::header}"></header>
+<header th:replace="~{fragments/includes::header}">
+</header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -54,8 +53,7 @@
             <!-- Return Button -->
             <div class="col-md-2 center-container text-center">
                 <div class="center-container">
-                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
-                        Return</a>
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
                 </div>
             </div>
             <!-- Export Button -->

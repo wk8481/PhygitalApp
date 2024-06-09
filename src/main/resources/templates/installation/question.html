@@ -6,6 +6,9 @@
 <head>
     <title>Question</title>
     <thymeleaf th:replace="~{fragments/includes :: meta_script_link}"></thymeleaf>
+    <link rel="stylesheet" href="scss/style.css">
+    <script src="/js/bubbles.js" defer></script>
+    <script src="/js/installation/bundle-questionHandler.js" defer></script>
     <script src="/js/installation/bundle-question-handler.js" defer></script>
     <script src="/js/bundle-utils.js" defer></script>
     <script src="/js/util/bundle-csrf.js" defer></script>
@@ -17,6 +20,7 @@
 <body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Logo image -->
     <img id="logo" th:src="${platform.logoUrl}" alt="Platform Logo">
     <!-- Overlay to cover the content when blocked -->

@@ -11,7 +11,11 @@
 </head>
 <body th:style="'background-color: ' + ${project.backgroundColorHex} + '; font-family: ' + ${project.fontName} + ', Helvetica Neue, sans-serif;'">
 <header th:replace="~{fragments/includes::header}"></header>
+<body>
+<header th:replace="~{fragments/includes::header}">
+</header>
 <main class="container text-center">
+    <div th:insert="~{fragments/background :: fragment}"></div>
     <!-- Title Section -->
     <div class="col-md-12">
         <div class="row mb-3 justify-content-center">
@@ -58,8 +62,7 @@
                             <label class="form-label" for="isVisibleInput">Visible:</label>
                         </th>
                         <td class="col-sm-8">
-                            <input class="form-check" id="isVisibleInput" th:checked="${subTheme.isVisible}"
-                                   type="checkbox">
+                            <input class="form-check" id="isVisibleInput" th:checked="${subTheme.isVisible}" type="checkbox">
                         </td>
                     </tr>
                     </tbody>
@@ -85,8 +88,7 @@
                             <tbody>
                             <tr th:each="question, qIndex:${questions}">
                                 <td>
-                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/{questionId}(subThemeId=${subTheme.id}, questionId=${question.id})}"><i
-                                            class="fas fa-edit"></i></a>
+                                    <a th:href="@{/admin/sub-theme/{subThemeId}/question/{questionId}(subThemeId=${subTheme.id}, questionId=${question.id})}"><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td th:text="'Question '+ ${qIndex.count}">Question</td>
                             </tr>
@@ -110,8 +112,7 @@
             <!-- Return Button -->
             <div class="col-md-2 center-container text-center">
                 <div class="center-container text-container">
-                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i>
-                        Return</a>
+                    <a class="btn btn-secondary" href="javascript:history.back()"><i class="fas fa-arrow-left"></i> Return</a>
                 </div>
             </div>
             <!-- Sessions Button -->
