@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -26,8 +27,10 @@ public class InstallationController {
     private final SessionService sessionService;
     private final UserEmailService userEmailService;
     private final SharingPlatformService sharingPlatformService;
+    private final UserService userService;
+    private final ClientService clientService;
 
-    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService, SharingPlatformService sharingPlatformService) {
+    public InstallationController(FlowService flowService, ProjectService projectService, ThemeService themeService, QuestionService questionService, SubThemeService subThemeService, PossibleAnswerService possibleAnswerService, SessionService sessionService, UserEmailService userEmailService, SharingPlatformService sharingPlatformService, UserService userService, ClientService clientService) {
         this.flowService = flowService;
         this.projectService = projectService;
         this.themeService = themeService;
@@ -37,13 +40,29 @@ public class InstallationController {
         this.sessionService = sessionService;
         this.userEmailService = userEmailService;
         this.sharingPlatformService = sharingPlatformService;
+        this.userService = userService;
+        this.clientService = clientService;
     }
 
     @GetMapping("project-selection")
-    public ModelAndView getProjectSelectionPage() {
+    public ModelAndView getProjectSelectionPage(@RequestParam("userId") int userId) {
+        List<ProjectViewModel> projects = new ArrayList<>();
         var mav = new ModelAndView();
+        User user = userService.getUser(userId);
+        if (user.getRole().toString().equals("ADMIN")){
+            projects = projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList();
+        } else if (user.getRole().toString().equals("SUPERVISOR")) {
+            if (user instanceof Supervisor supervisor) {
+                projects = projectService.getProjectBySharingPlatformId(supervisor.getSharingPlatform().getId()).stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList();
+            }
+        } else if (user.getRole().toString().equals("CLIENT")){
+            if (user instanceof Client client) {
+                projects = projectService.getProjectBySharingPlatformId(client.getSharingPlatform().getId()).stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList();
+            }
+        }
+//        List<Project> accessibleProjects = projectService.getProjectBySharingPlatformId(1);
         mav.setViewName("installation/project-selection");
-        mav.addObject("all_projects", projectService.getAllProjects().stream().map(project -> new ProjectViewModel(project.getId(), project.getName(), project.getLogoUrl())).toList());
+        mav.addObject("all_projects", projects);
         return mav;
     }
 

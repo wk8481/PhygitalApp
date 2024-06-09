@@ -147,10 +147,12 @@
             </div>
         </div>
     </div>
+    <p th:text="${#authentication.principal.userId}"></p>
     <div sec:authorize="isAuthenticated">
         <div class="row mb-3 justify-content-center">
             <div class="col-md-6">
-                <div class="card" onclick="location.href='/installation/project-selection';" style="cursor: pointer;">
+
+                <div class="card" th:attr="onclick='location.href=\'/installation/project-selection?userId=' + ${#authentication.principal.userId} + '\''" style="cursor: pointer;">
                     <div class="card-body">
                         <h5 class="card-title">Installation</h5>
                     </div>
